@@ -22,6 +22,7 @@ axiosInstance.interceptors.request.use(
       '/api/public/password-reset/reset',
       '/api/public/products',
       'api/public/auth/login',
+      'api/public/product',
     ];
     const needsAuth = !publicEndpoints.some(endpoint => config?.url?.startsWith(endpoint));
 
@@ -51,6 +52,44 @@ export const getProducts = async () => {
     return products;
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const getProductById = async (productId: number) => {
+  try {
+    const product = await axiosInstance.get(`/api/public/products/${productId}`);
+    return product;
+  } catch (error) {
+    console.log('from getProductById');
+  }
+};
+
+export const getReviewsById = async (id: number) => {
+  try {
+    const review = await axiosInstance.get(`/api/public/products/reviews/${id}`);
+    return review;
+  } catch (error) {
+    console.log('from getReviewsById');
+  }
+};
+
+export const getAverageRatingByProductId = async (productId: number) => {
+  try {
+    const averageRating = await axiosInstance.get(
+      `/api/public/products/reviews/average-rating?productId=${productId}`
+    );
+    return averageRating;
+  } catch (error) {
+    console.log('from getAverageRatingByProductId');
+  }
+};
+
+export const getAllReviews = async (productId: number) => {
+  try {
+    const reviews = await axiosInstance.get(`api/public/products/reviews?productId=${productId}`);
+    return reviews;
+  } catch (error) {
+    console.log('from getAllReviews');
   }
 };
 

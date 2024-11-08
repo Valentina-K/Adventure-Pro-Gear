@@ -32,7 +32,7 @@ const Button: React.FC<ButtonProps> = ({
     border,
   };
   const buttonClassNames = clsx(styles.button, className, styles[color]);
-
+  console.log(buttonClassNames)
   return (
     <button
       className={buttonClassNames}
