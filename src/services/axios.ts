@@ -6,9 +6,9 @@ export const token: { access: string | null; refresh: string | null } = {
   access: null,
   refresh: null,
 };
-
+// https://empowering-happiness-production.up.railway.app/
 const axiosInstance = axios.create({
-  baseURL: 'https://authentic-laughter-production.up.railway.app/',
+  baseURL: 'https://empowering-happiness-production.up.railway.app/',
 });
 
 axios.defaults.withCredentials = true;

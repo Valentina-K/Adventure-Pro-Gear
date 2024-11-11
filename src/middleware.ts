@@ -19,6 +19,7 @@ const publicRoutes = [
   '/about_us/',
   '/policy/',
   '/error/',
+  '/product/',
 ];
 
 const protectedUserRoutes = [
