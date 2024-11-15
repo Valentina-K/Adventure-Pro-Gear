@@ -13,7 +13,9 @@ interface Review {
 
 interface TabsProps {
   description: string;
-  attributes: {};
+  attributes: {
+    [key: string]: any;
+  };
   reviews?: [];
 }
 
