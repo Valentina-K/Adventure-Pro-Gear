@@ -4,11 +4,11 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import BreadcrumbHome from '@/../public/icons/BreadcrumbHome.svg';
-import Container from '../Container';
 import Arrows from '@/../public/icons/Arrows.svg';
 import { AppRoutes } from '@/constants/routes';
 import { usePathname } from 'next/navigation';
 import { Locale } from '@/i18n-config';
+import Container from '../Container';
 import styles from './BreadcrumbNav.module.css';
 
 interface BreadcrumbNavigationProps {
@@ -49,8 +49,8 @@ const BreadcrumbNavigation: React.FC<BreadcrumbNavigationProps> = ({ locale, bre
           </li>
           <Image src={Arrows} alt="arrow icon" width={20} height={20} />
           {pathParts.map((pathPart, index) => (
-            <div className={styles.listItem}>
-              <li key={index}>
+            <div key={index} className={styles.listItem}>
+              <li>
                 {index === pathParts.length - 1 ? (
                   <p>{breadcrumbsData && breadcrumbsData[pathPart]}</p>
                 ) : (
@@ -68,7 +68,7 @@ const BreadcrumbNavigation: React.FC<BreadcrumbNavigationProps> = ({ locale, bre
                   className={styles.arrowIcon}
                 />
               ) : (
-                <></>
+                <>hello</>
               )}
             </div>
           ))}

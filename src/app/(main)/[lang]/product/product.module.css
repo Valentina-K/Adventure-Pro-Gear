@@ -1,0 +1,38 @@
+.breadcrumbWrapper{
+    margin-bottom: 32px;
+}
+.mainContainer{
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    margin-bottom: 16px;
+}
+.rightBlock{
+    flex: 1;
+}
+.leftBlock{
+    flex: 1;
+}
+.mainInfo{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+.additionalOffers{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.withThisBuy{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 36px;
+}
+.relatedProducts{
+    display: flex;
+    flex-direction: column;
+}
+.prevViewed{
+    margin-bottom: 105px;
+}
