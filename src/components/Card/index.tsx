@@ -71,7 +71,7 @@ const Card: React.FC<CardProps> = ({
       product.basePrice + product.basePrice * (product.attributes[attrInd].priceDeviation / 100)
     );
     setProductName(locale === 'uk-UA' ? product.productNameUa : product.productNameEn);
-    setIsAvailable(product.attributes[attrInd].quantity > 0 ? true : false);
+    setIsAvailable(product.attributes[attrInd].quantity > 0);
     setClassNameImg(
       isAvailable
         ? variant === 'big'

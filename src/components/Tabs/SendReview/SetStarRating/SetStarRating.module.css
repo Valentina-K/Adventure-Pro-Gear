@@ -1,0 +1,14 @@
+.ratingReview{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.starsBlock{
+    display:flex;
+    gap:18px;
+}
+
+.starButton{
+    border: none;
+}
