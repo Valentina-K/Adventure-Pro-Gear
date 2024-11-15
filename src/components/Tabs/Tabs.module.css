@@ -1,12 +1,13 @@
 .wrapper {
     width: 100%;
-    background-color: #F5FFFF;
+    max-width: 580px;
+    background-color: var(--wightAuth);
 }
 
 .blockTabs {
     display: flex;
     margin-bottom: 20px;
-    font-size: 18px;
+    font-size: var(--medium-18);
     line-height: 27px;
 }
 
@@ -15,24 +16,24 @@
     padding: 10px 30px 10px 30px;
     border-radius: 2px 2px 0px 0px;
     border: none;
-    border-bottom: 1px solid #e6e6e6;
-    font-weight: 500;
-font-size: 18px;
-line-height: 27px;
+    border-bottom: 1px solid var(--label);
+    font-weight: var(--medium);
+    font-size: var(--medium-18);
+    line-height: 27px;
 
 }
 
 .tabs.activeTabs {
     font-weight: 600;
-    border: 1px solid #e6e6e6;
+    border: 1px solid var(--label);
     border-bottom: none;
 }
 
 .contentTabs {
     display: flex;
     font-family: Montserrat;
-    font-size: 16px;
-    font-weight: 500;
+    font-size: var(--medium-16);
+    font-weight: var(--medium);
     line-height: 24px;
     text-align: left;
 }
@@ -42,40 +43,55 @@ line-height: 27px;
     flex: 1;
 }
 
-.attributesItem{
-font-size: 16px;
-font-weight: 500;
-line-height: 24px;
-text-align: left;
+.attributesItem {
+    font-size: var(--medium-16);
+    font-weight: var(--medium);
+    line-height: 24px;
+    text-align: left;
 
 }
-.attributesBlock{
+
+.attributesBlock {
     margin-bottom: 16px;
 }
-.attributesBlock > h3{
-font-size: 20px;
-font-weight: 600;
-line-height: 30px;
-text-align: left;
-margin-bottom: 16px;
+
+.attributesBlock>h3 {
+    font-size: var(--large-20);
+    font-weight: var(--wight-600);
+    line-height: 30px;
+    text-align: left;
+    margin-bottom: 16px;
 }
-.attributesBlock > ul{
+
+.attributesBlock>ul {
     list-style: inside;
 }
 
-.attributesLine{
+.attributesLine {
     display: flex;
     width: 100%;
+    border-bottom: 1px solid rgba(230, 230, 230, 1)
 }
 
-.attributesLine > span{
+.attributesLine>span {
     flex: 1;
-font-size: 18px;
-font-weight: 400;
-line-height: 27px;
-text-align: left;
+    font-size: var(--medium-18);
+    font-weight: 400;
+    line-height: 27px;
+    text-align: left;
 }
 
 .content.activeContent {
     display: block;
+    width: 100%;
+}
+
+.leaveReviewBlock {}
+
+.thankingText {
+    padding: 16px;
+    font-weight: var(--wight-600);
+    background: rgba(30, 95, 114, 0.1);
+    border-radius: 5px;
+    text-align: center;
 }

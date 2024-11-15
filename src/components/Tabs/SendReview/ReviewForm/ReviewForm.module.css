@@ -1,0 +1,81 @@
+.reviewForm {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 40px;
+}
+
+.textReviewBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.inputBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    font-size: var(--medium-16);
+    font-weight: var(--medium);
+    line-height: 24px;
+    color: #565656;
+}
+
+.reviewInput {
+    width: 380px;
+    height: 48px;
+    outline: none;
+    box-sizing: border-box;
+    padding: 12px 16px;
+    border: 1px solid #B8B8B8;
+}
+
+.reviewInput:focus {
+    color: rgba(53, 53, 53, 1);
+    border: 1px solid rgba(125, 125, 125, 1)
+}
+
+.reviewInput::placeholder:focus {
+    color: rgba(184, 184, 184, 1);
+}
+
+.messageArea {
+    padding: 14px 20px;
+    width: 580px;
+    height: 174px;
+    border: 1px solid var(--gray-300);
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-family: Montserrat;
+    font-size: var(--medium-16);
+    font-weight: var(--medium);
+    line-height: 24px;
+}
+
+.messageArea:focus {
+    color: rgba(53, 53, 53, 1);
+    border: 1px solid rgba(125, 125, 125, 1);
+    outline: none;
+}
+
+.messageArea::placeholder:focus {
+    color: rgba(184, 184, 184, 1);
+}
+
+.submitReview {
+    width: 248px;
+    gap: 10px;
+    font-family: Montserrat;
+    font-size: var(--large-20);
+    font-weight: var(--medium);
+    line-height: 30px;
+    background-color: var(--primaryBlue);
+    color: var(--white);
+    transition: background-color cubic-bezier(0.785, 0.135, 0.15, 0.86) .3s;
+}
+
+.submitReview:hover {
+    background: #224256;
+    backdrop-filter: blur(20px);
+    color: var(--white);
+}
