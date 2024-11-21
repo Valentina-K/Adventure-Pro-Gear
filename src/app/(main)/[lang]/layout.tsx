@@ -36,7 +36,7 @@ const RootLayout: NextPage<RootLayoutProps> = async ({ params: { lang }, childre
   const translation = getTranslation(translations);
   const res = await getProducts();
   console.log('products: ', res);
-  console.log(children)
+  console.log(children);
   // const session = await getServerSession(options);
   // console.log("session: ",session);
 
