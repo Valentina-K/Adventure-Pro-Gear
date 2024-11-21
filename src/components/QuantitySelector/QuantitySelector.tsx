@@ -6,10 +6,10 @@ import styles from './QuantitySelector.module.css';
 interface QuantitySelectorProps {
   onChange: (value: number) => void;
   quantity: number;
-  variant: 'standart' | 'small' | 'admin';
+  variant?: 'standart' | 'small' | 'admin';
 }
 
-const QuantitySelector: React.FC<QuantitySelectorProps> = ({ onChange, quantity, variant }) => {
+const QuantitySelector: React.FC<QuantitySelectorProps> = ({ onChange, quantity, variant='standart' }) => {
   const [value, setValue] = useState<number>(1);
   const [isDisabledPlus, setIsDisabledPlus] = useState<boolean>(false);
   const [isDisabledSubt, setIsDisabledSubt] = useState<boolean>(false);

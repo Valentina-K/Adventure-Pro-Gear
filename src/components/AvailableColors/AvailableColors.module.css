@@ -1,0 +1,78 @@
+.availableHeader{
+    display: flex;
+    gap: 32px;
+    margin-bottom: 16px;
+}
+
+.clearButton{
+font-family: Montserrat;
+font-size: 16px;
+font-weight: 500;
+line-height: 24px;
+text-align: left;
+text-decoration-line: underline;
+text-decoration-style: solid;
+text-underline-position: from-font;
+text-decoration-skip-ink: none;
+color: #AC0000;
+border: none;
+cursor: pointer;
+}
+
+.availableHeaderText{
+font-family: Montserrat;
+font-size: 20px;
+font-weight: 600;
+line-height: 30px;
+text-align: left;
+text-underline-position: from-font;
+text-decoration-skip-ink: none;
+color: rgba(53, 53, 53, 1);
+}
+.availableColorText{
+font-family: Montserrat;
+font-size: 16px;
+font-weight: 600;
+line-height: 24px;
+text-align: left;
+text-underline-position: from-font;
+text-decoration-skip-ink: none;
+color: #353535;
+margin-bottom: 8px;
+}
+
+.wrapper {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+}
+
+.wrapper img{
+    margin: 0 9px 8px;
+}
+
+.colorItem{
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.colorItem.active{
+    border: 1px solid var(--greenForBtn);
+}
+
+.colorItem.active .color{    
+    color: rgba(245, 255, 255, 1);
+    background-color: var(--greenForBtn);
+}
+
+.color {
+    font-family: Montserrat;
+    font-size: var(--small-14);
+    font-weight: var(--medium);
+    line-height: 21px;
+    color: var(--black-900);
+    background-color: inherit;
+    text-align: center;
+    transition: background-color linear .3s;
+}
+

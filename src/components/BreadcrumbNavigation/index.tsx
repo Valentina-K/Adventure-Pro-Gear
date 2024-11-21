@@ -68,7 +68,7 @@ const BreadcrumbNavigation: React.FC<BreadcrumbNavigationProps> = ({ locale, bre
                   className={styles.arrowIcon}
                 />
               ) : (
-                <>hello</>
+                <>{pathParts}</>
               )}
             </div>
           ))}
