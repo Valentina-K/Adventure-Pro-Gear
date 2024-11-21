@@ -69,7 +69,7 @@ const Tabs: React.FC<TabsProps> = ({ description, attributes, reviews }) => {
             <ul>
               {Object.entries(attributes).map(([key, value]) => (
                 <li key={key}>
-                  {key}: {value}
+                  {key} : {value}
                 </li>
               ))}
             </ul>

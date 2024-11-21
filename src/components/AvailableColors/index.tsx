@@ -19,12 +19,16 @@ export const AvailableColors: React.FC<AvailableColorsProps> = ({ imageArray, on
   const handleItemClick = (index: number) => {
     setActiveIndex(index === activeIndex ? null : index);
   };
-  
+
   return (
     <div className={styles.availableBlock}>
       <div className={styles.availableHeader}>
         <h3 className={styles.availableHeaderText}>Доступні варіанти</h3>
-        {activeIndex !==null && <button className={styles.clearButton} onClick={()=>setActiveIndex(null)}>Очистити</button>}
+        {activeIndex !== null && (
+          <button className={styles.clearButton} onClick={() => setActiveIndex(null)}>
+            Очистити
+          </button>
+        )}
       </div>
       <div>
         <h4 className={styles.availableColorText}>Колір</h4>
