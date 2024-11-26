@@ -20,6 +20,11 @@ const nextConfig = {
         port: '',
         pathname: '/180x180',
       },
+      {
+        protocol: 'https',
+        hostname: 'example.com',
+        port: '',
+      },
     ],
   },
 };

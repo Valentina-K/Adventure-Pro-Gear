@@ -57,20 +57,35 @@ interface ProductWrapperProp {
 }
 
 const ProductWrapper: React.FC<ProductWrapperProp> = ({ product, locale }) => {
+  console.log('product', product);
   const [attrIndex, setAttrIndex] = useState(0);
   const [buyQuantity, setBuyQuantity] = useState(0);
   useEffect(() => {}, []);
   const handleChoiceColor = (index: number) => {
+    console.log('from colorChoice', index);
     setAttrIndex(index);
   };
 
   const handleChangeQuantity = (quantity: number) => {
+    console.log('from changeQuantity', quantity);
     setBuyQuantity(quantity);
   };
 
   const colorItems = product.attributes.map(attr => {
     return { color: attr.color, url: attr.pictureUrl };
   });
+
+  /* const colorItems = [
+    {
+      color: 'red',
+      url: 'https://dummyimage.com/180x180',
+    },
+    {
+      color: 'blue',
+      url: 'https://dummyimage.com/180x180',
+    },
+    { color: 'green', url: 'https://dummyimage.com/180x180' },
+  ]; */
 
   return (
     <Container>
@@ -101,7 +116,7 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ product, locale }) => {
               </div>
               <div className={styles.specialInfo}>
                 <p>
-                  Код товару: <span>1549885</span>
+                  Код товару: <span>{product.productId}</span>
                 </p>
                 <p>
                   Виробник: <span>Terra Incognita</span>
