@@ -7,26 +7,13 @@ import FollowinIcon from '@/../public/icons/Following.svg';
 import FollowingFill from '@/../public/icons/FollowingFill.svg';
 import Comercial from '@/../public/icons/Comercial.svg';
 import NotAvailable from '@/../public/images/soldout.png';
+import { Product } from '@/interfaces/product';
 import Button from '../Button';
 import RatingStars from '../RatingStars';
 import ReviewCount from '../ReviewCount';
 import styles from './Card.module.css';
 
 interface CardProps {
-  product: {
-    productId: number;
-    productNameUa: string;
-    productNameEn: string;
-    basePrice: number;
-    attributes: [
-      {
-        priceDeviation: number;
-        quantity: number;
-        label: string | null;
-      },
-    ];
-    contents: [{ source: string }];
-  };
   attrInd?: number;
   avgRating?: number;
   countReviews?: number;
@@ -45,6 +32,7 @@ interface CardProps {
   };
   onBuyClick: (productId: number) => void;
   onFavoriteClick: (productId: number, isFavorite: boolean) => void;
+  product: Product;
 }
 
 const Card: React.FC<CardProps> = ({
