@@ -31,7 +31,7 @@ interface CardProps {
   avgRating?: number;
   countReviews?: number;
   locale: Locale;
-  isLogged: boolean;
+  isLogged?: boolean;
   variant?: 'big' | 'standart' | 'small';
   translation: {
     card: {
@@ -51,7 +51,7 @@ const Card: React.FC<CardProps> = ({
   product,
   attrInd = 0,
   locale,
-  isLogged,
+  isLogged = false,
   avgRating = 0,
   countReviews = 0,
   variant = 'standart',
