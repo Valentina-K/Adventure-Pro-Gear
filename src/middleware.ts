@@ -21,6 +21,7 @@ const publicRoutes = [
   '/product/',
   '/blog/',
   '/user/',
+  '/product/:productID',
 ];
 
 const protectedUserRoutes = [
@@ -35,7 +36,11 @@ const protectedAdminRoutes = ['/admin'];
 
 // Function to check if a dynamic route is public
 const isPublicDynamicRoute = (pathname: string) => {
-  return pathname.startsWith('/product/') || pathname.startsWith('/blog/') || pathname.startsWith('/user/');
+  return (
+    pathname.startsWith('/product/') ||
+    pathname.startsWith('/blog/') ||
+    pathname.startsWith('/user/')
+  );
 };
 
 const convertToGetSessionParams = (req: NextRequest): GetSessionParams => ({
@@ -92,9 +97,10 @@ export async function middleware(req: NextRequest) {
   const isAllowed = checkAccess(role, pathnameCleaned);
 
   if (!isAllowed) {
-    const targetUrl = role === 'guest'
-      ? `/${locale ?? i18n.defaultLocale}${AppRoutes.SIGNIN}`
-      : `/${locale ?? i18n.defaultLocale}/error`;
+    const targetUrl =
+      role === 'guest'
+        ? `/${locale ?? i18n.defaultLocale}${AppRoutes.SIGNIN}`
+        : `/${locale ?? i18n.defaultLocale}/error`;
     return NextResponse.redirect(new URL(targetUrl, req.url));
   }
 
@@ -107,4 +113,9 @@ export async function middleware(req: NextRequest) {
 
 export const config = {
   matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+  unstable_allowDynamic: [
+    '/lib/utilities.js',
+    '/node_modules/function-bind/**',
+    '/node_modules/@babel/runtime/regenerator/**',
+  ],
 };
