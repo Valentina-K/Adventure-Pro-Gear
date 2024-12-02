@@ -40,7 +40,7 @@ export const AvailableColors: React.FC<AvailableColorsProps> = ({ imageArray, on
                   ? `${styles.colorItem} ${styles.active}`
                   : `${styles.colorItem}`
               }
-              key={item.color}
+              key={index}
               onClick={() => handleItemClick(index)}
             >
               <div onClick={() => onColorChoice(index)}>

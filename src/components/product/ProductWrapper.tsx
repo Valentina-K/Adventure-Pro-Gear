@@ -37,7 +37,7 @@ interface Product {
   descriptionUa: string;
   descriptionEn: string;
   basePrice: number;
-  gender: 'MALE' | 'FEMALE';
+  gender: 'MALE' | 'FEMALE' | 'UNISEX';
   category: {
     categoryNameUa: string;
     categoryNameEn: string;
@@ -57,7 +57,6 @@ interface ProductWrapperProp {
 }
 
 const ProductWrapper: React.FC<ProductWrapperProp> = ({ product, locale }) => {
-  console.log('product', product);
   const [attrIndex, setAttrIndex] = useState(0);
   const [buyQuantity, setBuyQuantity] = useState(0);
   useEffect(() => {}, []);
@@ -74,18 +73,6 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ product, locale }) => {
   const colorItems = product.attributes.map(attr => {
     return { color: attr.color, url: attr.pictureUrl };
   });
-
-  /* const colorItems = [
-    {
-      color: 'red',
-      url: 'https://dummyimage.com/180x180',
-    },
-    {
-      color: 'blue',
-      url: 'https://dummyimage.com/180x180',
-    },
-    { color: 'green', url: 'https://dummyimage.com/180x180' },
-  ]; */
 
   return (
     <Container>
