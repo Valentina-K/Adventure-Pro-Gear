@@ -65,6 +65,8 @@ const Card: React.FC<CardProps> = ({
   const [classNameImg, setClassNameImg] = useState<string>(styles.imageWrapper);
   const [addToFavorite, setAddToFavorite] = useState<boolean>(false);
   const [following, setFollowing] = useState(FollowinIcon);
+  const productImage =
+    product.contents.length > 0 ? product.contents[0].source : 'https://dummyimage.com/180x180';
 
   useEffect(() => {
     setNewPrice(
@@ -89,7 +91,7 @@ const Card: React.FC<CardProps> = ({
     if (addToFavorite && isLogged) {
       setFollowing(FollowingFill);
     } else setFollowing(FollowinIcon);
-  }, [product, locale, addToFavorite, isAvailable, variant, isLogged]);
+  }, [product, locale, addToFavorite, isAvailable, variant, isLogged, attrInd]);
 
   const handleAddToFavorite: (event: any) => void = () => {
     setAddToFavorite(!addToFavorite);
@@ -120,7 +122,7 @@ const Card: React.FC<CardProps> = ({
         )}
         <Image
           className={styles.productImage}
-          src={product.contents[0].source}
+          src={productImage}
           layout="fill"
           objectFit="contain"
           alt={productName}
@@ -146,9 +148,9 @@ const Card: React.FC<CardProps> = ({
           )}
           {product.attributes[0].label && <div className={styles.new}>{translation.card.new}</div>}
         </div>
-        <div onClick={handleAddToFavorite} className={styles.following}>
+        <button onClick={handleAddToFavorite} className={styles.following}>
           <Image src={following} width={20} height={18} alt="following" />
-        </div>
+        </button>
       </div>
       <div className={styles.cardContent}>
         <div className={styles.cardInfo}>
