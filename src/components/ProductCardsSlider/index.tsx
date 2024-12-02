@@ -36,7 +36,7 @@ const ProductCardsSlider: React.FC<CardsSliderProp> = ({
   };
   const getVisibleSlides = () => {
     const start = currentIndex;
-    const end = Math.min(currentIndex + Math.ceil(products.length / 3), products.length); 
+    const end = Math.min(currentIndex + Math.ceil(products.length / 3), products.length);
     return products.slice(start, end);
   };
   return (
@@ -44,7 +44,13 @@ const ProductCardsSlider: React.FC<CardsSliderProp> = ({
       <div className={styles.slides}>
         {getVisibleSlides().map((slide, index) => (
           <div key={index} className={styles.slide}>
-            <Card product={slide} onBuyClick={onBuyClick} onFavoriteClick={onFavoriteClick} locale={locale} translation={translation('product')} />
+            <Card
+              product={slide}
+              onBuyClick={onBuyClick}
+              onFavoriteClick={onFavoriteClick}
+              locale={locale}
+              translation={translation}
+            />
           </div>
         ))}
       </div>
