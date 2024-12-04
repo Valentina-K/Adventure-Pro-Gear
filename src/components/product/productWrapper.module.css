@@ -1,0 +1,123 @@
+.breadcrumbWrapper {
+    margin-bottom: 32px;
+}
+
+.mainContainer {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+.rightBlock {
+    flex: 1;
+}
+
+.leftBlock {
+    flex: 1;
+}
+
+.mainInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin-bottom: 40px;
+}
+
+.productHeader {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.titleProduct {
+    font-family: Montserrat;
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 45px;
+    letter-spacing: 0.02em;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(53, 53, 53, 1);
+
+}
+
+.productRating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.priceBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.price {
+    font-family: Montserrat;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 51px;
+    letter-spacing: 0.02em;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(53, 53, 53, 1);
+}
+
+.available {
+    font-family: Montserrat;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(78, 138, 156, 1);
+}
+
+.specialInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: 0.04em;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(86, 86, 86, 1);
+}
+
+.specialInfo p span {
+    margin-left: 16px;
+}
+
+/* .availableBlock{
+
+} */
+
+.additionalOffers {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.withThisBuy {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 36px;
+}
+
+.relatedProducts {
+    display: flex;
+    flex-direction: column;
+}
+
+.prevViewed {
+    margin-bottom: 105px;
+}
