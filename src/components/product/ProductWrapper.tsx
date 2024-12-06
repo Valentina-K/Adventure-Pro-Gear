@@ -9,54 +9,27 @@ import Tabs from '@/components/Tabs';
 import RatingStars from '@/components/RatingStars';
 import ReviewCount from '@/components/ReviewCount';
 import QuantitySelector from '@/components/QuantitySelector/QuantitySelector';
+import { Product } from '@/interfaces/product';
+import ProductCardsSlider from '../ProductCardsSlider';
 import styles from './productWrapper.module.css';
-
-interface Attribute {
-  id: number;
-  productId: number;
-  size: string;
-  color: string;
-  additional: string;
-  priceDeviation: number;
-  quantity: number;
-  label: string;
-  pictureUrl: string;
-  selfLink: string;
-}
-
-interface Content {
-  productId: number;
-  source: string;
-  selfLink: string;
-}
-
-interface Product {
-  productId: number;
-  productNameUa: string;
-  productNameEn: string;
-  descriptionUa: string;
-  descriptionEn: string;
-  basePrice: number;
-  gender: 'MALE' | 'FEMALE' | 'UNISEX';
-  category: {
-    categoryNameUa: string;
-    categoryNameEn: string;
-    sectionId: number;
-    parentCategoryId: number;
-    subcategories: [];
-    selfLink: string;
-  };
-  attributes: Attribute[];
-  contents: Content[];
-  selfLink: string;
-}
 
 interface ProductWrapperProp {
   product: Product;
   locale: Locale;
+  products: Product[];
+  translation: {
+    card: {
+      addToFollowing: string;
+      sale: string;
+      new: string;
+      available: string;
+      outOfStock: string;
+      buy: string;
+    };
+  };
 }
 
-const ProductWrapper: React.FC<ProductWrapperProp> = ({ product, locale }) => {
+const ProductWrapper: React.FC<ProductWrapperProp> = ({ product, locale, products, translation }) => {
   const [attrIndex, setAttrIndex] = useState(0);
   const [buyQuantity, setBuyQuantity] = useState(0);
   useEffect(() => {}, []);
@@ -69,6 +42,10 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ product, locale }) => {
     console.log('from changeQuantity', quantity);
     setBuyQuantity(quantity);
   };
+
+  const handleBuyClick = ()=>{};
+
+  const handleFavoriteClick = () => {};
 
   const colorItems = product.attributes.map(attr => {
     return { color: attr.color, url: attr.pictureUrl };
@@ -121,10 +98,24 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ product, locale }) => {
           </section>
           <section className={styles.additionalOffers}>
             <div className={styles.withThisBuy}>
-              <h2>З цим купують</h2>
+              <ProductCardsSlider
+                products={products}
+                locale={locale}
+                translation={translation}
+                onBuyClick={handleBuyClick}
+                onFavoriteClick={handleFavoriteClick}
+                title='З цим купують'
+              />
             </div>
             <div className={styles.relatedProducts}>
-              <h2>Схожі товари</h2>
+            <ProductCardsSlider
+                products={products}
+                locale={locale}
+                translation={translation}
+                onBuyClick={handleBuyClick}
+                onFavoriteClick={handleFavoriteClick}
+                title='Схожі товари'
+              />
             </div>
           </section>
         </div>

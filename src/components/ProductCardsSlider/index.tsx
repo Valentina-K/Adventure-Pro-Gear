@@ -21,6 +21,7 @@ interface CardsSliderProp {
   };
   onBuyClick: (id: number) => void;
   onFavoriteClick: (productId: number, isFavorite: boolean) => void;
+  title: string;
 }
 
 const ProductCardsSlider: React.FC<CardsSliderProp> = ({
@@ -29,67 +30,68 @@ const ProductCardsSlider: React.FC<CardsSliderProp> = ({
   translation,
   onBuyClick,
   onFavoriteClick,
+  title,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [activeNav, setActiveNav] = useState(0);
+
   const handleNavClick = (index: number) => {
-    setCurrentIndex(index * Math.ceil(products.length / 3));
+    if (activeNav === 0) setCurrentIndex(prevIndex => prevIndex + index);
+    else setCurrentIndex(prevIndex => prevIndex - 1);
+    setActiveNav(index);
   };
+
+  const nextSlide = (index: number) => {
+    setActiveNav(index);
+    if (currentIndex < products.length - 3) setCurrentIndex(prevIndex => prevIndex + 1);
+    else setCurrentIndex(products.length - 3);
+  };
+  const prevSlide = (index: number) => {
+    setActiveNav(index);
+    if (currentIndex === 0) setCurrentIndex(0);
+    else setCurrentIndex(prevIndex => prevIndex - 1);
+  };
+
   const getVisibleSlides = () => {
     const start = currentIndex;
-    const end = Math.min(currentIndex + Math.ceil(products.length / 3), products.length);
+    const end = currentIndex + 3;
     return products.slice(start, end);
   };
   return (
-    <div className={styles.slider}>
-      <div className={styles.slides}>
-        {getVisibleSlides().map((slide, index) => (
-          <div key={index} className={styles.slide}>
-            <Card
-              product={slide}
-              onBuyClick={onBuyClick}
-              onFavoriteClick={onFavoriteClick}
-              locale={locale}
-              translation={translation}
-            />
-          </div>
-        ))}
-      </div>
-      <div className={styles.nav}>
-        {Array.from({ length: 3 }).map((_, index) => (
-          <button key={index} onClick={() => handleNavClick(index)}>
-            {index + 1}
-          </button>
-        ))}
+    <div className={styles.container}>
+      <h2 className={styles.title}>{title}</h2>
+      <div className={styles.slider}>
+        <div className={styles.slides}>
+          {getVisibleSlides().map((slide, index) => (
+            <div key={index} className={styles.slide}>
+              {slide.attributes.length > 0 && (
+                <Card
+                  product={slide}
+                  onBuyClick={onBuyClick}
+                  onFavoriteClick={onFavoriteClick}
+                  locale={locale}
+                  translation={translation}
+                />
+              )}
+            </div>
+          ))}
+        </div>
+        <div className={styles.nav}>
+          <button
+            className={activeNav === 0 ? styles.active : ''}
+            onClick={() => prevSlide(0)}
+          ></button>
+          <button
+            className={activeNav === 1 ? styles.active : ''}
+            onClick={() => handleNavClick(1)}
+          ></button>
+          <button
+            className={activeNav === 2 ? styles.active : ''}
+            onClick={() => nextSlide(2)}
+          ></button>
+        </div>
       </div>
     </div>
-    /* <div className={styles.container}>
-      <div className={styles.switch}>
-        <input checked type="radio" name="slider" id="slide1" />
-        <input type="radio" name="slider" id="slide2" />
-        <input type="radio" name="slider" id="slide3" />
-        <div className={styles.controlls}>
-          <label htmlFor="slide1" />
-          <label htmlFor="slide2" />
-          <label htmlFor="slide3" />
-        </div>
-        <div className={styles.wrapper}>
-          {products &&
-            products.map(product => (
-              <div key={product.productId} className={styles.box}>
-                <div className={styles.content}>
-                  <Card
-                    product={product}
-                    onBuyClick={onBuyClick}
-                    onFavoriteClick={onFavoriteClick}
-                    locale={locale}
-                    translation={translation('product')}
-                  />
-                </div>
-              </div>
-            ))}
-        </div>
-      </div>
-    </div> */
   );
 };
 
