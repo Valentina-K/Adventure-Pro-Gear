@@ -7,31 +7,18 @@ import FollowinIcon from '@/../public/icons/Following.svg';
 import FollowingFill from '@/../public/icons/FollowingFill.svg';
 import Comercial from '@/../public/icons/Comercial.svg';
 import NotAvailable from '@/../public/images/soldout.png';
+import { Product } from '@/interfaces/product';
 import Button from '../Button';
 import RatingStars from '../RatingStars';
 import ReviewCount from '../ReviewCount';
 import styles from './Card.module.css';
 
 interface CardProps {
-  product: {
-    productId: number;
-    productNameUa: string;
-    productNameEn: string;
-    basePrice: number;
-    attributes: [
-      {
-        priceDeviation: number;
-        quantity: number;
-        label: string | null;
-      },
-    ];
-    contents: [{ source: string }];
-  };
   attrInd?: number;
   avgRating?: number;
   countReviews?: number;
   locale: Locale;
-  isLogged: boolean;
+  isLogged?: boolean;
   variant?: 'big' | 'standart' | 'small';
   translation: {
     card: {
@@ -45,13 +32,14 @@ interface CardProps {
   };
   onBuyClick: (productId: number) => void;
   onFavoriteClick: (productId: number, isFavorite: boolean) => void;
+  product: Product;
 }
 
 const Card: React.FC<CardProps> = ({
   product,
   attrInd = 0,
   locale,
-  isLogged,
+  isLogged = false,
   avgRating = 0,
   countReviews = 0,
   variant = 'standart',
@@ -70,7 +58,7 @@ const Card: React.FC<CardProps> = ({
 
   useEffect(() => {
     setNewPrice(
-      product.basePrice + product.basePrice * (product.attributes[attrInd].priceDeviation / 100)
+      product.basePrice - product.basePrice * (product.attributes[attrInd].priceDeviation / 100)
     );
     setProductName(locale === 'uk-UA' ? product.productNameUa : product.productNameEn);
     setIsAvailable(product.attributes[attrInd].quantity > 0);
