@@ -48,7 +48,7 @@ export const refreshTokenService = async (refreshToken: string) => {
 
 export const getProducts = async () => {
   try {
-    /* return {data:undefined}; */ const products = await axiosInstance.get('/api/public/products');
+    const products = await axiosInstance.get('/api/public/products');
     return products;
   } catch (error) {
     console.log(error);
@@ -66,7 +66,7 @@ export const getProductById = async (productId: number) => {
 
 export const getReviewsById = async (id: number) => {
   try {
-    const review = await axiosInstance.get(`/api/public/products/reviews?productId=${id}`);
+    const review = await axiosInstance.get(`/api/public/products/reviews/${id}`);
     return review;
   } catch (error) {
     console.log('from getReviewsById');
@@ -91,6 +91,16 @@ export const getAllReviews = async (productId: number) => {
   } catch (error) {
     console.log('from getAllReviews');
   }
+};
+
+export const createReview = async (data: any) => {
+  const { productId, comment, rating } = data;
+  const response = await axiosInstance.post('api/public/products/reviews', {
+    productId,
+    comment,
+    rating
+  });
+  return response;
 };
 
 export const signUpService = async (credentials: any) => {

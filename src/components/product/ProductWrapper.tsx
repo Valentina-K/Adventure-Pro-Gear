@@ -11,8 +11,9 @@ import ReviewCount from '@/components/ReviewCount';
 import QuantitySelector from '@/components/QuantitySelector/QuantitySelector';
 import { Product, Review } from '@/interfaces/product';
 import ProductCardsSlider from '../ProductCardsSlider';
-import styles from './productWrapper.module.css';
 import Reviews from '../Tabs/Reviews';
+import { createReview, getReviewsById } from '@/services/axios';
+import styles from './productWrapper.module.css';
 
 interface ProductWrapperProp {
   product: Product;
@@ -40,7 +41,7 @@ interface ProductWrapperProp {
       password: string;
       thanking: string;
       helpful: string;
-      users_think: string;
+      usersThink: string;
     };
   };
 }
@@ -55,6 +56,7 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
   const [attrIndex, setAttrIndex] = useState(0);
   const [buyQuantity, setBuyQuantity] = useState(0);
   const [tabIndex, setTabIndex] = useState(0);
+  const [isThank, setIsThank] = useState(false);
   console.log(tabIndex === 2 && reviews.length > 0);
   const handleChoiceColor = (index: number) => {
     console.log('from colorChoice', index);
@@ -71,6 +73,19 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
   const handleFavoriteClick = () => {};
 
   const handleChangeTab = (index: number) => setTabIndex(index);
+
+  const handleReviewSend = async (data: {}) => {  
+    try {
+      const response = await createReview({ data });
+      if (response?.status === 201) {
+        setIsThank(true);
+        const review = await getReviewsById(response.data.id)
+        reviews.push(review?.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const colorItems = product.attributes.map(attr => {
     return { color: attr.color, url: attr.pictureUrl };
@@ -90,6 +105,8 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
             translation={translation}
             locale={locale}
             onChangeTab={handleChangeTab}
+            onReviewSend={handleReviewSend}
+            isThank={isThank}
           />
         </div>
         <div className={styles.rightBlock}>
@@ -155,7 +172,7 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
             productName={locale === 'uk-UA' ? product.productNameUa : product.productNameEn}
             reviewTitle={translation.tabs.reviews}
             helpful={translation.tabs.helpful}
-            users_think={translation.tabs.users_think}
+            usersThink={translation.tabs.usersThink}
           />
         )}
       </section>

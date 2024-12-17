@@ -104,7 +104,7 @@
       "password": "Password",
       "thanking": "Thank you for your feedback! Your opinion is extremely important to us.",
       "helpful": "Is this review helpful?",
-      "users_think": " users found this review helpful"
+      "usersThink": " users found this review helpful"
     }    
   }
 }

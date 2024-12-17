@@ -2,10 +2,14 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { useSession } from 'next-auth/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import ArrowRightDown from '@/../public/icons/arrow-right-down.svg';
 import Button from '@/components/Button';
 import SetStarRating from '../SetStarRating';
+import { useParams, useRouter } from 'next/navigation';
+import { AppRoutes } from '@/constants/routes';
+import { Locale } from '@/i18n-config';
 import styles from './ReviewForm.module.css';
 
 type FormValues = {
@@ -16,6 +20,7 @@ type FormValues = {
 
 interface ReviewFormProp {
   onSubmitForm: (data: {}) => void;
+  locale: Locale;
   translation: {
     tabs: {
       description: string;
@@ -32,13 +37,20 @@ interface ReviewFormProp {
   };
 }
 
-const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm, translation }) => {
+const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm, translation, locale }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [rating_, setRating] = useState(0);
   const { register, handleSubmit, reset } = useForm<FormValues>();
+  const { data: session } = useSession();
+  const params = useParams();
+  const router = useRouter();
+
   const onSubmit: SubmitHandler<FormValues> = data => {
-    onSubmitForm({ ...data, rating_ });
+    if (!session) router.push(`/${locale}${AppRoutes.SIGNIN}`);
+    const {comment} = data;
+    const {productId} = params;
+    onSubmitForm({ comment, rating:rating_, productId });
     reset();
     setIsSubmitted(true);
   };
@@ -54,27 +66,29 @@ const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm, translation }) => 
     <form className={styles.reviewForm} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.textReviewBlock}>
         <p>{translation.tabs.important_to_us}</p>
-        <p>
-          {translation.tabs.tell_us}
-        </p>
+        <p>{translation.tabs.tell_us}</p>
       </div>
       <div className={styles.inputBlock}>
-        <label>
-          <input
-            className={styles.reviewInput}
-            type="email"
-            {...register('email', { required: true })}
-            placeholder="E-mail"
-          />
-        </label>
-        <label>
-          <input
-            className={styles.reviewInput}
-            type="password"
-            {...register('password', { required: true })}
-            placeholder={translation.tabs.password}
-          />
-        </label>
+        {!session && (
+          <>
+            <label>
+              <input
+                className={styles.reviewInput}
+                type="email"
+                {...register('email', { required: true })}
+                placeholder="E-mail"
+              />
+            </label>
+            <label>
+              <input
+                className={styles.reviewInput}
+                type="password"
+                {...register('password', { required: true })}
+                placeholder={translation.tabs.password}
+              />
+            </label>
+          </>
+        )}
         <textarea
           className={styles.messageArea}
           {...register('comment')}

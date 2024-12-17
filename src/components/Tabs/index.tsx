@@ -17,6 +17,7 @@ interface TabsProps {
   description: string;
   characteristics: Characteristics[];
   locale: Locale;
+  isThank: boolean;
   translation: {
     tabs: {
       description: string;
@@ -32,14 +33,11 @@ interface TabsProps {
     };
   };
   onChangeTab: (tabIndex: number) => void;
+  onReviewSend: (data: {}) => void;
 }
 
-const Tabs: React.FC<TabsProps> = ({ description, characteristics, translation, onChangeTab }) => {
-  const { productId } = useParams();
+const Tabs: React.FC<TabsProps> = ({ description, characteristics, translation, locale, isThank, onChangeTab, onReviewSend }) => {
   const [toggleState, setToggleState] = useState(0);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
   const [isSendReview, setIsSendReview] = useState(false);
 
   const toggleTab = (index: number) => {
@@ -51,10 +49,9 @@ const Tabs: React.FC<TabsProps> = ({ description, characteristics, translation, 
   const activeContentStyle = `${styles.content} ${styles.activeContent}`;
 
   // review form
-  const handleReviewSubmit = (data: {}) => {
-    //{email: 'kvalentyna@hotmail.com', password: 'sdfghjk', comment: 'vvbbcvn vcbgdfg dfdg', rating_: 3}
-    console.log(data);
+  const handleReviewSubmit = (data: {}) => { 
     setIsSendReview(true);
+    onReviewSend({data});
   };
   return (
     <div className={styles.wrapper}>
@@ -82,7 +79,10 @@ const Tabs: React.FC<TabsProps> = ({ description, characteristics, translation, 
         <div className={toggleState === 0 ? activeContentStyle : styles.content}>
           <div>{description}</div>
           <div className={styles.attributesBlock}>
-            <h3>{translation.tabs.characteristics}:</h3>
+            <h3>
+              {translation.tabs.characteristics}
+              :
+            </h3>
             <ul>
               {characteristics.map((item, index) => (
                 <li key={index}>
@@ -103,17 +103,8 @@ const Tabs: React.FC<TabsProps> = ({ description, characteristics, translation, 
           </ul>
         </div>
         <div className={toggleState === 2 ? activeContentStyle : styles.content}>
-          <div className={styles.leaveReviewBlock}>
-            <ReviewForm onSubmitForm={handleReviewSubmit} translation={translation} />
-            {isSendReview && <p className={styles.thankingText}>{translation.tabs.thanking}</p>}
-          </div>
-          {/* {reviews && (
-            <ul>
-              {reviews.map(review => (
-                <li key={review}>{review}</li>
-              ))}
-            </ul>
-          )} */}
+          <ReviewForm onSubmitForm={handleReviewSubmit} translation={translation} locale={locale}/>
+          {isThank && <p className={styles.thankingText}>{translation.tabs.thanking}</p>}
         </div>
       </div>
     </div>
