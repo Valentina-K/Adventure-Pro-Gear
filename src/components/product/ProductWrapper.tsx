@@ -9,14 +9,16 @@ import Tabs from '@/components/Tabs';
 import RatingStars from '@/components/RatingStars';
 import ReviewCount from '@/components/ReviewCount';
 import QuantitySelector from '@/components/QuantitySelector/QuantitySelector';
-import { Product } from '@/interfaces/product';
+import { Product, Review } from '@/interfaces/product';
 import ProductCardsSlider from '../ProductCardsSlider';
 import styles from './productWrapper.module.css';
+import Reviews from '../Tabs/Reviews';
 
 interface ProductWrapperProp {
   product: Product;
   locale: Locale;
   products: Product[];
+  reviews: Review[];
   translation: {
     card: {
       addToFollowing: string;
@@ -26,13 +28,34 @@ interface ProductWrapperProp {
       outOfStock: string;
       buy: string;
     };
+    tabs: {
+      description: string;
+      characteristics: string;
+      reviews: string;
+      important_to_us: string;
+      tell_us: string;
+      message: string;
+      rate: string;
+      send: string;
+      password: string;
+      thanking: string;
+      helpful: string;
+      users_think: string;
+    };
   };
 }
 
-const ProductWrapper: React.FC<ProductWrapperProp> = ({ product, locale, products, translation }) => {
+const ProductWrapper: React.FC<ProductWrapperProp> = ({
+  product,
+  locale,
+  products,
+  reviews,
+  translation,
+}) => {
   const [attrIndex, setAttrIndex] = useState(0);
   const [buyQuantity, setBuyQuantity] = useState(0);
-  useEffect(() => {}, []);
+  const [tabIndex, setTabIndex] = useState(0);
+  console.log(tabIndex === 2 && reviews.length > 0);
   const handleChoiceColor = (index: number) => {
     console.log('from colorChoice', index);
     setAttrIndex(index);
@@ -43,9 +66,11 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ product, locale, product
     setBuyQuantity(quantity);
   };
 
-  const handleBuyClick = ()=>{};
+  const handleBuyClick = () => {};
 
   const handleFavoriteClick = () => {};
+
+  const handleChangeTab = (index: number) => setTabIndex(index);
 
   const colorItems = product.attributes.map(attr => {
     return { color: attr.color, url: attr.pictureUrl };
@@ -61,7 +86,10 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ product, locale, product
           <div>ImageCarousel</div>
           <Tabs
             description={locale === 'uk-UA' ? product.descriptionUa : product.descriptionEn}
-            attributes={product.attributes[0]}
+            characteristics={product.characteristics}
+            translation={translation}
+            locale={locale}
+            onChangeTab={handleChangeTab}
           />
         </div>
         <div className={styles.rightBlock}>
@@ -71,8 +99,8 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ product, locale, product
                 {locale === 'uk-UA' ? product.productNameUa : product.productNameEn}
               </h1>
               <div className={styles.productRating}>
-                <RatingStars averageRating={4} />
-                <ReviewCount reviewCount={42} />
+                <RatingStars averageRating={product.averageRating} />
+                <ReviewCount reviewCount={product.reviewCount} />
               </div>
               <div className={styles.priceBlock}>
                 <p className={styles.price}>{product.basePrice}₴</p>
@@ -104,22 +132,33 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ product, locale, product
                 translation={translation}
                 onBuyClick={handleBuyClick}
                 onFavoriteClick={handleFavoriteClick}
-                title='З цим купують'
+                title="З цим купують"
               />
             </div>
             <div className={styles.relatedProducts}>
-            <ProductCardsSlider
+              <ProductCardsSlider
                 products={products}
                 locale={locale}
                 translation={translation}
                 onBuyClick={handleBuyClick}
                 onFavoriteClick={handleFavoriteClick}
-                title='Схожі товари'
+                title="Схожі товари"
               />
             </div>
           </section>
         </div>
       </div>
+      <section>
+        {tabIndex === 2 && reviews.length > 0 && (
+          <Reviews
+            reviews={reviews}
+            productName={locale === 'uk-UA' ? product.productNameUa : product.productNameEn}
+            reviewTitle={translation.tabs.reviews}
+            helpful={translation.tabs.helpful}
+            users_think={translation.tabs.users_think}
+          />
+        )}
+      </section>
       <div className={styles.prevViewed}>
         <h2>Товари, які ви переглянули</h2>
       </div>

@@ -16,9 +16,23 @@ type FormValues = {
 
 interface ReviewFormProp {
   onSubmitForm: (data: {}) => void;
+  translation: {
+    tabs: {
+      description: string;
+      characteristics: string;
+      reviews: string;
+      important_to_us: string;
+      tell_us: string;
+      message: string;
+      rate: string;
+      send: string;
+      password: string;
+      thanking: string;
+    };
+  };
 }
 
-const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm }) => {
+const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm, translation }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [rating_, setRating] = useState(0);
@@ -39,11 +53,9 @@ const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm }) => {
   return (
     <form className={styles.reviewForm} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.textReviewBlock}>
-        <p>Ваша думка важлива для нас!</p>
+        <p>{translation.tabs.important_to_us}</p>
         <p>
-          Розкажіть свою історію з використання нашого туристичного спорядження. Ваші враження
-          можуть надихнути інших на нові пригоди. Дякуємо за те, що обрали Adventure Pro Gear - ваші
-          слова значать для нас найбільше!
+          {translation.tabs.tell_us}
         </p>
       </div>
       <div className={styles.inputBlock}>
@@ -60,20 +72,20 @@ const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm }) => {
             className={styles.reviewInput}
             type="password"
             {...register('password', { required: true })}
-            placeholder="Пароль"
+            placeholder={translation.tabs.password}
           />
         </label>
         <textarea
           className={styles.messageArea}
           {...register('comment')}
-          placeholder="Повідомлення"
+          placeholder={translation.tabs.message}
         />
       </div>
-      <SetStarRating onStarClick={starClick} refresh={refresh} />
+      <SetStarRating onStarClick={starClick} refresh={refresh} rate={translation.tabs.rate} />
       <Button
         className={styles.submitReview}
         type="submit"
-        text="Надіслати"
+        text={translation.tabs.send}
         icon={<Image src={ArrowRightDown} width={13} height={14} alt="right-down" />}
       />
     </form>

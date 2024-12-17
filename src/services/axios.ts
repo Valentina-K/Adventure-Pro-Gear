@@ -66,7 +66,7 @@ export const getProductById = async (productId: number) => {
 
 export const getReviewsById = async (id: number) => {
   try {
-    const review = await axiosInstance.get(`/api/public/products/reviews/${id}`);
+    const review = await axiosInstance.get(`/api/public/products/reviews?productId=${id}`);
     return review;
   } catch (error) {
     console.log('from getReviewsById');

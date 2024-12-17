@@ -2,8 +2,10 @@
 
 import React, { useState } from 'react';
 import { useParams } from 'next/navigation';
-import styles from './Tabs.module.css';
+import { Characteristics } from '@/interfaces/product';
+import { Locale } from '@/i18n-config';
 import ReviewForm from './SendReview/ReviewForm';
+import styles from './Tabs.module.css';
 
 interface Review {
   productId: number;
@@ -13,13 +15,26 @@ interface Review {
 
 interface TabsProps {
   description: string;
-  attributes: {
-    [key: string]: any;
+  characteristics: Characteristics[];
+  locale: Locale;
+  translation: {
+    tabs: {
+      description: string;
+      characteristics: string;
+      reviews: string;
+      important_to_us: string;
+      tell_us: string;
+      message: string;
+      rate: string;
+      send: string;
+      password: string;
+      thanking: string;
+    };
   };
-  reviews?: [];
+  onChangeTab: (tabIndex: number) => void;
 }
 
-const Tabs: React.FC<TabsProps> = ({ description, attributes, reviews }) => {
+const Tabs: React.FC<TabsProps> = ({ description, characteristics, translation, onChangeTab }) => {
   const { productId } = useParams();
   const [toggleState, setToggleState] = useState(0);
   const [email, setEmail] = useState('');
@@ -30,12 +45,14 @@ const Tabs: React.FC<TabsProps> = ({ description, attributes, reviews }) => {
   const toggleTab = (index: number) => {
     setToggleState(index);
     if (index !== 2) setIsSendReview(false);
+    onChangeTab(index);
   };
   const activeTabsStyle = `${styles.tabs} ${styles.activeTabs}`;
   const activeContentStyle = `${styles.content} ${styles.activeContent}`;
 
   // review form
   const handleReviewSubmit = (data: {}) => {
+    //{email: 'kvalentyna@hotmail.com', password: 'sdfghjk', comment: 'vvbbcvn vcbgdfg dfdg', rating_: 3}
     console.log(data);
     setIsSendReview(true);
   };
@@ -46,30 +63,30 @@ const Tabs: React.FC<TabsProps> = ({ description, attributes, reviews }) => {
           className={toggleState === 0 ? activeTabsStyle : styles.tabs}
           onClick={() => toggleTab(0)}
         >
-          Опис
+          {translation.tabs.description}
         </button>
         <button
           className={toggleState === 1 ? activeTabsStyle : styles.tabs}
           onClick={() => toggleTab(1)}
         >
-          Характеристики
+          {translation.tabs.characteristics}
         </button>
         <button
           className={toggleState === 2 ? activeTabsStyle : styles.tabs}
           onClick={() => toggleTab(2)}
         >
-          Відгуки
+          {translation.tabs.reviews}
         </button>
       </div>
       <div className={styles.contentTabs}>
         <div className={toggleState === 0 ? activeContentStyle : styles.content}>
           <div>{description}</div>
           <div className={styles.attributesBlock}>
-            <h3>Характеристики:</h3>
+            <h3>{translation.tabs.characteristics}:</h3>
             <ul>
-              {Object.entries(attributes).map(([key, value]) => (
-                <li key={key}>
-                  {key} : {value}
+              {characteristics.map((item, index) => (
+                <li key={index}>
+                  {item.name} : {item.value}
                 </li>
               ))}
             </ul>
@@ -77,30 +94,26 @@ const Tabs: React.FC<TabsProps> = ({ description, attributes, reviews }) => {
         </div>
         <div className={toggleState === 1 ? activeContentStyle : styles.content}>
           <ul>
-            {Object.entries(attributes).map(([key, value]) => (
-              <li className={styles.attributesLine} key={key}>
-                <span>{key}</span>
-                <span>{value}</span>
+            {characteristics.map((item, index) => (
+              <li className={styles.attributesLine} key={index}>
+                <span>{item.name}</span>
+                <span>{item.value}</span>
               </li>
             ))}
           </ul>
         </div>
         <div className={toggleState === 2 ? activeContentStyle : styles.content}>
           <div className={styles.leaveReviewBlock}>
-            <ReviewForm onSubmitForm={handleReviewSubmit} />
-            {isSendReview && (
-              <p className={styles.thankingText}>
-                Дякуємо за ваш відгук! Ваша думка надзвичайно важлива для нас.
-              </p>
-            )}
+            <ReviewForm onSubmitForm={handleReviewSubmit} translation={translation} />
+            {isSendReview && <p className={styles.thankingText}>{translation.tabs.thanking}</p>}
           </div>
-          {reviews && (
+          {/* {reviews && (
             <ul>
               {reviews.map(review => (
                 <li key={review}>{review}</li>
               ))}
             </ul>
-          )}
+          )} */}
         </div>
       </div>
     </div>
