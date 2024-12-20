@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Container from '@/components/Container';
 import BreadcrumbNavigation from '@/components/BreadcrumbNavigation';
 import { Locale } from '@/i18n-config';
@@ -57,7 +58,7 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
   const [buyQuantity, setBuyQuantity] = useState(0);
   const [tabIndex, setTabIndex] = useState(0);
   const [isThank, setIsThank] = useState(false);
-  console.log(tabIndex === 2 && reviews.length > 0);
+  
   const handleChoiceColor = (index: number) => {
     console.log('from colorChoice', index);
     setAttrIndex(index);
@@ -75,16 +76,23 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
   const handleChangeTab = (index: number) => setTabIndex(index);
 
   const handleReviewSend = async (data: {}) => {  
-    try {
-      const response = await createReview({ data });
-      if (response?.status === 201) {
+    /* axios
+      .post('https://adventure-production-f65e.up.railway.app/api/public/products/reviews', {
+        headers: {
+          Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJrdmFsZW50eW5hQGhvdG1haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpZCI6OCwidHlwZSI6ImFjY2Vzc1Rva2VuIiwiaWF0IjoxNzM0NTA3NDk5LCJleHAiOjE3MzQ1MDkyOTl9.Bm7SjxrheVUQrAuOYpnuCsoS4YWHMoxuj-AzVlXOpVPTc9gHjCcKr51qeHzXy6lnNm3nnoNZB80rmNxiylAtgQ',
+        },
+        data: {...data}
+      })
+      .then((response) => console.log(response.data))
+      .catch((error) => console.error(error)); */
+      const response = await createReview({ ...data });
+      console.log(response);
+      if (response?.status === 200) {
         setIsThank(true);
         const review = await getReviewsById(response.data.id)
+        console.log(review);
         reviews.push(review?.data);
-      }
-    } catch (error) {
-      console.log(error);
-    }
+      }    
   }
 
   const colorItems = product.attributes.map(attr => {

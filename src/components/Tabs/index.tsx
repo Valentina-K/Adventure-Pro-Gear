@@ -51,7 +51,7 @@ const Tabs: React.FC<TabsProps> = ({ description, characteristics, translation, 
   // review form
   const handleReviewSubmit = (data: {}) => { 
     setIsSendReview(true);
-    onReviewSend({data});
+    onReviewSend(data);
   };
   return (
     <div className={styles.wrapper}>

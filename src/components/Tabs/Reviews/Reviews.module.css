@@ -78,5 +78,5 @@
     align-items: center;
     gap: 4px;
     color: var(--disabled);
-
+    cursor: pointer;
 }

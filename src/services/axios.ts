@@ -6,6 +6,7 @@ export const token: { access: string | null; refresh: string | null } = {
   access: null,
   refresh: null,
 };
+
 // https://empowering-happiness-production.up.railway.app/
 const axiosInstance = axios.create({
   baseURL: 'https://adventure-production-f65e.up.railway.app/',
@@ -13,7 +14,7 @@ const axiosInstance = axios.create({
 
 axios.defaults.withCredentials = true;
 
-axiosInstance.interceptors.request.use(
+axiosInstance.interceptors.request.use(  
   async config => {
     const session = await getServerSession(options);
     const publicEndpoints = [
@@ -29,7 +30,6 @@ axiosInstance.interceptors.request.use(
     if (needsAuth && !config.headers.Authorization) {
       config.headers.Authorization = `Bearer ${session?.user?.token.accessToken}`;
     }
-
     return config;
   },
   error => Promise.reject(error)
@@ -95,13 +95,36 @@ export const getAllReviews = async (productId: number) => {
 
 export const createReview = async (data: any) => {
   const { productId, comment, rating } = data;
-  const response = await axiosInstance.post('api/public/products/reviews', {
-    productId,
-    comment,
-    rating
-  });
-  return response;
+  try {
+    const response = await axiosInstance.post('api/public/products/reviews', {
+      data: {
+        productId,
+        comment,
+        rating,
+      },
+    });
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
+
+export const addLike = async (id: number) => {
+  return await axiosInstance.post(`api/public/products/reviews/${id}/like`)
+}
+
+export const addDislike = async (id: number) => {
+  return await axiosInstance.post(`api/public/products/reviews/${id}/dislike`)
+}
+
+export const addUnlike = async (id: number) => {
+  return await axiosInstance.post(`api/public/products/reviews/${id}/unlike`)
+}
+
+export const addUnDislike = async (id: number) => {
+  return await axiosInstance.post(`api/public/products/reviews/${id}/undislike`)
+}
 
 export const signUpService = async (credentials: any) => {
   const { name, surname, email, password } = credentials;
