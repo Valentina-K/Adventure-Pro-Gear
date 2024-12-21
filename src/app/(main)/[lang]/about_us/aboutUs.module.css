@@ -1,0 +1,59 @@
+.img_container {
+  position: relative;
+  margin: 100px 0 120px 0;
+}
+
+.about_text {
+  position: absolute;
+  left: 50px;
+  bottom: 46px;
+  width: 558px;
+  font-weight: var(--wight-large);
+  font-size: var(--large-24);
+  line-height: var(--line-height-36);
+  text-align: left;
+  color: var(--wightAuth);
+}
+
+.footer_img {
+  background-image: url('../../../../../public/images/about/aboutInspirin.png');
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 520px;
+  border-radius: 5px;
+}
+
+@media screen and (max-width: 1179px) {
+  .img_container {
+    margin: 40px 0 80px 0;
+  }
+
+  .about_text {
+    left: 32px;
+    bottom: 17px;
+    width: 600px;
+    text-align: justify;
+  }
+
+  .footer_img {
+    background-image: url('../../../../../public/images/about/aboutInspiringTablet.png');
+    height: 450px;
+  }
+}
+
+@media screen and (max-width: 743px) {
+  .img_container {
+    margin: 24px 0 60px 0;
+  }
+  .about_text {
+    left: 8px;
+    bottom: 8px;
+    width: 309px;
+    text-align: start;
+  }
+
+  .footer_img {
+    background-image: url('../../../../../public/images/about/aboutInspirinModal.png');
+    height: 450px;
+  }
+}

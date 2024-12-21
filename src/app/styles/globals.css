@@ -3,16 +3,31 @@
   /* font weight */
   --medium: 500;
   --wight-600: 600;
-  --large: 700;
+  --wight-large: 700;
 
   /* font size */
+  --large-40: 40px;
+   --large-32: 32px;
   --large-28: 28px;
+  --large-24: 24px;
+  --large-22: 22px;
   --large-20: 20px;
   --medium-16: 16px;
   --medium-18: 18px;
   --small-14: 14px;
   --small-12: 12px;
   --large: 32px;
+
+  /* Line height */
+  --line-height-60: 60px;
+  --line-height-48: 48px;
+  --line-height-42: 42px;
+  --line-height-36: 36px;
+  --line-height-32: 32px;
+  --line-height-30: 30px;
+  --line-height-27: 27px;
+  --line-height-24: 24px;
+  --line-height-21: 21px;
 
   /* colours */
   --white: #fff;
@@ -27,6 +42,7 @@
   --darkGray: #333333;
   --black-900: #353535;
   --black: #000;
+  --titleSecondary: #161A23;
   --lightYellow: #ffecce;
   --yellow: #ffdba4;
   --yellowForStars: #ffc670;
