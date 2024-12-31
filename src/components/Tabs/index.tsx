@@ -49,7 +49,7 @@ const Tabs: React.FC<TabsProps> = ({ description, characteristics, translation, 
   const activeContentStyle = `${styles.content} ${styles.activeContent}`;
 
   // review form
-  const handleReviewSubmit = (data: {}) => { 
+  const handleReviewSubmit = (data: {}) => {
     setIsSendReview(true);
     onReviewSend(data);
   };
@@ -103,7 +103,7 @@ const Tabs: React.FC<TabsProps> = ({ description, characteristics, translation, 
           </ul>
         </div>
         <div className={toggleState === 2 ? activeContentStyle : styles.content}>
-          <ReviewForm onSubmitForm={handleReviewSubmit} translation={translation} locale={locale}/>
+          <ReviewForm onSubmitForm={handleReviewSubmit} translation={translation} locale={locale} />
           {isThank && <p className={styles.thankingText}>{translation.tabs.thanking}</p>}
         </div>
       </div>

@@ -14,7 +14,7 @@ const axiosInstance = axios.create({
 
 axios.defaults.withCredentials = true;
 
-axiosInstance.interceptors.request.use(  
+axiosInstance.interceptors.request.use(
   async config => {
     const session = await getServerSession(options);
     const publicEndpoints = [
@@ -94,14 +94,13 @@ export const getAllReviews = async (productId: number) => {
 };
 
 export const createReview = async (data: any) => {
+  console.log('from create Review', data)
   const { productId, comment, rating } = data;
   try {
-    const response = await axiosInstance.post('api/public/products/reviews', {
-      data: {
+    const response = await axiosInstance.post('api/public/products/reviews', {      
         productId,
         comment,
-        rating,
-      },
+        rating,      
     });
     console.log(response.data);
     return response.data;

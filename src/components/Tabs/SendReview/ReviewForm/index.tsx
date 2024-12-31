@@ -6,10 +6,12 @@ import { useSession } from 'next-auth/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import ArrowRightDown from '@/../public/icons/arrow-right-down.svg';
 import Button from '@/components/Button';
-import SetStarRating from '../SetStarRating';
 import { useParams, useRouter } from 'next/navigation';
 import { AppRoutes } from '@/constants/routes';
 import { Locale } from '@/i18n-config';
+import Form from '@/components/Form';
+import { addReviewAction } from '@/app/actions';
+import SetStarRating from '../SetStarRating';
 import styles from './ReviewForm.module.css';
 
 type FormValues = {
@@ -46,11 +48,11 @@ const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm, translation, local
   const params = useParams();
   const router = useRouter();
 
-  const onSubmit: SubmitHandler<FormValues> = data => {
+  const onSubmit: SubmitHandler<FormValues> = async data => {
     if (!session) router.push(`/${locale}${AppRoutes.SIGNIN}`);
-    const {comment} = data;
-    const {productId} = params;
-    onSubmitForm({ comment, rating:rating_, productId });
+    const { comment } = data;
+    const { productId } = params;
+    onSubmitForm({ comment, rating: rating_, productId });
     reset();
     setIsSubmitted(true);
   };
@@ -63,7 +65,7 @@ const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm, translation, local
   }, [isSubmitted]);
   const starClick = (rating: number) => setRating(rating);
   return (
-    <form className={styles.reviewForm} onSubmit={handleSubmit(onSubmit)}>
+    <Form className={styles.reviewForm} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.textReviewBlock}>
         <p>{translation.tabs.important_to_us}</p>
         <p>{translation.tabs.tell_us}</p>
@@ -102,7 +104,7 @@ const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm, translation, local
         text={translation.tabs.send}
         icon={<Image src={ArrowRightDown} width={13} height={14} alt="right-down" />}
       />
-    </form>
+    </Form>
   );
 };
 

@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { useSession } from 'next-auth/react';
+import axios from 'axios';
 import Container from '@/components/Container';
 import BreadcrumbNavigation from '@/components/BreadcrumbNavigation';
 import { Locale } from '@/i18n-config';
@@ -11,10 +13,11 @@ import RatingStars from '@/components/RatingStars';
 import ReviewCount from '@/components/ReviewCount';
 import QuantitySelector from '@/components/QuantitySelector/QuantitySelector';
 import { Product, Review } from '@/interfaces/product';
+import { createReview, getReviewsById } from '@/services/axios';
 import ProductCardsSlider from '../ProductCardsSlider';
 import Reviews from '../Tabs/Reviews';
-import { createReview, getReviewsById } from '@/services/axios';
 import styles from './productWrapper.module.css';
+// import { addReviewAction } from '@/app/actions';
 
 interface ProductWrapperProp {
   product: Product;
@@ -58,7 +61,12 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
   const [buyQuantity, setBuyQuantity] = useState(0);
   const [tabIndex, setTabIndex] = useState(0);
   const [isThank, setIsThank] = useState(false);
-  
+  const { data: session, status } = useSession();
+
+  console.log('Session:', session);
+  console.log('Session status:', status);
+  console.log(reviews);
+
   const handleChoiceColor = (index: number) => {
     console.log('from colorChoice', index);
     setAttrIndex(index);
@@ -75,25 +83,30 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
 
   const handleChangeTab = (index: number) => setTabIndex(index);
 
-  const handleReviewSend = async (data: {}) => {  
-    /* axios
-      .post('https://adventure-production-f65e.up.railway.app/api/public/products/reviews', {
-        headers: {
-          Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJrdmFsZW50eW5hQGhvdG1haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpZCI6OCwidHlwZSI6ImFjY2Vzc1Rva2VuIiwiaWF0IjoxNzM0NTA3NDk5LCJleHAiOjE3MzQ1MDkyOTl9.Bm7SjxrheVUQrAuOYpnuCsoS4YWHMoxuj-AzVlXOpVPTc9gHjCcKr51qeHzXy6lnNm3nnoNZB80rmNxiylAtgQ',
-        },
-        data: {...data}
-      })
+  const handleReviewSend = async (data: {}) => {
+    if (status === 'loading') {
+      console.log('Session is still loading');
+      return;
+    }
+    const token = session?.user?.token.accessToken;
+    console.log('access token:', token);
+    if (!token) {
+      console.error('No access token found');
+      return;
+    }
+    axios
+      .post(
+        'https://adventure-production-f65e.up.railway.app/api/public/products/reviews',
+         { ...data },
+          {headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      )
       .then((response) => console.log(response.data))
-      .catch((error) => console.error(error)); */
-      const response = await createReview({ ...data });
-      console.log(response);
-      if (response?.status === 200) {
-        setIsThank(true);
-        const review = await getReviewsById(response.data.id)
-        console.log(review);
-        reviews.push(review?.data);
-      }    
-  }
+      .catch((error) => console.error(error));
+  };
 
   const colorItems = product.attributes.map(attr => {
     return { color: attr.color, url: attr.pictureUrl };

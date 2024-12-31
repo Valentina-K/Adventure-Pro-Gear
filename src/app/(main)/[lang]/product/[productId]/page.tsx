@@ -14,9 +14,6 @@ const ProductPage = async ({ params }: { params: { lang: Locale; productId: numb
   const translations = await getAllTranslations(params.lang);
   const translation = getTranslation(translations);
   const products = await getProducts();
-  const review = await createReview({productId:23, comment: "jhghg", rating:4})
-  console.log(review);
-
   return (
     <ProductWrapper
       product={product && product.data}
