@@ -9,8 +9,7 @@ import Button from '@/components/Button';
 import { useParams, useRouter } from 'next/navigation';
 import { AppRoutes } from '@/constants/routes';
 import { Locale } from '@/i18n-config';
-import Form from '@/components/Form';
-import { addReviewAction } from '@/app/actions';
+import { createReview } from '@/clientServices/clientAxios';
 import SetStarRating from '../SetStarRating';
 import styles from './ReviewForm.module.css';
 
@@ -21,7 +20,7 @@ type FormValues = {
 };
 
 interface ReviewFormProp {
-  onSubmitForm: (data: {}) => void;
+  onSubmitForm: (isOk: boolean) => void;
   locale: Locale;
   translation: {
     tabs: {
@@ -44,15 +43,22 @@ const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm, translation, local
   const [refresh, setRefresh] = useState(false);
   const [rating_, setRating] = useState(0);
   const { register, handleSubmit, reset } = useForm<FormValues>();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+
   const params = useParams();
   const router = useRouter();
+  const token = session?.user?.token.accessToken;
+  if (!token && status === "authenticated") {
+    console.error('No access token found');
+  }
 
-  const onSubmit: SubmitHandler<FormValues> = async data => {
+  const handleSubmitForm: SubmitHandler<FormValues> = async data => {
     if (!session) router.push(`/${locale}${AppRoutes.SIGNIN}`);
     const { comment } = data;
     const { productId } = params;
-    onSubmitForm({ comment, rating: rating_, productId });
+    const response = await createReview({ comment, rating: rating_, productId }, token);
+    if (response) onSubmitForm(true);
+    else onSubmitForm(false);
     reset();
     setIsSubmitted(true);
   };
@@ -65,7 +71,7 @@ const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm, translation, local
   }, [isSubmitted]);
   const starClick = (rating: number) => setRating(rating);
   return (
-    <Form className={styles.reviewForm} onSubmit={handleSubmit(onSubmit)}>
+    <form className={styles.reviewForm} onSubmit={handleSubmit(handleSubmitForm)}>
       <div className={styles.textReviewBlock}>
         <p>{translation.tabs.important_to_us}</p>
         <p>{translation.tabs.tell_us}</p>
@@ -104,7 +110,7 @@ const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm, translation, local
         text={translation.tabs.send}
         icon={<Image src={ArrowRightDown} width={13} height={14} alt="right-down" />}
       />
-    </Form>
+    </form>
   );
 };
 

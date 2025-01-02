@@ -93,38 +93,6 @@ export const getAllReviews = async (productId: number) => {
   }
 };
 
-export const createReview = async (data: any) => {
-  console.log('from create Review', data)
-  const { productId, comment, rating } = data;
-  try {
-    const response = await axiosInstance.post('api/public/products/reviews', {      
-        productId,
-        comment,
-        rating,      
-    });
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const addLike = async (id: number) => {
-  return await axiosInstance.post(`api/public/products/reviews/${id}/like`)
-}
-
-export const addDislike = async (id: number) => {
-  return await axiosInstance.post(`api/public/products/reviews/${id}/dislike`)
-}
-
-export const addUnlike = async (id: number) => {
-  return await axiosInstance.post(`api/public/products/reviews/${id}/unlike`)
-}
-
-export const addUnDislike = async (id: number) => {
-  return await axiosInstance.post(`api/public/products/reviews/${id}/undislike`)
-}
-
 export const signUpService = async (credentials: any) => {
   const { name, surname, email, password } = credentials;
   return await axiosInstance.post('/api/public/registration/register', {

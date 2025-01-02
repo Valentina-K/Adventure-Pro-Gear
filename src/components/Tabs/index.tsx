@@ -1,23 +1,15 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useParams } from 'next/navigation';
 import { Characteristics } from '@/interfaces/product';
 import { Locale } from '@/i18n-config';
 import ReviewForm from './SendReview/ReviewForm';
 import styles from './Tabs.module.css';
 
-interface Review {
-  productId: number;
-  rating: number;
-  comment: string;
-}
-
 interface TabsProps {
   description: string;
   characteristics: Characteristics[];
   locale: Locale;
-  isThank: boolean;
   translation: {
     tabs: {
       description: string;
@@ -33,12 +25,20 @@ interface TabsProps {
     };
   };
   onChangeTab: (tabIndex: number) => void;
-  onReviewSend: (data: {}) => void;
+  onReviewSend: (isSend: boolean) => void;
 }
 
-const Tabs: React.FC<TabsProps> = ({ description, characteristics, translation, locale, isThank, onChangeTab, onReviewSend }) => {
+const Tabs: React.FC<TabsProps> = ({
+  description,
+  characteristics,
+  translation,
+  locale,
+  onChangeTab,
+  onReviewSend,
+}) => {
   const [toggleState, setToggleState] = useState(0);
   const [isSendReview, setIsSendReview] = useState(false);
+  /* const { data: session } = useSession(); */
 
   const toggleTab = (index: number) => {
     setToggleState(index);
@@ -49,10 +49,16 @@ const Tabs: React.FC<TabsProps> = ({ description, characteristics, translation, 
   const activeContentStyle = `${styles.content} ${styles.activeContent}`;
 
   // review form
-  const handleReviewSubmit = (data: {}) => {
-    setIsSendReview(true);
-    onReviewSend(data);
+  const handleReviewSubmit = async (isOk: boolean) => {
+    if (isOk) {
+      setIsSendReview(true);
+      onReviewSend(true);
+    } else {
+      setIsSendReview(false);
+      onReviewSend(false);
+    }
   };
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.blockTabs}>
@@ -79,10 +85,7 @@ const Tabs: React.FC<TabsProps> = ({ description, characteristics, translation, 
         <div className={toggleState === 0 ? activeContentStyle : styles.content}>
           <div>{description}</div>
           <div className={styles.attributesBlock}>
-            <h3>
-              {translation.tabs.characteristics}
-              :
-            </h3>
+            <h3>{translation.tabs.characteristics}:</h3>
             <ul>
               {characteristics.map((item, index) => (
                 <li key={index}>
@@ -104,7 +107,7 @@ const Tabs: React.FC<TabsProps> = ({ description, characteristics, translation, 
         </div>
         <div className={toggleState === 2 ? activeContentStyle : styles.content}>
           <ReviewForm onSubmitForm={handleReviewSubmit} translation={translation} locale={locale} />
-          {isThank && <p className={styles.thankingText}>{translation.tabs.thanking}</p>}
+          {isSendReview && <p className={styles.thankingText}>{translation.tabs.thanking}</p>}
         </div>
       </div>
     </div>

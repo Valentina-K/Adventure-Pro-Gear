@@ -1,7 +1,7 @@
 import ProductWrapper from "@/components/product/ProductWrapper";
 import { getAllTranslations, getTranslation } from "@/dictionaries/dictionaries";
 import { Locale } from "@/i18n-config";
-import { getProductById, getProducts, getAllReviews, createReview } from "@/services/axios";
+import { getProductById, getProducts, getAllReviews } from "@/services/axios";
 
 const ProductPage = async ({ params }: { params: { lang: Locale; productId: number } }) => {
   const product = await getProductById(params.productId);

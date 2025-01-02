@@ -183,29 +183,3 @@ export const updateEmail = async (formData: FormData) => {
     console.log('Error from Client!', e);
   }
 };
-
-export const addReviewAction = async (formData: FormData, locale: Locale) => {
-  const translations = await getAllTranslations(locale);
-  const translationFunction = getTranslation(translations);
-  const productTranslation = translationFunction('product');
-  const data = Object.fromEntries(formData);
-  console.log('review data:', data);
-  try {
-    const result = await createReview(data);
-    if (result?.data) {
-      return {
-        success: productTranslation.tabs.thanking
-      };
-    }
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      if (error.response) {
-        if (error.response.status >= 400) {
-          return { submitError: generateErrorMessage(error.response.status, error.response.data) };
-        }
-      }
-    } else {
-      console.error('Unexpected error:', error);
-    }
-  }
-};
