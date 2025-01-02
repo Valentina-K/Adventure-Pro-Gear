@@ -24,11 +24,11 @@ const Reviews: React.FC<ReviewsProp> = ({
   helpful,
   usersThink,
 }) => {
-  const handleClick = async e => {
-    console.log(e.target.id);
+  const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const target = e.target as HTMLButtonElement;
     let response;
-    if (e.target.id === 'like') response = await addLike(e.target.id);
-    else response = await addDislike(e.target.id);
+    if (target.id === 'like') response = await addLike(Number(target.id));
+    else response = await addDislike(Number(target.id));
     console.log('response', response);
   };
   return (
@@ -57,14 +57,14 @@ const Reviews: React.FC<ReviewsProp> = ({
             <div className={styles.footerReview}>
               <p className={styles.isHelpful}>{helpful}</p>
               <div className={styles.yesOrNot}>
-                <div className={styles.like_dislike} onClick={handleClick}>
+                <button className={styles.like_dislike} onClick={handleClick}>
                   <Image src={Like} alt="like" width={28} height={28} id="like" />
                   <span>{items.likes}</span>
-                </div>
-                <div className={styles.like_dislike} onClick={handleClick}>
+                </button>
+                <button className={styles.like_dislike} onClick={handleClick}>
                   <Image src={Dislike} alt="dislike" width={28} height={28} id="dislike" />
                   <span>{items.dislikes}</span>
-                </div>
+                </button>
               </div>
             </div>
           </li>
