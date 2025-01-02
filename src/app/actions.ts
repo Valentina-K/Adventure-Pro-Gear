@@ -9,7 +9,6 @@ import {
   updateUserDataService,
   updatePasswordService,
   updateEmailService,
-  createReview,
 } from '@/services/axios';
 import { AppRoutes } from '@/constants/routes';
 import { getAllTranslations, getTranslation } from '@/dictionaries/dictionaries';
