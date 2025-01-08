@@ -14,6 +14,7 @@ import { getAllReviewsByProductId } from '@/clientServices/clientAxios';
 import ProductCardsSlider from '../ProductCardsSlider';
 import Reviews from '../Tabs/Reviews';
 import styles from './productWrapper.module.css';
+import ImageCarousel from '../ImageCarousel/ImageCarousel';
 
 interface ProductWrapperProp {
   product: Product;
@@ -81,9 +82,7 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
     }
   };
 
-  const colorItems = product.attributes.map(attr => {
-    return { color: attr.color, url: attr.pictureUrl };
-  });
+  const colorItems = product.attributes.map(attr => ({ color: attr.color, url: attr.pictureUrl }));
 
   return (
     <Container>
@@ -92,7 +91,7 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
       </div>
       <div className={styles.mainContainer}>
         <div className={styles.leftBlock}>
-          <div>ImageCarousel</div>
+          <ImageCarousel contents={product.contents} />
           <Tabs
             description={locale === 'uk-UA' ? product.descriptionUa : product.descriptionEn}
             characteristics={product.characteristics}
@@ -113,15 +112,20 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
                 <ReviewCount reviewCount={product.reviewCount} />
               </div>
               <div className={styles.priceBlock}>
-                <p className={styles.price}>{product.basePrice}₴</p>
+                <p className={styles.price}>
+                  {product.basePrice}
+                  ₴
+                </p>
                 <p className={styles.available}>В наявності</p>
               </div>
               <div className={styles.specialInfo}>
                 <p>
-                  Код товару: <span>{product.productId}</span>
+                  Код товару: 
+                  <span>{product.productId}</span>
                 </p>
                 <p>
-                  Виробник: <span>Terra Incognita</span>
+                  Виробник: 
+                  <span>Terra Incognita</span>
                 </p>
               </div>
             </div>

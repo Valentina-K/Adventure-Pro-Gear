@@ -1,0 +1,58 @@
+.wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.carousel{
+    display: flex;
+    gap: 16px;
+    transition: transform 0.5s ease;
+}
+
+.sliderWrapper { 
+    position: relative;   
+    width: 580px;
+    height: 80px; 
+    overflow: hidden;
+}
+
+.list{
+    display: flex;
+    gap: 16px;
+    width: inherit;
+    transition: margin-left 250ms;
+}
+
+.controls {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 580px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    pointer-events: none;
+}
+
+.controls button{
+    pointer-events: all;
+}
+
+.button{
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+}
