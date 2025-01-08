@@ -2,9 +2,14 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { useSession } from 'next-auth/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import ArrowRightDown from '@/../public/icons/arrow-right-down.svg';
 import Button from '@/components/Button';
+import { useParams, useRouter } from 'next/navigation';
+import { AppRoutes } from '@/constants/routes';
+import { Locale } from '@/i18n-config';
+import { createReview } from '@/clientServices/clientAxios';
 import SetStarRating from '../SetStarRating';
 import styles from './ReviewForm.module.css';
 
@@ -15,16 +20,45 @@ type FormValues = {
 };
 
 interface ReviewFormProp {
-  onSubmitForm: (data: {}) => void;
+  onSubmitForm: (isOk: boolean) => void;
+  locale: Locale;
+  translation: {
+    tabs: {
+      description: string;
+      characteristics: string;
+      reviews: string;
+      important_to_us: string;
+      tell_us: string;
+      message: string;
+      rate: string;
+      send: string;
+      password: string;
+      thanking: string;
+    };
+  };
 }
 
-const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm }) => {
+const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm, translation, locale }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [rating_, setRating] = useState(0);
   const { register, handleSubmit, reset } = useForm<FormValues>();
-  const onSubmit: SubmitHandler<FormValues> = data => {
-    onSubmitForm({ ...data, rating_ });
+  const { data: session, status } = useSession();
+
+  const params = useParams();
+  const router = useRouter();
+  const token = session?.user?.token.accessToken;
+  if (!token && status === "authenticated") {
+    console.error('No access token found');
+  }
+
+  const handleSubmitForm: SubmitHandler<FormValues> = async data => {
+    if (!session) router.push(`/${locale}${AppRoutes.SIGNIN}`);
+    const { comment } = data;
+    const { productId } = params;
+    const response = await createReview({ comment, rating: rating_, productId }, token);
+    if (response) onSubmitForm(true);
+    else onSubmitForm(false);
     reset();
     setIsSubmitted(true);
   };
@@ -37,43 +71,43 @@ const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm }) => {
   }, [isSubmitted]);
   const starClick = (rating: number) => setRating(rating);
   return (
-    <form className={styles.reviewForm} onSubmit={handleSubmit(onSubmit)}>
+    <form className={styles.reviewForm} onSubmit={handleSubmit(handleSubmitForm)}>
       <div className={styles.textReviewBlock}>
-        <p>Ваша думка важлива для нас!</p>
-        <p>
-          Розкажіть свою історію з використання нашого туристичного спорядження. Ваші враження
-          можуть надихнути інших на нові пригоди. Дякуємо за те, що обрали Adventure Pro Gear - ваші
-          слова значать для нас найбільше!
-        </p>
+        <p>{translation.tabs.important_to_us}</p>
+        <p>{translation.tabs.tell_us}</p>
       </div>
       <div className={styles.inputBlock}>
-        <label>
-          <input
-            className={styles.reviewInput}
-            type="email"
-            {...register('email', { required: true })}
-            placeholder="E-mail"
-          />
-        </label>
-        <label>
-          <input
-            className={styles.reviewInput}
-            type="password"
-            {...register('password', { required: true })}
-            placeholder="Пароль"
-          />
-        </label>
+        {!session && (
+          <>
+            <label>
+              <input
+                className={styles.reviewInput}
+                type="email"
+                {...register('email', { required: true })}
+                placeholder="E-mail"
+              />
+            </label>
+            <label>
+              <input
+                className={styles.reviewInput}
+                type="password"
+                {...register('password', { required: true })}
+                placeholder={translation.tabs.password}
+              />
+            </label>
+          </>
+        )}
         <textarea
           className={styles.messageArea}
           {...register('comment')}
-          placeholder="Повідомлення"
+          placeholder={translation.tabs.message}
         />
       </div>
-      <SetStarRating onStarClick={starClick} refresh={refresh} />
+      <SetStarRating onStarClick={starClick} refresh={refresh} rate={translation.tabs.rate} />
       <Button
         className={styles.submitReview}
         type="submit"
-        text="Надіслати"
+        text={translation.tabs.send}
         icon={<Image src={ArrowRightDown} width={13} height={14} alt="right-down" />}
       />
     </form>
