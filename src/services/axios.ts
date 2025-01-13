@@ -203,3 +203,21 @@ export const updateEmailService = async (personalData: any) => {
     console.log(error);
   }
 };
+
+export const getBlogs = async () => {
+  try {
+    const response = await axiosInstance.get('api/blog/posts');
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getBlogsId = async (blogId: string) => {
+  try {
+    const response = await axiosInstance.get(`api/blog/posts/${blogId}`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

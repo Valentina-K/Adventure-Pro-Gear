@@ -1,0 +1,93 @@
+.title{
+      flex-grow: 1;
+font-size: var(--large-20);
+font-weight: var(--wight-600);
+line-height: var(--line-height-30);
+text-align: left;
+text-underline-position: from-font;
+text-decoration-skip-ink: none;
+ margin-bottom: 16px; 
+}
+
+.list{
+    display: flex;
+    margin-left: -20px;
+    margin-bottom: 154px;
+}
+
+.item{
+    width: calc((100% - 100px)/ 6);
+    margin-left: 20px;
+
+}
+
+.item_img{
+    width: 100%;
+    height: 160px;
+}
+
+.item_following{
+    display: block;
+   margin-left: auto;
+   margin-bottom: 16px;
+   cursor: pointer;
+}
+
+.list_title{
+font-size: var(--small-14);
+font-weight: var(--wight-600);
+line-height: var(--line-height-21);
+text-underline-position: from-font;
+text-decoration-skip-ink: none;
+
+}
+
+
+.review_container{
+display: flex;
+align-items: flex-start;
+justify-content: space-between;
+ margin-bottom: 16px;
+
+}
+
+.review_count{
+    display: flex;
+    align-items: center;
+     cursor: pointer;
+}
+
+.list_price{
+
+font-size: var(--large-20);
+font-weight: var(--wight-600);
+line-height: var(--line-height-30);
+text-align: left;
+text-underline-position: from-font;
+text-decoration-skip-ink: none;
+color: var(--darkBlue);
+ margin-bottom: 8px;
+}
+
+.list_content{
+    min-height: 160px;
+       display: flex;
+       flex-direction: column;
+justify-content: space-between;
+  
+}
+
+
+.list_footer{
+  flex-shrink: 0;
+}
+
+.list_buy{
+font-size: var(--small-14);
+font-weight: var(--wight-600);
+line-height: var(--line-height-21);
+text-underline-position: from-font;
+text-decoration-skip-ink: none;
+color: var(--greenForBtn);
+
+}
