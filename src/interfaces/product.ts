@@ -11,7 +11,7 @@ export interface Attributes {
   selfLink: string | null;
 }
 
-interface Contents {
+export interface Contents {
   productId: number | null;
   source: string;
   selfLink: string | null;

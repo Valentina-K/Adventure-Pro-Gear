@@ -24,7 +24,7 @@ const AuthContainer: React.FC<AuthContainerProps> = ({ personalAccount, locale }
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        console.log('Event target: ', event.target);
+        // console.log('Event target: ', event.target);
         setIsOpen(false);
       }
     };
