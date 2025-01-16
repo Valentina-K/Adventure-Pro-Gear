@@ -91,7 +91,7 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
       </div>
       <div className={styles.mainContainer}>
         <div className={styles.leftBlock}>
-          {product.contents.length > 0 && <ImageCarousel contents={product.contents} />}
+          <ImageCarousel contents={product.contents} />
           <Tabs
             description={locale === 'uk-UA' ? product.descriptionUa : product.descriptionEn}
             characteristics={product.characteristics}

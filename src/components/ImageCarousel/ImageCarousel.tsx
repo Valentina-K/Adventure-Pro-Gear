@@ -17,8 +17,14 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ contents }) => {
   };
   return (
     <div className={styles.wrapper}>
-      <Image src={contents[imageIndex].source} alt="product" width={580} height={580} />
-      <ImageSlider contents={contents} onImageClick={handleImageChanged} />
+      {contents.length === 0 ? (
+        <div>No images</div>
+      ) : (
+        <>
+          <Image src={contents[imageIndex].source} alt="product" width={580} height={580} />
+          <ImageSlider contents={contents} onImageClick={handleImageChanged} />
+        </>
+      )}
     </div>
   );
 };
