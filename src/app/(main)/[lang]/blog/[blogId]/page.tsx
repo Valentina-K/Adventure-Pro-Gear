@@ -52,8 +52,10 @@ async function BlogId({
           <span className={style.send_btn_text}>Відправити</span>
         </button>
       </div>
-      {/* <ImageCarousel contents={recommendationProduct} /> */}
-      {/* <div className={style.recommendation_container}> <Recommendation /> </div> */}
+      <Recommendation params={{
+        lang: undefined,
+        productId: 0
+      }} />
     </Container>
   );
 }

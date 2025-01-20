@@ -7,18 +7,28 @@ import reviews from '../../../public/icons/reviews_recommendation.svg';
 import following from '../../../public/icons/Following.svg';
 import product from '../../../public/images/180x180.png';
 import style from './Recommendation.module.css';
+import { getAllTranslations, getTranslation } from '@/dictionaries/dictionaries';
+import { Locale } from '@/i18n-config';
+import ProductWrapper from '../product/ProductWrapper';
 
 export const dynamic = 'force-dynamic';
 
-async function Recommendation() {
-  const recommendation = await getProducts();
+export async function Recommendation({ params }: { params: { lang: Locale; productId: number } }) {
 
-  const recommendationProduct = recommendation?.data.slice(0, 6);
+  const translations = await getAllTranslations(params.lang);
+  const translation = getTranslation(translations);
+  const products = await getProducts();
 
   return (
     <>
       <h1 className={style.title}>Ми рекомендуємо</h1>
-      <ul className={style.list}>
+      <ProductWrapper
+        product={product && product.data}
+        locale={params.lang}
+        products={products && products.data}
+        translation={translation('product')}
+      />
+      {/* <ul className={style.list}>
         {recommendationProduct &&
           recommendationProduct?.map(
             ({
@@ -70,7 +80,7 @@ async function Recommendation() {
               </li>
             )
           )}
-      </ul>
+      </ul> */}
     </>
   );
 }
