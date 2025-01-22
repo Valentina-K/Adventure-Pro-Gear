@@ -53,6 +53,10 @@
   box-sizing: inherit;
 }
 
+.cardLink{
+  text-decoration: none;
+}
+
 .imageWrapper {
   position: relative;
   width: 140px;

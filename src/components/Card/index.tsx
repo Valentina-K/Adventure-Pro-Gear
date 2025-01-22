@@ -15,9 +15,6 @@ import ReviewCount from '../ReviewCount';
 import styles from './Card.module.css';
 
 interface CardProps {
-  attrInd?: number;
-  avgRating?: number;
-  countReviews?: number;
   locale: Locale;
   isLogged?: boolean;
   variant?: 'big' | 'standart' | 'small';
@@ -49,11 +46,8 @@ const getClassName = (variant: string) => {
 
 const Card: React.FC<CardProps> = ({
   product,
-  attrInd = 0,
   locale,
   isLogged = false,
-  avgRating = 0,
-  countReviews = 0,
   variant = 'standart',
   translation,
   onBuyClick,
@@ -71,16 +65,16 @@ const Card: React.FC<CardProps> = ({
 
   useEffect(() => {
     setNewPrice(
-      product.basePrice - product.basePrice * (product.attributes[attrInd].priceDeviation / 100)
+      product.basePrice - product.basePrice * (product.attributes[0].priceDeviation / 100)
     );
     setProductName(locale === 'uk-UA' ? product.productNameUa : product.productNameEn);
-    setIsAvailable(product.attributes[attrInd].quantity > 0);
-    setClassNameImg(isAvailable ? className : `${className} ${styles.outStock}`);
+    setIsAvailable(product.attributes[0].quantity > 0);
+    setClassNameImg(isAvailable ? `${styles.imageWrapper}` : `${styles.imageWrapper} ${styles.outStock}`);
 
     if (addToFavorite && isLogged) {
       setFollowing(FollowingFill);
     } else setFollowing(FollowinIcon);
-  }, [product, locale, addToFavorite, isAvailable, variant, isLogged, attrInd, className]);
+  }, [product, locale, addToFavorite, isAvailable, variant, isLogged, className]);
 
   const handleAddToFavorite: (event: any) => void = () => {
     setAddToFavorite(!addToFavorite);
@@ -92,7 +86,7 @@ const Card: React.FC<CardProps> = ({
       className={className}
       /* onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave} */
     >
-      <Link href={`/product/${product.productId}`}>
+      <Link href={`/product/${product.productId}`} className={styles.cardLink}>
         <div className={classNameImg}>
           {addToFavorite && !isLogged && (
             <div
@@ -149,8 +143,8 @@ const Card: React.FC<CardProps> = ({
               {productName}
             </h3>
             <div className={styles.rating}>
-              <RatingStars averageRating={avgRating} />
-              <ReviewCount reviewCount={countReviews} />
+              <RatingStars averageRating={product.averageRating} />
+              <ReviewCount reviewCount={product.reviewCount} />
             </div>
             {product.basePrice !== newPrice ? (
               <div className={styles.price}>
@@ -163,7 +157,7 @@ const Card: React.FC<CardProps> = ({
                         : `${styles.deviation}`
                     }
                   >
-                    {product.attributes[attrInd].priceDeviation} %
+                    {product.attributes[0].priceDeviation} %
                   </span>
                 </div>
                 <div
