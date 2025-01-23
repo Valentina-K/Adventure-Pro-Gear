@@ -33,40 +33,24 @@ export const options: NextAuthOptions = {
         console.log('Credentials: ', credentials);
         if (!credentials) return;
         const { email, password } = credentials;
-        console.log('Email, Password: ', email, password);
         try {
           const token = await signInService({ email, password });
-          console.log('TOKEN: ', token);
-
           apiToken.access = token.data.accessToken;
           apiToken.refresh = token.data.refreshToken;
-
-          console.log('APItoken: ', apiToken.access);
-
           const userInfo = await getUserInfoService(apiToken.access);
-
-          console.log('USER INFO: ', userInfo.data);
-
           if (userInfo.data.status >= 400) {
             const errorMessage = userInfo.data.message;
             throw new Error(
               typeof errorMessage === 'string' ? errorMessage : JSON.stringify(errorMessage)
             );
           }
-
           const user = {
             ...userInfo.data,
             token: token.data,
             rememberMe: true,
           };
-          console.log('Created user: ', user);
-
-          if (user) {
-            console.log('Created user: ', user);
-            return user;
-          }
-
-          return null;
+          if (user) return user;
+          else return null;
         } catch (error) {
           console.log(error, (error as Error).message);
           if (axios.isAxiosError(error)) {
@@ -95,22 +79,18 @@ export const options: NextAuthOptions = {
   secret: 'by21t4673gr732eiwyufetrg764367fg',
   callbacks: {
     async jwt({ token, user, session }) {
-      console.log('JWT callback: ', { token, user, session });
       if (user) {
         token = { ...token, ...user };
       }
       if (user && 'token' in user) {
         const extUser = user as ExtendedUser;
-        console.log('extUser: ', extUser);
         if (extUser.token.accessToken) {
           const decoded = jwtDecode<JwtPayload>(extUser.token.accessToken);
           const exp = (decoded.exp as number) * 1000;
-
           if (Date.now() > exp) {
             try {
               const refreshedToken = await refreshTokenService(extUser.token.refreshToken);
               const tokens = refreshedToken.data;
-              console.log('REFRESHTOKEN: ', tokens.refreshToken, tokens);
               if (tokens.accessToken) {
                 extUser.token.accessToken = tokens.accessToken;
                 apiToken.access = tokens.accessToken;
@@ -128,7 +108,6 @@ export const options: NextAuthOptions = {
     async session({ session, token, user }) {
       if (token.token) {
         const deepClone = _.cloneDeep(token);
-        console.log('DeepClone:', deepClone);
         session.user = { ...deepClone };
       }
       console.log('Session callback: ', { session, token, user });
