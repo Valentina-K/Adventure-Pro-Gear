@@ -11,7 +11,7 @@ export interface Attributes {
   selfLink: string | null;
 }
 
-interface Contents {
+export interface Contents {
   productId: number | null;
   source: string;
   selfLink: string | null;
@@ -35,6 +35,14 @@ interface Subcategories {
   selfLink: string | null;
 }
 
+export interface Characteristics {
+  id: number,
+  name: string,
+  value: string,
+  productId: number,
+  categoryCharacteristicId: number
+}
+
 export interface Product {
   productId: number;
   productNameUa: string;
@@ -42,6 +50,8 @@ export interface Product {
   descriptionUa: string;
   descriptionEn: string;
   basePrice: number;
+  averageRating: number;
+  reviewCount: number;
   gender: 'MALE' | 'FEMALE' | 'UNISEX';
   category: {
     id: number;
@@ -53,6 +63,17 @@ export interface Product {
     selfLink: string;
   };
   attributes: Attributes[];
+  characteristics: Characteristics[];
   contents: Contents[];
   selfLink: string;
+}
+
+export interface Review {
+  id: number,
+  productId: number,
+  username: string,
+  rating: number,
+  likes: number,
+  dislikes: number,
+  comment: string
 }

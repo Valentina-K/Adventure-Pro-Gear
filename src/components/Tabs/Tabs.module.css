@@ -17,16 +17,17 @@
     border-radius: 2px 2px 0px 0px;
     border: none;
     border-bottom: 1px solid var(--label);
+    font-family: Montserrat;
     font-weight: var(--medium);
     font-size: var(--medium-18);
-    line-height: 27px;
-
+    line-height: 27px;    
 }
 
 .tabs.activeTabs {
     font-weight: 600;
     border: 1px solid var(--label);
     border-bottom: none;
+    font-weight: 600;
 }
 
 .contentTabs {
@@ -85,8 +86,6 @@
     display: block;
     width: 100%;
 }
-
-.leaveReviewBlock {}
 
 .thankingText {
     padding: 16px;

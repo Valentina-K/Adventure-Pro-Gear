@@ -6,9 +6,10 @@ export const token: { access: string | null; refresh: string | null } = {
   access: null,
   refresh: null,
 };
+
 // https://empowering-happiness-production.up.railway.app/
 const axiosInstance = axios.create({
-  baseURL: 'https://adventure-production-f65e.up.railway.app/',
+  baseURL: 'https://adventure-production.up.railway.app/',
 });
 
 axios.defaults.withCredentials = true;
@@ -29,7 +30,6 @@ axiosInstance.interceptors.request.use(
     if (needsAuth && !config.headers.Authorization) {
       config.headers.Authorization = `Bearer ${session?.user?.token.accessToken}`;
     }
-
     return config;
   },
   error => Promise.reject(error)
@@ -48,7 +48,7 @@ export const refreshTokenService = async (refreshToken: string) => {
 
 export const getProducts = async () => {
   try {
-    /* return {data:undefined}; */ const products = await axiosInstance.get('/api/public/products');
+    const products = await axiosInstance.get('/api/public/products');
     return products;
   } catch (error) {
     console.log(error);

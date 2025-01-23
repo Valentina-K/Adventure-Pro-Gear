@@ -1,0 +1,83 @@
+.wrapper {
+    width: 980px;
+}
+
+.title {
+    font-family: Montserrat;
+    font-size: 24px;
+    font-weight: var(--medium);
+    line-height: 36px;
+    margin-bottom: 40px;
+    color: #353535;
+}
+
+.productName {
+    color: #376B8E;
+}
+
+.reviewsList {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    list-style: none;
+}
+
+.reviewItem {
+    font-family: Montserrat;
+    color: #353535;
+}
+
+.headReview {
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.reviewInfo{
+    display: flex;
+    gap: 16px;
+}
+
+.username{
+    margin-right: 8px;
+    color: var(--greenForBtn);
+}
+
+.comment {
+    margin-bottom: 16px;
+    font-size: var(--medium-16);
+    font-weight: var(--medium);
+    line-height: 24px;
+}
+
+.footerReview {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 36px;
+}
+
+.isHelpful {
+    font-family: Montserrat;
+    font-size: var(--small-14);
+    font-weight: var(--medium);
+    line-height: 21px;
+    color: var(--primaryBlue);
+}
+
+.yesOrNot{
+    display: flex;
+    gap: 16px;
+}
+
+.like_dislike{
+    font-size: var(--medium-16);
+    font-weight: var(--medium);
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--disabled);
+    cursor: pointer;
+    border: none;
+}

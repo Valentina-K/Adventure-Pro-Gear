@@ -91,6 +91,20 @@
       "available":"In stock",
       "outOfStock":"Out of stock",
       "buy":"Buy"
-    }
+    },
+    "tabs":{
+      "description":"Description",
+      "characteristics": "Characteristics",
+      "reviews": "Reviews",
+      "important_to_us": "Your opinion is important to us!",
+      "tell_us": "Tell us your story about using our hiking gear. Your experiences can inspire others to take on new adventures. Thank you for choosing Adventure Pro Gear - your words mean the most to us!",
+      "message": "Message",
+      "rate":"Rate the product",
+      "send": "Send",
+      "password": "Password",
+      "thanking": "Thank you for your feedback! Your opinion is extremely important to us.",
+      "helpful": "Is this review helpful?",
+      "usersThink": " users found this review helpful"
+    }    
   }
 }
