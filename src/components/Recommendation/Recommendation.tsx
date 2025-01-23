@@ -1,33 +1,26 @@
 import React from 'react';
 import Image from 'next/image';
 import { getProducts } from '@/services/axios';
-import { IRecommendationProductProps } from '@/types';
-import star from '../../../public/icons/star.svg';
-import reviews from '../../../public/icons/reviews_recommendation.svg';
-import following from '../../../public/icons/Following.svg';
-import product from '../../../public/images/180x180.png';
+// import { IRecommendationProductProps } from '@/types';
+// import star from '../../../public/icons/star.svg';
+// import reviews from '../../../public/icons/reviews_recommendation.svg';
+// import following from '../../../public/icons/Following.svg';
+// import product from '../../../public/images/180x180.png';
 import style from './Recommendation.module.css';
-import { getAllTranslations, getTranslation } from '@/dictionaries/dictionaries';
-import { Locale } from '@/i18n-config';
+// import { getAllTranslations, getTranslation } from '@/dictionaries/dictionaries';
+// import { Locale } from '@/i18n-config';
 import ProductWrapper from '../product/ProductWrapper';
 
 export const dynamic = 'force-dynamic';
 
-export async function Recommendation({ params }: { params: { lang: Locale; productId: number } }) {
-
-  const translations = await getAllTranslations(params.lang);
-  const translation = getTranslation(translations);
-  const products = await getProducts();
+export async function Recommendation() {
+  // const translations = await getAllTranslations(params.lang);
+  // const translation = getTranslation(translations);
+  // const products = await getProducts();
 
   return (
     <>
       <h1 className={style.title}>Ми рекомендуємо</h1>
-      <ProductWrapper
-        product={product && product.data}
-        locale={params.lang}
-        products={products && products.data}
-        translation={translation('product')}
-      />
       {/* <ul className={style.list}>
         {recommendationProduct &&
           recommendationProduct?.map(
