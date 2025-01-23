@@ -58,7 +58,6 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
   const [buyQuantity, setBuyQuantity] = useState(0);
   const [tabIndex, setTabIndex] = useState(0);
   const [productReviews, setReviews] = useState<Review[]>(reviews);
-
   const handleChoiceColor = (index: number) => {
     console.log('from colorChoice', index);
     setAttrIndex(index);
@@ -69,7 +68,9 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
     setBuyQuantity(quantity);
   };
 
-  const handleBuyClick = () => {};
+  const handleBuyClick = (productId: number) => {
+    console.log('from buyClick: ', productId);
+  };
 
   const handleFavoriteClick = () => {};
 
