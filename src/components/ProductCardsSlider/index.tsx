@@ -80,15 +80,18 @@ const ProductCardsSlider: React.FC<CardsSliderProp> = ({
           <button
             className={activeNav === 0 ? styles.active : ''}
             onClick={() => prevSlide(0)}
-          ></button>
+            aria-label="Previous Slide"
+          />
           <button
             className={activeNav === 1 ? styles.active : ''}
             onClick={() => handleNavClick(1)}
-          ></button>
+            aria-label='Next slide'
+          />
           <button
             className={activeNav === 2 ? styles.active : ''}
             onClick={() => nextSlide(2)}
-          ></button>
+            aria-label='Next-slide'
+          />
         </div>
       </div>
     </div>

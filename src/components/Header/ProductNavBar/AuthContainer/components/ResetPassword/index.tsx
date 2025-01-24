@@ -145,7 +145,7 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ locale }) => {
           value={credentials.newPassword}
           onChange={handleChange}
           onBlur={handleBlur}
-          error={validationErrors.newPassword && validationErrors.newPassword.join(', ')} //validationErrors.name && validationErrors.name.join(', ')
+          error={validationErrors.newPassword && validationErrors.newPassword.join(', ')} // validationErrors.name && validationErrors.name.join(', ')
         />
         <Input
           placeholder={authTranslation && authTranslation.resetPasswordModal.placeholder[1]}
