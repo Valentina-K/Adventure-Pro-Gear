@@ -1,21 +1,35 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 import arrowsLeft from '@/../public/icons/Arrows.svg';
 import homeIcon from '@/../public/icons/home.svg';
 import styles from './Navigation.module.css';
+import Loading from '../Loading';
 
-function Navigation({ navigationPage, title }: { navigationPage?: string; title?: string }) {
+function Navigation({
+  navigationPage,
+  title,
+  productName,
+}: {
+  navigationPage?: string;
+  title?: string;
+  productName?: string;
+}) {
   const router = useRouter();
+  const pathName = usePathname();
+  const [loading, setLoading] = useState(false);
+
+  const pathArray = pathName.split('/');
+  const filteredArray = pathArray.filter(element => element !== '');
+
   const handleRedirectHomeClick = () => {
-    router.push('/');
+    router.push(`/${filteredArray[0]}/`);
+    setLoading(prev => !prev);
   };
-  const handleRedirectNavigationPageClick = () => {
-    // eslint-disable-next-line no-unused-expressions
-    title ? router.back() : '';
-  };
+console.log(filteredArray);
 
   return (
     <div className={styles.about_navigation_container}>
@@ -35,12 +49,15 @@ function Navigation({ navigationPage, title }: { navigationPage?: string; title?
         className={`${styles.about_navigation_img} ${title ? styles.title_navigation : ''}`}
       />
 
-      <p
-        className={`${styles.about_navigation} ${title ? styles.title_navigation : ''}`}
-        onClick={handleRedirectNavigationPageClick}
+      <Link
+        href={`/${filteredArray[0]}/${filteredArray[1]}/`}
+        className={`${styles.about_navigation} ${!title ? styles.title_navigation : ''}`}
       >
-        {navigationPage}
-      </p>
+        {filteredArray[0] === 'uk-UA'
+          ? productName || navigationPage
+          : productName || filteredArray[1].replace('_', ' ')}
+      </Link>
+
       {title && (
         <>
           <Image
@@ -50,9 +67,10 @@ function Navigation({ navigationPage, title }: { navigationPage?: string; title?
             height={20}
             className={styles.about_navigation_img}
           />
-          <p className={styles.about_navigation}>{title}</p>
+          <p className={`${styles.about_navigation} ${styles.title_navigation}`}>{title}</p>
         </>
       )}
+      {loading && <Loading />}
     </div>
   );
 }

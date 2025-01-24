@@ -15,6 +15,7 @@ import ProductCardsSlider from '../ProductCardsSlider';
 import Reviews from '../Tabs/Reviews';
 import styles from './productWrapper.module.css';
 import ImageCarousel from '../ImageCarousel/ImageCarousel';
+import Navigation from '../Navigation/Navigation';
 
 interface ProductWrapperProp {
   product: Product;
@@ -88,7 +89,10 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
   return (
     <Container>
       <div className={styles.breadcrumbWrapper}>
-        <BreadcrumbNavigation locale={locale} />
+        {/* <BreadcrumbNavigation locale={locale} /> */}
+        <Navigation
+          productName={locale === 'uk-UA' ? product.productNameUa : product.productNameEn}
+        />
       </div>
       <div className={styles.mainContainer}>
         <div className={styles.leftBlock}>
@@ -113,19 +117,16 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
                 <ReviewCount reviewCount={product.reviewCount} />
               </div>
               <div className={styles.priceBlock}>
-                <p className={styles.price}>
-                  {product.basePrice}
-                  ₴
-                </p>
+                <p className={styles.price}>{product.basePrice}₴</p>
                 <p className={styles.available}>В наявності</p>
               </div>
               <div className={styles.specialInfo}>
                 <p>
-                  Код товару: 
+                  Код товару:
                   <span>{product.productId}</span>
                 </p>
                 <p>
-                  Виробник: 
+                  Виробник:
                   <span>Terra Incognita</span>
                 </p>
               </div>

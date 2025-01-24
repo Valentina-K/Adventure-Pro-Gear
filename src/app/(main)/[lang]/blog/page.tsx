@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { Locale } from '@/i18n-config';
 import Image from 'next/image';
 import Link from 'next/link';
 import Container from '@/components/Container';
@@ -11,8 +12,9 @@ import style from './blog.module.css';
 
 export const dynamic = 'force-dynamic';
 
-async function Blog() {
+async function Blog({ params }: { params: { lang: Locale } }) {
   const blogs = await getBlogs();
+  const locale = params.lang;
 
   return (
     <Container>
@@ -25,7 +27,7 @@ async function Blog() {
           {blogs &&
             blogs?.map(({ id, postTitle, imageUrl }: IBlogsProps) => (
               <li key={id} className={style.blogs_item}>
-                <Link href={`/blog/${id}`}>
+                <Link href={`/${locale}/blog/${id}`}>
                   <Image
                     src={imgPost}
                     alt="img blog"

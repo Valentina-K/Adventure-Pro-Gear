@@ -7,8 +7,8 @@
   top: 40px;
   display: flex;
   align-items: center;
+  margin-bottom: 72px;
 }
-
 
 .about_navigation {
   font-weight: var(--medium-500);
@@ -17,14 +17,19 @@
   color: rgb(36, 35, 35);
 }
 
+.title_navigation {
+  cursor: auto;
+  pointer-events: none;
+}
+
 .about_navigation_img {
   margin: 0 5px;
 }
 
-.title_navigation{
-  cursor: pointer;
+.title_navigation {
+  cursor: auto;
+  pointer-events: none;
 }
-
 
 @media screen and (max-width: 1179px) {
   .about_navigation_container {
@@ -33,7 +38,6 @@
 }
 
 @media screen and (max-width: 743px) {
-
   .homeIcon {
     cursor: auto;
   }
