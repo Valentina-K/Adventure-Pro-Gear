@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, Suspense } from 'react';
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import Loading from '@/components/Loading';
 import Image from 'next/image';
 import EditData from '@/../public/icons/EditData.svg';
@@ -89,6 +89,9 @@ const ProfileMenu: React.FC<ProfileMenuProps> = ({ menuData, className, locale }
             href={`${window.location.origin}/${locale}/personal_account/exit/`}
             onMouseEnter={() => setExitHover(true)}
             onMouseLeave={() => setExitHover(false)}
+            onClick={() => {
+              signOut({ callbackUrl: `${AppRoutes.HOME}` });
+            }}
           >
             <Image src={SignOut} height={24} width={24} alt="exit icon" />
             {menuData && menuData[3]}
