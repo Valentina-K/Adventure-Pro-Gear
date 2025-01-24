@@ -30,7 +30,6 @@ export const options: NextAuthOptions = {
       },
       type: 'credentials',
       async authorize(credentials) {
-        console.log('Credentials: ', credentials);
         if (!credentials) return;
         const { email, password } = credentials;
         try {
@@ -105,12 +104,11 @@ export const options: NextAuthOptions = {
       }
       return token;
     },
-    async session({ session, token, user }) {
+    async session({ session, token }) {
       if (token.token) {
         const deepClone = _.cloneDeep(token);
         session.user = { ...deepClone };
       }
-      console.log('Session callback: ', { session, token, user });
       return { ...session };
     },
   },

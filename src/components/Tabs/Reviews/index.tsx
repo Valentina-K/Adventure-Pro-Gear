@@ -47,8 +47,9 @@ const Reviews: React.FC<ReviewsProp> = ({
                 <span>
                   {items.likes + items.dislikes === 0
                     ? 0
-                    : (100 * items.likes) / (items.likes + items.dislikes)}{' '}
-                  {'%'} {usersThink}
+                    : (100 * items.likes) / (items.likes + items.dislikes)}
+                  {' %'}
+                  {usersThink}
                 </span>
               </div>
               <div>{Date.now()}</div>
