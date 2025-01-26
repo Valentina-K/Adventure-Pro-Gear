@@ -86,7 +86,7 @@ const Card: React.FC<CardProps> = ({
       className={className}
       /* onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave} */
     >
-      <Link href={`/product/${product.productId}`} className={styles.cardLink}>
+      <Link href={`/${locale}/product/${product.productId}`} className={styles.cardLink}>
         <div className={classNameImg}>
           {addToFavorite && !isLogged && (
             <div

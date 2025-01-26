@@ -3,9 +3,22 @@ body,
 :root {
   height: 100%;
   width: 100%;
+  font-size: var(--medium-16);
+  font-weight: var(--medium);
+  line-height: var(--line-height-24);
+  color: var(--black-900);
 }
 
 * {
   margin: 0;
   padding: 0;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
 }

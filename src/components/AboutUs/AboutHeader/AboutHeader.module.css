@@ -8,28 +8,6 @@
   max-width: 100%;
 }
 
-.homeIcon {
-  cursor: pointer;
-}
-
-.about_navigation_container {
-  position: relative;
-  top: 40px;
-  display: flex;
-  align-items: center;
-}
-
-.about_navigation {
-  font-weight: var(--medium-500);
-  font-size: var(--small-14);
-  line-height: var(--line-height-21);
-  color: rgb(36, 35, 35);
-}
-
-.about_navigation_img {
-  margin: 0 5px;
-}
-
 .about_container {
   position: relative;
   top: 434px;
@@ -77,10 +55,6 @@
     background-position: top center;
   }
 
-  .about_navigation_container {
-    top: 16px;
-  }
-
   .about_container {
     top: 445px;
   }
@@ -107,14 +81,6 @@
   .about {
     height: 672px;
     background-position: 40% 30%;
-  }
-
-  .homeIcon {
-    cursor: auto;
-  }
-
-  .about_navigation_container {
-    top: 10px;
   }
 
   .about_navigation_img {

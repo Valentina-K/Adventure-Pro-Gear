@@ -1,0 +1,31 @@
+.pagination_container {
+  display: flex;
+  align-items: stretch;
+  justify-content: end;
+  margin-top: 25px;
+}
+
+.pagination_container button{
+    border: none;
+
+    font-size: var(--small-14);
+  font-weight: var(--medium);
+  line-height: var(--line-height-21);
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+      background-color: transparent;
+  margin-right: 2px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.pagination_container button:last-child{
+    margin-right: 0;
+  padding: 5px 0;
+}
+
+.pagination_btn_more, .pagination_btn_back {
+  display: flex;
+  text-align: center;
+
+}

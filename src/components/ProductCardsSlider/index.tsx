@@ -9,6 +9,7 @@ import styles from './ProductCardsSlider.module.css';
 interface CardsSliderProp {
   products: Product[];
   locale?: Locale;
+  recommendation?: Product[];
   translation: {
     card: {
       addToFollowing: string;
@@ -26,11 +27,12 @@ interface CardsSliderProp {
 
 const ProductCardsSlider: React.FC<CardsSliderProp> = ({
   products,
-  locale = 'uk-UA',
+  locale,
   translation,
   onBuyClick,
   onFavoriteClick,
   title,
+  recommendation,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [activeNav, setActiveNav] = useState(0);
@@ -55,16 +57,53 @@ const ProductCardsSlider: React.FC<CardsSliderProp> = ({
   const getVisibleSlides = () => {
     const start = currentIndex;
     const end = currentIndex + 3;
-    return products.slice(start, end);
+    return products?.slice(start, end);
   };
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>{title}</h2>
-      <div className={styles.slider}>
-        <div className={styles.slides}>
-          {getVisibleSlides().map((slide, index) => (
-            <div key={index} className={styles.slide}>
-              {slide.attributes.length > 0 && (
+      {!recommendation && (
+        <div className={styles.slider}>
+          <div className={styles.slides}>
+            {getVisibleSlides()?.map((slide, index) => (
+              <div key={index} className={styles.slide}>
+                {slide.attributes.length > 0 && (
+                  <Card
+                    product={slide}
+                    onBuyClick={onBuyClick}
+                    onFavoriteClick={onFavoriteClick}
+                    locale={locale}
+                    translation={translation}
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+          <div className={styles.nav}>
+            <button
+              className={activeNav === 0 ? styles.active : ''}
+              onClick={() => prevSlide(0)}
+              aria-label="Previous Slide"
+            />
+            <button
+              className={activeNav === 1 ? styles.active : ''}
+              onClick={() => handleNavClick(1)}
+              aria-label="Next slide"
+            />
+            <button
+              className={activeNav === 2 ? styles.active : ''}
+              onClick={() => nextSlide(2)}
+              aria-label="Next-slide"
+            />
+          </div>
+        </div>
+      )}
+
+      {recommendation && (
+        <div className={styles.slider}>
+          <div className={styles.slides}>
+            {recommendation?.map((slide, index) => (
+              <div key={index} className={styles.slide}>
                 <Card
                   product={slide}
                   onBuyClick={onBuyClick}
@@ -72,28 +111,11 @@ const ProductCardsSlider: React.FC<CardsSliderProp> = ({
                   locale={locale}
                   translation={translation}
                 />
-              )}
-            </div>
-          ))}
+              </div>
+            ))}
+          </div>
         </div>
-        <div className={styles.nav}>
-          <button
-            className={activeNav === 0 ? styles.active : ''}
-            onClick={() => prevSlide(0)}
-            aria-label="Previous Slide"
-          />
-          <button
-            className={activeNav === 1 ? styles.active : ''}
-            onClick={() => handleNavClick(1)}
-            aria-label='Next slide'
-          />
-          <button
-            className={activeNav === 2 ? styles.active : ''}
-            onClick={() => nextSlide(2)}
-            aria-label='Next-slide'
-          />
-        </div>
-      </div>
+      )}
     </div>
   );
 };

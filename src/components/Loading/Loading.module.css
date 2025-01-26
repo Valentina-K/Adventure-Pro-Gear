@@ -2,9 +2,10 @@
   height: 20px;
   width: 20px;
   border: 1px solid;
-  border-color: var(--white) transparent var(--white) transparent;
+  border-color: var(--newMarker) transparent var(--newMarker) transparent;
   border-radius: 50%;
   animation: spin 1.3s linear infinite;
+  margin-left: 10px;
 }
 
 @keyframes spin {
