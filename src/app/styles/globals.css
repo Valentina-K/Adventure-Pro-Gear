@@ -60,3 +60,12 @@
   --sale: #c83c33;
   --newMarker: #40898e;
 }
+
+body {
+	display: flex;
+	flex-direction: column;
+}
+
+.footer {
+	margin-top: auto;
+}

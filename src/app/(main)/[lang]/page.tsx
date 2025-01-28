@@ -24,7 +24,7 @@ const Page = async ({ params }: { params: { lang: Locale } }) => {
         </>
       ) : (
         <>
-          <Hero data={res && res.data} locale={params.lang} />
+          {/* <Hero data={res && res.data} locale={params.lang} /> */}
           <h2>Not Authenticated</h2>
         </>
       )}

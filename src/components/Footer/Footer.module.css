@@ -1,0 +1,105 @@
+.footer {
+	background-color: var(--darkBlue);
+	color: var(--white);
+	padding: 40px 0;
+}
+
+.copyright {
+	margin: 20px auto;
+	text-align: center;
+	font-size: 14px;
+}
+
+.nav {
+	display: flex;
+	flex-direction: row;
+}
+
+.nav b {
+	font-size: 20px;
+	display: flex;
+	flex-wrap: wrap;
+	font-weight: 600;
+	margin-bottom: 12px;
+}
+
+.nav .wrap {
+	display: flex;
+	gap: 120px;
+	margin-left: auto;
+}
+
+.menu {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.menu a {
+	display: inline-flex;
+	gap: 8px;
+	color: var(--white);
+	transition: color 0.15s ease-in-out;
+}
+.menu a:hover {
+	color: var(--yellow);
+}
+
+.subscribe {
+	display: flex;
+	padding: 32px 0;
+	background-color: var(--mediumBlue);
+}
+
+.subscribe .wrap {
+	display: flex;
+	gap: 20px;
+	margin-left: auto;
+}
+
+.subscribeText {
+	max-width: 380px;
+}
+
+.subscribeForm {
+	display: flex;
+	align-items: flex-start;
+	gap: 20px;
+}
+
+.subscribeForm button[type='submit'] {
+	background-color: var(--yellow);
+	color: var(--darkBlue);
+}
+
+.subscribeForm input[type='email'] {
+	width: 100%;
+	padding: 14px 16px;
+	border-radius: 5px;
+	border: none;
+	box-sizing: border-box;
+}
+
+.subscribeInputs {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	width: 380px;
+}
+
+.agreement {
+	display: flex;
+	align-items: baseline;
+	font-size: 12px;
+	gap: 8px;
+}
+
+.subscribeBtn {
+	display: flex;
+	padding: 14px 16px;
+	border-radius: 5px;
+	border: none;
+	cursor: pointer;
+	background-color: var(--yellow);
+	color: var(--darkBlue);
+}

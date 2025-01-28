@@ -1,0 +1,13 @@
+.socials {
+	flex-direction: row;
+	gap: 16px;
+}
+
+.socials a {
+	padding: 4px 2px;
+	transition: transform 0.15s ease-in-out;
+}
+
+.socials a:hover {
+	transform: scale(1.1);
+}
