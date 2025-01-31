@@ -29,10 +29,11 @@ async function Blog({ params }: { params: { lang: Locale } }) {
               <li key={id} className={style.blogs_item}>
                 <Link href={`/${locale}/blog/${id}`}>
                   <Image
-                    src={imgPost}
+                    // src={imgPost}
+										src={imageUrl}
                     alt="img blog"
-                    width="280"
-                    height="218"
+                    width="180"
+                    height="180"
                     className={style.blogs_item_img}
                   />
                   <div className={style.blogs_item_content}>

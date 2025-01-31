@@ -34,7 +34,9 @@ interface RootLayoutProps {
 const RootLayout: NextPage<RootLayoutProps> = async ({ params: { lang }, children, auth }) => {
   const translations = await getAllTranslations(lang);
   const translation = getTranslation(translations);
-  const res = await getProducts();
+	// toDo: too slow
+  // const res = await getProducts();
+	/////////////////
   // console.log('products: ', res);
   // console.log(children);
   // const session = await getServerSession(options);
@@ -45,7 +47,7 @@ const RootLayout: NextPage<RootLayoutProps> = async ({ params: { lang }, childre
       <html lang="en">
         <AuthProvider>
           <body className={inter.className}>
-            <Header translation={translation('nav')} locale={lang} products={res && res.data} />
+            <Header translation={translation('nav')} locale={lang} products={null} />
             <main>{children}</main>
             <Footer translation={translation('footer')} locale={lang} />
             <ToastContainer hideProgressBar={true} />

@@ -11,14 +11,15 @@ import AuthModal from '@/components/AuthModal';
 const Page = async ({ params }: { params: { lang: Locale } }) => {
   const session = await getServerSession(options);
   // console.log('session: ', session);
-  const res = await getProducts();
+	  // toDo: too slow
+  // const res = await getProducts();
   // console.log(res);
 
   return (
     <>
       {session ? (
         <>
-          <Hero data={res && res.data} locale={params.lang} />
+          {/* <Hero data={res && res.data} locale={params.lang} /> */}
           <h2>Authenticated</h2>
           <SignOutButton />
         </>
