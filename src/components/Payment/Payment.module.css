@@ -1,0 +1,18 @@
+.title {
+    margin-bottom: 16px;
+    font-family: Montserrat;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 30px;
+    color: #353535;
+  }
+
+.container{
+    display: flex;
+    gap: 30px;
+}
+
+.image{
+    object-fit: contain;
+    cursor: pointer;
+}

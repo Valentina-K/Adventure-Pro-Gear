@@ -84,6 +84,13 @@
     "menuData": ["Orders", "Edit Data", "Favourites", "Exit"]
   },
   "product":{
+    "page":{
+      "code":"Product code",
+      "manufacturer":"Manufacturer",
+      "buyWithThis":"With this buy",
+      "similarProducts":"Similiar products",
+      "previouslyViewed":"Items you've viewed"
+    },
     "card":{
       "addToFollowing":"Log in to add item to your wish list",
       "sale":"Sale",

@@ -13,9 +13,10 @@ import { Product, Review } from '@/interfaces/product';
 import { getAllReviewsByProductId } from '@/clientServices/clientAxios';
 import ProductCardsSlider from '../ProductCardsSlider';
 import Reviews from '../Tabs/Reviews';
-import styles from './productWrapper.module.css';
 import ImageCarousel from '../ImageCarousel/ImageCarousel';
 import Navigation from '../Navigation/Navigation';
+import Payment from '../Payment';
+import styles from './productWrapper.module.css';
 
 interface ProductWrapperProp {
   product: Product;
@@ -23,6 +24,13 @@ interface ProductWrapperProp {
   products: Product[];
   reviews: Review[];
   translation: {
+    page: {
+      code: string;
+      manufacturer: string;
+      buyWithThis: string;
+      similarProducts: string;
+      previouslyViewed: string;
+    }
     card: {
       addToFollowing: string;
       sale: string;
@@ -58,7 +66,9 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
   const [attrIndex, setAttrIndex] = useState(0);
   const [buyQuantity, setBuyQuantity] = useState(0);
   const [tabIndex, setTabIndex] = useState(0);
+  const [payment, setPayment] = useState<string>('visa');
   const [productReviews, setReviews] = useState<Review[]>(reviews);
+  const isAvailable = product.attributes[attrIndex].quantity > 0;
   const handleChoiceColor = (index: number) => {
     console.log('from colorChoice', index);
     setAttrIndex(index);
@@ -71,6 +81,11 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
 
   const handleBuyClick = (productId: number) => {
     console.log('from buyClick: ', productId);
+  };
+
+  const onChoisePayment = (name: string) => {
+    setPayment(name);
+    console.log('from choise payment: ', name);
   };
 
   const handleFavoriteClick = () => {};
@@ -117,8 +132,13 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
                 <ReviewCount reviewCount={product.reviewCount} />
               </div>
               <div className={styles.priceBlock}>
-                <p className={styles.price}>{product.basePrice}₴</p>
-                <p className={styles.available}>В наявності</p>
+                <p className={styles.price}>
+                  {product.basePrice}
+                  ₴
+                </p>
+                <p className={styles.available}>
+                  { isAvailable ? translation.card.available : translation.card.outOfStock }
+                </p>
               </div>
               <div className={styles.specialInfo}>
                 <p>
@@ -136,9 +156,7 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
               quantity={product.attributes[attrIndex].quantity}
               onChange={quantity => handleChangeQuantity(quantity)}
             />
-            <div className={styles.payBlock}>
-              <h3>Спосіб оплати</h3>
-            </div>
+            <Payment onClick={onChoisePayment} />
           </section>
           <section className={styles.additionalOffers}>
             <div className={styles.withThisBuy}>

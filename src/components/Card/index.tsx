@@ -100,11 +100,10 @@ const Card: React.FC<CardProps> = ({
             </div>
           )}
           <Image
-            className={styles.productImage}
+            className={styles.image}
             src={productImage}
-            layout="fill"
-            objectFit="contain"
             alt={productName}
+            layout="fill"
           />
           <div
             className={
