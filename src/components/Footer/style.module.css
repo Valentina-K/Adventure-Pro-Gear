@@ -1,0 +1,62 @@
+.footer {
+  background-color: var(--darkBlue);
+  color: var(--white);
+  padding: 40px 0;
+}
+
+.copyright {
+  margin: 20px auto;
+  text-align: center;
+  font-size: 14px;
+}
+
+.nav {
+  display: flex;
+  flex-direction: row;
+}
+
+.nav b {
+  font-size: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.nav .wrap {
+  display: flex;
+  gap: 120px;
+  margin-left: auto;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.menu a {
+  display: inline-flex;
+  gap: 8px;
+  color: var(--white);
+  transition: color 0.15s ease-in-out;
+}
+.menu a:hover {
+  color: var(--yellow);
+}
+
+.subscribeContainer {
+  display: flex;
+  padding: 32px 0;
+  background-color: var(--mediumBlue);
+}
+
+.subscribeContainer .wrap {
+  display: flex;
+  gap: 20px;
+  margin-left: auto;
+}
+
+.subscribeContainer .text {
+  max-width: 380px;
+}

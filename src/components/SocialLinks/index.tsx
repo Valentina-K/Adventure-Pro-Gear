@@ -1,12 +1,12 @@
 import clsx from 'clsx';
 import Link from 'next/link';
 
-import styles from './SocialLinks.module.css';
+import style from './SocialLinks.module.css';
 
 const SocialLinks = ({ className }: { className?: string }) => (
-  <ul className={clsx(className, styles.socials)}>
+  <ul className={clsx(className, style.socials)}>
     <li>
-      <Link href="#" target="_blank" rel="noopener noreferrer">
+      <Link href="/" rel="noopener noreferrer">
         <svg
           width="24"
           height="24"
@@ -36,7 +36,7 @@ const SocialLinks = ({ className }: { className?: string }) => (
       </Link>
     </li>
     <li>
-      <Link href="#" target="_blank" rel="noopener noreferrer">
+      <Link href="/" rel="noopener noreferrer">
         <svg
           width="24"
           height="24"
@@ -58,7 +58,7 @@ const SocialLinks = ({ className }: { className?: string }) => (
       </Link>
     </li>
     <li>
-      <Link href="#" target="_blank" rel="noopener noreferrer">
+      <Link href="/" rel="noopener noreferrer">
         <svg
           width="24"
           height="24"
@@ -86,7 +86,7 @@ const SocialLinks = ({ className }: { className?: string }) => (
       </Link>
     </li>
     <li>
-      <Link href="#" target="_blank" rel="noopener noreferrer">
+      <Link href="/" rel="noopener noreferrer">
         <svg
           width="24"
           height="24"

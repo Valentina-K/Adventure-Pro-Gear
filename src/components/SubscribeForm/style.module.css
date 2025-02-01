@@ -1,0 +1,47 @@
+.subscribeForm {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.subscribeForm button[type='submit'] {
+  background-color: var(--yellow);
+  color: var(--darkBlue);
+}
+
+.subscribeForm input[type='email'] {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 5px;
+  border: none;
+  box-sizing: border-box;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 380px;
+}
+
+.agreement {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  gap: 8px;
+}
+
+.btn {
+  display: flex;
+  padding: 14px 16px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  background-color: var(--yellow);
+  color: var(--darkBlue);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

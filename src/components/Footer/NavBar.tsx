@@ -1,66 +1,66 @@
 import type { Locale } from '@/i18n-config';
 import type { NextPage } from 'next';
-
 import Image from 'next/image';
 import Link from 'next/link';
 import clsx from 'clsx';
+
 import logoFooter from '@/../public/logo-footer.svg';
-import styles from '../Footer.module.css';
 import SocialLinks from '@/components/SocialLinks';
+import style from './style.module.css';
 
 interface FooterProps {
   locale?: Locale;
 }
 
 const Footer: NextPage<FooterProps> = ({ locale }) => (
-  <nav className={styles.nav}>
+  <nav className={style.nav}>
     <Link href="/" className="logo">
       <Image src={logoFooter} width={180} alt="logo" />
     </Link>
 
-    <div className={styles.wrap}>
+    <div className={style.wrap}>
       <div>
         <b>Інформація</b>
-        <ul className={styles.menu}>
+        <ul className={style.menu}>
           <li>
-            <Link href="#">Про нас</Link>
+            <Link href="/">Про нас</Link>
           </li>
           <li>
-            <Link href="#">Акції</Link>
+            <Link href="/">Акції</Link>
           </li>
           <li>
-            <Link href="#">Блог</Link>
+            <Link href="/">Блог</Link>
           </li>
           <li>
-            <Link href="#">Виробники</Link>
+            <Link href="/">Виробники</Link>
           </li>
           <li>
-            <Link href="#">Умови користувача</Link>
+            <Link href="/">Умови користувача</Link>
           </li>
         </ul>
       </div>
 
       <div>
         <b>Підтримка</b>
-        <ul className={styles.menu}>
+        <ul className={style.menu}>
           <li>
-            <Link href="#">Гарантія</Link>
+            <Link href="/">Гарантія</Link>
           </li>
           <li>
-            <Link href="#">Доставка</Link>
+            <Link href="/">Доставка</Link>
           </li>
           <li>
-            <Link href="#">Оплата</Link>
+            <Link href="/">Оплата</Link>
           </li>
           <li>
-            <Link href="#">Повернення та обмін</Link>
+            <Link href="/">Повернення та обмін</Link>
           </li>
         </ul>
       </div>
 
       <div>
         <b>Наші контакти</b>
-        <ul className={styles.menu}>
+        <ul className={style.menu}>
           <li>
             <a href="tel:+380504545659">
               <svg
@@ -107,7 +107,9 @@ const Footer: NextPage<FooterProps> = ({ locale }) => (
         </ul>
         <br />
         <b>Ми у соціальних мережах</b>
-        <SocialLinks className={clsx(styles.menu)} />
+        <div className={clsx(style.menu)}>
+          <SocialLinks />
+        </div>
       </div>
     </div>
   </nav>
