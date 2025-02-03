@@ -100,6 +100,29 @@
 /* .availableBlock{
 
 } */
+.buySection {
+    display: flex;
+    gap: 24px;
+}
+
+.buyButton {
+    width: 248px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background: var(--greenForBtn);
+    border: 1px solid var(--greem);
+    border-radius: 5px;
+
+    font-weight: var(--medium);
+    font-size: var(--medium-18);
+    line-height: 150%;
+}
+
+.buyButton:hover {
+    background: var(--greenForBtnHover);
+}
 
 .additionalOffers {
     display: flex;

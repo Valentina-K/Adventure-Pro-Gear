@@ -4,26 +4,28 @@ import paypal from '@/../public/images/payPal.png';
 import googlepay from '@/../public/images/googlePay.png';
 import visa from '@/../public/images/visa.png';
 import mastercard from '@/../public/images/mastercard.png';
+import Payments from '@/constants/payments';
 import styles from './Payment.module.css';
 
 interface PaymentProps {
-  onClick: (name: string) => void;
+  title: string;
+  onClick: (name: Payments) => void;
 }
 
-const Payment: React.FC<PaymentProps> = ({ onClick })=> {
-  const handleClick = (name: string) => {
+const Payment: React.FC<PaymentProps> = ({ title, onClick })=> {
+  const handleClick = (name: Payments) => {
     onClick(name);
   };
   return (
     <div>
-      <h3 className={styles.title}>Спосіб оплати</h3>
+      <h3 className={styles.title}>{title}</h3>
       <div className={styles.container}>
         <Image
           src={visa}
           alt="visa"
           width={60}
           height={41}
-          onClick={() => handleClick('visa')}
+          onClick={() => handleClick(Payments.VISA)}
           className={styles.image}
         />
         <Image
@@ -31,7 +33,7 @@ const Payment: React.FC<PaymentProps> = ({ onClick })=> {
           alt="mastercard"
           width={60}
           height={41}
-          onClick={() => handleClick('mastercard')}
+          onClick={() => handleClick(Payments.MASTERCARD)}
           className={styles.image}
         />
         <Image
@@ -39,7 +41,7 @@ const Payment: React.FC<PaymentProps> = ({ onClick })=> {
           alt="paypal"
           width={60}
           height={41}
-          onClick={() => handleClick('paypal')}
+          onClick={() => handleClick(Payments.PAYPAL)}
           className={styles.image}
         />
         <Image
@@ -47,7 +49,7 @@ const Payment: React.FC<PaymentProps> = ({ onClick })=> {
           alt="googlepay"
           width={60}
           height={41}
-          onClick={() => handleClick('googlepay')}
+          onClick={() => handleClick(Payments.GOOGLEPAY)}
           className={styles.image}
         />
       </div>

@@ -92,7 +92,11 @@
       "manufacturer":"Виробник",
       "buyWithThis":"З цим купують",
       "similarProducts":"Схожі товари",
-      "previouslyViewed":"Товари, які ви переглянули"
+      "previouslyViewed":"Товари, які ви переглянули",
+      "paymentMethod":"Спосіб оплати",
+      "availableOptions":"Доступні варіанти",
+      "color":"Колір",
+      "clear":"Очистити"
     },
     "card":{
       "addToFollowing":"Увійдіть на сайт щоб додати товар в список бажань",

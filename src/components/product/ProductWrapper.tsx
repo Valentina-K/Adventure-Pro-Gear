@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 import Container from '@/components/Container';
 import BreadcrumbNavigation from '@/components/BreadcrumbNavigation';
 import { Locale } from '@/i18n-config';
@@ -11,12 +12,15 @@ import ReviewCount from '@/components/ReviewCount';
 import QuantitySelector from '@/components/QuantitySelector/QuantitySelector';
 import { Product, Review } from '@/interfaces/product';
 import { getAllReviewsByProductId } from '@/clientServices/clientAxios';
+import Payments from '@/constants/payments';
+import Comercial from '@/../public/icons/Comercial.svg';
 import ProductCardsSlider from '../ProductCardsSlider';
 import Reviews from '../Tabs/Reviews';
 import ImageCarousel from '../ImageCarousel/ImageCarousel';
 import Navigation from '../Navigation/Navigation';
 import Payment from '../Payment';
 import styles from './productWrapper.module.css';
+import Button from '../Button';
 
 interface ProductWrapperProp {
   product: Product;
@@ -30,7 +34,11 @@ interface ProductWrapperProp {
       buyWithThis: string;
       similarProducts: string;
       previouslyViewed: string;
-    }
+      paymentMethod: string;
+      availableOptions: string;
+      color: string;
+      clear: string;
+    };
     card: {
       addToFollowing: string;
       sale: string;
@@ -66,9 +74,15 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
   const [attrIndex, setAttrIndex] = useState(0);
   const [buyQuantity, setBuyQuantity] = useState(0);
   const [tabIndex, setTabIndex] = useState(0);
-  const [payment, setPayment] = useState<string>('visa');
+  const [payment, setPayment] = useState<Payments>(Payments.VISA);
   const [productReviews, setReviews] = useState<Review[]>(reviews);
   const isAvailable = product.attributes[attrIndex].quantity > 0;
+  const cart = {
+    productId: product.productId,
+    quantity: 0,
+    payment,
+    color: product.attributes[attrIndex].color
+  };
   const handleChoiceColor = (index: number) => {
     console.log('from colorChoice', index);
     setAttrIndex(index);
@@ -79,11 +93,15 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
     setBuyQuantity(quantity);
   };
 
-  const handleBuyClick = (productId: number) => {
-    console.log('from buyClick: ', productId);
+  const handleBuyClick = () => {
+    cart.productId = product.productId;
+    cart.quantity = buyQuantity;
+    cart.payment = payment;
+    cart.color = product.attributes[attrIndex].color;
+    console.log('from buyClick: ', cart);
   };
 
-  const onChoisePayment = (name: string) => {
+  const onChoisePayment = (name: Payments) => {
     setPayment(name);
     console.log('from choise payment: ', name);
   };
@@ -137,26 +155,44 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
                   ₴
                 </p>
                 <p className={styles.available}>
-                  { isAvailable ? translation.card.available : translation.card.outOfStock }
+                  {isAvailable ? translation.card.available : translation.card.outOfStock}
                 </p>
               </div>
               <div className={styles.specialInfo}>
                 <p>
-                  Код товару:
+                  {translation.page.code}
+                  :
                   <span>{product.productId}</span>
                 </p>
                 <p>
-                  Виробник:
+                  {translation.page.manufacturer}
+                  :
                   <span>Terra Incognita</span>
                 </p>
               </div>
             </div>
-            <AvailableColors onColorChoice={handleChoiceColor} imageArray={colorItems} />
-            <QuantitySelector
-              quantity={product.attributes[attrIndex].quantity}
-              onChange={quantity => handleChangeQuantity(quantity)}
+            <AvailableColors
+              title={translation.page.availableOptions}
+              h4={translation.page.color}
+              clear={translation.page.clear}
+              onColorChoice={handleChoiceColor}
+              imageArray={colorItems}
             />
-            <Payment onClick={onChoisePayment} />
+            <div className={styles.buySection}>
+              <QuantitySelector
+                quantity={product.attributes[attrIndex].quantity}
+                onChange={quantity => handleChangeQuantity(quantity)}
+              />
+              <Button
+                className={styles.buyButton}
+                text={translation.card.buy}
+                disabled={!isAvailable}
+                icon={<Image src={Comercial} width={20} height={20} alt="Comercial" />}
+                onClick={handleBuyClick}
+              />
+
+            </div>
+            <Payment title={translation.page.paymentMethod} onClick={onChoisePayment} />
           </section>
           <section className={styles.additionalOffers}>
             <div className={styles.withThisBuy}>
@@ -166,7 +202,7 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
                 translation={translation}
                 onBuyClick={handleBuyClick}
                 onFavoriteClick={handleFavoriteClick}
-                title="З цим купують"
+                title={translation.page.buyWithThis}
               />
             </div>
             <div className={styles.relatedProducts}>
@@ -176,7 +212,7 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
                 translation={translation}
                 onBuyClick={handleBuyClick}
                 onFavoriteClick={handleFavoriteClick}
-                title="Схожі товари"
+                title={translation.page.similarProducts}
               />
             </div>
           </section>
@@ -194,7 +230,7 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
         )}
       </section>
       <div className={styles.prevViewed}>
-        <h2>Товари, які ви переглянули</h2>
+        <h2>{translation.page.previouslyViewed}</h2>
       </div>
     </Container>
   );
