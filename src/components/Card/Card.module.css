@@ -98,6 +98,10 @@
   filter: grayscale(100%);
 }
 
+.image{  
+  object-fit: contain;
+}
+
 .specialWrapper {
   display: flex;
   flex-direction: column;

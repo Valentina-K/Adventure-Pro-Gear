@@ -41,7 +41,7 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
     if (value > 1) setIsDisabledSubt(false);
     else setIsDisabledSubt(true);
     onChange(value);
-  }, [value]);
+  }, [value, onChange, quantity]);
 
   return (
     <div className={classNameWrapper}>

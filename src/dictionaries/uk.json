@@ -87,6 +87,17 @@
     "menuData": ["Замовлення", "Редагувати дані", "Улюблені", "Вихід"]
   },
   "product":{
+    "page":{
+      "code":"Код товару",
+      "manufacturer":"Виробник",
+      "buyWithThis":"З цим купують",
+      "similarProducts":"Схожі товари",
+      "previouslyViewed":"Товари, які ви переглянули",
+      "paymentMethod":"Спосіб оплати",
+      "availableOptions":"Доступні варіанти",
+      "color":"Колір",
+      "clear":"Очистити"
+    },
     "card":{
       "addToFollowing":"Увійдіть на сайт щоб додати товар в список бажань",
       "sale":"Акція",
