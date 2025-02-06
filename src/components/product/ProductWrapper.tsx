@@ -21,11 +21,12 @@ import Navigation from '../Navigation/Navigation';
 import Payment from '../Payment';
 import styles from './productWrapper.module.css';
 import Button from '../Button';
+import { useProduct } from '@/contexts/ProductContext';
 
 interface ProductWrapperProp {
-  product: Product;
+  /* product: Product; */
   locale: Locale;
-  products: Product[];
+  /* products: Product[]; */
   reviews: Review[];
   translation: {
     page: {
@@ -65,12 +66,13 @@ interface ProductWrapperProp {
 }
 
 const ProductWrapper: React.FC<ProductWrapperProp> = ({
-  product,
+  /* product, */
   locale,
-  products,
+  /* products, */
   reviews,
   translation,
 }) => {
+  const { product, products } = useProduct();
   const [attrIndex, setAttrIndex] = useState(0);
   const [buyQuantity, setBuyQuantity] = useState(0);
   const [tabIndex, setTabIndex] = useState(0);

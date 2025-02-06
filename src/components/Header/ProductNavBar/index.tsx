@@ -8,13 +8,12 @@ import Likes from './Likes';
 import CatalogOfGoods from './Catalog';
 import styles from './ProductNavBar.module.css';
 
-const ProductNavBar: React.FC<HeaderProps> = ({ translation, locale, products }) => (
+const ProductNavBar: React.FC<HeaderProps> = async ({ translation, locale }) => (
   <div className={styles.background}>
     <Container className={styles.container}>
       <div className={styles.productNavBarChildren}>
         <CatalogOfGoods catalog={translation.catalog} />
         <Search
-          products={products}
           unavailable={translation.search.unavailable}
           showall={translation.search.showall}
           locale={locale}

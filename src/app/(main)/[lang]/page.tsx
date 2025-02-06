@@ -11,7 +11,7 @@ import AuthModal from '@/components/AuthModal';
 const Page = async ({ params }: { params: { lang: Locale } }) => {
   const session = await getServerSession(options);
   // console.log('session: ', session);
-	  // toDo: too slow
+  // toDo: too slow
   // const res = await getProducts();
   // console.log(res);
 

@@ -1,42 +1,53 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import SearchIcon from '@/../public/icons/SearchIcon.svg';
 import { AppRoutes } from '@/constants/routes';
 import { Locale } from '@/i18n-config';
-import { Url } from 'next/dist/shared/lib/router/router';
-import styles from './Search.module.css';
+import { Product } from '@/interfaces/product';
+import { useProduct } from '@/contexts/ProductContext';
 import Button from '../Button';
+import styles from './Search.module.css';
+import { set } from 'lodash';
 
 interface SearchProps {
   placeholder: string;
   unavailable: string;
   showall: string;
-  products: any[];
   locale: Locale;
 }
 
-interface Product {
-  productId: string;
-  productNameUa: string;
-  productNameEn: string;
-  basePrice: number;
-  selfLink: string;
-}
-
-const Search: React.FC<SearchProps> = ({ placeholder, products, unavailable, showall, locale }) => {
+const Search: React.FC<SearchProps> = ({
+  placeholder,
+  unavailable,
+  showall,
+  locale,
+}) => {
   const [value, setValue] = useState<string>('');
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+  const [filteredItems, setFilteredItems] = useState<Product[]>([]);
   const [isDropdownVisible, setIsDropdownVisible] = useState<boolean>(false);
   const router = useRouter();
+  const { products, setProduct, setFilteredProducts } = useProduct();
+  useEffect(() => {
+    if (value.length >= 1) {
+      const filtered = products.filter(product =>
+        (locale === 'uk-UA' ? product.productNameUa : product.productNameEn)
+          .toLowerCase()
+          .includes(value.toLowerCase()));
+      setFilteredItems(filtered);
+    } else {
+      setFilteredItems([]);
+    }
+  }, [setFilteredItems, products, value, locale]);
 
   const handlerOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
 
   const handleFocus = () => {
+    setValue('');
     setIsDropdownVisible(true);
   };
 
@@ -44,33 +55,23 @@ const Search: React.FC<SearchProps> = ({ placeholder, products, unavailable, sho
     setTimeout(() => setIsDropdownVisible(false), 200);
   };
 
-  const handleProductClick = (productId: string) => {
-    router.push(`/products/${productId}`);
+  const handleProductClick = (product: Product) => {
+    setProduct(product);
+    router.push(`/${locale}/product/${product.productId}`);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      router.push(`${AppRoutes.PRODUCTS}`);
+      // need to fix this
+      setFilteredProducts(filteredItems);
+      router.push(`/${locale}${AppRoutes.PRODUCTS.replace('*', value)}`);
     }
   };
 
-  useEffect(() => {
-    try {
-      if (value.length >= 1) {
-        const filtered = products.filter(product =>
-          (locale === 'uk-UA' ? product.productNameUa : product.productNameEn)
-            .toLowerCase()
-            .startsWith(value.toLowerCase())
-        );
-        setFilteredProducts(filtered);
-      } else {
-        setFilteredProducts([]);
-      }
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error('error', error);
-    }
-  }, [value, products, locale]);
+  const handleAllClick = () => {
+    setFilteredProducts(filteredItems);
+    router.push(`/${locale}${AppRoutes.PRODUCTS.replace('*', value)}`);
+  };
 
   return (
     <div className={styles.search_box}>
@@ -83,40 +84,42 @@ const Search: React.FC<SearchProps> = ({ placeholder, products, unavailable, sho
         onFocus={handleFocus}
         onBlur={handleBlur}
       />
-      <span className={styles.search_icon}>
+      <span className={styles.search_icon} onClick={handleAllClick}>
         <Image src={SearchIcon} alt="Search Icon" width={22} height={22} priority />
       </span>
 
       {isDropdownVisible && value.length >= 1 && (
         <ul className={styles.dropdown}>
-          {filteredProducts.length > 0 ? (
+          {filteredItems.length > 0 ? (
             <>
-              {filteredProducts.slice(0, 5).map(product => (
-                <button
-                  className={styles.dropdown_li}
-                  key={product.productId}
-                  onClick={() => handleProductClick(product.productId)}
-                >
-                  <span className={styles.smallcard_icon}>
-                    {/* <Image
-                      alt='Product icon'
-                      src={product.selfLink} width={80} height={80} /> */}
-                    Icon
-                  </span>
-                  <div className={styles.smallcard_main}>
-                    <span className={styles.smallcard_name}>
-                      {locale === 'uk-UA' ? product.productNameUa : product.productNameEn}
+              {filteredItems.slice(0, 5).map(product => (
+                <li key={product.productId}>
+                  <button
+                    className={styles.dropdown_li}
+                    onClick={() => handleProductClick(product)}
+                  >
+                    <span className={styles.smallcard_icon}>
+                      {/* <Image alt="Product icon" src={product.selfLink} width={80} height={80} /> */}
+                      Icon
                     </span>
-                    <span className={styles.smallcard_price}>{product.basePrice} ₴</span>
-                  </div>
-                </button>
+                    <div className={styles.smallcard_main}>
+                      <span className={styles.smallcard_name}>
+                        {locale === 'uk-UA' ? product.productNameUa : product.productNameEn}
+                      </span>
+                      <span className={styles.smallcard_price}>
+                        {product.basePrice}
+                        ₴
+                      </span>
+                    </div>
+                  </button>
+                </li>
               ))}
               <li key="dropdown-button" className={styles.dropdown_li_end}>
                 <Button
                   className={styles.dropdown_button}
                   text={showall}
                   border="1px solid #1E5F72"
-                  onClick={() => router.push(`${AppRoutes.PRODUCTS}`)}
+                  onClick={handleAllClick}
                 />
               </li>
             </>

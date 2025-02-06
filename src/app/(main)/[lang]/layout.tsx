@@ -8,10 +8,11 @@ import { NextPage } from 'next';
 import { getAllTranslations, getTranslation } from '@/dictionaries/dictionaries';
 import AuthProvider from '@/components/AuthProvider';
 import { Montserrat } from 'next/font/google';
-import '@/app/styles/_normilize.css';
-import '@/app/styles/globals.css';
 import { getProducts } from '@/services/axios';
 import { Locale } from '../../../i18n-config';
+import '@/app/styles/_normilize.css';
+import '@/app/styles/globals.css';
+import { ProductProvider, useProduct } from '@/contexts/ProductContext';
 
 export const metadata: Metadata = {
   title: 'Adventure Pro Gear',
@@ -34,9 +35,8 @@ interface RootLayoutProps {
 const RootLayout: NextPage<RootLayoutProps> = async ({ params: { lang }, children, auth }) => {
   const translations = await getAllTranslations(lang);
   const translation = getTranslation(translations);
-	// toDo: too slow
-  // const res = await getProducts();
-	/////////////////
+  // toDo: too slow
+  const res = await getProducts();
   // console.log('products: ', res);
   // console.log(children);
   // const session = await getServerSession(options);
@@ -46,12 +46,14 @@ const RootLayout: NextPage<RootLayoutProps> = async ({ params: { lang }, childre
     <ReduxProvider>
       <html lang="en">
         <AuthProvider>
-          <body className={inter.className}>
-            <Header translation={translation('nav')} locale={lang} products={null} />
-            <main>{children}</main>
-            <Footer translation={translation('footer')} locale={lang} />
-            <ToastContainer hideProgressBar={true} />
-          </body>
+          <ProductProvider initialProducts={res?.data}>
+            <body className={inter.className}>
+              <Header translation={translation('nav')} locale={lang} products={null} />
+              <main>{children}</main>
+              <Footer translation={translation('footer')} locale={lang} />
+              <ToastContainer hideProgressBar={true} />
+            </body>
+          </ProductProvider>
         </AuthProvider>
       </html>
     </ReduxProvider>

@@ -13,6 +13,7 @@ const publicRoutes = [
   AppRoutes.SIGNIN,
   AppRoutes.SIGN_UP,
   AppRoutes.FORGOT_PASSWORD,
+  AppRoutes.PRODUCTS,
   `/?auth=reset-password&token=*`,
   '/contacts/',
   '/about_us/',
@@ -39,7 +40,8 @@ const isPublicDynamicRoute = (pathname: string) => {
   return (
     pathname.startsWith('/product/') ||
     pathname.startsWith('/blog/') ||
-    pathname.startsWith('/user/')
+    pathname.startsWith('/user/') ||
+    pathname.startsWith('/filtered_products/')
   );
 };
 
