@@ -12,7 +12,7 @@ import { getProducts } from '@/services/axios';
 import { Locale } from '../../../i18n-config';
 import '@/app/styles/_normilize.css';
 import '@/app/styles/globals.css';
-import { ProductProvider, useProduct } from '@/contexts/ProductContext';
+import { ProductProvider } from '@/contexts/ProductContext';
 
 export const metadata: Metadata = {
   title: 'Adventure Pro Gear',

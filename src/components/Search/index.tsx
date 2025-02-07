@@ -10,7 +10,6 @@ import { Product } from '@/interfaces/product';
 import { useProduct } from '@/contexts/ProductContext';
 import Button from '../Button';
 import styles from './Search.module.css';
-import { set } from 'lodash';
 
 interface SearchProps {
   placeholder: string;
