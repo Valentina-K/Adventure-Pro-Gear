@@ -133,9 +133,9 @@ const SignUp: React.FC<SignUpProps> = ({ locale }) => {
   const clientRegisterAction = async (formData: FormData) => {
     const response = await registerAction(formData, locale);
     console.log('response from a server: ', response);
-    if (response?.errors) {
-      setValidationErrors(response.errors);
-    }
+    // if (response?.errors ) {
+    //   setValidationErrors(response.errors);
+    // }
     if (response?.submitError) {
       if (
         response?.submitError === `Email ${credentials.email} is already in use.` &&
