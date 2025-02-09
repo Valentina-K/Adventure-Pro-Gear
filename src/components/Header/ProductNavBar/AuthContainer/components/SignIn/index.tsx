@@ -10,15 +10,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { getAllTranslations, getTranslation } from '@/dictionaries/dictionaries';
 import { getLogInSchema, LogInData } from '@/validation';
-// import Button from '@/components/Button';
 import { AppRoutes } from '@/constants/routes';
 import Form from '@/components/Form';
-import Input from '@/components/Input';
 import Checkbox from '@/components/Checkbox/Checkbox';
-
-import styles from './SignIn.module.css';
 import { Field, Button } from '@/components/UI';
 import FieldPassword from '@/components/UI/Field/FieldPassword';
+
+import styles from './SignIn.module.css';
 
 interface SignInProps {
   locale: Locale;
@@ -44,10 +42,9 @@ const SignIn: React.FC<SignInProps> = ({ locale }) => {
     register,
     handleSubmit,
     setError,
-    reset,
     formState: { errors, isValid },
   } = useForm<LogInData>({
-    mode: 'onSubmit',
+    mode: 'onTouched',
     resolver: zodResolver(getLogInSchema(authTranslation)),
   });
 
@@ -83,6 +80,7 @@ const SignIn: React.FC<SignInProps> = ({ locale }) => {
         <Field
           register={register}
           name="email"
+          type="email"
           placeholder="email"
           errors={errors?.email}
           required
@@ -103,7 +101,7 @@ const SignIn: React.FC<SignInProps> = ({ locale }) => {
           Забули пароль?
         </Link>
 
-        <Checkbox className={styles.checkboxSignIn} text="Remember me" id="remember" />
+        <Checkbox className={styles.checkboxSignIn} text="Remember me" id="logRemember" />
 
         <Button full size="large" disabled={!isValid || loading}>
           {loading ? 'loading...' : 'Увійти'}

@@ -32,13 +32,15 @@
 .error {
   color: red;
   font-weight: var(--medium);
-  font-size: 11px;
+	line-height: 1.1;
+  font-size: 12px;
 }
 
 .errorContainer {
 	position: absolute;
   display: flex;
 	align-items: center;
+	margin-top: 2px;
 }
 
 .errorImage {

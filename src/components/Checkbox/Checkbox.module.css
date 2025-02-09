@@ -2,8 +2,8 @@
   display: flex;
   align-self: start;
   align-items: center;
-  margin-bottom: 32px;
-  margin-top: 16px;
+  margin-bottom: 22px;
+  margin-top: 22px;
   
 }
 
@@ -16,6 +16,7 @@
 .checkboxContainer label{
   cursor: pointer;
   display: flex;
+	align-items: center;
 }
   
 .checkboxContainer label::before{

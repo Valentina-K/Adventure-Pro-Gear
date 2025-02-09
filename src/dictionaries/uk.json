@@ -36,7 +36,7 @@
           "onlyLetters": "Будь-ласка, перевірте щоб поле містило лише букви",
           "noSpaces": "Будь-ласка, перевірте щоб поле не містило пробілів"
         },
-        "email-errors-registration": { "invalidFormat": "Невалідний синтаксис" },
+        "email-errors-registration": { "invalidFormat": "Невалідна електронна адреса" },
         "password-errors-registration": {
           "quantity": "Пароль має містити мінімум 8 символів",
           "oneDigit": "Пароль має містити хоча б одну цифру",
@@ -49,7 +49,7 @@
     "login": {
       "zod": {
         "email-errors-login": {
-          "incorrectEmail": "Невалідна електронна адреса."
+          "incorrectEmail": "Невалідна електронна адреса"
         },
         "password-errors-login": {
           "notEmpty": "Будь ласка, введіть ваш пароль"
