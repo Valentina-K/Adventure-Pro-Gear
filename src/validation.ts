@@ -3,23 +3,11 @@ import { z } from 'zod';
 export const getLogInSchema = (authTranslation: any) =>
   z.object({
     email: z.string().regex(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, {
-      message: authTranslation.login.zod['email-errors-login'].incorrectEmail,
+      message: authTranslation?.login.zod['email-errors-login'].incorrectEmail,
     }),
-    // password: z
-    //   .string()
-    //   .min(8, 'Password must be at least 8 characters')
-    //   .refine(value => /\d/.test(value), {
-    //     message: 'Password must contain at least one number',
-    //   })
-    //   .refine(value => /[A-Z]/.test(value), {
-    //     message: 'Password must contain at least one uppercase letter',
-    //   })
-    //   .refine(value => /[a-z]/.test(value), {
-    //     message: 'Password must contain at least one lowercase letter',
-    //   })
-    //   .refine(value => /[!@#$%^&*()_+[\]{};':"\\|,.<>/?]/.test(value), {
-    //     message: 'Password must contain at least one special character',
-    //   }),
+    password: z
+			.string()
+			.min(1, authTranslation?.login.zod['password-errors-login'].notEmpty),
   });
 
 export const getSignUpSchema = (authTranslation: any) =>

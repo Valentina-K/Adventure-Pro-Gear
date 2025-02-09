@@ -49,10 +49,10 @@
     "login": {
       "zod": {
         "email-errors-login": {
-          "incorrectEmail": "Перевірте правильність введення адреси електронної адреси та спробуйте ще раз"
+          "incorrectEmail": "Невалідна електронна адреса."
         },
         "password-errors-login": {
-          "incorrectPassword": "Неправильний пароль. Будь ласка, перевірте та спробуйте знову"
+          "notEmpty": "Будь ласка, введіть ваш пароль"
         }
       },
       "server-errors": {
