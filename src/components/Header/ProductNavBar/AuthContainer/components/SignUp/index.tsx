@@ -46,7 +46,7 @@ const SignUp: React.FC<SignUpProps> = ({ locale }) => {
     setError,
     formState: { errors, isValid },
   } = useForm<SignUpData>({
-    mode: 'onTouched',
+    mode: 'onChange',
     resolver: zodResolver(getSignUpSchema(authTranslation)),
   });
 
