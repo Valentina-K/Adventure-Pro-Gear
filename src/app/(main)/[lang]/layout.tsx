@@ -46,7 +46,7 @@ const RootLayout: NextPage<RootLayoutProps> = async ({ params: { lang }, childre
     <ReduxProvider>
       <html lang="en">
         <AuthProvider>
-          <ProductProvider initialProducts={res?.data}>
+          <ProductProvider initialProducts={res?.data.content}>
             <body className={inter.className}>
               <Header translation={translation('nav')} locale={lang} products={null} />
               <main>{children}</main>
