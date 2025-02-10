@@ -42,13 +42,6 @@
   color: var(--wightAuth);
 }
 
-.about_navigation_scrollUp {
-  position: relative;
-  bottom: 32px;
-  display: flex;
-  justify-content: flex-end;
-}
-
 @media screen and (max-width: 1179px) {
   .about {
     background-image: url('../../../../public/images/Background.png');
@@ -69,11 +62,6 @@
     right: 0;
     bottom: -90px;
     text-align: right;
-  }
-
-  .about_navigation_scrollUp {
-    position: relative;
-    bottom: -160px;
   }
 }
 
@@ -112,10 +100,5 @@
     font-style: italic;
     line-height: var(--line-height-30);
     text-align: right;
-  }
-
-  .about_navigation_scrollUp {
-    position: relative;
-    bottom: -98px;
   }
 }
