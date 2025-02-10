@@ -49,8 +49,11 @@
     "login": {
       "zod": {
         "email-errors-login": {
-          "incorrectEmail": "Check that the email address you entered is correct and try again"
-        }
+          "incorrectEmail": "Incorrect email address."
+        },
+				"password-errors-login": {
+					"notEmpty": "Please enter your password"
+				}
       },
       "server-errors": {
         "incorrect-email-server-error": "The email address is not registered. Please register",

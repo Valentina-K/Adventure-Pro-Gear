@@ -58,6 +58,7 @@
 @media screen and (max-width: 768px) {
   .submitPolicy {
     font-size: var(--small-14);
+		line-height: 1.2;
   }
   .checkboxRegistration {
     font-size: var(--small-14);
