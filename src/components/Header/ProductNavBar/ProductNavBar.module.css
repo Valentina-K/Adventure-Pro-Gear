@@ -2,16 +2,15 @@
   color: white;
 }
 
-.container {
-  padding-top: 0;
-  padding-bottom: 0;
-}
+/* .container {
+  padding:  0 20px 0px 20px !important;
+} */
 
 .productNavBarChildren {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: flex-start;
+  /* align-items: flex-start; */
 }
 
 .userInteractions {

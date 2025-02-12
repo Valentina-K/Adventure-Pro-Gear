@@ -55,3 +55,12 @@ export const addUnlike = async (id: number) => {
 export const addUnDislike = async (id: number) => {
   return await axiosInstance.post(`api/public/products/reviews/${id}/undislike`);
 };
+
+export const getCategory = async () => {
+  try {
+    const { data } = await axiosInstance.get(`api/public/sections`);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};

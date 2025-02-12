@@ -29,7 +29,6 @@ function Navigation({
     router.push(`/${filteredArray[0]}/`);
     setLoading(prev => !prev);
   };
-console.log(filteredArray);
 
   return (
     <div className={styles.about_navigation_container}>
