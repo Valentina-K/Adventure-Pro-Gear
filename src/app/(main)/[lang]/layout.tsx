@@ -12,6 +12,7 @@ import '@/app/styles/_normilize.css';
 import '@/app/styles/globals.css';
 import { getProducts } from '@/services/axios';
 import { Locale } from '../../../i18n-config';
+import ScrollToTop from '@/components/ScrollToTop'
 
 export const metadata: Metadata = {
   title: 'Adventure Pro Gear',
@@ -50,6 +51,7 @@ const RootLayout: NextPage<RootLayoutProps> = async ({ params: { lang }, childre
             <Header translation={translation('nav')} locale={lang} products={null} />
             <main>{children}</main>
             <Footer translation={translation('footer')} locale={lang} />
+						<ScrollToTop />
             <ToastContainer hideProgressBar={true} />
           </body>
         </AuthProvider>

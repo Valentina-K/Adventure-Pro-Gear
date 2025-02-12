@@ -70,3 +70,8 @@ body {
 .footer {
 	margin-top: auto;
 }
+
+a[href=""], .menu a[href="#"], .menu a:not([href]) {
+	pointer-events: none;
+	cursor: default;
+}

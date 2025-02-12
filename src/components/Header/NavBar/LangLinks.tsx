@@ -43,6 +43,7 @@ const LangLinks: React.FC<LangLinksProps> = ({ languages, locale }) => {
 
   return (
     <div className={styles.langSelect}>
+			{/* ToDo: Fix - Warning: Prop `id` did not match. Server: "react-select-2-live-region" Client: "react-select-3-live-region" */}
       <Select
         value={options.find(option => option.value === selectedLanguage)}
         onChange={handleLanguageChange}

@@ -23,19 +23,19 @@ const Footer: NextPage<FooterProps> = ({ locale }) => (
         <b>Інформація</b>
         <ul className={style.menu}>
           <li>
-            <Link href="/">Про нас</Link>
+            <Link href="">Про нас</Link>
           </li>
           <li>
-            <Link href="/">Акції</Link>
+            <Link href="">Акції</Link>
           </li>
           <li>
-            <Link href="/">Блог</Link>
+            <Link href="">Блог</Link>
           </li>
           <li>
-            <Link href="/">Виробники</Link>
+            <Link href="">Виробники</Link>
           </li>
           <li>
-            <Link href="/">Умови користувача</Link>
+            <Link href="">Умови користувача</Link>
           </li>
         </ul>
       </div>
@@ -44,16 +44,16 @@ const Footer: NextPage<FooterProps> = ({ locale }) => (
         <b>Підтримка</b>
         <ul className={style.menu}>
           <li>
-            <Link href="/">Гарантія</Link>
+            <Link href="">Гарантія</Link>
           </li>
           <li>
-            <Link href="/">Доставка</Link>
+            <Link href="">Доставка</Link>
           </li>
           <li>
-            <Link href="/">Оплата</Link>
+            <Link href="">Оплата</Link>
           </li>
           <li>
-            <Link href="/">Повернення та обмін</Link>
+            <Link href="">Повернення та обмін</Link>
           </li>
         </ul>
       </div>

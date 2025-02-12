@@ -45,12 +45,6 @@
   color: var(--wightAuth);
 }
 
-.about_navigation_scrollUp {
-  position: relative;
-  bottom: -305px;
-  display: flex;
-  justify-content: flex-end;
-}
 
 @media screen and (max-width: 1179px) {
   .about {
@@ -73,11 +67,6 @@
     right: 0;
     bottom: -90px;
     text-align: right;
-  }
-
-  .about_navigation_scrollUp {
-    position: relative;
-    bottom: -360px;
   }
 }
 
@@ -117,10 +106,5 @@
     font-style: italic;
     line-height: var(--line-height-30);
     text-align: right;
-  }
-
-  .about_navigation_scrollUp {
-    position: relative;
-    bottom: -290px;
   }
 }

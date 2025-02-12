@@ -17,7 +17,7 @@ const AuthContainer: React.FC<AuthContainerProps> = ({ personalAccount, locale }
   const [isLinkClicked, setIsLinkClicked] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  console.log('Value returned by useRef: ', dropdownRef);
+  // console.log('Value returned by useRef: ', dropdownRef);
 
   const toggleDropdown = () => setIsOpen(!isDropdownOpen);
 

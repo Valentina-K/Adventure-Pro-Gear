@@ -106,7 +106,7 @@ export const signUpService = async (credentials: any) => {
 export const signInService = async (credentials: any) => {
   const { email, password } = credentials;
   const response = await axiosInstance.post('api/public/auth/login', { email, password });
-  console.log('AxiosResponse: ', response);
+  // console.log('AxiosResponse: ', response);
   return response;
 };
 

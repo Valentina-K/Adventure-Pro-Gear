@@ -25,7 +25,7 @@
   color: var(--greenForBtn);
   font-weight: 700;
   font-size: 32px;
-  margin-bottom: 24px;
+  /* margin-bottom: 24px; */
 }
 
 .restorePasswordLink {
