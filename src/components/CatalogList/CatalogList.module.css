@@ -1,0 +1,63 @@
+.container {
+  width: 100%;
+}
+
+.catalogList_container {
+  position: absolute;
+  top: 145px;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  border: 1px solid var(----label);
+  box-shadow: -20px 0px 55px -25px var(--border-shadow);
+  color: var(--darkBlue);
+  background-color: var(--wight);
+}
+
+.item_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.item {
+  width: 100%;
+  padding: 8px 0;
+  cursor: pointer;
+}
+
+.item:hover {
+  color: var(--wightAuth);
+  background-color: var(--mediumBlue);
+  transition: all 700ms ease-in-out;
+}
+
+.item_title_container {
+  display: flex;
+  align-items: center;
+}
+
+.spinner_container {
+  position: absolute;
+  top: 15%;
+  left: 40%;
+  color: black;
+}
+
+.title {
+  font-size: var(--medium-16);
+  font-weight: var(--medium);
+  line-height: var(--line-height-24);
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  margin-left: 8px;
+}
+
+.img {
+  display: inline-block;
+}
+
+.item:hover .img {
+  filter: invert(100%) hue-rotate(90deg) saturate(0);
+}

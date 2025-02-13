@@ -1,16 +1,19 @@
 .about {
   position: relative;
-  background-image: url('../../../../public/images/about/aboutBackground.png');
+  background-image: url('../../../../public/images/Background.jpg');
   background-repeat: no-repeat;
-  background-position: bottom;
+  background-position: top;
   background-attachment: fixed, scroll;
-  height: 960px;
+  height: 750px;
   max-width: 100%;
 }
 
 .about_container {
   position: relative;
-  top: 362px;
+  margin-top: 23vh;
+  margin-bottom: 20vh;
+  width: 100%;
+  height: 320px;
 }
 
 .descr_overtext {
@@ -24,15 +27,14 @@
 }
 
 .about_logo {
-  width: 100%;
   max-width: 1180px;
-  margin-top: 38px;
+  margin-top: 88px;
 }
 
 .descr_subtext {
   position: absolute;
   right: 0;
-  bottom: 40px;
+  bottom: -92px;
   width: 380px;
   font-weight: var(--wight-600);
   font-size: var(--large-24);
@@ -42,14 +44,16 @@
   color: var(--wightAuth);
 }
 
+
 @media screen and (max-width: 1179px) {
   .about {
-    background-image: url('../../../../public/images/Background.png');
     background-position: top center;
+    min-height: 650px;
   }
 
   .about_container {
-    top: 373px;
+    margin-bottom: 30vh;
+    margin-top: 30vh;
   }
 
   .about_logo {
@@ -67,8 +71,7 @@
 
 @media screen and (max-width: 743px) {
   .about {
-    height: 672px;
-    background-position: 40% 30%;
+    height: 100%;
   }
 
   .about_navigation_img {
@@ -76,12 +79,14 @@
   }
 
   .about_container {
-    top: 288px;
+    margin-top: 30vh;
+    margin-bottom: 15vh;
   }
+
   .about_logo {
     width: 328px;
     height: 88px;
-    margin-top: 8px;
+    margin-top: -48px;
   }
 
   .descr_overtext {
@@ -93,7 +98,7 @@
   }
 
   .descr_subtext {
-    bottom: -52px;
+    bottom: 32px;
     width: 360px;
     font-weight: var(--wight-600);
     font-size: var(--large-20);

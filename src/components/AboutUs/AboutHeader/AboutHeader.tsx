@@ -15,9 +15,8 @@ function AboutHeader() {
           <Image
             src={aboutLogo}
             alt="logo"
-            width={0}
-            height={320}
-            // style={{ maxWidth: '100%' }}
+            fill
+            sizes='auto'
             className={styles.about_logo}
           />
           <p className={styles.descr_subtext}>
