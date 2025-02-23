@@ -5,6 +5,7 @@ import { Locale } from '@/i18n-config';
 import { Product } from '@/interfaces/product';
 import Card from '../Card';
 import styles from './ProductCardsSlider.module.css';
+import { useLocale } from 'next-intl';
 
 interface CardsSliderProp {
   products: Product[];
@@ -27,13 +28,13 @@ interface CardsSliderProp {
 
 const ProductCardsSlider: React.FC<CardsSliderProp> = ({
   products,
-  locale,
   translation,
   onBuyClick,
   onFavoriteClick,
   title,
   recommendation,
 }) => {
+  const locale = useLocale();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [activeNav, setActiveNav] = useState(0);
 
@@ -72,7 +73,6 @@ const ProductCardsSlider: React.FC<CardsSliderProp> = ({
                     product={slide}
                     onBuyClick={onBuyClick}
                     onFavoriteClick={onFavoriteClick}
-                    locale={locale}
                     translation={translation}
                   />
                 )}
@@ -108,7 +108,6 @@ const ProductCardsSlider: React.FC<CardsSliderProp> = ({
                   product={slide}
                   onBuyClick={onBuyClick}
                   onFavoriteClick={onFavoriteClick}
-                  locale={locale}
                   translation={translation}
                 />
               </div>

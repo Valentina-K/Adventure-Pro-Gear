@@ -10,15 +10,41 @@
       "unavailable": "Nothing was found for your request. Try again.",
       "showall": "Show all"
     },
-    "catalog": "Catalog of goods",
+    "catalog": " Catalog of goods",
     "lang": [
-      "Ukrainian",
+      "Українська",
       "English"
     ]
   },
   "auth": {
+    "name": "Name",
+    "surname": "Surname",
+    "email": "E-mail",
+    "password": "Password",
+    "rememberMe": "Remember me",
+    "signUp": "Sign up",
+    "signIn": "Sign in",
+    "I have registered": "I have registered",
+    "login": {
+      "title": "Login",
+      "forgotPassword": "Forgot password?",
+      "zod": {
+        "email-errors-login": {
+          "incorrectEmail": "Incorrect email address."
+        },
+        "password-errors-login": {
+          "notEmpty": "Please enter your password"
+        }
+      },
+      "server-errors": {
+        "incorrect-email-server-error": "The email address is not registered. Please register",
+        "incorrect-password-server-error": "Incorrect password. Please check and try again"
+      }
+    },
     "registration": {
-      "policy": "By registering, you agree to the terms of the provision on the processing and protection of personal data and the user agreement",
+      "title": "Registration",
+      "policy": "By registering, you agree to the <link>terms of the provision on the processing and protection of personal data and the user agreement</link>",
+      "iHaveRegistered": "I have registered",
       "success": [
         "Thank you for registering!",
         "To complete the process of activating your account, please check your email and follow the link in the email we sent. After that, you will be able to use all the features of our site.",
@@ -51,20 +77,6 @@
         }
       }
     },
-    "login": {
-      "zod": {
-        "email-errors-login": {
-          "incorrectEmail": "Incorrect email address."
-        },
-        "password-errors-login": {
-          "notEmpty": "Please enter your password"
-        }
-      },
-      "server-errors": {
-        "incorrect-email-server-error": "The email address is not registered. Please register",
-        "incorrect-password-server-error": "Incorrect password. Please check and try again"
-      }
-    },
     "forgotPasswordModal": {
       "heading": "Reset password",
       "info": "Forgot your password? Don't worry, we're here to help! Please enter your email address below, and we will send you a link to reset your password.",
@@ -92,10 +104,16 @@
     }
   },
   "profile": {
+    "menuLinks": {
+      "orders": "Orders",
+      "edit": "Edit data",
+      "favorites": "Favorites",
+      "exit": "Exit"
+    },
     "menuData": [
       "Orders",
       "Edit Data",
-      "Favourites",
+      "Favorites",
       "Exit"
     ]
   },
@@ -133,5 +151,39 @@
       "helpful": "Is this review helpful?",
       "usersThink": " users found this review helpful"
     }
+  },
+  "footer": {
+    "information": {
+      "title": "Information",
+      "about": "About us",
+      "promotions": "Promotions",
+      "blog": "Blog",
+      "manufacturers": "Manufacturers",
+      "term": "Terms and Conditions"
+    },
+    "support": {
+      "title": "Support",
+      "guarantee": "Guarantee",
+      "delivery": "Delivery",
+      "payment": "Payment",
+      "return": "Return and exchange"
+    },
+    "contacts": {
+      "title": "Our contacts",
+      "address": "Address",
+      "phone": "Phone",
+      "email": "Email"
+    },
+    "social": {
+      "title": "Social networks"
+    },
+    "subscribe": {
+      "title": "",
+      "description": "Be in the center of events - subscribe to our news! New items, discounts, promotions.",
+      "placeholder": "Enter your e-mail",
+      "agreement": "I agree to the processing of personal data",
+      "subscribe": "Subscribe"
+    },
+    "copyText": "Thousands of products for bright adventures in the Adventure Pro Gear online store"
   }
 }

@@ -8,10 +8,10 @@ import ArrowRightDown from '@/../public/icons/arrow-right-down.svg';
 import Button from '@/components/Button';
 import { useParams, useRouter } from 'next/navigation';
 import { AppRoutes } from '@/constants/routes';
-import { Locale } from '@/i18n-config';
 import { createReview } from '@/clientServices/clientAxios';
 import SetStarRating from '../SetStarRating';
 import styles from './ReviewForm.module.css';
+import { useLocale } from 'next-intl';
 
 type FormValues = {
   password: string;
@@ -21,7 +21,6 @@ type FormValues = {
 
 interface ReviewFormProp {
   onSubmitForm: (isOk: boolean) => void;
-  locale: Locale;
   translation: {
     tabs: {
       description: string;
@@ -38,7 +37,9 @@ interface ReviewFormProp {
   };
 }
 
-const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm, translation, locale }) => {
+const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm, translation }) => {
+  const locale = useLocale();
+
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [rating_, setRating] = useState(0);
@@ -48,7 +49,7 @@ const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm, translation, local
   const params = useParams();
   const router = useRouter();
   const token = session?.user?.token.accessToken;
-  if (!token && status === "authenticated") {
+  if (!token && status === 'authenticated') {
     console.error('No access token found');
   }
 

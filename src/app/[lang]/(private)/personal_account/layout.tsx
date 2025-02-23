@@ -17,16 +17,11 @@ const DashboardLayout: React.FC<RootLayoutProps> = async ({ children, params }) 
   const translation = getTranslation(allTranslations);
   const breadcrumbsData = translation('breadcrumbsData');
   const profileMenuData = translation('profile');
-  console.log('Breadcrumbs data: ', breadcrumbsData.breadcrumbs);
   return (
     <div className={styles.personalAccountLayout}>
       <BreadcrumbNavigation locale={params.lang} breadcrumbsData={breadcrumbsData.breadcrumbs} />
       <Container className={styles.dashboardWrapper}>
-        <ProfileMenu
-          menuData={profileMenuData.menuData}
-          locale={params.lang}
-          className={styles.profileMenuLayout}
-        />
+        <ProfileMenu menuData={profileMenuData.menuData} className={styles.profileMenuLayout} />
         <section>{children}</section>
       </Container>
     </div>

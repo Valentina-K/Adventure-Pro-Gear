@@ -5,13 +5,11 @@ import { Locale } from '@/i18n-config';
 import clsx from 'clsx';
 
 import style from './style.module.css';
+import { useTranslations } from 'next-intl';
 
-interface SubscribeFormProps {
-  locale?: Locale;
-  translation: any;
-}
+const SubscribeForm: React.FC = () => {
+  const t = useTranslations('footer.subscribe');
 
-const SubscribeForm: React.FC<SubscribeFormProps> = ({ translation, locale }) => {
   const [email, setEmail] = useState<string>('');
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -29,7 +27,7 @@ const SubscribeForm: React.FC<SubscribeFormProps> = ({ translation, locale }) =>
             value={email}
             name="email"
             type="email"
-            placeholder="Введіть Ваш e-mail"
+            placeholder={t('placeholder')}
             required
           />
         </div>
@@ -43,13 +41,13 @@ const SubscribeForm: React.FC<SubscribeFormProps> = ({ translation, locale }) =>
             aria-labelledby="agreement-label"
           />
           <label id="agreement-label" htmlFor="agreement">
-            Я прочитав і згоден з умовами Політики безпеки
+            {t('agreement')}
           </label>
         </div>
       </div>
 
       <button type="submit" disabled={!email} className={style.btn}>
-        Підписатися
+        {t('subscribe')}
       </button>
     </form>
   );
