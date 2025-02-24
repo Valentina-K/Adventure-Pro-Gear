@@ -1,6 +1,6 @@
 import { Fragment, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -64,7 +64,7 @@ const SignUp: React.FC = () => {
                     .split('\n')
                     .map(substring =>
                       substring === 'Contact us. ' || substring === "Зв'язатися з нами. " ? (
-                        <Link href={`/${locale}${AppRoutes.HOME}`}>{substring}</Link>
+                        <Link href={`${AppRoutes.HOME}`}>{substring}</Link>
                       ) : (
                         substring
                       )
@@ -132,7 +132,7 @@ const SignUp: React.FC = () => {
 
         <p className={styles.submitPolicy}>
           {t.rich('registration.policy', {
-            link: chunks => <Link href={`/${locale}/policy`}>{chunks}</Link>,
+            link: chunks => <Link href={`/policy`}>{chunks}</Link>,
           })}
         </p>
 
@@ -146,7 +146,7 @@ const SignUp: React.FC = () => {
         </Button>
 
         {/* change parameter on click to ${AppRoutes.SIGNIN} */}
-        <Link className={styles.loginLink} href={`/${locale}${AppRoutes.SIGNIN}`}>
+        <Link className={styles.loginLink} href={`/${AppRoutes.SIGNIN}`}>
           {t('I have registered')}
         </Link>
       </Form>
