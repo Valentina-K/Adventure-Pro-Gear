@@ -2,8 +2,9 @@
 
 import React, { useState } from 'react';
 import { NextPage } from 'next';
-import { IVisibleSubcategory } from '@/types';
-import { HeaderProps } from '../../types/HeaderType';
+
+import { HeaderProps } from '@/types/HeaderType';
+import type { IVisibleSubcategory } from '@/types';
 import NavBar from './NavBar/NavBar';
 import Container from '../Container';
 import ProductNavBar from './ProductNavBar';
@@ -17,7 +18,7 @@ const Header: NextPage<HeaderProps> = ({ translation, locale, products }) => {
     <>
       <header className={styles.header}>
         <Container>
-          <NavBar translation={translation} locale={locale} />
+          <NavBar />
         </Container>
         <ProductNavBar
           translation={translation}
@@ -27,9 +28,7 @@ const Header: NextPage<HeaderProps> = ({ translation, locale, products }) => {
         />
       </header>
       <Container>
-        {visibleSubcategory.length > 0 && (
-          <Subcategory locale={locale} visibleSubcategory={visibleSubcategory} />
-        )}
+        {visibleSubcategory.length > 0 && <Subcategory visibleSubcategory={visibleSubcategory} />}
       </Container>
     </>
   );

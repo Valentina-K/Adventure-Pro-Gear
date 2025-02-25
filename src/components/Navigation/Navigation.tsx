@@ -48,14 +48,14 @@ function Navigation({
         className={`${styles.about_navigation_img} ${title ? styles.title_navigation : ''}`}
       />
 
-      <Link
+      {/* <Link
         href={`/${filteredArray[0]}/${filteredArray[1]}/`}
         className={`${styles.about_navigation} ${!title ? styles.title_navigation : ''}`}
       >
         {filteredArray[0] === 'uk-UA'
           ? productName || navigationPage
           : productName || filteredArray[1].replace('_', ' ')}
-      </Link>
+      </Link> */}
 
       {title && (
         <>

@@ -1,45 +1,44 @@
-import type { Locale } from '@/i18n-config';
 import clsx from 'clsx';
+import { useTranslations } from 'next-intl';
 
 import SubscribeForm from '../SubscribeForm';
 import Container from '../Container';
 import NavBar from './NavBar';
 import style from './style.module.css';
 
-interface FooterProps {
-  locale?: Locale;
-  translation: any;
-}
+const Footer = () => {
+  const t = useTranslations('footer');
 
-const Footer: React.FC<FooterProps> = ({ translation, locale }) => (
-  <footer className={clsx(style.footer, 'footer')}>
-    <div>
-      <Container>
-        <NavBar locale={locale} />
-      </Container>
-    </div>
+  return (
+    <footer className={clsx(style.footer, 'footer')}>
+      <div>
+        <Container>
+          <NavBar />
+        </Container>
+      </div>
 
-    <div className={style.subscribeContainer}>
-      <Container>
-        <div className={style.wrap}>
-          <div className={style.text}>
-            <p>Будьте у центрі подій - підпишіться на наші новии! Новинки, знижки, акції.</p>
+      <div className={style.subscribeContainer}>
+        <Container>
+          <div className={style.wrap}>
+            <div className={style.text}>
+              <p>{t('subscribe.description')}</p>
+            </div>
+            <SubscribeForm />
           </div>
-          <SubscribeForm translation={translation} locale={locale} />
-        </div>
-      </Container>
-    </div>
+        </Container>
+      </div>
 
-    <div>
-      <Container>
-        <p className={style.copyright}>
-          <span>Тисячі товарів для яскравих пригод в онлайн магазині Adventure Pro Gear </span>
-          <span>©</span>
-          <span>{new Date().getFullYear()}</span>
-        </p>
-      </Container>
-    </div>
-  </footer>
-);
+      <div>
+        <Container>
+          <p className={style.copyright}>
+            <span>{t('copyText')}</span>
+            <span> ©</span>
+            <span>{new Date().getFullYear()}</span>
+          </p>
+        </Container>
+      </div>
+    </footer>
+  );
+};
 
 export default Footer;

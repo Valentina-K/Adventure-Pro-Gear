@@ -127,7 +127,7 @@ const generateErrorMessage = (statusCode: number, errorData: string) => {
 //   }
 // };
 
-export const registerAction = async (formData: any, locale: Locale) => {
+export const registerAction = async (formData: any, locale: any) => {
 	const translations = await getAllTranslations(locale);
   console.log('Translations: ', translations);
   const translationFunction = getTranslation(translations);

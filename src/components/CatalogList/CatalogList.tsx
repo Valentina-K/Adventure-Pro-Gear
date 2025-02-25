@@ -1,16 +1,17 @@
 /* eslint-disable no-confusing-arrow */
 import React, { useEffect, useState } from 'react';
-import { getCategory } from '@/clientServices/clientAxios';
-import Spinner from '@/app/(main)/[lang]/loading';
 import Image from 'next/image';
-import { Locale } from '@/i18n-config';
+import { useLocale } from 'next-intl';
+
 import arrows from '../../../public/icons/Arrows.svg';
 import style from './CatalogList.module.css';
+import { getCategory } from '@/clientServices/clientAxios';
 import { catalogImg } from './catalogImgData';
 import Container from '../Container';
+// import Spinner from '@/app/loading';
 
 interface ICatalogListProps {
-  locale: Locale;
+  // locale?: Locale;
   setVisibleSubcategory: (arr: any) => void;
 }
 
@@ -22,7 +23,8 @@ interface ICategoryApi {
   subcategories: Object[];
 }
 // eslint-disable-next-line arrow-body-style
-const CatalogList: React.FC<ICatalogListProps> = ({ locale, setVisibleSubcategory }) => {
+const CatalogList: React.FC<ICatalogListProps> = ({ setVisibleSubcategory }) => {
+  const locale = useLocale();
   const [category, setCategory] = useState<ICategoryApi[]>([]);
 
   useEffect(() => {
@@ -65,9 +67,10 @@ const CatalogList: React.FC<ICatalogListProps> = ({ locale, setVisibleSubcategor
                           />
                         ) : (
                           ' '
-                        ))}
+                        )
+                      )}
                       <p className={style.title}>
-                        {locale === 'uk-UA' ? sectionCaptionUa : sectionCaptionEn}
+                        {locale === 'uk' ? sectionCaptionUa : sectionCaptionEn}
                       </p>
                     </div>
 
@@ -78,9 +81,7 @@ const CatalogList: React.FC<ICatalogListProps> = ({ locale, setVisibleSubcategor
             </ul>
           </div>
         ) : (
-          <div className={style.spinner_container}>
-            <Spinner />
-          </div>
+          <div className={style.spinner_container}>{/* <Spinner /> */}</div>
         )}
       </Container>
     </div>

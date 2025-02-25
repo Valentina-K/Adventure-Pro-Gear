@@ -1,12 +1,10 @@
-'use client';
-
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useLocale } from 'next-intl';
 import Image from 'next/image';
+
 import SearchIcon from '@/../public/icons/SearchIcon.svg';
 import { AppRoutes } from '@/constants/routes';
-import { Locale } from '@/i18n-config';
-import { Url } from 'next/dist/shared/lib/router/router';
 import styles from './Search.module.css';
 import Button from '../Button';
 
@@ -15,7 +13,6 @@ interface SearchProps {
   unavailable: string;
   showall: string;
   products: any[];
-  locale: Locale;
 }
 
 interface Product {
@@ -26,7 +23,8 @@ interface Product {
   selfLink: string;
 }
 
-const Search: React.FC<SearchProps> = ({ placeholder, products, unavailable, showall, locale }) => {
+const Search: React.FC<SearchProps> = ({ placeholder, products, unavailable, showall }) => {
+  const locale = useLocale();
   const [value, setValue] = useState<string>('');
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [isDropdownVisible, setIsDropdownVisible] = useState<boolean>(false);
@@ -58,7 +56,7 @@ const Search: React.FC<SearchProps> = ({ placeholder, products, unavailable, sho
     try {
       if (value.length >= 1) {
         const filtered = products.filter(product =>
-          (locale === 'uk-UA' ? product.productNameUa : product.productNameEn)
+          (locale === 'uk' ? product.productNameUa : product.productNameEn)
             .toLowerCase()
             .startsWith(value.toLowerCase())
         );

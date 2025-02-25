@@ -9,12 +9,11 @@ import styles from './Modal.module.css';
 
 interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
-  locale: Locale;
   closeModal: () => void;
   className?: string;
 }
 
-const Modal: React.FC<ModalProps> = ({ children, className, closeModal, locale }) => (
+const Modal: React.FC<ModalProps> = ({ children, className, closeModal }) => (
   <>
     <div className={styles.overlay} />
     <Container className={styles.containerModal}>

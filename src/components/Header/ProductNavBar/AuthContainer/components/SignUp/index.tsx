@@ -1,44 +1,31 @@
-'use client';
-
 import { Fragment, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { toast } from 'react-toastify';
-import { Locale } from '@/i18n-config';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useLocale } from 'next-intl';
+import { useTranslations } from 'next-intl';
 
 import { registerAction } from '@/app/actions';
 import Form from '@/components/Form';
 import Checkbox from '@/components/Checkbox/Checkbox';
-import { getAllTranslations, getTranslation } from '@/dictionaries/dictionaries';
+// import { getAllTranslations, getTranslation } from '@/dictionaries/dictionaries';
 import { getSignUpSchema, SignUpData } from '@/validation';
 import { AppRoutes } from '@/constants/routes';
 import { Button, Field } from '@/components/UI';
 
 import styles from './SignUp.module.css';
-import 'react-toastify/dist/ReactToastify.css';
 import FieldPassword from '@/components/UI/Field/FieldPassword';
+import 'react-toastify/dist/ReactToastify.css';
 
-interface SignUpProps {
-  locale: Locale;
-}
-
-const SignUp: React.FC<SignUpProps> = ({ locale }) => {
+const SignUp: React.FC = () => {
   const router = useRouter();
+  const locale = useLocale();
+  const t = useTranslations('auth');
+  const tValidate = useTranslations('auth.registration.zod');
 
   const [loading, setLoading] = useState(false);
-  const [authTranslation, setAuthTranslation] = useState<any>(null);
-
-  useEffect(() => {
-    const loadTranslations = async () => {
-      const translations = await getAllTranslations(locale);
-      const translationFunction = getTranslation(translations);
-      setAuthTranslation(translationFunction('auth'));
-    };
-
-    loadTranslations();
-  }, [locale]);
 
   const {
     register,
@@ -47,7 +34,7 @@ const SignUp: React.FC<SignUpProps> = ({ locale }) => {
     formState: { errors, isValid },
   } = useForm<SignUpData>({
     mode: 'onChange',
-    resolver: zodResolver(getSignUpSchema(authTranslation)),
+    resolver: zodResolver(getSignUpSchema(tValidate)),
   });
 
   const onSubmit = async (data: SignUpData) => {
@@ -56,14 +43,15 @@ const SignUp: React.FC<SignUpProps> = ({ locale }) => {
     const response = await registerAction(data, locale);
 
     if (response?.submitError) {
-			setError('email',{
-				type: 'manual',
-				message: response.submitError
-			});
+      setError('email', {
+        type: 'manual',
+        message: response.submitError,
+      });
     }
 
     if (response?.success) {
       router.push(`/${locale}${AppRoutes.SIGNIN}`);
+
       toast.success(
         <>
           {response.success.map((line: string, index: number) => (
@@ -76,7 +64,7 @@ const SignUp: React.FC<SignUpProps> = ({ locale }) => {
                     .split('\n')
                     .map(substring =>
                       substring === 'Contact us. ' || substring === "Зв'язатися з нами. " ? (
-                        <Link href={`/${locale}${AppRoutes.HOME}`}>{substring}</Link>
+                        <Link href={`${AppRoutes.HOME}`}>{substring}</Link>
                       ) : (
                         substring
                       )
@@ -105,14 +93,20 @@ const SignUp: React.FC<SignUpProps> = ({ locale }) => {
   return (
     <div className={styles.formContainer}>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <h4 className={styles.h4}>Реєстрація</h4>
+        <h4 className={styles.h4}>{t('registration.title')}</h4>
 
-        <Field register={register} name="name" placeholder="name" errors={errors?.name} required />
+        <Field
+          register={register}
+          name="name"
+          placeholder={t('name')}
+          errors={errors?.name}
+          required
+        />
 
         <Field
           register={register}
           name="surname"
-          placeholder="surname"
+          placeholder={t('surname')}
           errors={errors?.surname}
           required
         />
@@ -121,7 +115,7 @@ const SignUp: React.FC<SignUpProps> = ({ locale }) => {
           register={register}
           type="email"
           name="email"
-          placeholder="email"
+          placeholder={t('email')}
           errors={errors?.email}
           required
         />
@@ -129,19 +123,17 @@ const SignUp: React.FC<SignUpProps> = ({ locale }) => {
         <FieldPassword
           register={register}
           name="password"
-          placeholder="password"
+          placeholder={t('password')}
           errors={errors?.password}
           required
         />
 
-        <Checkbox text="Remember me" className={styles.checkboxRegistration} id="regRemember" />
+        <Checkbox text={t('rememberMe')} className={styles.checkboxRegistration} id="regRemember" />
 
         <p className={styles.submitPolicy}>
-          Реєструючись, ви погоджуєтеся з умовами
-          <Link href={`/${locale}/policy`}>
-            {' '}
-            положення про обробку і захист персональних даних та угодою користувача
-          </Link>
+          {t.rich('registration.policy', {
+            link: chunks => <Link href={`/policy`}>{chunks}</Link>,
+          })}
         </p>
 
         <Button
@@ -150,11 +142,12 @@ const SignUp: React.FC<SignUpProps> = ({ locale }) => {
           disabled={!isValid || loading}
           className={styles.submitRegistration}
         >
-          Зареєструватися
+          {t('signUp')}
         </Button>
 
-        <Link className={styles.loginLink} href={`/${locale}${AppRoutes.SIGNIN}`}>
-          Я вже зареєстрований
+        {/* change parameter on click to ${AppRoutes.SIGNIN} */}
+        <Link className={styles.loginLink} href={`/${AppRoutes.SIGNIN}`}>
+          {t('I have registered')}
         </Link>
       </Form>
     </div>
