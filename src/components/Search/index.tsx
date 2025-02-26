@@ -33,7 +33,7 @@ const Search: React.FC<SearchProps> = ({
   useEffect(() => {
     if (value.length >= 1) {
       const filtered = products.filter(product =>
-        (locale === 'uk-UA' ? product.productNameUa : product.productNameEn)
+        (locale === 'uk' ? product.productNameUa : product.productNameEn)
           .toLowerCase()
           .includes(value.toLowerCase()));
       setFilteredItems(filtered);
@@ -57,6 +57,7 @@ const Search: React.FC<SearchProps> = ({
 
   const handleProductClick = (product: Product) => {
     setProduct(product);
+    console.log('from handleProductClick',locale)
     router.push(`/${locale}/product/${product.productId}`);
   };
 
@@ -84,13 +85,12 @@ const Search: React.FC<SearchProps> = ({
         onFocus={handleFocus}
         onBlur={handleBlur}
       />
-      <button
+      <span
         className={styles.search_icon}
         onClick={handleAllClick}
-        aria-label="Search"
       >
         <Image src={SearchIcon} alt="Search Icon" width={22} height={22} priority />
-      </button>
+      </span>
 
       {isDropdownVisible && value.length >= 1 && (
         <ul className={styles.dropdown}>
@@ -108,7 +108,7 @@ const Search: React.FC<SearchProps> = ({
                     </span>
                     <div className={styles.smallcard_main}>
                       <span className={styles.smallcard_name}>
-                        {locale === 'uk-UA' ? product.productNameUa : product.productNameEn}
+                        {locale === 'uk' ? product.productNameUa : product.productNameEn}
                       </span>
                       <span className={styles.smallcard_price}>
                         {product.basePrice}

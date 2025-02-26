@@ -3,7 +3,6 @@ import Select, { components } from 'react-select';
 import Image from 'next/image';
 import { useLocale } from 'next-intl';
 import { useParams } from 'next/navigation';
-
 import { usePathname, useRouter } from '@/i18n/routing';
 import styles from '../Header.module.css';
 
