@@ -5,11 +5,11 @@ import { Characteristics } from '@/interfaces/product';
 import { Locale } from '@/i18n-config';
 import ReviewForm from './SendReview/ReviewForm';
 import styles from './Tabs.module.css';
+import { useLocale } from 'next-intl';
 
 interface TabsProps {
   description: string;
   characteristics: Characteristics[];
-  locale: Locale;
   translation: {
     tabs: {
       description: string;
@@ -32,10 +32,10 @@ const Tabs: React.FC<TabsProps> = ({
   description,
   characteristics,
   translation,
-  locale,
   onChangeTab,
   onReviewSend,
 }) => {
+  const locale = useLocale();
   const [toggleState, setToggleState] = useState(0);
   const [isSendReview, setIsSendReview] = useState(false);
   /* const { data: session } = useSession(); */
@@ -106,7 +106,7 @@ const Tabs: React.FC<TabsProps> = ({
           </ul>
         </div>
         <div className={toggleState === 2 ? activeContentStyle : styles.content}>
-          <ReviewForm onSubmitForm={handleReviewSubmit} translation={translation} locale={locale} />
+          <ReviewForm onSubmitForm={handleReviewSubmit} translation={translation} />
           {isSendReview && <p className={styles.thankingText}>{translation.tabs.thanking}</p>}
         </div>
       </div>

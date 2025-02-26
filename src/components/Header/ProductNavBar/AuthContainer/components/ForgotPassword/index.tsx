@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { Locale } from '@/i18n-config';
+import { useLocale } from 'next-intl'
 import { forgotPaswordAction } from '@/app/actions';
 import { getAllTranslations, getTranslation } from '@/dictionaries/dictionaries';
 import IllustrationSendEmail from '@/../public/icons/IllustrationSendEmail.svg';
@@ -11,11 +11,9 @@ import Input from '@/components/Input';
 import Modal from '@/components/Modal';
 import styles from './ForgotPassword.module.css';
 
-interface ForgotPasswordProps {
-  locale?: Locale;
-}
+const ForgotPassword: React.FC = () => {
+  const locale = useLocale();
 
-const ForgotPassword: React.FC<ForgotPasswordProps> = ({ locale }) => {
   const [email, setEmail] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [authTranslation, setAuthTranslation] = useState<any>(null);
@@ -36,16 +34,16 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = ({ locale }) => {
     setIsModalOpen(false);
   };
 
-  useEffect(() => {
-    const loadTranslations = async () => {
-      const translations = await getAllTranslations(locale);
-      console.log(translations);
-      const translationFunction = getTranslation(translations);
-      setAuthTranslation(translationFunction('auth'));
-    };
+  // useEffect(() => {
+  //   const loadTranslations = async () => {
+  //     const translations = await getAllTranslations(locale);
+  //     console.log(translations);
+  //     const translationFunction = getTranslation(translations);
+  //     setAuthTranslation(translationFunction('auth'));
+  //   };
 
-    loadTranslations();
-  }, [locale]);
+  //   loadTranslations();
+  // }, [locale]);
 
   return (
     <>
@@ -73,7 +71,7 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = ({ locale }) => {
         </div>
       </Form>
       {isModalOpen && (
-        <Modal closeModal={closeModal} locale={locale} className={styles.setntEmailmodal}>
+        <Modal closeModal={closeModal} className={styles.setntEmailmodal}>
           <p>{authTranslation && authTranslation.forgotPasswordModal['email-directing-modal']}</p>
           <Image src={IllustrationSendEmail} alt="sent email icon" width={180} height={180} />
         </Modal>

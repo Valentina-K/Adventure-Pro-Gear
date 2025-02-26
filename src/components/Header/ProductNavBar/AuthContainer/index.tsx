@@ -8,16 +8,15 @@ import DropDown from './components/DropDown/DropDown';
 import styles from './AuthContainer.module.css';
 
 interface AuthContainerProps {
-  locale: Locale;
   personalAccount: string;
 }
 
-const AuthContainer: React.FC<AuthContainerProps> = ({ personalAccount, locale }) => {
+const AuthContainer: React.FC<AuthContainerProps> = ({ personalAccount }) => {
   const [isDropdownOpen, setIsOpen] = useState(false);
   const [isLinkClicked, setIsLinkClicked] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  console.log('Value returned by useRef: ', dropdownRef);
+  // console.log('Value returned by useRef: ', dropdownRef);
 
   const toggleDropdown = () => setIsOpen(!isDropdownOpen);
 
@@ -47,7 +46,6 @@ const AuthContainer: React.FC<AuthContainerProps> = ({ personalAccount, locale }
       <div className={styles.authContaner} ref={dropdownRef}>
         <Image src={Person} alt="person icon" width={24} height={24} onClick={toggleDropdown} />
         <DropDown
-          locale={locale}
           personalAccount={personalAccount}
           isLinkClicked={() => setIsLinkClicked(true)}
           className={

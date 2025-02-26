@@ -75,57 +75,88 @@ const generateErrorMessage = (statusCode: number, errorData: string) => {
   return 'Unknown Error: An unexpected error occurred.';
 };
 
-export const registerAction = async (formData: FormData, locale: Locale) => {
-  const translations = await getAllTranslations(locale);
+// export const registerAction = async (formData: FormData, locale: Locale) => {
+//   const translations = await getAllTranslations(locale);
+//   console.log('Translations: ', translations);
+//   const translationFunction = getTranslation(translations);
+//   const authTranslation = translationFunction('auth');
+//   console.log('Auth Translations: ', authTranslation);
+//   console.log('EMAIL: ', formData.get('email'));
+//   console.log(`Email ${formData.get('email')} is already in use.`);
+//   const credentials = Object.fromEntries(formData);
+//   console.log('CREDENTIALS:', credentials);
+//   const SignUpSchema = getSignUpSchema(authTranslation);
+//   const validatedFields = SignUpSchema.safeParse({
+//     ...credentials,
+//   });
+//   console.log('ValidatedFields! ', validatedFields);
+//   if (!validatedFields.success) {
+//     const errors: ErrorMessages = {};
+//     validatedFields.error.issues.forEach(issue => {
+//       if (!errors[issue.path[0]]) {
+//         errors[issue.path[0]] = [];
+//       }
+//       errors[issue.path[0]]!.push(issue.message); // non-null assertion operator
+//     });
+//     console.log(validatedFields.error.issues);
+//     console.log(errors);
+//     return { errors: errors };
+//   }
+//   try {
+//     const result = await signUpService(credentials);
+//     console.log('Form submitted successfully:', result.data);
+//     if (result?.data) {
+//       return {
+//         success: authTranslation.registration.success,
+//       };
+//     }
+//   } catch (error: unknown) {
+//     console.error('Error submitting form:', error);
+//     if (axios.isAxiosError(error)) {
+//       console.error('Axios error submitting form:', error.message);
+//       if (error.response) {
+//         console.log('Error data:', error.response.data);
+//         if (error.response.status >= 400) {
+//           console.log(error.response.data);
+//           return { submitError: generateErrorMessage(error.response.status, error.response.data) };
+//         }
+//       }
+//     } else {
+//       console.error('Unexpected error:', error);
+//     }
+//   }
+// };
+
+export const registerAction = async (formData: any, locale: any) => {
+	const translations = await getAllTranslations(locale);
   console.log('Translations: ', translations);
   const translationFunction = getTranslation(translations);
   const authTranslation = translationFunction('auth');
-  console.log('Auth Translations: ', authTranslation);
-  console.log('EMAIL: ', formData.get('email'));
-  console.log(`Email ${formData.get('email')} is already in use.`);
-  const credentials = Object.fromEntries(formData);
-  console.log('CREDENTIALS:', credentials);
-  const SignUpSchema = getSignUpSchema(authTranslation);
-  const validatedFields = SignUpSchema.safeParse({
-    ...credentials,
-  });
-  console.log('ValidatedFields! ', validatedFields);
-  if (!validatedFields.success) {
-    const errors: ErrorMessages = {};
-    validatedFields.error.issues.forEach(issue => {
-      if (!errors[issue.path[0]]) {
-        errors[issue.path[0]] = [];
-      }
-      errors[issue.path[0]]!.push(issue.message); // non-null assertion operator
-    });
-    console.log(validatedFields.error.issues);
-    console.log(errors);
-    return { errors: errors };
-  }
-  try {
-    const result = await signUpService(credentials);
-    console.log('Form submitted successfully:', result.data);
-    if (result?.data) {
-      return {
-        success: authTranslation.registration.success,
-      };
-    }
-  } catch (error: unknown) {
-    console.error('Error submitting form:', error);
-    if (axios.isAxiosError(error)) {
-      console.error('Axios error submitting form:', error.message);
-      if (error.response) {
-        console.log('Error data:', error.response.data);
-        if (error.response.status >= 400) {
-          console.log(error.response.data);
-          return { submitError: generateErrorMessage(error.response.status, error.response.data) };
-        }
-      }
-    } else {
-      console.error('Unexpected error:', error);
-    }
-  }
-};
+
+	try {
+		const result: any = await signUpService(formData);
+		console.log('Form submitted successfully:', result.data);
+		if (result?.data) {
+			return {
+				success: authTranslation.registration.success,
+			};
+		}
+	} catch (error: unknown) {
+		console.error('Error submitting form:', error);
+		if (axios.isAxiosError(error)) {
+			console.error('Axios error submitting form:', error.message);
+			if (error.response) {
+				console.log('Error data:', error.response.data);
+				if (error.response.status >= 400) {
+					console.log(error.response.data);
+					return { submitError: generateErrorMessage(error.response.status, error.response.data) };
+				}
+			}
+		} else {
+			console.error('Unexpected error:', error);
+		}
+	}
+}
 
 export const forgotPaswordAction = async (formData: FormData) => {
   const email = formData.get('email');

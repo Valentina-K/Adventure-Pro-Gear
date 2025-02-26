@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { useLocale } from 'next-intl';
 import Container from '@/components/Container';
 import BreadcrumbNavigation from '@/components/BreadcrumbNavigation';
 import { Locale } from '@/i18n-config';
@@ -14,6 +15,7 @@ import { Product, Review } from '@/interfaces/product';
 import { getAllReviewsByProductId } from '@/clientServices/clientAxios';
 import Payments from '@/constants/payments';
 import Comercial from '@/../public/icons/Comercial.svg';
+import { useProduct } from '@/contexts/ProductContext';
 import ProductCardsSlider from '../ProductCardsSlider';
 import Reviews from '../Tabs/Reviews';
 import ImageCarousel from '../ImageCarousel/ImageCarousel';
@@ -21,11 +23,10 @@ import Navigation from '../Navigation/Navigation';
 import Payment from '../Payment';
 import styles from './productWrapper.module.css';
 import Button from '../Button';
-import { useProduct } from '@/contexts/ProductContext';
 
 interface ProductWrapperProp {
   /* product: Product; */
-  locale: Locale;
+  /* locale: Locale; */
   /* products: Product[]; */
   reviews: Review[];
   translation: {
@@ -67,11 +68,12 @@ interface ProductWrapperProp {
 
 const ProductWrapper: React.FC<ProductWrapperProp> = ({
   /* product, */
-  locale,
+  /* locale, */
   /* products, */
   reviews,
   translation,
 }) => {
+  const locale = useLocale();
   const { product, products } = useProduct();
   const [attrIndex, setAttrIndex] = useState(0);
   const [buyQuantity, setBuyQuantity] = useState(0);
@@ -83,8 +85,9 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
     productId: product.productId,
     quantity: 0,
     payment,
-    color: product.attributes[attrIndex].color
+    color: product.attributes[attrIndex].color,
   };
+
   const handleChoiceColor = (index: number) => {
     console.log('from colorChoice', index);
     setAttrIndex(index);
@@ -125,18 +128,15 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
     <Container>
       <div className={styles.breadcrumbWrapper}>
         {/* <BreadcrumbNavigation locale={locale} /> */}
-        <Navigation
-          productName={locale === 'uk-UA' ? product.productNameUa : product.productNameEn}
-        />
+        <Navigation productName={locale === 'uk' ? product.productNameUa : product.productNameEn} />
       </div>
       <div className={styles.mainContainer}>
         <div className={styles.leftBlock}>
           <ImageCarousel contents={product.contents} />
           <Tabs
-            description={locale === 'uk-UA' ? product.descriptionUa : product.descriptionEn}
+            description={locale === 'uk' ? product.descriptionUa : product.descriptionEn}
             characteristics={product.characteristics}
             translation={translation}
-            locale={locale}
             onChangeTab={handleChangeTab}
             onReviewSend={handleReviewSend}
           />
@@ -145,7 +145,7 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
           <section className={styles.mainInfo}>
             <div className={styles.productHeader}>
               <h1 className={styles.titleProduct}>
-                {locale === 'uk-UA' ? product.productNameUa : product.productNameEn}
+                {locale === 'uk' ? product.productNameUa : product.productNameEn}
               </h1>
               <div className={styles.productRating}>
                 <RatingStars averageRating={product.averageRating} />
@@ -192,7 +192,6 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
                 icon={<Image src={Comercial} width={20} height={20} alt="Comercial" />}
                 onClick={handleBuyClick}
               />
-
             </div>
             <Payment title={translation.page.paymentMethod} onClick={onChoisePayment} />
           </section>
@@ -200,7 +199,6 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
             <div className={styles.withThisBuy}>
               <ProductCardsSlider
                 products={products}
-                locale={locale}
                 translation={translation}
                 onBuyClick={handleBuyClick}
                 onFavoriteClick={handleFavoriteClick}
@@ -210,7 +208,6 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
             <div className={styles.relatedProducts}>
               <ProductCardsSlider
                 products={products}
-                locale={locale}
                 translation={translation}
                 onBuyClick={handleBuyClick}
                 onFavoriteClick={handleFavoriteClick}
@@ -224,7 +221,7 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
         {tabIndex === 2 && productReviews.length > 0 && (
           <Reviews
             reviews={productReviews}
-            productName={locale === 'uk-UA' ? product.productNameUa : product.productNameEn}
+            productName={locale === 'uk' ? product.productNameUa : product.productNameEn}
             reviewTitle={translation.tabs.reviews}
             helpful={translation.tabs.helpful}
             usersThink={translation.tabs.usersThink}

@@ -1,88 +1,96 @@
-'use client';
-
 import React, { useState } from 'react';
 import Select, { components } from 'react-select';
-import useNav from '@/hooks/useNav';
 import Image from 'next/image';
-import { Locale } from '@/i18n-config';
-import World from '@/../public/icons/World.svg';
-import styles from '../Header.module.css';
+import { useLocale } from 'next-intl';
+import { useParams } from 'next/navigation';
 
-interface LangLinksProps {
-  languages: string[];
-  locale?: Locale;
-}
+import { usePathname, useRouter } from '@/i18n/routing';
+import styles from '../Header.module.css';
 
 const CustomSingleValue = (props: any) => (
   <components.SingleValue {...props}>
-    <Image src={World} alt="globus icon" width={22} height={22} className={styles.globusIcon} />
+    <Image
+      src="/icons/World.svg"
+      alt="World icon"
+      width={22}
+      height={22}
+      className={styles.globusIcon}
+    />
     {props.children}
   </components.SingleValue>
 );
 
-const LangLinks: React.FC<LangLinksProps> = ({ languages, locale }) => {
-  const { uaLink, enLink } = useNav();
-  const defaultLanguage = locale || 'uk-UA';
-  const [selectedLanguage, setSelectedLanguage] = useState(defaultLanguage);
+const LangLinks = () => {
+  const router = useRouter();
+  const locale = useLocale();
+  const pathname = usePathname();
+  const params = useParams();
+
+  const [isPending, startTransition] = React.useTransition();
+  const [isMounted, setIsMounted] = useState(false);
+
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  const handleChange = (selectedOption: any) => {
+    startTransition(() => {
+      router.replace(
+        // @ts-expect-error
+        { pathname, params },
+        { locale: selectedOption.value }
+      );
+    });
+  };
 
   const options = [
-    {
-      value: 'uk-UA',
-      label: languages[0],
-    },
-    {
-      value: 'en-US',
-      label: languages[1],
-    },
+    { value: 'uk', label: 'Українська' },
+    { value: 'en', label: 'English' },
   ];
-
-  const handleLanguageChange = (selectedOption: any) => {
-    setSelectedLanguage(selectedOption.value);
-    window.location.href = selectedOption.value === 'uk-UA' ? uaLink : enLink;
-  };
 
   return (
     <div className={styles.langSelect}>
-      <Select
-        value={options.find(option => option.value === selectedLanguage)}
-        onChange={handleLanguageChange}
-        options={options}
-        isSearchable={false}
-        components={{ SingleValue: CustomSingleValue }}
-        styles={{
-          container: (baseStyles, state) => ({
-            ...baseStyles,
-            color: state.isFocused ? '#FFDBA4' : 'white',
-          }),
-          control: (baseStyles, state) => ({
-            ...baseStyles,
-            borderRadius: 0,
-            border: 'none',
-            backgroundColor: '#152a38',
-            boxShadow: 'none',
-            minHeight: 40,
-          }),
-          valueContainer: (baseStyles, state) => ({
-            ...baseStyles,
-            padding: 0,
-            cursor: 'pointer',
-          }),
-          singleValue: (baseStyles, state) => ({
-            ...baseStyles,
-            display: 'flex',
-            alignItems: 'center',
-            color: 'white',
-            margin: 0,
-            paddingLeft: 30,
-            backgroundColor: '#152a38',
-            // Adjust padding as needed
-          }),
-          indicatorsContainer: baseStyles => ({
-            ...baseStyles,
-            display: 'none',
-          }),
-        }}
-      />
+      {isMounted && (
+        <Select
+          options={options}
+          isSearchable={false}
+          defaultValue={options.find(option => option.value === locale)}
+          isDisabled={isPending}
+          onChange={handleChange}
+          components={{ SingleValue: CustomSingleValue }}
+          styles={{
+            container: (baseStyles, state) => ({
+              ...baseStyles,
+              color: state.isFocused ? '#1e5f72' : 'white',
+            }),
+            control: (baseStyles, state) => ({
+              ...baseStyles,
+              borderRadius: 0,
+              border: 'none',
+              backgroundColor: '#152a38',
+              boxShadow: 'none',
+              minHeight: 40,
+            }),
+            valueContainer: (baseStyles, state) => ({
+              ...baseStyles,
+              padding: 0,
+              cursor: 'pointer',
+            }),
+            singleValue: (baseStyles, state) => ({
+              ...baseStyles,
+              display: 'flex',
+              alignItems: 'center',
+              color: 'white',
+              marginLeft: 'auto',
+              backgroundColor: '#152a38',
+            }),
+            indicatorsContainer: baseStyles => ({
+              ...baseStyles,
+              display: 'none',
+            }),
+          }}
+        />
+      )}
     </div>
   );
 };

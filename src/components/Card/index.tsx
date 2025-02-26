@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Locale } from '@/i18n-config';
+import { useLocale } from 'next-intl';
 import { useProduct } from '@/contexts/ProductContext';
 import FollowinIcon from '@/../public/icons/Following.svg';
 import FollowingFill from '@/../public/icons/FollowingFill.svg';
@@ -16,7 +16,6 @@ import ReviewCount from '../ReviewCount';
 import styles from './Card.module.css';
 
 interface CardProps {
-  locale: Locale;
   isLogged?: boolean;
   variant?: 'big' | 'standart' | 'small';
   translation: {
@@ -47,13 +46,13 @@ const getClassName = (variant: string) => {
 
 const Card: React.FC<CardProps> = ({
   product,
-  locale,
   isLogged = false,
   variant = 'standart',
   translation,
   onBuyClick,
   onFavoriteClick,
 }) => {
+  const locale = useLocale();
   const [newPrice, setNewPrice] = useState<number>(0);
   const [isAvailable, setIsAvailable] = useState<boolean>(true);
   const [productName, setProductName] = useState<string>('');
@@ -63,14 +62,16 @@ const Card: React.FC<CardProps> = ({
   const productImage =
     product.contents.length > 0 ? product.contents[0].source : 'https://dummyimage.com/180x180';
   let className = getClassName(variant);
-const {setProduct} = useProduct();
+  const { setProduct } = useProduct();
   useEffect(() => {
     setNewPrice(
       product.basePrice - product.basePrice * (product.attributes[0].priceDeviation / 100)
     );
     setProductName(locale === 'uk-UA' ? product.productNameUa : product.productNameEn);
     setIsAvailable(product.attributes[0].quantity > 0);
-    setClassNameImg(isAvailable ? `${styles.imageWrapper}` : `${styles.imageWrapper} ${styles.outStock}`);
+    setClassNameImg(
+      isAvailable ? `${styles.imageWrapper}` : `${styles.imageWrapper} ${styles.outStock}`
+    );
 
     if (addToFavorite && isLogged) {
       setFollowing(FollowingFill);
@@ -87,7 +88,11 @@ const {setProduct} = useProduct();
       className={className}
       /* onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave} */
     >
-      <Link href={`/${locale}/product/${product.productId}`} onClick={()=>setProduct(product)} className={styles.cardLink}>
+      <Link
+        href={`/${locale}/product/${product.productId}`}
+        onClick={() => setProduct(product)}
+        className={styles.cardLink}
+      >
         <div className={classNameImg}>
           {addToFavorite && !isLogged && (
             <div
@@ -100,12 +105,7 @@ const {setProduct} = useProduct();
               {translation.card.addToFollowing}
             </div>
           )}
-          <Image
-            className={styles.image}
-            src={productImage}
-            alt={productName}
-            layout="fill"
-          />
+          <Image className={styles.image} src={productImage} alt={productName} layout="fill" />
           <div
             className={
               variant === 'big'

@@ -1,71 +1,48 @@
 import { z } from 'zod';
 
-export const getLogInSchema = (authTranslation: any) =>
+export const getLogInSchema = (t: any) =>
   z.object({
     email: z.string().regex(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, {
-      message: authTranslation.login.zod['email-errors-login'].incorrectEmail,
+      message: t('email-errors-login.incorrectEmail'),
     }),
-    // password: z
-    //   .string()
-    //   .min(8, 'Password must be at least 8 characters')
-    //   .refine(value => /\d/.test(value), {
-    //     message: 'Password must contain at least one number',
-    //   })
-    //   .refine(value => /[A-Z]/.test(value), {
-    //     message: 'Password must contain at least one uppercase letter',
-    //   })
-    //   .refine(value => /[a-z]/.test(value), {
-    //     message: 'Password must contain at least one lowercase letter',
-    //   })
-    //   .refine(value => /[!@#$%^&*()_+[\]{};':"\\|,.<>/?]/.test(value), {
-    //     message: 'Password must contain at least one special character',
-    //   }),
+    password: z.string().min(1, t('password-errors-login.notEmpty')),
   });
 
-export const getSignUpSchema = (authTranslation: any) =>
+export const getSignUpSchema = (t: any) =>
   z.object({
     name: z
       .string()
-      .min(2, authTranslation.registration.zod['name-errors-registration'].minLength)
-      .regex(
-        /^[a-zA-Z]+$/,
-        authTranslation.registration.zod['name-errors-registration'].onlyLetters
-      )
-      .max(64, authTranslation.registration.zod['name-errors-registration'].maxLength)
+      .min(2, t('name-errors-registration.minLength'))
+      .regex(/^[a-zA-Z]+$/, t('name-errors-registration.onlyLetters'))
+      .max(64, t('name-errors-registration.maxLength'))
       .refine(value => !/^\s|\s$/.test(value), {
-        message: authTranslation.registration.zod['name-errors-registration'].noSpaces,
+        message: t('name-errors-registration.noSpaces'),
       }),
     surname: z
       .string()
-      .min(2, authTranslation.registration.zod['surname-errors-registration'].minLength)
-      .max(64, authTranslation.registration.zod['surname-errors-registration'].maxLength)
-      .regex(
-        /^[a-zA-Z]+$/,
-        authTranslation.registration.zod['surname-errors-registration'].onlyLetters
-      )
+      .min(2, t('surname-errors-registration.minLength'))
+      .max(64, t('surname-errors-registration.maxLength'))
+      .regex(/^[a-zA-Z]+$/, t('surname-errors-registration.onlyLetters'))
       .refine(value => !/^\s|\s$/.test(value), {
-        message: authTranslation.registration.zod['surname-errors-registration'].noSpaces,
+        message: t('surname-errors-registration.noSpaces'),
       }),
     email: z.string().regex(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, {
-      message: authTranslation.registration.zod['email-errors-registration'].invalidFormat,
+      message: t('email-errors-registration.invalidFormat'),
     }),
     password: z
       .string()
-      .min(8, authTranslation.registration.zod['password-errors-registration'].quantity)
+      .min(8, t('password-errors-registration.quantity'))
       .refine(value => /\d/.test(value), {
-        message: authTranslation.registration.zod['password-errors-registration'].oneDigit,
+        message: t('password-errors-registration.oneDigit'),
       })
       .refine(value => /[A-Z]/.test(value), {
-        message:
-          authTranslation.registration.zod['password-errors-registration'].oneUppercaseLetter,
+        message: t('password-errors-registration.oneUppercaseLetter'),
       })
       .refine(value => /[a-z]/.test(value), {
-        message:
-          authTranslation.registration.zod['password-errors-registration'].oneLowercaseLetter,
+        message: t('password-errors-registration.oneLowercaseLetter'),
       })
       .refine(value => /[!@#$%^&*()_+[\]{};':"\\|,.<>/?]/.test(value), {
-        message:
-          authTranslation.registration.zod['password-errors-registration'].oneSpecialCharacter,
+        message: t('password-errors-registration.oneSpecialCharacter'),
       }),
   });
 

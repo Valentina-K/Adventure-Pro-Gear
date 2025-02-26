@@ -36,11 +36,11 @@ interface Subcategories {
 }
 
 export interface Characteristics {
-  id: number,
-  name: string,
-  value: string,
-  productId: number,
-  categoryCharacteristicId: number
+  id: number;
+  name: string;
+  value: string;
+  productId: number;
+  categoryCharacteristicId: number;
 }
 
 export interface Product {
@@ -69,11 +69,11 @@ export interface Product {
 }
 
 export interface Review {
-  id: number,
-  productId: number,
-  username: string,
-  rating: number,
-  likes: number,
-  dislikes: number,
-  comment: string
+  id: number;
+  productId: number;
+  username: string;
+  rating: number;
+  likes: number;
+  dislikes: number;
+  comment: string;
 }

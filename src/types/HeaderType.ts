@@ -17,6 +17,7 @@ export interface HeaderProps {
   };
   locale?: Locale;
   products?: any;
+  setVisibleSubcategory?: (arr: []) => void;
 }
 
 export interface Token {}

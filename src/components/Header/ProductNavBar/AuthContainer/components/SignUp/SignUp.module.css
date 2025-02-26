@@ -14,6 +14,7 @@
 
 .submitPolicy {
   margin-bottom: 32px;
+  line-height: 1.25;
 }
 
 .checkboxRegistration {
@@ -22,6 +23,10 @@
 
 .submitPolicy > a {
   color: var(--primaryBlue);
+}
+
+.submitPolicy > a:hover {
+  text-decoration: underline;
 }
 
 .submitRegistration {
@@ -58,6 +63,7 @@
 @media screen and (max-width: 768px) {
   .submitPolicy {
     font-size: var(--small-14);
+		line-height: 1.2;
   }
   .checkboxRegistration {
     font-size: var(--small-14);

@@ -1,6 +1,5 @@
-import type { NextAuthOptions } from 'next-auth';
+import type { NextAuthOptions, User } from 'next-auth';
 import axios from 'axios';
-import { User } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
 import {

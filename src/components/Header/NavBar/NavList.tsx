@@ -1,40 +1,29 @@
-'use client';
+import { useTranslations } from 'next-intl';
 
-import React from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { HeaderProps } from '../../../types/HeaderType';
-import styles from '../Header.module.css';
+import { navLinks } from '@/routes';
+import { Link } from '@/i18n/routing';
 import LangLinks from './LangLinks';
+import styles from '../Header.module.css';
 
-const NavList: React.FC<HeaderProps> = ({ translation, locale }) => {
-  const path = usePathname();
-  const navLinks = [
-    {
-      type: 'link',
-      href: `/${locale}/about_us`,
-      text: translation.aboutUs,
-    },
-    { type: 'link', href: `/${locale}/blog`, text: translation.blog },
-    { type: 'link', href: `/${locale}/contacts`, text: translation.contacts },
-    { type: 'langLink' },
-  ];
+const NavList = () => {
+  const t = useTranslations('nav');
+
   return (
-    <ul className={styles.navList}>
-      {navLinks.map(({ type, href, text }, index) => {
-        if (type === 'langLink') {
-          return <LangLinks key={index} languages={translation.lang} locale={locale} />;
-        }
+    <>
+      <ul className={styles.navList}>
+        {navLinks.map(({ path, label, id }) => {
+          if (path) {
+            return (
+              <li className={styles.navItem} key={id}>
+                <Link href={path}>{t(label)}</Link>
+              </li>
+            );
+          }
+        })}
+      </ul>
 
-        if (href) {
-          return (
-            <li className={styles.navItem} key={index}>
-              <Link href={href}>{text}</Link>
-            </li>
-          );
-        }
-      })}
-    </ul>
+      <LangLinks />
+    </>
   );
 };
 

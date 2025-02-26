@@ -1,4 +1,3 @@
-// import 'server-only';
 import { get } from 'lodash';
 import { i18n, Locale } from '../i18n-config';
 
@@ -10,7 +9,7 @@ const languages = {
 export const getAllTranslations = async (locale: Locale) => {
   let result;
   if (locale) {
-    result = (await languages[locale]?.()) ?? languages['uk-UA']();
+    result = (await languages[locale]?.()) ?? languages['ua']();
   }
   return result;
 };

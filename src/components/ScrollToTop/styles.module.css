@@ -1,0 +1,39 @@
+.about_navigation_scrollUp {
+  position: fixed;
+	border: none;
+	outline: none;
+	background-color: transparent;
+	right: 32px;
+  bottom: 32px;
+  display: flex;
+  justify-content: flex-end;
+	opacity: 0;
+	visibility: hidden;
+	transition: all 0.15s ease-in-out;
+	z-index: 2;
+	cursor: pointer;
+}
+
+.about_navigation_scrollUp.visible {
+	opacity: 1;
+	visibility: visible;
+}
+
+.about_navigation_scrollUp.visible:hover {
+	opacity: 0.8;
+	transform: scale(1.02);
+}
+
+@media screen and (max-width: 1179px) {
+  .about_navigation_scrollUp {
+    position: relative;
+    bottom: -160px;
+  }
+}
+
+@media screen and (max-width: 743px) {
+  .about_navigation_scrollUp {
+    position: relative;
+    bottom: -98px;
+  }
+}
