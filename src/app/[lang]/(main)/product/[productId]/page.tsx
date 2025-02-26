@@ -9,7 +9,6 @@ const ProductPage = async ({ params }: { params: { lang: Locale; productId: numb
   const translation = getTranslation(translations);
   return (
     <ProductWrapper
-      locale={params.lang}
       translation={translation('product')}
       reviews={reviews && reviews.data}
     />
