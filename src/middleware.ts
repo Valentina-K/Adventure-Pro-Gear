@@ -1,8 +1,8 @@
+import { getToken } from 'next-auth/jwt';
 import createMiddleware from 'next-intl/middleware';
-import { routing } from './i18n/routing';
 import { NextRequest, NextResponse } from 'next/server';
 import { AppRoutes } from './constants/routes';
-import { getToken } from 'next-auth/jwt';
+import { routing } from './i18n/routing';
 
 const protectedRoutes = ['/personal_account'];
 const secret = process.env.NEXT_AUTH_SECRET; // Ensure this is set in your .env file
