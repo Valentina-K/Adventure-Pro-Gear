@@ -1,12 +1,12 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { signIn } from 'next-auth/react';
-import { useRouter, usePathname, redirect } from 'next/navigation';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocale, useTranslations } from 'next-intl';
 
 import { getLogInSchema, LogInData } from '@/validation';
+import { useRouter } from '@/i18n/routing';
 import { AppRoutes } from '@/constants/routes';
 import Form from '@/components/Form';
 import Checkbox from '@/components/Checkbox/Checkbox';
@@ -42,7 +42,9 @@ const SignIn: React.FC = () => {
       });
 
       if (response?.ok) {
-        router.push(`/${locale}${AppRoutes.PERSONAL_ACCOUNT}`);
+        router.push({
+          pathname: `${AppRoutes.PERSONAL_ACCOUNT}`,
+        });
       } else {
         setError('email', {
           type: 'manual',
