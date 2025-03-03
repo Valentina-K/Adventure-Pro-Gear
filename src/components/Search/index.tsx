@@ -7,7 +7,10 @@ import Image from 'next/image';
 import SearchIcon from '@/../public/icons/SearchIcon.svg';
 import { AppRoutes } from '@/constants/routes';
 import { Product } from '@/interfaces/product';
-import { useProduct } from '@/contexts/ProductContext';
+import { useGetProductsQuery } from '@/redux/features/apiSlice';
+import { useDispatch } from 'react-redux';
+import { setFilteredProducts } from '@/redux/products/slice';
+import { filter } from 'lodash';
 import Button from '../Button';
 import styles from './Search.module.css';
 
@@ -29,18 +32,21 @@ const Search: React.FC<SearchProps> = ({
   const [filteredItems, setFilteredItems] = useState<Product[]>([]);
   const [isDropdownVisible, setIsDropdownVisible] = useState<boolean>(false);
   const router = useRouter();
-  const { products, setProduct, setFilteredProducts } = useProduct();
+  const { data, isLoading, error } = useGetProductsQuery();
+  const dispatch = useDispatch();
+  if (!isLoading) console.log(data);
+  // const { products, setProduct, setFilteredProducts } = useProduct();
   useEffect(() => {
     if (value.length >= 1) {
-      const filtered = products.filter(product =>
+      const filtered = data?.content.filter(product =>
         (locale === 'uk' ? product.productNameUa : product.productNameEn)
           .toLowerCase()
           .includes(value.toLowerCase()));
-      setFilteredItems(filtered);
+      if (filtered) setFilteredItems(filtered);
     } else {
       setFilteredItems([]);
     }
-  }, [setFilteredItems, products, value, locale]);
+  }, [setFilteredItems, data, value, locale]);
 
   const handlerOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -56,22 +62,24 @@ const Search: React.FC<SearchProps> = ({
   };
 
   const handleProductClick = (product: Product) => {
-    setProduct(product);
-    console.log('from handleProductClick',locale)
-    router.push(`/${locale}/product/${product.productId}`);
+    // setProduct(product);
+    console.log('from handleProductClick', locale);
+    router.push(`/product/${product.productId}`);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       // need to fix this
-      setFilteredProducts(filteredItems);
-      router.push(`/${locale}${AppRoutes.PRODUCTS.replace('*', value)}`);
+      dispatch(setFilteredProducts(filteredItems));
+      // setFilteredProducts(filteredItems);
+      router.push(`/${AppRoutes.PRODUCTS.replace('*', value)}`);
     }
   };
 
   const handleAllClick = () => {
-    setFilteredProducts(filteredItems);
-    router.push(`/${locale}${AppRoutes.PRODUCTS.replace('*', value)}`);
+    console.log('filteredItems', filteredItems);
+    dispatch(setFilteredProducts(filteredItems));
+    router.push(`/${AppRoutes.PRODUCTS.replace('*', value)}`);
   };
 
   return (

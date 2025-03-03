@@ -12,6 +12,7 @@ import { createReview } from '@/clientServices/clientAxios';
 import SetStarRating from '../SetStarRating';
 import styles from './ReviewForm.module.css';
 import { useLocale } from 'next-intl';
+import { useTranslations } from 'next-intl';
 
 type FormValues = {
   password: string;
@@ -21,7 +22,7 @@ type FormValues = {
 
 interface ReviewFormProp {
   onSubmitForm: (isOk: boolean) => void;
-  translation: {
+  /* translation: {
     tabs: {
       description: string;
       characteristics: string;
@@ -34,12 +35,12 @@ interface ReviewFormProp {
       password: string;
       thanking: string;
     };
-  };
+  }; */
 }
 
-const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm, translation }) => {
+const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm }) => {
   const locale = useLocale();
-
+  const t = useTranslations('product');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [rating_, setRating] = useState(0);
@@ -74,8 +75,8 @@ const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm, translation }) => 
   return (
     <form className={styles.reviewForm} onSubmit={handleSubmit(handleSubmitForm)}>
       <div className={styles.textReviewBlock}>
-        <p>{translation.tabs.important_to_us}</p>
-        <p>{translation.tabs.tell_us}</p>
+        <p>{t('tabs.important_to_us')}</p>
+        <p>{t('tabs.tell_us')}</p>
       </div>
       <div className={styles.inputBlock}>
         {!session && (
@@ -93,7 +94,7 @@ const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm, translation }) => 
                 className={styles.reviewInput}
                 type="password"
                 {...register('password', { required: true })}
-                placeholder={translation.tabs.password}
+                placeholder={t('tabs.password')}
               />
             </label>
           </>
@@ -101,14 +102,14 @@ const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm, translation }) => 
         <textarea
           className={styles.messageArea}
           {...register('comment')}
-          placeholder={translation.tabs.message}
+          placeholder={t('tabs.message')}
         />
       </div>
-      <SetStarRating onStarClick={starClick} refresh={refresh} rate={translation.tabs.rate} />
+      <SetStarRating onStarClick={starClick} refresh={refresh} rate={t('tabs.rate')} />
       <Button
         className={styles.submitReview}
         type="submit"
-        text={translation.tabs.send}
+        text={t('tabs.send')}
         icon={<Image src={ArrowRightDown} width={13} height={14} alt="right-down" />}
       />
     </form>

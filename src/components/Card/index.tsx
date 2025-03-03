@@ -2,14 +2,14 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useProduct } from '@/contexts/ProductContext';
 import FollowinIcon from '@/../public/icons/Following.svg';
 import FollowingFill from '@/../public/icons/FollowingFill.svg';
 import Comercial from '@/../public/icons/Comercial.svg';
 import NotAvailable from '@/../public/images/soldout.png';
 import { Product } from '@/interfaces/product';
+import { Link } from '../../i18n/routing';
 import Button from '../Button';
 import RatingStars from '../RatingStars';
 import ReviewCount from '../ReviewCount';
@@ -18,7 +18,7 @@ import styles from './Card.module.css';
 interface CardProps {
   isLogged?: boolean;
   variant?: 'big' | 'standart' | 'small';
-  translation: {
+  /* translation: {
     card: {
       addToFollowing: string;
       sale: string;
@@ -27,7 +27,7 @@ interface CardProps {
       outOfStock: string;
       buy: string;
     };
-  };
+  }; */
   onBuyClick: (productId: number) => void;
   onFavoriteClick: (productId: number, isFavorite: boolean) => void;
   product: Product;
@@ -48,11 +48,11 @@ const Card: React.FC<CardProps> = ({
   product,
   isLogged = false,
   variant = 'standart',
-  translation,
   onBuyClick,
   onFavoriteClick,
 }) => {
   const locale = useLocale();
+  const t = useTranslations('product');
   const [newPrice, setNewPrice] = useState<number>(0);
   const [isAvailable, setIsAvailable] = useState<boolean>(true);
   const [productName, setProductName] = useState<string>('');
@@ -67,7 +67,7 @@ const Card: React.FC<CardProps> = ({
     setNewPrice(
       product.basePrice - product.basePrice * (product.attributes[0].priceDeviation / 100)
     );
-    setProductName(locale === 'uk-UA' ? product.productNameUa : product.productNameEn);
+    setProductName(locale === 'uk' ? product.productNameUa : product.productNameEn);
     setIsAvailable(product.attributes[0].quantity > 0);
     setClassNameImg(
       isAvailable ? `${styles.imageWrapper}` : `${styles.imageWrapper} ${styles.outStock}`
@@ -89,7 +89,7 @@ const Card: React.FC<CardProps> = ({
       /* onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave} */
     >
       <Link
-        href={`/${locale}/product/${product.productId}`}
+        href={`/product/${product.productId}`}
         onClick={() => setProduct(product)}
         className={styles.cardLink}
       >
@@ -102,7 +102,7 @@ const Card: React.FC<CardProps> = ({
                   : `${styles.addToFavorite}`
               }
             >
-              {translation.card.addToFollowing}
+              {t('card.addToFollowing')}
             </div>
           )}
           <Image className={styles.image} src={productImage} alt={productName} layout="fill" />
@@ -123,10 +123,10 @@ const Card: React.FC<CardProps> = ({
               />
             )}
             {product.basePrice > newPrice && (
-              <div className={styles.sale}>{translation.card.sale}</div>
+              <div className={styles.sale}>{t('card.sale')}</div>
             )}
             {product.attributes[0].label && (
-              <div className={styles.new}>{translation.card.new}</div>
+              <div className={styles.new}>{t('card.new')}</div>
             )}
           </div>
           <button onClick={handleAddToFavorite} className={styles.following}>
@@ -183,13 +183,13 @@ const Card: React.FC<CardProps> = ({
               variant === 'big' ? `${styles.available} ${styles.big}` : `${styles.available}`
             }
           >
-            {isAvailable ? translation.card.available : translation.card.outOfStock}
+            {isAvailable ? t('card.available') : t('card.outOfStock')}
           </div>
         </div>
         <div className={styles.buySection}>
           <Button
             onClick={() => onBuyClick(product.productId)}
-            text={translation.card.buy}
+            text={t('card.buy')}
             className={
               variant === 'big' ? `${styles.buyButton} ${styles.big}` : `${styles.buyButton}`
             }

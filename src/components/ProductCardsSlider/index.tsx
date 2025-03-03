@@ -5,13 +5,12 @@ import { Locale } from '@/i18n-config';
 import { Product } from '@/interfaces/product';
 import Card from '../Card';
 import styles from './ProductCardsSlider.module.css';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 interface CardsSliderProp {
   products: Product[];
-  locale?: Locale;
   recommendation?: Product[];
-  translation: {
+ /*  translation: {
     card: {
       addToFollowing: string;
       sale: string;
@@ -20,7 +19,7 @@ interface CardsSliderProp {
       outOfStock: string;
       buy: string;
     };
-  };
+  }; */
   onBuyClick: (id: number) => void;
   onFavoriteClick: (productId: number, isFavorite: boolean) => void;
   title: string;
@@ -28,13 +27,13 @@ interface CardsSliderProp {
 
 const ProductCardsSlider: React.FC<CardsSliderProp> = ({
   products,
-  translation,
   onBuyClick,
   onFavoriteClick,
   title,
   recommendation,
 }) => {
   const locale = useLocale();
+  const t = useTranslations('product');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [activeNav, setActiveNav] = useState(0);
 
@@ -73,7 +72,6 @@ const ProductCardsSlider: React.FC<CardsSliderProp> = ({
                     product={slide}
                     onBuyClick={onBuyClick}
                     onFavoriteClick={onFavoriteClick}
-                    translation={translation}
                   />
                 )}
               </div>
@@ -108,7 +106,6 @@ const ProductCardsSlider: React.FC<CardsSliderProp> = ({
                   product={slide}
                   onBuyClick={onBuyClick}
                   onFavoriteClick={onFavoriteClick}
-                  translation={translation}
                 />
               </div>
             ))}

@@ -41,8 +41,9 @@ interface RootLayoutProps {
 const RootLayout: NextPage<RootLayoutProps> = async ({ params: { lang: locale }, children }) => {
   const translations = await getAllTranslations('ua');
   const translation = getTranslation(translations);
+
   // toDo: too slow
-  const res = await getProducts();
+  // const res = await getProducts();
   // console.log('products: ', res);
   // console.log(children);
   // const session = await getServerSession(options);
@@ -58,25 +59,28 @@ const RootLayout: NextPage<RootLayoutProps> = async ({ params: { lang: locale },
   return (
     <ReduxProvider>
       <AuthProvider>
-        <ProductProvider initialProducts={res?.data.content}>
-          <html lang={locale}>
-            <body className={inter.className}>
-              <NextIntlClientProvider messages={messages}>
-                <Header translation={translation('nav')} locale={locale} products={null} />
-                <main>{children}</main>
-                <Footer />
-                <ScrollToTop />
-                <Container>
-                  <AuthModal locale={locale} />
-                </Container>
-                <ToastContainer hideProgressBar={true} />
-              </NextIntlClientProvider>
-            </body>
-          </html>
-        </ProductProvider>
+        <html lang={locale}>
+          <body className={inter.className}>
+            <NextIntlClientProvider messages={messages}>
+              <Header translation={translation('nav')} locale={locale} products={null} />
+              <main>{children}</main>
+              <Footer />
+              <ScrollToTop />
+              <Container>
+                <AuthModal locale={locale} />
+              </Container>
+              <ToastContainer hideProgressBar={true} />
+            </NextIntlClientProvider>
+          </body>
+        </html>
       </AuthProvider>
     </ReduxProvider>
   );
 };
 
 export default RootLayout;
+
+/* 
+<ProductProvider initialProducts={res?.data.content}>
+</ProductProvider>
+ */

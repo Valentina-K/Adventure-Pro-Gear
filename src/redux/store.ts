@@ -1,6 +1,7 @@
 import { configureStore, combineSlices } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
 import { apiSlice } from '@/redux/features/apiSlice';
+import productReducer from '@/redux/products/slice';
 import type { Action, ThunkAction } from '@reduxjs/toolkit';
 
 // const rootReducer = combineSlices(authSlice);
@@ -8,6 +9,7 @@ import type { Action, ThunkAction } from '@reduxjs/toolkit';
 export const store = configureStore({
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer,
+    products: productReducer,
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware().concat(apiSlice.middleware),
 });

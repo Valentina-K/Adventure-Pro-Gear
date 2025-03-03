@@ -1,8 +1,11 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectAllProducts, selectProductById } from '@/redux/features/selectors';
+import { RootState } from '@/redux/store';
 import Image from 'next/image';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import Container from '@/components/Container';
 import BreadcrumbNavigation from '@/components/BreadcrumbNavigation';
 import { Locale } from '@/i18n-config';
@@ -15,7 +18,7 @@ import { Product, Review } from '@/interfaces/product';
 import { getAllReviewsByProductId } from '@/clientServices/clientAxios';
 import Payments from '@/constants/payments';
 import Comercial from '@/../public/icons/Comercial.svg';
-import { useProduct } from '@/contexts/ProductContext';
+// import { useProduct } from '@/contexts/ProductContext';
 import ProductCardsSlider from '../ProductCardsSlider';
 import Reviews from '../Tabs/Reviews';
 import ImageCarousel from '../ImageCarousel/ImageCarousel';
@@ -29,7 +32,8 @@ interface ProductWrapperProp {
   /* locale: Locale; */
   /* products: Product[]; */
   reviews: Review[];
-  translation: {
+  productId: number;
+  /* translation: {
     page: {
       code: string;
       manufacturer: string;
@@ -63,7 +67,7 @@ interface ProductWrapperProp {
       helpful: string;
       usersThink: string;
     };
-  };
+  }; */
 }
 
 const ProductWrapper: React.FC<ProductWrapperProp> = ({
@@ -71,15 +75,21 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
   /* locale, */
   /* products, */
   reviews,
-  translation,
+  productId,
+  /* translation, */
 }) => {
   const locale = useLocale();
-  const { product, products } = useProduct();
+  const t = useTranslations('product');
+  const products = useSelector(selectAllProducts);
+  const product = useSelector((state: RootState) => selectProductById(productId)(state));
+  // const { product, products } = useProduct();
   const [attrIndex, setAttrIndex] = useState(0);
   const [buyQuantity, setBuyQuantity] = useState(0);
   const [tabIndex, setTabIndex] = useState(0);
   const [payment, setPayment] = useState<Payments>(Payments.VISA);
   const [productReviews, setReviews] = useState<Review[]>(reviews);
+  if (!product) return <div>Product not found</div>;
+
   const isAvailable = product.attributes[attrIndex].quantity > 0;
   const cart = {
     productId: product.productId,
@@ -136,7 +146,7 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
           <Tabs
             description={locale === 'uk' ? product.descriptionUa : product.descriptionEn}
             characteristics={product.characteristics}
-            translation={translation}
+            /* translation={translation} */
             onChangeTab={handleChangeTab}
             onReviewSend={handleReviewSend}
           />
@@ -157,26 +167,26 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
                   ₴
                 </p>
                 <p className={styles.available}>
-                  {isAvailable ? translation.card.available : translation.card.outOfStock}
+                  {isAvailable ? t('card.available') : t('card.outOfStock')}
                 </p>
               </div>
               <div className={styles.specialInfo}>
                 <p>
-                  {translation.page.code}
+                  {t('page.code')}
                   :
                   <span>{product.productId}</span>
                 </p>
                 <p>
-                  {translation.page.manufacturer}
+                  {t('page.manufacturer')}
                   :
                   <span>Terra Incognita</span>
                 </p>
               </div>
             </div>
             <AvailableColors
-              title={translation.page.availableOptions}
-              h4={translation.page.color}
-              clear={translation.page.clear}
+              title={t('page.availableOptions')}
+              h4={t('page.color')}
+              clear={t('page.clear')}
               onColorChoice={handleChoiceColor}
               imageArray={colorItems}
             />
@@ -187,31 +197,29 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
               />
               <Button
                 className={styles.buyButton}
-                text={translation.card.buy}
+                text={t('card.buy')}
                 disabled={!isAvailable}
                 icon={<Image src={Comercial} width={20} height={20} alt="Comercial" />}
                 onClick={handleBuyClick}
               />
             </div>
-            <Payment title={translation.page.paymentMethod} onClick={onChoisePayment} />
+            <Payment title={t('page.paymentMethod')} onClick={onChoisePayment} />
           </section>
           <section className={styles.additionalOffers}>
             <div className={styles.withThisBuy}>
               <ProductCardsSlider
                 products={products}
-                translation={translation}
                 onBuyClick={handleBuyClick}
                 onFavoriteClick={handleFavoriteClick}
-                title={translation.page.buyWithThis}
+                title={t('page.buyWithThis')}
               />
             </div>
             <div className={styles.relatedProducts}>
               <ProductCardsSlider
                 products={products}
-                translation={translation}
                 onBuyClick={handleBuyClick}
                 onFavoriteClick={handleFavoriteClick}
-                title={translation.page.similarProducts}
+                title={t('page.similarProducts')}
               />
             </div>
           </section>
@@ -222,14 +230,14 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
           <Reviews
             reviews={productReviews}
             productName={locale === 'uk' ? product.productNameUa : product.productNameEn}
-            reviewTitle={translation.tabs.reviews}
-            helpful={translation.tabs.helpful}
-            usersThink={translation.tabs.usersThink}
+            reviewTitle={t('tabs.reviews')}
+            helpful={t('tabs.helpful')}
+            usersThink={t('tabs.usersThink')}
           />
         )}
       </section>
       <div className={styles.prevViewed}>
-        <h2>{translation.page.previouslyViewed}</h2>
+        <h2>{t('page.previouslyViewed')}</h2>
       </div>
     </Container>
   );
