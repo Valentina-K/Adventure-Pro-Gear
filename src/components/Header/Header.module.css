@@ -42,8 +42,8 @@
   text-decoration: none;
   color: var(--white);
 }
-
-.navItem > a:hover {
+.navItem > a:hover,
+.navItem a.active {
   color: var(--lightYellow);
 }
 

@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { AppRoutes } from '@/constants/routes';
 import { useLocale, useTranslations } from 'next-intl';
-
-import { getAllTranslations, getTranslation } from '@/dictionaries/dictionaries';
 import { useSession } from 'next-auth/react';
-// import { usePathname } from 'next/navigation';
+import clsx from 'clsx';
 import ProfileMenu from '@/components/ProfileMenu';
+import { AppRoutes } from '@/constants/routes';
 import { Link, usePathname } from '@/i18n/routing';
 import styles from './DropDown.module.css';
 
@@ -15,26 +13,17 @@ interface DropDownProps {
   className?: string;
 }
 
-interface ProfileTranslations {
-  menuData: string[];
-}
-
 const DropDown: React.FC<DropDownProps> = ({ className, isLinkClicked }) => {
-  const session = useSession();
+  const { data: session } = useSession();
   const locale = useLocale();
   const path = usePathname();
   const t = useTranslations('auth');
 
-  const [menuDataTranslation, setMenuDataTranslation] = useState<ProfileTranslations | undefined>();
-
   return (
     <div className={`${className} ${styles.dropDown}`}>
-      {session.data ? <span className={styles.dropdownSpan} /> : <span />}
-      {session.data ? (
-        <ProfileMenu
-          menuData={menuDataTranslation && menuDataTranslation.menuData}
-          className={styles.profileMenu}
-        />
+      <span className={clsx({ [styles.dropdownSpan]: session })}> </span>
+      {session ? (
+        <ProfileMenu className={styles.profileMenu} />
       ) : (
         <ul>
           <li>
