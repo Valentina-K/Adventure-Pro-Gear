@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { routing } from './i18n/routing';
 import { AppRoutes } from './constants/routes';
 
-const secret = process.env.NEXTAUTH_SECRET;
+const secret = 'by21t4673gr732eiwyufetrg764367fg';
 const protectedRoutes = ['/personal_account'];
 
 export default async function middleware(req: NextRequest) {
