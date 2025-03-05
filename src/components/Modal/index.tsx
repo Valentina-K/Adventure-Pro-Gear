@@ -2,8 +2,6 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Locale } from '@/i18n-config';
-import Close from '@/../public/icons/Close.svg';
 import Container from '@/components/Container';
 import styles from './Modal.module.css';
 
@@ -20,7 +18,7 @@ const Modal: React.FC<ModalProps> = ({ children, className, closeModal }) => (
       <div className={`${className} ${styles.modal}`}>
         {children}
         <Image
-          src={Close}
+          src='/icons/Close.svg'
           className={styles.closeButton}
           onClick={closeModal}
           width={24}

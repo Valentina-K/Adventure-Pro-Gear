@@ -1,25 +1,23 @@
 import { Fragment, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Link } from '@/i18n/routing';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useLocale } from 'next-intl';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+import { Link } from '@/i18n/routing';
 
 import { registerAction } from '@/app/actions';
 import Form from '@/components/Form';
 import Checkbox from '@/components/Checkbox/Checkbox';
-// import { getAllTranslations, getTranslation } from '@/dictionaries/dictionaries';
 import { getSignUpSchema, SignUpData } from '@/validation';
 import { AppRoutes } from '@/constants/routes';
 import { Button, Field } from '@/components/UI';
+import FieldPassword from '@/components/UI/Field/FieldPassword';
 
 import styles from './SignUp.module.css';
-import FieldPassword from '@/components/UI/Field/FieldPassword';
 import 'react-toastify/dist/ReactToastify.css';
 
-const SignUp: React.FC = () => {
+const SignUp = () => {
   const router = useRouter();
   const locale = useLocale();
   const t = useTranslations('auth');
@@ -132,7 +130,8 @@ const SignUp: React.FC = () => {
 
         <p className={styles.submitPolicy}>
           {t.rich('registration.policy', {
-            link: chunks => <Link href={`/policy`}>{chunks}</Link>,
+            // eslint-disable-next-line react/no-unstable-nested-components
+            link: chunks => <Link href='/policy'>{chunks}</Link>,
           })}
         </p>
 
@@ -146,7 +145,7 @@ const SignUp: React.FC = () => {
         </Button>
 
         {/* change parameter on click to ${AppRoutes.SIGNIN} */}
-        <Link className={styles.loginLink} href={`/${AppRoutes.SIGNIN}`}>
+        <Link className={styles.loginLink} href={`${AppRoutes.SIGNIN}`}>
           {t('I have registered')}
         </Link>
       </Form>
