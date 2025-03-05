@@ -8,6 +8,7 @@ import arrows from '../../../public/icons/Arrows.svg';
 import style from './CatalogList.module.css';
 import { catalogImg } from './catalogImgData';
 import Container from '../Container';
+import Loading from '../Loading';
 
 interface ICatalogListProps {
   locale: Locale;
@@ -79,7 +80,7 @@ const CatalogList: React.FC<ICatalogListProps> = ({ locale, setVisibleSubcategor
           </div>
         ) : (
           <div className={style.spinner_container}>
-            <Spinner />
+            <Loading />
           </div>
         )}
       </Container>

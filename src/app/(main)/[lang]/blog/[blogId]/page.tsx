@@ -15,8 +15,8 @@ async function BlogId({ params }: { params: { blogId: string; lang: Locale } }) 
   const blog = await getBlogsId(params.blogId);
 
 		// toDo: too slow
-  // const recommendation = await getProducts();
-  // const recommendationProducts = recommendation?.data.slice(0, 6);
+  const recommendation = await getProducts();
+  const recommendationProducts = recommendation?.data?.content?.slice(0, 6);
 
   return (
     <Container>
@@ -50,7 +50,7 @@ async function BlogId({ params }: { params: { blogId: string; lang: Locale } }) 
         </button>
       </div>
 
-      {/* <div className={style.recommendation_container}>
+      <div className={style.recommendation_container}>
         <Recommendation
           translation={{
             card: {
@@ -65,7 +65,7 @@ async function BlogId({ params }: { params: { blogId: string; lang: Locale } }) 
           locale={params.lang}
           recommendation={recommendationProducts}
         />
-      </div> */}
+      </div>
     </Container>
   );
 }

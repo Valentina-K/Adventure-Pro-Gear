@@ -44,6 +44,8 @@ export interface Characteristics {
 }
 
 export interface Product {
+  source: any;
+  length: number;
   productId: number;
   productNameUa: string;
   productNameEn: string;

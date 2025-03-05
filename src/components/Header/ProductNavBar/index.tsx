@@ -13,6 +13,8 @@ const ProductNavBar: React.FC<HeaderProps> = ({
   locale,
   products,
   setVisibleSubcategory,
+  setToggleCatalog,
+  toggleCatalog,
 }) => (
   <div className={styles.background}>
     <Container className={styles.container}>
@@ -21,6 +23,8 @@ const ProductNavBar: React.FC<HeaderProps> = ({
           catalog={translation.catalog}
           locale={locale}
           setVisibleSubcategory={setVisibleSubcategory}
+          setToggleCatalog={setToggleCatalog}
+          toggleCatalog={toggleCatalog}
         />
         <Search
           products={products}

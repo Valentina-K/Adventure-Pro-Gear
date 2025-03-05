@@ -1,0 +1,25 @@
+.input_item {
+  height: 38px;
+  cursor: pointer;
+  transition: all 0.7s ease-in-out;
+  margin-top: 2px;
+}
+
+.input_item:not(:last-child) {
+  margin-right: 10px;
+}
+
+.input_img {
+  padding: 6px 8px 0px 8px;
+}
+
+/* ========active-grid============ */
+.input_item_active {
+  height: 38px;
+  background-color: var(--greenForBtn);
+  border-radius: 2px;
+}
+
+.input_item_active .input_img {
+  filter: brightness(0) invert(1);
+}

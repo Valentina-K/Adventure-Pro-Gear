@@ -21,6 +21,8 @@ const publicRoutes = [
   '/product/',
   '/blog/',
   '/user/',
+  '/catalog/',
+  '/catalog/:CatalogId',
   '/product/:productID',
 ];
 
@@ -39,6 +41,7 @@ const isPublicDynamicRoute = (pathname: string) => {
   return (
     pathname.startsWith('/product/') ||
     pathname.startsWith('/blog/') ||
+    pathname.startsWith('/catalog/') ||
     pathname.startsWith('/user/')
   );
 };

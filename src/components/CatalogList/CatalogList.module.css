@@ -3,8 +3,11 @@
 }
 
 .catalogList_container {
+  width: 280px;
   position: absolute;
-  top: 145px;
+  top: 31px;
+  left: -10px;
+  z-index: 10;
   border-bottom-left-radius: 2px;
   border-bottom-right-radius: 2px;
   border: 1px solid var(----label);
@@ -39,8 +42,9 @@
 
 .spinner_container {
   position: absolute;
-  top: 15%;
-  left: 40%;
+  top: -12px;
+  right: -180px;
+  z-index: 10;
   color: black;
 }
 
@@ -59,5 +63,5 @@
 }
 
 .item:hover .img {
-  filter: invert(100%) hue-rotate(90deg) saturate(0);
+  filter: brightness(0) invert(1);
 }

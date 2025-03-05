@@ -140,7 +140,7 @@
 
 .sale {
   padding: 2px 4px;
-  width: 43px;
+  width: 43px !important;
   height: 21px;
   background: var(--sale);
   border-radius: 5px;

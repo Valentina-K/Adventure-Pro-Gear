@@ -18,6 +18,8 @@ export interface HeaderProps {
   locale?: Locale;
   products?: any;
   setVisibleSubcategory?: (arr: []) => void;
+  setToggleCatalog: (str: any) => void;
+  toggleCatalog?: boolean;
 }
 
 export interface Token {}

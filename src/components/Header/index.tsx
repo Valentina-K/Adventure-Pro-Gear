@@ -12,23 +12,30 @@ import Subcategory from '../CatalogList/Subcategory/Subcategory';
 
 const Header: NextPage<HeaderProps> = ({ translation, locale, products }) => {
   const [visibleSubcategory, setVisibleSubcategory] = useState<IVisibleSubcategory[]>([]);
-
+  const [toggleCatalog, setToggleCatalog] = useState<boolean>(false);
   return (
     <>
       <header className={styles.header}>
         <Container>
-          <NavBar translation={translation} locale={locale} />
+          <NavBar translation={translation} locale={locale} setToggleCatalog={setToggleCatalog} />
         </Container>
         <ProductNavBar
           translation={translation}
           locale={locale}
           products={products}
           setVisibleSubcategory={setVisibleSubcategory}
+          setToggleCatalog={setToggleCatalog}
+          toggleCatalog={toggleCatalog}
         />
       </header>
       <Container>
         {visibleSubcategory.length > 0 && (
-          <Subcategory locale={locale} visibleSubcategory={visibleSubcategory} />
+          <Subcategory
+            locale={locale}
+            visibleSubcategory={visibleSubcategory}
+            setToggleCatalog={setToggleCatalog}
+            setVisibleSubcategory={setVisibleSubcategory}
+          />
         )}
       </Container>
     </>

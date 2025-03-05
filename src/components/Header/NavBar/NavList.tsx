@@ -7,7 +7,7 @@ import { HeaderProps } from '../../../types/HeaderType';
 import styles from '../Header.module.css';
 import LangLinks from './LangLinks';
 
-const NavList: React.FC<HeaderProps> = ({ translation, locale }) => {
+const NavList: React.FC<HeaderProps> = ({ translation, locale, setToggleCatalog }) => {
   const path = usePathname();
   const navLinks = [
     {

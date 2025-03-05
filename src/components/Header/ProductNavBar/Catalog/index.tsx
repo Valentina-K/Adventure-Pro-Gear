@@ -11,10 +11,18 @@ interface SearchProps {
   locale: Locale;
   catalog: string;
   setVisibleSubcategory: any;
+  setToggleCatalog: (str: any) => void;
+  toggleCatalog?: boolean;
 }
 
-const CatalogOfGoods: React.FC<SearchProps> = ({ catalog, locale, setVisibleSubcategory }) => {
-  const [toggleCatalog, setToggleCatalog] = useState<boolean>(false);
+const CatalogOfGoods: React.FC<SearchProps> = ({
+  catalog,
+  locale,
+  setVisibleSubcategory,
+  setToggleCatalog,
+  toggleCatalog,
+}) => {
+  // const [toggleCatalog, setToggleCatalog] = useState<boolean>(false);
 
   const handlerToggleCatalog = (e: React.MouseEvent<HTMLDivElement>) => {
     const evtTarget = e.target as HTMLElement;
@@ -26,7 +34,7 @@ const CatalogOfGoods: React.FC<SearchProps> = ({ catalog, locale, setVisibleSubc
       return;
     }
 
-    setToggleCatalog(prev => !prev);
+    setToggleCatalog((prev: any) => !prev);
     setVisibleSubcategory([]);
   };
 
@@ -36,8 +44,10 @@ const CatalogOfGoods: React.FC<SearchProps> = ({ catalog, locale, setVisibleSubc
       <p>{catalog}</p>
 
       {toggleCatalog && (
-        <div className={styles.overlay}>
+        <div className={styles.catalogList__container}>
           <CatalogList locale={locale} setVisibleSubcategory={setVisibleSubcategory} />
+
+          <div className={styles.overlay}> </div>
         </div>
       )}
     </div>

@@ -30,7 +30,7 @@ async function Blog({ params }: { params: { lang: Locale } }) {
                 <Link href={`/${locale}/blog/${id}`}>
                   <Image
                     // src={imgPost}
-										src={imageUrl}
+                    src={imageUrl}
                     alt="img blog"
                     width="180"
                     height="180"
@@ -44,7 +44,7 @@ async function Blog({ params }: { params: { lang: Locale } }) {
               </li>
             ))}
         </ul>
-        <Pagination searchParams={{}} />
+        {/* <Pagination searchParams={{}} /> */}
       </div>
     </Container>
   );
