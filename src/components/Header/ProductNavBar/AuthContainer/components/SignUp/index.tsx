@@ -131,7 +131,7 @@ const SignUp = () => {
         <p className={styles.submitPolicy}>
           {t.rich('registration.policy', {
             // eslint-disable-next-line react/no-unstable-nested-components
-            link: chunks => <Link href='/policy'>{chunks}</Link>,
+            link: chunks => <Link href="/policy">{chunks}</Link>,
           })}
         </p>
 
