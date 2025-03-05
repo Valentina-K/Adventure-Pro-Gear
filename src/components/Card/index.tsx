@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Locale } from '@/i18n-config';
+import { useLocale } from 'next-intl';
 import FollowinIcon from '@/../public/icons/Following.svg';
 import FollowingFill from '@/../public/icons/FollowingFill.svg';
 import Comercial from '@/../public/icons/Comercial.svg';
@@ -15,7 +15,6 @@ import ReviewCount from '../ReviewCount';
 import styles from './Card.module.css';
 
 interface CardProps {
-  locale: Locale;
   isLogged?: boolean;
   variant?: 'big' | 'standart' | 'small';
   translation: {
@@ -46,13 +45,13 @@ const getClassName = (variant: string) => {
 
 const Card: React.FC<CardProps> = ({
   product,
-  locale,
   isLogged = false,
   variant = 'standart',
   translation,
   onBuyClick,
   onFavoriteClick,
 }) => {
+  const locale = useLocale();
   const [newPrice, setNewPrice] = useState<number>(0);
   const [isAvailable, setIsAvailable] = useState<boolean>(true);
   const [productName, setProductName] = useState<string>('');
@@ -60,7 +59,7 @@ const Card: React.FC<CardProps> = ({
   const [addToFavorite, setAddToFavorite] = useState<boolean>(false);
   const [following, setFollowing] = useState(FollowinIcon);
   const productImage =
-    product.contents.length > 0 ? product.contents[0].source : 'https://dummyimage.com/180x180';
+    product.contents.length > 0 ? `/${product.contents[0].source}` : 'https://dummyimage.com/180x180';
   let className = getClassName(variant);
 
   useEffect(() => {

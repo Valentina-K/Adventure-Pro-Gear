@@ -1,7 +1,7 @@
 import { Locale } from '@/i18n-config';
 
 export interface HeaderProps {
-  translation: {
+  translation?: {
     logo: string;
     aboutUs: string;
     blog: string;
@@ -13,7 +13,7 @@ export interface HeaderProps {
       showall: string;
     };
     catalog: string;
-    lang: string[];
+    lang?: string[];
   };
   locale?: Locale;
   products?: any;

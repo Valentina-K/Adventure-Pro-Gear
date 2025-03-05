@@ -10,11 +10,10 @@ interface ICatalogNameListProps {
   item: Product;
 }
 
-const CatalogNameList: React.FC<ICatalogNameListProps> = ({ item }, locale: Locale) => {
+const CatalogNameList: React.FC<ICatalogNameListProps> = ({ item }) => {
   return (
     <Card
       product={item}
-      locale={locale}
       translation={{
         card: {
           addToFollowing: '',

@@ -1,12 +1,12 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 import Link from 'next/link';
-import { Locale } from '@/i18n-config';
-import { IVisibleSubcategory } from '@/types/IVisibleSubcategory';
+import { useLocale } from 'next-intl';
+import type { IVisibleSubcategory } from '@/types/IVisibleSubcategory';
+
 import style from './Subcategory.module.css';
 
 interface ISubcategoryProps {
-  locale: Locale;
   visibleSubcategory: IVisibleSubcategory[];
   setVisibleSubcategory: any;
   setToggleCatalog: (str: any) => void;
@@ -14,15 +14,15 @@ interface ISubcategoryProps {
 
 // eslint-disable-next-line arrow-body-style
 const Subcategory: React.FC<ISubcategoryProps> = ({
-  locale,
   visibleSubcategory,
   setToggleCatalog,
-  setVisibleSubcategory,
-}) => {
+  setVisibleSubcategory, }) => {
+  const locale = useLocale();
   const handlerToggleCatalog = () => {
     setToggleCatalog((prev: any) => !prev);
     setVisibleSubcategory([]);
   };
+
   return (
     <div className={style.container}>
       <ul className={style.list}>
@@ -30,8 +30,9 @@ const Subcategory: React.FC<ISubcategoryProps> = ({
           categories?.map(({ id, categoryNameUa, categoryNameEn, subcategories }) => (
             <li key={id} className={style.list_item}>
               <h2 className={style.list_item_title}>
-                {locale === 'uk-UA' ? categoryNameUa : categoryNameEn}
+                {locale === 'uk' ? categoryNameUa : categoryNameEn}
               </h2>
+
               <ul>
                 {subcategories?.map(
                   ({
@@ -46,11 +47,12 @@ const Subcategory: React.FC<ISubcategoryProps> = ({
                       key={id}
                       onClick={handlerToggleCatalog}
                     >
-                      <Link href={`/catalog/${id}?page=1`}>
+                      <Link href={`/${locale}/catalog/${id}?page=1`}>
                         <p className={style.list_descr}>
-                          {locale === 'uk-UA' ? subcategoryNameUa : subcategoryNameEn}
+                          {locale === 'uk' ? subcategoryNameUa : subcategoryNameEn}
                         </p>
                       </Link>
+
                     </li>
                   )
                 )}

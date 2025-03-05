@@ -2,19 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
-import { useRouter, useSearchParams } from 'next/navigation';
-// import Container from '../Container';
-import { Locale } from '@/i18n-config';
+import { useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from '@/i18n/routing';
 import Modal from '../Modal';
 import SignUp from '../Header/ProductNavBar/AuthContainer/components/SignUp';
 import SignIn from '../Header/ProductNavBar/AuthContainer/components/SignIn';
 import ForgotPassword from '../Header/ProductNavBar/AuthContainer/components/ForgotPassword';
 import ResetPassword from '../Header/ProductNavBar/AuthContainer/components/ResetPassword';
 import styles from './AuthModal.module.css';
-
-interface AuthModalProps {
-  locale: Locale;
-}
 
 type AuthType =
   | 'signin'
@@ -25,16 +20,17 @@ type AuthType =
   | 'new-password'
   | null;
 
-const AuthModal: React.FC<AuthModalProps> = ({ locale }) => {
+const AuthModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [authType, setAuthType] = useState<AuthType>(null);
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
   const searchParams = useSearchParams();
-  const router = useRouter();
   const session = useSession();
+  const path = usePathname();
+  const router = useRouter();
 
   const closeModal = () => {
-    router.replace(`/${locale}`);
+    router.back();
   };
 
   useEffect(() => {
@@ -61,23 +57,23 @@ const AuthModal: React.FC<AuthModalProps> = ({ locale }) => {
   return (
     <>
       {isModalOpen && session.status !== 'authenticated' && authType === 'signup' && (
-        <Modal closeModal={closeModal} locale={locale} className={styles.authModal}>
-          <SignUp locale={locale} />
+        <Modal closeModal={closeModal} className={styles.authModal}>
+          <SignUp />
         </Modal>
       )}
       {isModalOpen && session.status !== 'authenticated' && authType === 'signin' && (
-        <Modal closeModal={closeModal} locale={locale} className={styles.authModal}>
-          <SignIn locale={locale} />
+        <Modal closeModal={closeModal} className={styles.authModal}>
+          <SignIn />
         </Modal>
       )}
       {isModalOpen && session.status !== 'authenticated' && authType === 'forgot-password' && (
-        <Modal closeModal={closeModal} locale={locale} className={styles.authModalForgotPassword}>
-          <ForgotPassword locale={locale} />
+        <Modal closeModal={closeModal} className={styles.authModalForgotPassword}>
+          <ForgotPassword />
         </Modal>
       )}
       {isModalOpen && session.status !== 'authenticated' && authType === 'reset-password' && (
-        <Modal closeModal={closeModal} locale={locale} className={styles.authModal}>
-          <ResetPassword locale={locale} />
+        <Modal closeModal={closeModal} className={styles.authModal}>
+          <ResetPassword />
         </Modal>
       )}
       {/* {isOverlayOpen && <div className={styles.overlay} />} */}

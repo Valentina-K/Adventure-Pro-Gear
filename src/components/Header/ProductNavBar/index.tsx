@@ -1,7 +1,9 @@
 import React from 'react';
+import { useTranslations } from 'next-intl';
+
 import Container from '@/components/Container';
 import Search from '@/components/Search';
-import { HeaderProps } from '@/types';
+import type { HeaderProps } from '@/types';
 import ShoppingCart from './ShoppingCart';
 import AuthContainer from './AuthContainer';
 import Likes from './Likes';
@@ -9,39 +11,39 @@ import CatalogOfGoods from './Catalog';
 import styles from './ProductNavBar.module.css';
 
 const ProductNavBar: React.FC<HeaderProps> = ({
-  translation,
-  locale,
   products,
   setVisibleSubcategory,
   setToggleCatalog,
   toggleCatalog,
-}) => (
-  <div className={styles.background}>
-    <Container className={styles.container}>
-      <div className={styles.productNavBarChildren}>
-        <CatalogOfGoods
-          catalog={translation.catalog}
-          locale={locale}
-          setVisibleSubcategory={setVisibleSubcategory}
-          setToggleCatalog={setToggleCatalog}
-          toggleCatalog={toggleCatalog}
-        />
-        <Search
-          products={products}
-          unavailable={translation.search.unavailable}
-          showall={translation.search.showall}
-          locale={locale}
-          placeholder={translation.search.placeholder}
-        />
-        <div className={styles.userInteractions}>
-          <Likes />
-          <ShoppingCart />
-          <AuthContainer personalAccount={translation.personalAccount} locale={locale} />
-          <div className={styles.overlay} />
+}) => {
+  const t = useTranslations('nav');
+
+  return (
+    <div className={styles.background}>
+      <Container className={styles.container}>
+        <div className={styles.productNavBarChildren}>
+          <CatalogOfGoods
+            catalog={t('catalog')}
+            setVisibleSubcategory={setVisibleSubcategory}
+            setToggleCatalog={setToggleCatalog}
+            toggleCatalog={toggleCatalog}
+          />
+          <Search
+            products={products}
+            unavailable={t('search.unavailable')}
+            showall={t('search.showall')}
+            placeholder={t('search.placeholder')}
+          />
+          <div className={styles.userInteractions}>
+            <Likes />
+            <ShoppingCart />
+            <AuthContainer personalAccount={t('personalAccount')} />
+            <div className={styles.overlay} />
+          </div>
         </div>
-      </div>
-    </Container>
-  </div>
-);
+      </Container>
+    </div>
+  );
+};
 
 export default ProductNavBar;

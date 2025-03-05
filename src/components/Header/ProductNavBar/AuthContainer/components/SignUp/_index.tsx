@@ -14,6 +14,7 @@ import { i18n, Locale } from '@/i18n-config';
 import { AppRoutes } from '@/constants/routes';
 import Link from 'next/link';
 import styles from './SignUp.module.css';
+import { useLocale } from 'next-intl';
 
 export interface Credentials {
   name: string;
@@ -131,6 +132,7 @@ const SignUp: React.FC<SignUpProps> = ({ locale }) => {
   }, [locale]);
 
   const clientRegisterAction = async (formData: FormData) => {
+    const locale = useLocale();
     const response = await registerAction(formData, locale);
     console.log('response from a server: ', response);
     // if (response?.errors ) {

@@ -2,8 +2,7 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
-import { Locale } from '@/i18n-config';
-
+import { useLocale } from 'next-intl';
 import { getProductsFilter, getSubcategoryId } from '@/clientServices/clientAxios';
 
 import Container from '@/components/Container';
@@ -34,8 +33,8 @@ const CatalogId = (
       catalogId: string;
     };
   },
-  locale: Locale
 ) => {
+  const locale = useLocale();
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -142,7 +141,7 @@ const CatalogId = (
             {data?.map(({ subSubCategoryNameEn, subSubCategoryNameUa }) => (
               // eslint-disable-next-line react/jsx-key
               <h1 className={styles.title} key={subSubCategoryNameEn}>
-                {params.lang === 'uk-UA' ? subSubCategoryNameUa : subSubCategoryNameEn}
+                {locale === 'uk' ? subSubCategoryNameUa : subSubCategoryNameEn}
               </h1>
             ))}
             <ul className={styles.input_list}>

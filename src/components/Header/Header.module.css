@@ -6,7 +6,6 @@
 .nav {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
   padding-bottom: 10px;
 }
@@ -28,6 +27,8 @@
   flex-direction: row;
   list-style-type: none;
   align-items: center;
+  margin-left: auto;
+  padding: 0 30px;
 }
 
 .navItem {
@@ -41,8 +42,8 @@
   text-decoration: none;
   color: var(--white);
 }
-
-.navItem > a:hover {
+.navItem > a:hover,
+.navItem a.active {
   color: var(--lightYellow);
 }
 
@@ -50,4 +51,9 @@
   background-color: var(--darkBlue);
   order: 2;
   padding-left: 8px;
+  color: var(--white);
+}
+
+.langSelect {
+  min-width: 125px;
 }

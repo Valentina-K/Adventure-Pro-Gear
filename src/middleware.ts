@@ -1,124 +1,39 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
-import { match as matchLocale } from '@formatjs/intl-localematcher';
-import Negotiator from 'negotiator';
-import { AppRoutes } from '@/constants/routes';
-import { getSession, GetSessionParams } from 'next-auth/react';
-import { i18n } from './i18n-config';
+import { getToken } from 'next-auth/jwt';
+import createMiddleware from 'next-intl/middleware';
+import { NextRequest, NextResponse } from 'next/server';
+import { routing } from './i18n/routing';
+import { AppRoutes } from './constants/routes';
 
-export { default } from 'next-auth/middleware';
+const secret = process.env.NEXTAUTH_SECRET;
+const protectedRoutes = ['/personal_account'];
 
-const publicRoutes = [
-  AppRoutes.HOME,
-  AppRoutes.SIGNIN,
-  AppRoutes.SIGN_UP,
-  AppRoutes.FORGOT_PASSWORD,
-  `/?auth=reset-password&token=*`,
-  '/contacts/',
-  '/about_us/',
-  '/policy/',
-  '/error/',
-  '/product/',
-  '/blog/',
-  '/user/',
-  '/catalog/',
-  '/catalog/:CatalogId',
-  '/product/:productID',
-];
+export default async function middleware(req: NextRequest) {
+  const url = req.nextUrl;
+  const { pathname, search } = url;
 
-const protectedUserRoutes = [
-  '/personal_account/',
-  '/personal_account/edit_data/',
-  '/personal_account/favourites/',
-  '/personal_account/orders/',
-  '/personal_account/exit/',
-];
-
-const protectedAdminRoutes = ['/admin'];
-
-// Function to check if a dynamic route is public
-const isPublicDynamicRoute = (pathname: string) => {
-  return (
-    pathname.startsWith('/product/') ||
-    pathname.startsWith('/blog/') ||
-    pathname.startsWith('/catalog/') ||
-    pathname.startsWith('/user/')
-  );
-};
-
-const convertToGetSessionParams = (req: NextRequest): GetSessionParams => ({
-  req: {
-    headers: {
-      cookie: req.headers.get('cookie') ?? undefined,
-    },
-  },
-});
-
-export const getLocale = (request: NextRequest): string | undefined => {
-  const negotiatorHeaders: Record<string, string> = {};
-  request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
-
-  const locales = i18n.locales;
-  const languages = new Negotiator({ headers: negotiatorHeaders }).languages();
-  return matchLocale(languages, locales, i18n.defaultLocale);
-};
-
-export function hasLocale(pathname: string) {
-  return i18n.locales.some(locale => pathname.startsWith(`/${locale}/`));
-}
-
-export async function getSessionAndRole(req: NextRequest) {
-  const session = await getSession(convertToGetSessionParams(req));
-  return session?.user?.role || 'guest';
-}
-
-export function checkAccess(role: string, pathname: string) {
-  if (role === 'ADMIN') return true;
-  if (isPublicDynamicRoute(pathname) || publicRoutes.includes(pathname)) return true;
-  if (role === 'USER' && protectedUserRoutes.includes(pathname)) return true;
-  return false;
-}
-
-export async function middleware(req: NextRequest) {
-  const { pathname } = req.nextUrl;
-  const urlObj = new URL(req.url);
-  const searchParams = urlObj.search;
-  const fullPath = `${urlObj.pathname}${searchParams}`;
-
-  const role = await getSessionAndRole(req);
-  const isLocale = hasLocale(pathname);
-
-  let parts = pathname.split('/');
-  let locale;
-  if (isLocale) {
-    locale = parts.splice(1, 1)[0];
+  if (pathname.startsWith('/en-US')) {
+    return NextResponse.redirect(new URL(pathname.replace(/^\/en-US/, '/en') + search, req.url));
   }
-  let newPathname = `${parts.join('/')}${searchParams}`;
-  newPathname = newPathname === '//' ? '/' : newPathname;
-
-  const pathnameCleaned = isLocale ? newPathname : fullPath;
-  const isAllowed = checkAccess(role, pathnameCleaned);
-
-  if (!isAllowed) {
-    const targetUrl =
-      role === 'guest'
-        ? `/${locale ?? i18n.defaultLocale}${AppRoutes.SIGNIN}`
-        : `/${locale ?? i18n.defaultLocale}/error`;
-    return NextResponse.redirect(new URL(targetUrl, req.url));
+  if (pathname.startsWith('/uk-UA')) {
+    return NextResponse.redirect(new URL(pathname.replace(/^\/uk-UA/, '/') + search, req.url));
   }
 
-  if (!isLocale) {
-    return NextResponse.redirect(new URL(`/${i18n.defaultLocale}${newPathname}`, req.url));
+  const localeMatch = pathname.match(/^\/(en|uk)(\/|$)/);
+  const locale = localeMatch ? localeMatch[1] : null;
+
+  const pathWithoutLocale = pathname.replace(/^\/(en|uk)/, '');
+  if (protectedRoutes.some(route => pathWithoutLocale.startsWith(route))) {
+    const token = await getToken({ req, secret });
+
+    if (!token) {
+      const signinPath = locale ? `/${locale}${AppRoutes.SIGNIN}` : `/${AppRoutes.SIGNIN}`;
+      return NextResponse.redirect(new URL(signinPath, req.url));
+    }
   }
 
-  return NextResponse.next();
+  return createMiddleware(routing)(req);
 }
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
-  unstable_allowDynamic: [
-    '/lib/utilities.js',
-    '/node_modules/function-bind/**',
-    '/node_modules/@babel/runtime/regenerator/**',
-  ],
+  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)', '/(en|uk)?/personal_account/:path*'],
 };

@@ -1,6 +1,5 @@
-import type { NextAuthOptions } from 'next-auth';
+import type { NextAuthOptions, User } from 'next-auth';
 import axios from 'axios';
-import { User } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
 import {
@@ -75,7 +74,7 @@ export const options: NextAuthOptions = {
       },
     }),
   ],
-  secret: 'by21t4673gr732eiwyufetrg764367fg',
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async jwt({ token, user, session }) {
       if (user) {

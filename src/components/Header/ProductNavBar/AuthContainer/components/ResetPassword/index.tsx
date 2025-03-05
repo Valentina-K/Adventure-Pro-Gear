@@ -2,21 +2,17 @@
 
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { Locale } from '@/i18n-config';
+import { toast } from 'react-toastify';
+import { useLocale } from 'next-intl'
 import { resetPaswordAction, ErrorMessages } from '@/app/actions';
 import { getAllTranslations, getTranslation } from '@/dictionaries/dictionaries';
 import { AppRoutes } from '@/constants/routes';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { getResetPasswordSchema, ResetPasswordData } from '@/validation';
 import Form from '@/components/Form';
 import Input from '@/components/Input';
 import Modal from '@/components/Modal';
+import 'react-toastify/dist/ReactToastify.css';
 import styles from './ResetPassword.module.css';
-
-interface ResetPasswordProps {
-  locale: Locale;
-}
 
 interface Credentials {
   newPassword: string;
@@ -25,8 +21,8 @@ interface Credentials {
 
 // http://localhost:3000/uk-UA/?auth=reset-password&token=071947f8-bd6b-43ea-a8d5-3786f0cbd30e
 
-const ResetPassword: React.FC<ResetPasswordProps> = ({ locale }) => {
-  console.log('LOCALE: ', locale);
+const ResetPassword: React.FC = () => {
+  const locale = useLocale();
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
   console.log(searchParams, 'Token: ', token);
@@ -100,16 +96,16 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ locale }) => {
     }
   };
 
-  useEffect(() => {
-    const loadTranslations = async () => {
-      const translations = await getAllTranslations(locale);
-      console.log(translations);
-      const translationFunction = getTranslation(translations);
-      setAuthTranslation(translationFunction('auth'));
-    };
+  // useEffect(() => {
+  //   const loadTranslations = async () => {
+  //     const translations = await getAllTranslations(locale);
+  //     console.log(translations);
+  //     const translationFunction = getTranslation(translations);
+  //     setAuthTranslation(translationFunction('auth'));
+  //   };
 
-    loadTranslations();
-  }, [locale]);
+  //   loadTranslations();
+  // }, [locale]);
 
   const closeModal = () => {
     // setIsModalOpen(false);

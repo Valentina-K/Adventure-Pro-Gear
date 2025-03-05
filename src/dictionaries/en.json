@@ -1,17 +1,20 @@
 {
   "nav": {
     "logo": "Adventure Pro Gear",
-    "aboutUs": "About us",
-    "blog": "Blog",
-    "contacts": "Contacts",
+    "About us": "About us",
+    "Blog": "Blog",
+    "Contacts": "Contacts",
     "personalAccount": "Personal account",
     "search": {
       "placeholder": "Search",
       "unavailable": "Nothing was found for your request. Try again.",
       "showall": "Show all"
     },
-    "catalog": " Catalog of goods",
-    "lang": ["Ukrainian", "English"]
+    "catalog": "Catalog of goods",
+    "lang": [
+      "Ukrainian",
+      "English"
+    ]
   },
   "auth": {
     "registration": {
@@ -36,7 +39,9 @@
           "onlyLetters": "Please check that the field contains only letters",
           "noSpaces": "Please check that the field doesn't contain spaces"
         },
-        "email-errors-registration": { "invalidFormat": "Invalid syntax" },
+        "email-errors-registration": {
+          "invalidFormat": "Invalid syntax"
+        },
         "password-errors-registration": {
           "quantity": "Password must be at least 8 characters",
           "oneDigit": "Password must contain at least one number",
@@ -51,9 +56,9 @@
         "email-errors-login": {
           "incorrectEmail": "Incorrect email address."
         },
-				"password-errors-login": {
-					"notEmpty": "Please enter your password"
-				}
+        "password-errors-login": {
+          "notEmpty": "Please enter your password"
+        }
       },
       "server-errors": {
         "incorrect-email-server-error": "The email address is not registered. Please register",
@@ -69,7 +74,10 @@
     "resetPasswordModal": {
       "heading": "Reset password",
       "info": "Enter new password",
-      "placeholder": ["New Password", "Confirm new password"],
+      "placeholder": [
+        "New Password",
+        "Confirm new password"
+      ],
       "submit-button": "Save"
     },
     "confirmPassword": "Password is not matching!"
@@ -84,41 +92,46 @@
     }
   },
   "profile": {
-    "menuData": ["Orders", "Edit Data", "Favourites", "Exit"]
+    "menuData": [
+      "Orders",
+      "Edit Data",
+      "Favourites",
+      "Exit"
+    ]
   },
-  "product":{
-    "page":{
-      "code":"Product code",
-      "manufacturer":"Manufacturer",
-      "buyWithThis":"With this buy",
-      "similarProducts":"Similiar products",
-      "previouslyViewed":"Items you've viewed",
-      "paymentMethod":"Payment method",
-      "availableOptions":"Available options",
-      "color":"Color",
-      "clear":"Clear"
+  "product": {
+    "page": {
+      "code": "Product code",
+      "manufacturer": "Manufacturer",
+      "buyWithThis": "With this buy",
+      "similarProducts": "Similiar products",
+      "previouslyViewed": "Items you've viewed",
+      "paymentMethod": "Payment method",
+      "availableOptions": "Available options",
+      "color": "Color",
+      "clear": "Clear"
     },
-    "card":{
-      "addToFollowing":"Log in to add item to your wish list",
-      "sale":"Sale",
-      "new":"New",
-      "available":"In stock",
-      "outOfStock":"Out of stock",
-      "buy":"Buy"
+    "card": {
+      "addToFollowing": "Log in to add item to your wish list",
+      "sale": "Sale",
+      "new": "New",
+      "available": "In stock",
+      "outOfStock": "Out of stock",
+      "buy": "Buy"
     },
-    "tabs":{
-      "description":"Description",
+    "tabs": {
+      "description": "Description",
       "characteristics": "Characteristics",
       "reviews": "Reviews",
       "important_to_us": "Your opinion is important to us!",
       "tell_us": "Tell us your story about using our hiking gear. Your experiences can inspire others to take on new adventures. Thank you for choosing Adventure Pro Gear - your words mean the most to us!",
       "message": "Message",
-      "rate":"Rate the product",
+      "rate": "Rate the product",
       "send": "Send",
       "password": "Password",
       "thanking": "Thank you for your feedback! Your opinion is extremely important to us.",
       "helpful": "Is this review helpful?",
       "usersThink": " users found this review helpful"
-    }    
+    }
   }
 }

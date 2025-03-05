@@ -15,6 +15,7 @@ import Form from '@/components/Form';
 import Input from '@/components/Input';
 import Checkbox from '@/components/Checkbox/Checkbox';
 import styles from './SignIn.module.css';
+import { useLocale } from 'next-intl';
 export interface ErrorMessages {
   [key: string]: string[];
 }
@@ -23,7 +24,8 @@ interface SignInProps {
   locale: Locale;
 }
 
-const SignIn: React.FC<SignInProps> = ({ locale }) => {
+const SignIn: React.FC<SignInProps> = () => {
+  const locale = useLocale();
   const [signInCredentials, setSignInCredentials] = useState({
     email: '',
     password: '',
@@ -33,15 +35,15 @@ const SignIn: React.FC<SignInProps> = ({ locale }) => {
   const [serverError, setServerError] = useState<string | null>('');
   const [authTranslation, setAuthTranslation] = useState<any>(null);
 
-  useEffect(() => {
-    const loadTranslations = async () => {
-      const translations = await getAllTranslations(locale);
-      const translationFunction = getTranslation(translations);
-      setAuthTranslation(translationFunction('auth'));
-    };
+  // useEffect(() => {
+  //   const loadTranslations = async () => {
+  //     const translations = await getAllTranslations(locale);
+  //     const translationFunction = getTranslation(translations);
+  //     setAuthTranslation(translationFunction('auth'));
+  //   };
 
-    loadTranslations();
-  }, [locale]);
+  //   loadTranslations();
+  // }, [locale]);
 
   useEffect(() => {
     setErrors({});
@@ -138,7 +140,7 @@ const SignIn: React.FC<SignInProps> = ({ locale }) => {
                   console.log(
                     'Is equal: ',
                     response.error === 'The password is incorrect. Please check and try again' &&
-                      locale === 'en-US'
+                      locale === 'en'
                   );
                   setErrors({
                     ...errors,
@@ -146,7 +148,7 @@ const SignIn: React.FC<SignInProps> = ({ locale }) => {
                   });
                 } else if (
                   response.error === 'The password is incorrect. Please check and try again' &&
-                  locale === 'uk-UA'
+                  locale === 'uk'
                 ) {
                   setErrors({
                     ...errors,

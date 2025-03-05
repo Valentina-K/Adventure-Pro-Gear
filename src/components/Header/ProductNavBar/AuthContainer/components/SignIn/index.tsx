@@ -1,42 +1,26 @@
-'use client';
-
-import { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { signIn } from 'next-auth/react';
-import { useRouter, usePathname, redirect } from 'next/navigation';
-import { Locale } from '@/i18n-config';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useLocale, useTranslations } from 'next-intl';
 
-import { getAllTranslations, getTranslation } from '@/dictionaries/dictionaries';
 import { getLogInSchema, LogInData } from '@/validation';
+import { useRouter } from '@/i18n/routing';
 import { AppRoutes } from '@/constants/routes';
 import Form from '@/components/Form';
 import Checkbox from '@/components/Checkbox/Checkbox';
 import { Field, Button } from '@/components/UI';
 import FieldPassword from '@/components/UI/Field/FieldPassword';
-
 import styles from './SignIn.module.css';
 
-interface SignInProps {
-  locale: Locale;
-}
-
-const SignIn: React.FC<SignInProps> = ({ locale }) => {
+const SignIn: React.FC = () => {
   const router = useRouter();
+  const locale = useLocale();
+  const t = useTranslations('auth');
+  const tValidate = useTranslations('auth.login.zod');
 
   const [loading, setLoading] = useState(false);
-  const [authTranslation, setAuthTranslation] = useState<any>(null);
-
-  useEffect(() => {
-    const loadTranslations = async () => {
-      const translations = await getAllTranslations(locale);
-      const translationFunction = getTranslation(translations);
-      setAuthTranslation(translationFunction('auth'));
-    };
-
-    loadTranslations();
-  }, [locale]);
 
   const {
     register,
@@ -45,7 +29,7 @@ const SignIn: React.FC<SignInProps> = ({ locale }) => {
     formState: { errors, isValid },
   } = useForm<LogInData>({
     mode: 'onTouched',
-    resolver: zodResolver(getLogInSchema(authTranslation)),
+    resolver: zodResolver(getLogInSchema(tValidate)),
   });
 
   const onSubmit = async (data: LogInData) => {
@@ -58,7 +42,9 @@ const SignIn: React.FC<SignInProps> = ({ locale }) => {
       });
 
       if (response?.ok) {
-        router.push(`/${locale}${AppRoutes.PERSONAL_ACCOUNT}`);
+        router.push({
+          pathname: `${AppRoutes.PERSONAL_ACCOUNT}`,
+        });
       } else {
         setError('email', {
           type: 'manual',
@@ -75,13 +61,13 @@ const SignIn: React.FC<SignInProps> = ({ locale }) => {
   return (
     <div className={styles.formContainer}>
       <Form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <h4 className={styles.h4}>Вхід</h4>
+        <h4 className={styles.h4}>{t('login.title')}</h4>
 
         <Field
           register={register}
           name="email"
           type="email"
-          placeholder="email"
+          placeholder={t('email')}
           errors={errors?.email}
           required
         />
@@ -89,7 +75,7 @@ const SignIn: React.FC<SignInProps> = ({ locale }) => {
         <FieldPassword
           register={register}
           name="password"
-          placeholder="password"
+          placeholder={t('password')}
           errors={errors?.password}
           required
         />
@@ -98,17 +84,17 @@ const SignIn: React.FC<SignInProps> = ({ locale }) => {
           href={`/${locale}/${AppRoutes.FORGOT_PASSWORD}`}
           className={styles.restorePasswordLink}
         >
-          Забули пароль?
+          {t('login.forgotPassword')}
         </Link>
 
-        <Checkbox className={styles.checkboxSignIn} text="Remember me" id="logRemember" />
+        <Checkbox className={styles.checkboxSignIn} text={t('rememberMe')} id="logRemember" />
 
         <Button full size="large" disabled={!isValid || loading}>
-          {loading ? 'loading...' : 'Увійти'}
+          {loading ? 'loading...' : t('signIn')}
         </Button>
 
         <Link className={styles.registerLink} href={`/${locale}${AppRoutes.SIGN_UP}`}>
-          Зареєструватися
+          {t('signUp')}
         </Link>
       </Form>
     </div>
