@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { NextPage } from 'next';
+import type { NextPage } from 'next';
 
 import { HeaderProps } from '@/types/HeaderType';
 import type { IVisibleSubcategory } from '@/types';
@@ -11,7 +11,7 @@ import ProductNavBar from './ProductNavBar';
 import styles from './Header.module.css';
 import Subcategory from '../CatalogList/Subcategory/Subcategory';
 
-const Header: NextPage<HeaderProps> = ({ translation, locale, products }) => {
+const Header: NextPage<HeaderProps> = ({ products }) => {
   const [visibleSubcategory, setVisibleSubcategory] = useState<IVisibleSubcategory[]>([]);
 
   return (
@@ -21,8 +21,6 @@ const Header: NextPage<HeaderProps> = ({ translation, locale, products }) => {
           <NavBar />
         </Container>
         <ProductNavBar
-          translation={translation}
-          locale={locale}
           products={products}
           setVisibleSubcategory={setVisibleSubcategory}
         />
