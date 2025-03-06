@@ -3,7 +3,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://adventure-production.up.railway.app/',
+  baseURL: 'https://adventure-production-f742.up.railway.app/',
 });
 
 axios.defaults.withCredentials = true;

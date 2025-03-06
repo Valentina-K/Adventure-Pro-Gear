@@ -9,7 +9,7 @@ export const token: { access: string | null; refresh: string | null } = {
 
 // https://empowering-happiness-production.up.railway.app/
 const axiosInstance = axios.create({
-  baseURL: 'https://adventure-production.up.railway.app/',
+  baseURL: 'https://adventure-production-f742.up.railway.app/',
 });
 
 axios.defaults.withCredentials = true;

@@ -8,7 +8,7 @@ interface ProductsResponse {
 }
 export const apiSlice = createApi({
   reducerPath: 'api',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://adventure-production.up.railway.app/api' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://adventure-production-f742.up.railway.app/api' }),
   endpoints: builder => ({
     getPosts: builder.query({
       query: () => '/blog/posts',

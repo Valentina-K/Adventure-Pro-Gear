@@ -74,7 +74,7 @@ export const options: NextAuthOptions = {
       },
     }),
   ],
-  secret: 'by21t4673gr732eiwyufetrg764367fg',
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async jwt({ token, user, session }) {
       if (user) {

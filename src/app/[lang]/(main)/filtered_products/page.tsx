@@ -11,22 +11,14 @@ interface FilteredProductsPageProps {
 
 function FilteredProduct({ searchParams }: FilteredProductsPageProps) {
   const { search } = searchParams;
-  const filteredProducts = useSelector(selectFilteredProducts);
+  // const filteredProducts = useSelector(selectFilteredProducts);
   return (
     <section>
       <Container>
         <div>
           <Navigation navigationPage="Пошук" />
         </div>
-        <h1>Результати пошуку фрази “{search}”</h1>
-        {filteredProducts.length > 0 ? (
-          filteredProducts.map(product => (
-            <div key={product.productId}>
-              <h2>{product.productNameUa}</h2>
-              <p>{product.descriptionUa}</p>
-            </div>
-          ))
-        ) : <p>Нічого не знайдено</p>}
+        <h1>Результати пошуку фрази “{search}”</h1>        
       </Container>
     </section>
   );

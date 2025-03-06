@@ -34,6 +34,7 @@ const productsSlice = createSlice({
       state.totalElements = action.payload;
     },
     setFilteredProducts(state, action: PayloadAction<any>) {
+      console.log(action.payload);
       state.filteredProducts = action.payload;
     },
   },
