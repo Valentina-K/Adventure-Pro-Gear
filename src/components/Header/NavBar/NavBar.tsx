@@ -11,7 +11,7 @@ const NavBar: React.FC = () => {
   const locale = useLocale();
   return (
     <nav className={styles.nav}>
-      <Link href={`/${locale}${AppRoutes.HOME}`} className={styles.logo}>
+      <Link href={`${AppRoutes.HOME}`} className={styles.logo}>
         <Image src={logoImage} height={75} width={258} alt="logo" />
       </Link>
 
