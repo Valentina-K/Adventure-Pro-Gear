@@ -11,5 +11,5 @@ export enum AppRoutes {
   EDIT_DATA = '/edit_data',
   FAVORITES = '/favorites',
   ORDERS = '/orders',
-  PRODUCTS = `/filtered_products/?search=*`,
+  PRODUCTS = `/filtered_products?search=*`,
 }

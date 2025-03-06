@@ -10,7 +10,6 @@ import { Product } from '@/interfaces/product';
 import { useGetProductsQuery } from '@/redux/features/apiSlice';
 import { useDispatch } from 'react-redux';
 import { setFilteredProducts } from '@/redux/products/slice';
-import { filter } from 'lodash';
 import Button from '../Button';
 import styles from './Search.module.css';
 
@@ -18,14 +17,12 @@ interface SearchProps {
   placeholder: string;
   unavailable: string;
   showall: string;
-  /* locale: Locale; */
 }
 
 const Search: React.FC<SearchProps> = ({
   placeholder,
   unavailable,
   showall,
-  /* locale, */
 }) => {
   const locale = useLocale();
   const [value, setValue] = useState<string>('');
@@ -34,8 +31,8 @@ const Search: React.FC<SearchProps> = ({
   const router = useRouter();
   const { data, isLoading, error } = useGetProductsQuery();
   const dispatch = useDispatch();
+  if (error) console.log(error);
   if (!isLoading) console.log(data);
-  // const { products, setProduct, setFilteredProducts } = useProduct();
   useEffect(() => {
     if (value.length >= 1) {
       const filtered = data?.content.filter(product =>
@@ -63,24 +60,19 @@ const Search: React.FC<SearchProps> = ({
   };
 
   const handleProductClick = (product: Product) => {
-    // setProduct(product);
-    console.log('from handleProductClick', locale);
     router.push(`/product/${product.productId}`);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      // need to fix this
       dispatch(setFilteredProducts(filteredItems));
-      // setFilteredProducts(filteredItems);
-      router.push(`/${AppRoutes.PRODUCTS.replace('*', value)}`);
+      router.push(`${AppRoutes.PRODUCTS.replace('*', value)}`);
     }
   };
 
   const handleAllClick = () => {
-    console.log('filteredItems', filteredItems);
     dispatch(setFilteredProducts(filteredItems));
-    router.push(`/${AppRoutes.PRODUCTS.replace('*', value)}`);
+    router.push(`${AppRoutes.PRODUCTS.replace('*', value)}`);
   };
 
   return (

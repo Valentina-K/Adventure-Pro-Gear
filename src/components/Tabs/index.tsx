@@ -105,7 +105,7 @@ const Tabs: React.FC<TabsProps> = ({
           </ul>
         </div>
         <div className={toggleState === 2 ? activeContentStyle : styles.content}>
-          <ReviewForm onSubmitForm={handleReviewSubmit} translation={translation} />
+          <ReviewForm onSubmitForm={handleReviewSubmit} />
           {isSendReview && <p className={styles.thankingText}>{t('tabs.thanking')}</p>}
         </div>
       </div>

@@ -1,24 +1,20 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectAllProducts, selectProductById } from '@/redux/features/selectors';
-import { RootState } from '@/redux/store';
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
 import Container from '@/components/Container';
-import BreadcrumbNavigation from '@/components/BreadcrumbNavigation';
-import { Locale } from '@/i18n-config';
 import { AvailableColors } from '@/components/AvailableColors';
 import Tabs from '@/components/Tabs';
 import RatingStars from '@/components/RatingStars';
 import ReviewCount from '@/components/ReviewCount';
 import QuantitySelector from '@/components/QuantitySelector/QuantitySelector';
-import { Product, Review } from '@/interfaces/product';
+import { Review } from '@/interfaces/product';
 import { getAllReviewsByProductId } from '@/clientServices/clientAxios';
 import Payments from '@/constants/payments';
 import Comercial from '@/../public/icons/Comercial.svg';
-// import { useProduct } from '@/contexts/ProductContext';
 import ProductCardsSlider from '../ProductCardsSlider';
 import Reviews from '../Tabs/Reviews';
 import ImageCarousel from '../ImageCarousel/ImageCarousel';
@@ -28,61 +24,19 @@ import styles from './productWrapper.module.css';
 import Button from '../Button';
 
 interface ProductWrapperProp {
-  /* product: Product; */
-  /* locale: Locale; */
-  /* products: Product[]; */
   reviews: Review[];
   productId: number;
-  /* translation: {
-    page: {
-      code: string;
-      manufacturer: string;
-      buyWithThis: string;
-      similarProducts: string;
-      previouslyViewed: string;
-      paymentMethod: string;
-      availableOptions: string;
-      color: string;
-      clear: string;
-    };
-    card: {
-      addToFollowing: string;
-      sale: string;
-      new: string;
-      available: string;
-      outOfStock: string;
-      buy: string;
-    };
-    tabs: {
-      description: string;
-      characteristics: string;
-      reviews: string;
-      important_to_us: string;
-      tell_us: string;
-      message: string;
-      rate: string;
-      send: string;
-      password: string;
-      thanking: string;
-      helpful: string;
-      usersThink: string;
-    };
-  }; */
 }
 
 const ProductWrapper: React.FC<ProductWrapperProp> = ({
-  /* product, */
-  /* locale, */
-  /* products, */
   reviews,
   productId,
-  /* translation, */
 }) => {
   const locale = useLocale();
   const t = useTranslations('product');
   const products = useSelector(selectAllProducts);
-  const product = useSelector((state: RootState) => selectProductById(productId)(state));
-  // const { product, products } = useProduct();
+  const product = useSelector(selectProductById(Number(productId)));
+  console.log(product, productId);
   const [attrIndex, setAttrIndex] = useState(0);
   const [buyQuantity, setBuyQuantity] = useState(0);
   const [tabIndex, setTabIndex] = useState(0);
@@ -132,12 +86,11 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
     }
   };
 
-  const colorItems = product.attributes.map(attr => ({ color: attr.color, url: attr.pictureUrl }));
+  const colorItems = product.attributes.map((attr: { color: string; pictureUrl: string }) => ({ color: attr.color, url: attr.pictureUrl }));
 
   return (
     <Container>
       <div className={styles.breadcrumbWrapper}>
-        {/* <BreadcrumbNavigation locale={locale} /> */}
         <Navigation productName={locale === 'uk' ? product.productNameUa : product.productNameEn} />
       </div>
       <div className={styles.mainContainer}>
@@ -146,7 +99,6 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
           <Tabs
             description={locale === 'uk' ? product.descriptionUa : product.descriptionEn}
             characteristics={product.characteristics}
-            /* translation={translation} */
             onChangeTab={handleChangeTab}
             onReviewSend={handleReviewSend}
           />

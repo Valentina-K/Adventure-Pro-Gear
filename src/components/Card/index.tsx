@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
-import { useProduct } from '@/contexts/ProductContext';
 import FollowinIcon from '@/../public/icons/Following.svg';
 import FollowingFill from '@/../public/icons/FollowingFill.svg';
 import Comercial from '@/../public/icons/Comercial.svg';
@@ -62,7 +61,7 @@ const Card: React.FC<CardProps> = ({
   const productImage =
     product.contents.length > 0 ? product.contents[0].source : 'https://dummyimage.com/180x180';
   let className = getClassName(variant);
-  const { setProduct } = useProduct();
+  // const { setProduct } = useProduct();
   useEffect(() => {
     setNewPrice(
       product.basePrice - product.basePrice * (product.attributes[0].priceDeviation / 100)
@@ -90,7 +89,6 @@ const Card: React.FC<CardProps> = ({
     >
       <Link
         href={`/product/${product.productId}`}
-        onClick={() => setProduct(product)}
         className={styles.cardLink}
       >
         <div className={classNameImg}>

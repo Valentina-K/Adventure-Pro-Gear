@@ -25,7 +25,7 @@ export const apiSlice = createApi({
         if (totalElements > 10) {
           const fullResponse = await fetchWithBQ(`/public/products?page=0&size=${totalElements}`);
           if (fullResponse.error) return { error: fullResponse.error };
-          return { data: fullResponse.data as ProductsResponse};
+          return { data: fullResponse.data as ProductsResponse };
         }
         return { data: firstData as ProductsResponse };
       },
