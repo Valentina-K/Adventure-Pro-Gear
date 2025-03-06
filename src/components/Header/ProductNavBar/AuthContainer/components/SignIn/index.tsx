@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { signIn } from 'next-auth/react';
-import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocale, useTranslations } from 'next-intl';
+import { Link, useRouter } from '@/i18n/routing';
 
 import { getLogInSchema, LogInData } from '@/validation';
-import { useRouter } from '@/i18n/routing';
 import { AppRoutes } from '@/constants/routes';
 import Form from '@/components/Form';
 import Checkbox from '@/components/Checkbox/Checkbox';
@@ -81,7 +80,7 @@ const SignIn: React.FC = () => {
         />
 
         <Link
-          href={`/${locale}/${AppRoutes.FORGOT_PASSWORD}`}
+          href={`${AppRoutes.FORGOT_PASSWORD}`}
           className={styles.restorePasswordLink}
         >
           {t('login.forgotPassword')}
@@ -93,7 +92,7 @@ const SignIn: React.FC = () => {
           {loading ? 'loading...' : t('signIn')}
         </Button>
 
-        <Link className={styles.registerLink} href={`/${locale}${AppRoutes.SIGN_UP}`}>
+        <Link className={styles.registerLink} href={`${AppRoutes.SIGN_UP}`}>
           {t('signUp')}
         </Link>
       </Form>

@@ -1,22 +1,19 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
-import { useLocale } from 'next-intl'
+import { useTranslations } from 'next-intl';
+
 import { forgotPaswordAction } from '@/app/actions';
-import { getAllTranslations, getTranslation } from '@/dictionaries/dictionaries';
-import IllustrationSendEmail from '@/../public/icons/IllustrationSendEmail.svg';
 import Form from '@/components/Form';
 import Input from '@/components/Input';
 import Modal from '@/components/Modal';
 import styles from './ForgotPassword.module.css';
 
-const ForgotPassword: React.FC = () => {
-  const locale = useLocale();
-
+const ForgotPassword = () => {
+  const t = useTranslations('auth.forgotPasswordModal');
   const [email, setEmail] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [authTranslation, setAuthTranslation] = useState<any>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -24,7 +21,7 @@ const ForgotPassword: React.FC = () => {
 
   const handleSubmit = async (formData: FormData) => {
     const response = await forgotPaswordAction(formData);
-    console.log('FormData: ', formData.get('email'));
+    // console.log('FormData: ', formData.get('email'));
     if (response === 200) {
       setIsModalOpen(true);
     }
@@ -34,46 +31,36 @@ const ForgotPassword: React.FC = () => {
     setIsModalOpen(false);
   };
 
-  // useEffect(() => {
-  //   const loadTranslations = async () => {
-  //     const translations = await getAllTranslations(locale);
-  //     console.log(translations);
-  //     const translationFunction = getTranslation(translations);
-  //     setAuthTranslation(translationFunction('auth'));
-  //   };
-
-  //   loadTranslations();
-  // }, [locale]);
-
   return (
     <>
       <Form action={handleSubmit} className={styles.forgotPasswordForm}>
         <h4 className={styles.formHeading}>
-          {authTranslation && authTranslation.forgotPasswordModal.heading}
+          {t('heading')}
         </h4>
         <br />
-        <p>{authTranslation && authTranslation.forgotPasswordModal.info}</p>
+        <p>{t('info')}</p>
         <div className={styles.inputAndButtobBlock}>
           <Input
             className={styles.emailInput}
-            required={true}
-            placeholder="E-mail"
+            onChange={handleChange}
             name="email"
+            placeholder="E-mail"
             type="email"
             value={email}
-            onChange={handleChange}
+            required
           />
           <Input
             type="submit"
-            value={authTranslation && authTranslation.forgotPasswordModal['submit-button']}
+            value={t('submit-button')}
             className={styles.sybmitEmailInput}
           />
         </div>
       </Form>
       {isModalOpen && (
         <Modal closeModal={closeModal} className={styles.setntEmailmodal}>
-          <p>{authTranslation && authTranslation.forgotPasswordModal['email-directing-modal']}</p>
-          <Image src={IllustrationSendEmail} alt="sent email icon" width={180} height={180} />
+          <p>{t('email-directing-modal')}</p>
+          111s
+          <Image src='/icons/IllustrationSendEmail.svg' alt="sent email icon" width={180} height={180} />
         </Modal>
       )}
     </>
