@@ -1,21 +1,18 @@
-import type { Metadata, NextPage } from 'next';
+import React from 'react';
 import { ToastContainer } from 'react-toastify';
 import { Montserrat } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
-import { notFound } from 'next/navigation';
-import { ProductProvider } from '@/contexts/ProductContext';
-import { getProducts } from '@/services/axios';
-import { routing } from '@/i18n/routing';
+import { getServerSession } from 'next-auth/next';
 import ReduxProvider from '@/redux/provider';
-import AuthProvider from '@/components/AuthProvider';
-import { getAllTranslations, getTranslation } from '@/dictionaries/dictionaries';
+import SessionProvider from '@/components/SessionProvider';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ScrollToTop from '@/components/ScrollToTop';
 import AuthModal from '@/components/AuthModal';
 import Container from '@/components/Container';
-import { Locale } from '../../i18n-config';
+import type { Metadata, NextPage } from 'next';
+
 import '@/app/styles/_normilize.css';
 import '@/app/styles/globals.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -31,49 +28,45 @@ const inter = Montserrat({
 });
 
 interface RootLayoutProps {
-  children: React.ReactNode | React.ReactNode[];
-  auth: React.ReactNode;
+  children: React.ReactNode;
   params: {
-    lang: Locale;
+    lang?: string;
   };
 }
 
 const RootLayout: NextPage<RootLayoutProps> = async ({ params: { lang: locale }, children }) => {
-  const translations = await getAllTranslations('ua');
-  const translation = getTranslation(translations);
+  const messages = await getMessages();
+  const session = await getServerSession();
 
   // toDo: too slow
   // const res = await getProducts();
+  //
   // console.log('products: ', res);
   // console.log(children);
-  // const session = await getServerSession(options);
   // console.log("session: ",session);
 
   // Ensure that the incoming `locale` is valid
   // if (!routing.locales.includes(locale as any)) {
   //   notFound();
   // }
-
-  const messages = await getMessages();
-
   return (
     <ReduxProvider>
-      <AuthProvider>
-        <html lang={locale}>
-          <body className={inter.className}>
+      <html lang={locale}>
+        <body className={inter.className}>
+          <SessionProvider session={session}>
             <NextIntlClientProvider messages={messages}>
-              <Header translation={translation('nav')} locale={locale} products={null} />
+              <Header products={null} />
               <main>{children}</main>
               <Footer />
               <ScrollToTop />
               <Container>
-                <AuthModal locale={locale} />
+                <AuthModal />
               </Container>
               <ToastContainer hideProgressBar={true} />
             </NextIntlClientProvider>
-          </body>
-        </html>
-      </AuthProvider>
+          </SessionProvider>
+        </body>
+      </html>
     </ReduxProvider>
   );
 };

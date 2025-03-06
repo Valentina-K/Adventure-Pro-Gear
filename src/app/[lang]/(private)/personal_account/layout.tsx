@@ -1,3 +1,4 @@
+import React from 'react';
 import BreadcrumbNavigation from '@/components/BreadcrumbNavigation';
 import ProfileMenu from '@/components/ProfileMenu';
 import Container from '@/components/Container';
@@ -16,12 +17,11 @@ const DashboardLayout: React.FC<RootLayoutProps> = async ({ children, params }) 
   const allTranslations = await getAllTranslations(params.lang);
   const translation = getTranslation(allTranslations);
   const breadcrumbsData = translation('breadcrumbsData');
-  const profileMenuData = translation('profile');
   return (
     <div className={styles.personalAccountLayout}>
       <BreadcrumbNavigation locale={params.lang} breadcrumbsData={breadcrumbsData.breadcrumbs} />
       <Container className={styles.dashboardWrapper}>
-        <ProfileMenu menuData={profileMenuData.menuData} className={styles.profileMenuLayout} />
+        <ProfileMenu className={styles.profileMenuLayout} />
         <section>{children}</section>
       </Container>
     </div>

@@ -1,10 +1,9 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { signIn } from 'next-auth/react';
-import { useRouter, usePathname, redirect } from 'next/navigation';
-import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocale, useTranslations } from 'next-intl';
+import { Link, useRouter } from '@/i18n/routing';
 
 import { getLogInSchema, LogInData } from '@/validation';
 import { AppRoutes } from '@/constants/routes';
@@ -42,7 +41,9 @@ const SignIn: React.FC = () => {
       });
 
       if (response?.ok) {
-        router.push(`/${locale}${AppRoutes.PERSONAL_ACCOUNT}`);
+        router.push({
+          pathname: `${AppRoutes.PERSONAL_ACCOUNT}`,
+        });
       } else {
         setError('email', {
           type: 'manual',
@@ -79,7 +80,7 @@ const SignIn: React.FC = () => {
         />
 
         <Link
-          href={`/${locale}/${AppRoutes.FORGOT_PASSWORD}`}
+          href={`${AppRoutes.FORGOT_PASSWORD}`}
           className={styles.restorePasswordLink}
         >
           {t('login.forgotPassword')}
@@ -91,7 +92,7 @@ const SignIn: React.FC = () => {
           {loading ? 'loading...' : t('signIn')}
         </Button>
 
-        <Link className={styles.registerLink} href={`/${locale}${AppRoutes.SIGN_UP}`}>
+        <Link className={styles.registerLink} href={`${AppRoutes.SIGN_UP}`}>
           {t('signUp')}
         </Link>
       </Form>

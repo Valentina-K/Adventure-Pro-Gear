@@ -1,7 +1,10 @@
+'use client';
+
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link, usePathname } from '@/i18n/routing';
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
+import { footerInformationLinks } from '@/routes';
 
 import logoFooter from '@/../public/logo-footer.svg';
 import SocialLinks from '@/components/SocialLinks';
@@ -9,7 +12,7 @@ import style from './style.module.css';
 
 const Footer = () => {
   const t = useTranslations('footer');
-
+  const pathName = usePathname();
   return (
     <nav className={style.nav}>
       <Link href="/" className="logo">
@@ -20,37 +23,36 @@ const Footer = () => {
         <div>
           <b>{t('information.title')}</b>
           <ul className={style.menu}>
-            <li>
-              <Link href="">{t('information.about')}</Link>
-            </li>
-            <li>
-              <Link href="">{t('information.promotions')}</Link>
-            </li>
-            <li>
-              <Link href="">{t('information.blog')}</Link>
-            </li>
-            <li>
-              <Link href="">{t('information.manufacturers')}</Link>
-            </li>
-            <li>
-              <Link href="">{t('information.term')}</Link>
-            </li>
+            {footerInformationLinks.map(({ path, label, id }) => {
+              return (
+                <li className={style.navItem} key={id}>
+                  <Link
+                    href={path}
+                    className={clsx({
+                      [style.active]: pathName !== '/' && pathName === `${path}/`,
+                    })}
+                  >
+                    {t(`information.${label}`)}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
 
         <div>
           <b>{t('support.title')}</b>
           <ul className={style.menu}>
-            <li>
+            <li className={style.navItem}>
               <Link href="">{t('support.guarantee')}</Link>
             </li>
-            <li>
+            <li className={style.navItem}>
               <Link href="">{t('support.delivery')}</Link>
             </li>
-            <li>
+            <li className={style.navItem}>
               <Link href="">{t('support.payment')}</Link>
             </li>
-            <li>
+            <li className={style.navItem}>
               <Link href="">{t('support.return')}</Link>
             </li>
           </ul>
@@ -59,7 +61,7 @@ const Footer = () => {
         <div>
           <b>{t('contacts.title')}</b>
           <ul className={style.menu}>
-            <li>
+            <li className={style.navItem}>
               <a href="tel:+380504545659">
                 <svg
                   width="24"
@@ -79,7 +81,7 @@ const Footer = () => {
                 <span>+380 50 454 56 59</span>
               </a>
             </li>
-            <li>
+            <li className={style.navItem}>
               <a href="mailto:info@adventureprogear.com">
                 <svg
                   width="24"

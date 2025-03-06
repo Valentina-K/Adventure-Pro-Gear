@@ -36,13 +36,15 @@
   gap: 6px;
 }
 
-.menu a {
+.navItem > a {
   display: inline-flex;
   gap: 8px;
   color: var(--white);
   transition: color 0.15s ease-in-out;
 }
-.menu a:hover {
+
+.navItem > a:hover,
+.navItem > a.active {
   color: var(--yellow);
 }
 

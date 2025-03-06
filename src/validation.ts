@@ -5,7 +5,7 @@ export const getLogInSchema = (t: any) =>
     email: z.string().regex(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, {
       message: t('email-errors-login.incorrectEmail'),
     }),
-    password: z.string().min(1, t('password-errors-login.notEmpty')),
+    password: z.string().min(2, t('password-errors-login.notEmpty')),
   });
 
 export const getSignUpSchema = (t: any) =>
