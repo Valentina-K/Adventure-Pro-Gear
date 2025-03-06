@@ -24,7 +24,6 @@ interface IRecommendationProp {
 }
 
 const Recommendation: React.FC<IRecommendationProp> = ({ locale, translation, recommendation }) => {
-
   const [sizeView, setSizeView] = useState<number>(0);
 
   useEffect(() => {
@@ -51,8 +50,6 @@ const Recommendation: React.FC<IRecommendationProp> = ({ locale, translation, re
       {sizeView < 1179 ? (
         <ProductCardsSlider
           products={recommendation}
-          locale={locale}
-          translation={translation}
           onBuyClick={handleBuyClick}
           onFavoriteClick={handleFavoriteClick}
           title=""
@@ -61,8 +58,6 @@ const Recommendation: React.FC<IRecommendationProp> = ({ locale, translation, re
         <ProductCardsSlider
           recommendation={recommendation}
           products={[]}
-          locale={locale}
-          translation={translation}
           onBuyClick={handleBuyClick}
           onFavoriteClick={handleFavoriteClick}
           title=""

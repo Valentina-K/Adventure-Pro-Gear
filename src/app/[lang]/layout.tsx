@@ -38,8 +38,6 @@ const RootLayout: NextPage<RootLayoutProps> = async ({ params: { lang: locale },
   const messages = await getMessages();
   const session = await getServerSession();
 
-  // console.log(params);
-
   // toDo: too slow
   // const res = await getProducts();
   //
@@ -74,3 +72,8 @@ const RootLayout: NextPage<RootLayoutProps> = async ({ params: { lang: locale },
 };
 
 export default RootLayout;
+
+/* 
+<ProductProvider initialProducts={res?.data.content}>
+</ProductProvider>
+ */

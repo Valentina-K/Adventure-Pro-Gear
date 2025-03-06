@@ -21,7 +21,11 @@
   position: absolute;
   right: 24px;
   top: 20.5px;
-  pointer-events: none;
+  /* pointer-events: none; */
+}
+
+.search_icon:hover {
+  cursor: pointer;
 }
 
 .search::placeholder {
@@ -54,6 +58,7 @@
   transition: 0.5s;
   width: 100%;
   background-color: var(--wightAuth);
+  color: var(--black);
 }
 
 .dropdown_li:hover {

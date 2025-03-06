@@ -1,6 +1,5 @@
 import React from 'react';
 import { useTranslations } from 'next-intl';
-
 import Container from '@/components/Container';
 import Search from '@/components/Search';
 import type { HeaderProps } from '@/types';
@@ -10,7 +9,7 @@ import Likes from './Likes';
 import CatalogOfGoods from './Catalog';
 import styles from './ProductNavBar.module.css';
 
-const ProductNavBar: React.FC<HeaderProps> = ({ products, setVisibleSubcategory }) => {
+const ProductNavBar: React.FC<HeaderProps> = ({ setVisibleSubcategory }) => {
   const t = useTranslations('nav');
 
   return (
@@ -19,7 +18,6 @@ const ProductNavBar: React.FC<HeaderProps> = ({ products, setVisibleSubcategory 
         <div className={styles.productNavBarChildren}>
           <CatalogOfGoods setVisibleSubcategory={setVisibleSubcategory} />
           <Search
-            products={products}
             unavailable={t('search.unavailable')}
             showall={t('search.showall')}
             placeholder={t('search.placeholder')}

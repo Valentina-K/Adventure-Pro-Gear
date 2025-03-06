@@ -1,17 +1,17 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectAllProducts, selectProductById } from '@/redux/features/selectors';
 import Image from 'next/image';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import Container from '@/components/Container';
-import BreadcrumbNavigation from '@/components/BreadcrumbNavigation';
-import { Locale } from '@/i18n-config';
 import { AvailableColors } from '@/components/AvailableColors';
 import Tabs from '@/components/Tabs';
 import RatingStars from '@/components/RatingStars';
 import ReviewCount from '@/components/ReviewCount';
 import QuantitySelector from '@/components/QuantitySelector/QuantitySelector';
-import { Product, Review } from '@/interfaces/product';
+import { Review } from '@/interfaces/product';
 import { getAllReviewsByProductId } from '@/clientServices/clientAxios';
 import Payments from '@/constants/payments';
 import Comercial from '@/../public/icons/Comercial.svg';
@@ -24,60 +24,26 @@ import styles from './productWrapper.module.css';
 import Button from '../Button';
 
 interface ProductWrapperProp {
-  product: Product;
-  locale?: Locale;
-  products: Product[];
   reviews: Review[];
-  translation: {
-    page: {
-      code: string;
-      manufacturer: string;
-      buyWithThis: string;
-      similarProducts: string;
-      previouslyViewed: string;
-      paymentMethod: string;
-      availableOptions: string;
-      color: string;
-      clear: string;
-    };
-    card: {
-      addToFollowing: string;
-      sale: string;
-      new: string;
-      available: string;
-      outOfStock: string;
-      buy: string;
-    };
-    tabs: {
-      description: string;
-      characteristics: string;
-      reviews: string;
-      important_to_us: string;
-      tell_us: string;
-      message: string;
-      rate: string;
-      send: string;
-      password: string;
-      thanking: string;
-      helpful: string;
-      usersThink: string;
-    };
-  };
+  productId: number;
 }
 
 const ProductWrapper: React.FC<ProductWrapperProp> = ({
-  product,
-  products,
   reviews,
-  translation,
+  productId,
 }) => {
   const locale = useLocale();
-
+  const t = useTranslations('product');
+  const products = useSelector(selectAllProducts);
+  const product = useSelector(selectProductById(Number(productId)));
+  console.log(product, productId);
   const [attrIndex, setAttrIndex] = useState(0);
   const [buyQuantity, setBuyQuantity] = useState(0);
   const [tabIndex, setTabIndex] = useState(0);
   const [payment, setPayment] = useState<Payments>(Payments.VISA);
   const [productReviews, setReviews] = useState<Review[]>(reviews);
+  if (!product) return <div>Product not found</div>;
+
   const isAvailable = product.attributes[attrIndex].quantity > 0;
   const cart = {
     productId: product.productId,
@@ -120,15 +86,12 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
     }
   };
 
-  const colorItems = product.attributes.map(attr => ({ color: attr.color, url: attr.pictureUrl }));
+  const colorItems = product.attributes.map((attr: { color: string; pictureUrl: string }) => ({ color: attr.color, url: attr.pictureUrl }));
 
   return (
     <Container>
       <div className={styles.breadcrumbWrapper}>
-        {/* <BreadcrumbNavigation locale={locale} /> */}
-        <Navigation
-          productName={locale === 'uk' ? product.productNameUa : product.productNameEn}
-        />
+        <Navigation productName={locale === 'uk' ? product.productNameUa : product.productNameEn} />
       </div>
       <div className={styles.mainContainer}>
         <div className={styles.leftBlock}>
@@ -136,7 +99,6 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
           <Tabs
             description={locale === 'uk' ? product.descriptionUa : product.descriptionEn}
             characteristics={product.characteristics}
-            translation={translation}
             onChangeTab={handleChangeTab}
             onReviewSend={handleReviewSend}
           />
@@ -152,24 +114,31 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
                 <ReviewCount reviewCount={product.reviewCount} />
               </div>
               <div className={styles.priceBlock}>
-                <p className={styles.price}>{product.basePrice}₴</p>
+                <p className={styles.price}>
+                  {product.basePrice}
+                  ₴
+                </p>
                 <p className={styles.available}>
-                  {isAvailable ? translation.card.available : translation.card.outOfStock}
+                  {isAvailable ? t('card.available') : t('card.outOfStock')}
                 </p>
               </div>
               <div className={styles.specialInfo}>
                 <p>
-                  {translation.page.code}:<span>{product.productId}</span>
+                  {t('page.code')}
+                  :
+                  <span>{product.productId}</span>
                 </p>
                 <p>
-                  {translation.page.manufacturer}:<span>Terra Incognita</span>
+                  {t('page.manufacturer')}
+                  :
+                  <span>Terra Incognita</span>
                 </p>
               </div>
             </div>
             <AvailableColors
-              title={translation.page.availableOptions}
-              h4={translation.page.color}
-              clear={translation.page.clear}
+              title={t('page.availableOptions')}
+              h4={t('page.color')}
+              clear={t('page.clear')}
               onColorChoice={handleChoiceColor}
               imageArray={colorItems}
             />
@@ -180,31 +149,29 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
               />
               <Button
                 className={styles.buyButton}
-                text={translation.card.buy}
+                text={t('card.buy')}
                 disabled={!isAvailable}
                 icon={<Image src={Comercial} width={20} height={20} alt="Comercial" />}
                 onClick={handleBuyClick}
               />
             </div>
-            <Payment title={translation.page.paymentMethod} onClick={onChoisePayment} />
+            <Payment title={t('page.paymentMethod')} onClick={onChoisePayment} />
           </section>
           <section className={styles.additionalOffers}>
             <div className={styles.withThisBuy}>
               <ProductCardsSlider
                 products={products}
-                translation={translation}
                 onBuyClick={handleBuyClick}
                 onFavoriteClick={handleFavoriteClick}
-                title={translation.page.buyWithThis}
+                title={t('page.buyWithThis')}
               />
             </div>
             <div className={styles.relatedProducts}>
               <ProductCardsSlider
                 products={products}
-                translation={translation}
                 onBuyClick={handleBuyClick}
                 onFavoriteClick={handleFavoriteClick}
-                title={translation.page.similarProducts}
+                title={t('page.similarProducts')}
               />
             </div>
           </section>
@@ -215,14 +182,14 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
           <Reviews
             reviews={productReviews}
             productName={locale === 'uk' ? product.productNameUa : product.productNameEn}
-            reviewTitle={translation.tabs.reviews}
-            helpful={translation.tabs.helpful}
-            usersThink={translation.tabs.usersThink}
+            reviewTitle={t('tabs.reviews')}
+            helpful={t('tabs.helpful')}
+            usersThink={t('tabs.usersThink')}
           />
         )}
       </section>
       <div className={styles.prevViewed}>
-        <h2>{translation.page.previouslyViewed}</h2>
+        <h2>{t('page.previouslyViewed')}</h2>
       </div>
     </Container>
   );
