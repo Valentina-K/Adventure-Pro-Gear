@@ -12,13 +12,13 @@ const Footer = () => {
   return (
     <footer className={clsx(style.footer, 'footer')}>
       <div>
-        <Container>
+        <Container className='header'>
           <NavBar />
         </Container>
       </div>
 
       <div className={style.subscribeContainer}>
-        <Container>
+        <Container className='header'>
           <div className={style.wrap}>
             <div className={style.text}>
               <p>{t('subscribe.description')}</p>
