@@ -17,7 +17,7 @@ const Header: NextPage<HeaderProps> = ({ products }) => {
   return (
     <>
       <header className={styles.header}>
-        <Container>
+        <Container className='header'>
           <NavBar />
         </Container>
         <ProductNavBar
@@ -25,7 +25,7 @@ const Header: NextPage<HeaderProps> = ({ products }) => {
           setVisibleSubcategory={setVisibleSubcategory}
         />
       </header>
-      <Container>
+      <Container className='header'>
         {visibleSubcategory.length > 0 && <Subcategory visibleSubcategory={visibleSubcategory} />}
       </Container>
     </>

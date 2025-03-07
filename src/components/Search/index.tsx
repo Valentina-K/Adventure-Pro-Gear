@@ -60,6 +60,7 @@ const Search: React.FC<SearchProps> = ({
   };
 
   const handleProductClick = (product: Product) => {
+    setValue('');
     router.push(`/product/${product.productId}`);
   };
 

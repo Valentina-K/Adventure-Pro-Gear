@@ -1,9 +1,13 @@
 .container {
   width: 100%;
   max-width: 1220px;
-  margin: 0 auto;
+  margin: 145px auto 0 auto;
   box-sizing: border-box;
   padding: 0 20px 0px 20px;
+}
+
+.header{
+  margin: 0 auto;
 }
 
 @media screen and (min-width: 481px) {
