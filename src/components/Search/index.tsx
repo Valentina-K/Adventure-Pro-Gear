@@ -39,11 +39,10 @@ const Search: React.FC<SearchProps> = ({
         (locale === 'uk' ? product.productNameUa : product.productNameEn)
           .toLowerCase()
           .includes(value.toLowerCase()));
-          console.log(filtered);
       if (filtered) setFilteredItems(filtered);
     } else {
       setFilteredItems([]);
-    }    
+    }
   }, [setFilteredItems, data, value, locale]);
 
   const handlerOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
