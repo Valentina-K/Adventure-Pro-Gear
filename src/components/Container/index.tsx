@@ -7,9 +7,7 @@ interface ContainerProps {
   className?: string;
 }
 
-const Container: React.FC<ContainerProps> = ({ children, className }) => {
-  console.log(clsx(styles.container, className && className))
-  return (
-  <div className={clsx(styles.container, { [styles.header]: className } )}>{children}</div>);
-  };
+const Container: React.FC<ContainerProps> = ({ children, className }) => (
+  <div className={clsx(styles.container, className && className)}>{children}</div>
+);
 export default Container;
