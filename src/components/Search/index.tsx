@@ -66,12 +66,14 @@ const Search: React.FC<SearchProps> = ({
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       dispatch(setFilteredProducts(filteredItems));
+      setValue('');
       router.push(`${AppRoutes.PRODUCTS.replace('*', value)}`);
     }
   };
 
   const handleAllClick = () => {
     dispatch(setFilteredProducts(filteredItems));
+    setValue('');
     router.push(`${AppRoutes.PRODUCTS.replace('*', value)}`);
   };
 

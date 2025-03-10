@@ -8,10 +8,6 @@
   z-index: 10;
 }
 
-.headerContainer{
-  margin: 0 auto;
-}
-
 .nav {
   display: flex;
   flex-direction: row;
