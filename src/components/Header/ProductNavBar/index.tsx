@@ -1,6 +1,5 @@
 import React from 'react';
 import { useTranslations } from 'next-intl';
-
 import Container from '@/components/Container';
 import Search from '@/components/Search';
 import type { HeaderProps } from '@/types';
@@ -11,7 +10,6 @@ import CatalogOfGoods from './Catalog';
 import styles from './ProductNavBar.module.css';
 
 const ProductNavBar: React.FC<HeaderProps> = ({
-  products,
   setVisibleSubcategory,
   setToggleCatalog,
   toggleCatalog,
@@ -29,7 +27,6 @@ const ProductNavBar: React.FC<HeaderProps> = ({
             toggleCatalog={toggleCatalog}
           />
           <Search
-            products={products}
             unavailable={t('search.unavailable')}
             showall={t('search.showall')}
             placeholder={t('search.placeholder')}

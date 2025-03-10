@@ -18,7 +18,7 @@ const Header: NextPage<HeaderProps> = ({ products }) => {
     <>
       <header className={styles.header}>
         <Container>
-          <NavBar setToggleCatalog={setToggleCatalog} />
+          <NavBar />
         </Container>
         <ProductNavBar
           products={products}

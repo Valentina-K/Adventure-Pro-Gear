@@ -7,7 +7,7 @@ import { Link, usePathname } from '@/i18n/routing';
 import LangLinks from './LangLinks';
 import styles from '../Header.module.css';
 
-const NavList: React.FC<HeaderProps> = ({ setToggleCatalog }) => {
+const NavList: React.FC<HeaderProps> = () => {
   const t = useTranslations('nav');
   const pathName = usePathname();
 

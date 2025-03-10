@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { Locale } from '@/i18n-config';
 import { Product } from '@/interfaces/product';
 import Card from '../../Card';
 import styles from './CatalogNameList.module.css';

@@ -18,6 +18,16 @@ export const getAllReviewsByProductId = async (productId: number) => {
   }
 };
 
+export const getProductByName = async (productName: string) => {
+  console.log(productName);
+  try {
+    const products = await axiosInstance.get(`api/public/products/search?name=${productName}`);
+    return products;
+  } catch (error) {
+    console.log('from getProductByName');
+  }
+};
+
 export const createReview = async (data: any, token: string) => {
   const { productId, comment, rating } = data;
   try {

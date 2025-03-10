@@ -30,7 +30,7 @@ const AuthModal = () => {
   const router = useRouter();
 
   const closeModal = () => {
-    router.back();
+    router.push(`/${path.split('/')[1]}`);
   };
 
   useEffect(() => {

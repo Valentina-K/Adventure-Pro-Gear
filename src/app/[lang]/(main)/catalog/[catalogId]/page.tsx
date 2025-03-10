@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
 import { getProductsFilter, getSubcategoryId } from '@/clientServices/clientAxios';
-
+import { useGetProductsQuery } from '@/redux/features/apiSlice';
 import Container from '@/components/Container';
 import Navigation from '@/components/Navigation/Navigation';
 import SearchBar from '@/components/SearchBar/SearchBar';
@@ -24,32 +24,30 @@ interface ICategoriesApi {
 }
 
 // eslint-disable-next-line @next/next/no-async-client-component
-const CatalogId = (
-  {
-    params,
-  }: {
-    params: {
-      lang: string;
-      catalogId: string;
-    };
-  },
-) => {
+const CatalogId = ({
+  params,
+}: {
+  params: {
+   catalogId: string;
+  };
+}) => {
   const locale = useLocale();
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
   const paramsGetPage = searchParams.get('page') || '1';
 
+  const { data, isLoading, error } = useGetProductsQuery();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const current = new URLSearchParams(Array.from(searchParams.entries()));
 
   const [minValue, setMinValue] = useState(0);
   const [maxValue, setMaxValue] = useState(100000);
 
-  const [data, setData] = useState<ICategoriesApi[]>([]);
+  const [subcategory, setSubcategory] = useState<ICategoriesApi[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [totalPage, setTotalPage] = useState<number>(0);
-  const [totalElements, setTotalElements] = useState("");
+  const [totalElements, setTotalElements] = useState('');
   const [page, setPage] = useState(paramsGetPage);
   const [gridActive, setGridActive] = useState({
     table: false,
@@ -71,6 +69,7 @@ const CatalogId = (
       setTotalPage(pages - 1);
 
       setProducts(productsAll?.data?.content);
+      // createQueryString('subcategoryId', (params.catalogId).toString());
     })();
   }, [maxValue, minValue, page, params.catalogId, searchParams]);
 
@@ -78,7 +77,7 @@ const CatalogId = (
     const fetchData = (async () => {
       // eslint-disable-next-line no-shadow
       const data = await getSubcategoryId(params.catalogId);
-      setData(data?.data);
+      setSubcategory(data?.data);
     })();
   }, [params.catalogId]);
 
@@ -112,8 +111,10 @@ const CatalogId = (
 
   const filterByDecreasingPrices = () => {
     console.log('filterByDecreasingPrices');
-    //  const sorted = products?.data?.content.sort((a, b) => b.basePrice - a.basePrice);
+    // const sorted = products?.sort((a, b) => b.basePrice - a.basePrice);
+    // console.log(sorted);
   };
+
   const filterByRisingPrices = () => {
     console.log('filterByRisingPrices');
   };
@@ -138,7 +139,7 @@ const CatalogId = (
         <div className={styles.contentPage_container}>
           <Navigation navigationPage="каталог" />
           <div className={styles.input_container}>
-            {data?.map(({ subSubCategoryNameEn, subSubCategoryNameUa }) => (
+            {subcategory?.map(({ subSubCategoryNameEn, subSubCategoryNameUa }) => (
               // eslint-disable-next-line react/jsx-key
               <h1 className={styles.title} key={subSubCategoryNameEn}>
                 {locale === 'uk' ? subSubCategoryNameUa : subSubCategoryNameEn}

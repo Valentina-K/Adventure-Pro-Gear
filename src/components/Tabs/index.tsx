@@ -2,15 +2,14 @@
 
 import React, { useState } from 'react';
 import { Characteristics } from '@/interfaces/product';
-import { Locale } from '@/i18n-config';
+import { useLocale, useTranslations } from 'next-intl';
 import ReviewForm from './SendReview/ReviewForm';
 import styles from './Tabs.module.css';
-import { useLocale } from 'next-intl';
 
 interface TabsProps {
   description: string;
   characteristics: Characteristics[];
-  translation: {
+  /* translation: {
     tabs: {
       description: string;
       characteristics: string;
@@ -23,7 +22,7 @@ interface TabsProps {
       password: string;
       thanking: string;
     };
-  };
+  }; */
   onChangeTab: (tabIndex: number) => void;
   onReviewSend: (isSend: boolean) => void;
 }
@@ -31,11 +30,11 @@ interface TabsProps {
 const Tabs: React.FC<TabsProps> = ({
   description,
   characteristics,
-  translation,
   onChangeTab,
   onReviewSend,
 }) => {
   const locale = useLocale();
+  const t = useTranslations('product');
   const [toggleState, setToggleState] = useState(0);
   const [isSendReview, setIsSendReview] = useState(false);
   /* const { data: session } = useSession(); */
@@ -66,30 +65,30 @@ const Tabs: React.FC<TabsProps> = ({
           className={toggleState === 0 ? activeTabsStyle : styles.tabs}
           onClick={() => toggleTab(0)}
         >
-          {translation.tabs.description}
+          {t('tabs.description')}
         </button>
         <button
           className={toggleState === 1 ? activeTabsStyle : styles.tabs}
           onClick={() => toggleTab(1)}
         >
-          {translation.tabs.characteristics}
+          {t('tabs.characteristics')}
         </button>
         <button
           className={toggleState === 2 ? activeTabsStyle : styles.tabs}
           onClick={() => toggleTab(2)}
         >
-          {translation.tabs.reviews}
+          {t('tabs.reviews')}
         </button>
       </div>
       <div className={styles.contentTabs}>
         <div className={toggleState === 0 ? activeContentStyle : styles.content}>
           <div>{description}</div>
           <div className={styles.attributesBlock}>
-            <h3>{translation.tabs.characteristics}:</h3>
+            <h3>{t('tabs.characteristics')}:</h3>
             <ul>
               {characteristics.map((item, index) => (
                 <li key={index}>
-                  {item.name} : {item.value}
+                  {item.name}: {item.value}
                 </li>
               ))}
             </ul>
@@ -106,8 +105,8 @@ const Tabs: React.FC<TabsProps> = ({
           </ul>
         </div>
         <div className={toggleState === 2 ? activeContentStyle : styles.content}>
-          <ReviewForm onSubmitForm={handleReviewSubmit} translation={translation} />
-          {isSendReview && <p className={styles.thankingText}>{translation.tabs.thanking}</p>}
+          <ReviewForm onSubmitForm={handleReviewSubmit} />
+          {isSendReview && <p className={styles.thankingText}>{t('tabs.thanking')}</p>}
         </div>
       </div>
     </div>

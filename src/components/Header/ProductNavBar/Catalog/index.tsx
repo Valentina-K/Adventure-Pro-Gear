@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Locale } from '@/i18n-config';
 import Image from 'next/image';
 import Grids from '@/../public/icons/Grid.svg';
 import CatalogList from '@/components/CatalogList/CatalogList';
@@ -7,7 +6,6 @@ import styles from './Catalog.module.css';
 import { useTranslations } from 'next-intl';
 
 interface SearchProps {
-  locale?: Locale;
   catalog?: string;
   setVisibleSubcategory: any;
   setToggleCatalog: (str: any) => void;

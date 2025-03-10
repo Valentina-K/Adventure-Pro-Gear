@@ -7,7 +7,6 @@ import Container from '@/components/Container';
 import Navigation from '@/components/Navigation/Navigation';
 import Recommendation from '@/components/Recommendation/Recommendation';
 import style from './blogId.module.css';
-import imgPost from '../../../../../../public/images/blogImg.jpg';
 import facebook from '../../../../../../public/icons/facebook_blue.svg';
 import telegram from '../../../../../../public/icons/telegram.svg';
 
@@ -26,7 +25,7 @@ async function BlogId({ params }: { params: { blogId: string; lang: Locale } }) 
       <div className={style.post_container}>
         <h1 className={style.title}>{blog.postTitle}</h1>
         <p className={style.data}>15.08.23</p>
-        <Image src={imgPost} alt="img blog" width="280" height="218" className={style.blog_img} />
+        <Image src={blog.imageUrl} alt="img blog" width="280" height="218" className={style.blog_img} />
         <p>{blog.content}</p>
       </div>
 
