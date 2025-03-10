@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectAllProducts, selectProductById } from '@/redux/features/selectors';
 import Image from 'next/image';
@@ -13,8 +13,10 @@ import ReviewCount from '@/components/ReviewCount';
 import QuantitySelector from '@/components/QuantitySelector/QuantitySelector';
 import { Review } from '@/interfaces/product';
 import { getAllReviewsByProductId } from '@/clientServices/clientAxios';
+import { setReviewedProducts } from '@/redux/products/slice';
 import Payments from '@/constants/payments';
 import Comercial from '@/../public/icons/Comercial.svg';
+import { useAppSelector, useAppDispatch } from '@/redux/store';
 import ProductCardsSlider from '../ProductCardsSlider';
 import Reviews from '../Tabs/Reviews';
 import ImageCarousel from '../ImageCarousel/ImageCarousel';
@@ -28,10 +30,8 @@ interface ProductWrapperProp {
   productId: number;
 }
 
-const ProductWrapper: React.FC<ProductWrapperProp> = ({
-  reviews,
-  productId,
-}) => {
+const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) => {
+  const dispatch = useAppDispatch();
   const locale = useLocale();
   const t = useTranslations('product');
   const products = useSelector(selectAllProducts);
@@ -42,8 +42,13 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
   const [tabIndex, setTabIndex] = useState(0);
   const [payment, setPayment] = useState<Payments>(Payments.VISA);
   const [productReviews, setReviews] = useState<Review[]>(reviews);
-  if (!product) return <div>Product not found</div>;
+  useEffect(() => {
+    if (product) {
+      dispatch(setReviewedProducts(product));
+    }
+  }, [product, dispatch]);
 
+  if (!product) return <div>Product not found</div>;
   const isAvailable = product.attributes[attrIndex].quantity > 0;
   const cart = {
     productId: product.productId,
@@ -117,24 +122,17 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
                 <ReviewCount reviewCount={product.reviewCount} />
               </div>
               <div className={styles.priceBlock}>
-                <p className={styles.price}>
-                  {product.basePrice}
-                  ₴
-                </p>
+                <p className={styles.price}>{product.basePrice}₴</p>
                 <p className={styles.available}>
                   {isAvailable ? t('card.available') : t('card.outOfStock')}
                 </p>
               </div>
               <div className={styles.specialInfo}>
                 <p>
-                  {t('page.code')}
-                  :
-                  <span>{product.productId}</span>
+                  {t('page.code')}:<span>{product.productId}</span>
                 </p>
                 <p>
-                  {t('page.manufacturer')}
-                  :
-                  <span>Terra Incognita</span>
+                  {t('page.manufacturer')}:<span>Terra Incognita</span>
                 </p>
               </div>
             </div>
