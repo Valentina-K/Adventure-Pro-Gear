@@ -8,6 +8,7 @@ import styles from '../Header.module.css';
 
 const CustomSingleValue = (props: any) => (
   <components.SingleValue {...props}>
+    {props.children}
     <Image
       src="/icons/World.svg"
       alt="World icon"
@@ -15,7 +16,6 @@ const CustomSingleValue = (props: any) => (
       height={22}
       className={styles.globusIcon}
     />
-    {props.children}
   </components.SingleValue>
 );
 
