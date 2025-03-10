@@ -14,7 +14,7 @@ const ProductNavBar: React.FC<HeaderProps> = ({ setVisibleSubcategory }) => {
 
   return (
     <div className={styles.background}>
-      <Container className={styles.container}>
+      <Container>
         <div className={styles.productNavBarChildren}>
           <CatalogOfGoods setVisibleSubcategory={setVisibleSubcategory} />
           <Search

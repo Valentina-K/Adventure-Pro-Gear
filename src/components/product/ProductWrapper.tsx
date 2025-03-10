@@ -36,7 +36,7 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
   const t = useTranslations('product');
   const products = useSelector(selectAllProducts);
   const product = useSelector(selectProductById(Number(productId)));
-  console.log(product, productId);
+  // console.log(product, productId);
   const [attrIndex, setAttrIndex] = useState(0);
   const [buyQuantity, setBuyQuantity] = useState(0);
   const [tabIndex, setTabIndex] = useState(0);
@@ -53,12 +53,12 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
   };
 
   const handleChoiceColor = (index: number) => {
-    console.log('from colorChoice', index);
+    // console.log('from colorChoice', index);
     setAttrIndex(index);
   };
 
   const handleChangeQuantity = (quantity: number) => {
-    console.log('from changeQuantity', quantity);
+    // console.log('from changeQuantity', quantity);
     setBuyQuantity(quantity);
   };
 
@@ -67,12 +67,12 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
     cart.quantity = buyQuantity;
     cart.payment = payment;
     cart.color = product.attributes[attrIndex].color;
-    console.log('from buyClick: ', cart);
+    // console.log('from buyClick: ', cart);
   };
 
   const onChoisePayment = (name: Payments) => {
     setPayment(name);
-    console.log('from choise payment: ', name);
+    // console.log('from choise payment: ', name);
   };
 
   const handleFavoriteClick = () => {};
@@ -86,7 +86,10 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({
     }
   };
 
-  const colorItems = product.attributes.map((attr: { color: string; pictureUrl: string }) => ({ color: attr.color, url: attr.pictureUrl }));
+  const colorItems = product.attributes.map((attr: { color: string; pictureUrl: string }) => ({
+    color: attr.color,
+    url: attr.pictureUrl,
+  }));
 
   return (
     <Container>

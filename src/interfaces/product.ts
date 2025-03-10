@@ -76,4 +76,5 @@ export interface Review {
   likes: number;
   dislikes: number;
   comment: string;
+  date: string;
 }

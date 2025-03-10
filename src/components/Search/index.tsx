@@ -39,11 +39,10 @@ const Search: React.FC<SearchProps> = ({
         (locale === 'uk' ? product.productNameUa : product.productNameEn)
           .toLowerCase()
           .includes(value.toLowerCase()));
-          console.log(filtered);
       if (filtered) setFilteredItems(filtered);
     } else {
       setFilteredItems([]);
-    }    
+    }
   }, [setFilteredItems, data, value, locale]);
 
   const handlerOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,18 +59,21 @@ const Search: React.FC<SearchProps> = ({
   };
 
   const handleProductClick = (product: Product) => {
+    setValue('');
     router.push(`/product/${product.productId}`);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       dispatch(setFilteredProducts(filteredItems));
+      setValue('');
       router.push(`${AppRoutes.PRODUCTS.replace('*', value)}`);
     }
   };
 
   const handleAllClick = () => {
     dispatch(setFilteredProducts(filteredItems));
+    setValue('');
     router.push(`${AppRoutes.PRODUCTS.replace('*', value)}`);
   };
 

@@ -71,6 +71,10 @@ body {
 	margin-top: auto;
 }
 
+main {
+  margin-top: 145px; /* Высота хедера */
+}
+
 a[href=""], .menu a[href="#"], .menu a:not([href]) {
 	pointer-events: none;
 	cursor: default;
