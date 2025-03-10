@@ -13,7 +13,7 @@ import telegram from '../../../../../../public/icons/telegram.svg';
 async function BlogId({ params }: { params: { blogId: string; lang: Locale } }) {
   const blog = await getBlogsId(params.blogId);
 
-		// toDo: too slow
+  // toDo: too slow
   const recommendation = await getProducts();
   const recommendationProducts = recommendation?.data?.content?.slice(0, 6);
 

@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Grids from '@/../public/icons/Grid.svg';
 import CatalogList from '@/components/CatalogList/CatalogList';
-import styles from './Catalog.module.css';
 import { useTranslations } from 'next-intl';
+import styles from './Catalog.module.css';
 
 interface SearchProps {
   catalog?: string;

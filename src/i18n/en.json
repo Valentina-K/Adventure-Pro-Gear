@@ -185,5 +185,9 @@
       "subscribe": "Subscribe"
     },
     "copyText": "Thousands of products for bright adventures in the Adventure Pro Gear online store"
+  },
+  "blog": {
+    "title": "Blog",
+    "description": "The Adventure Pro Gear blog"
   }
 }

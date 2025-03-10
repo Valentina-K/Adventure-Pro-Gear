@@ -185,5 +185,9 @@
       "subscribe": "Підписатися"
     },
     "copyText": "Тисячі товарів для яскравих пригод в онлайн магазині Adventure Pro Gear"
+  },
+  "blog": {
+    "title": "Блог",
+    "description": "Блог Adventure Pro Gear"
   }
 }

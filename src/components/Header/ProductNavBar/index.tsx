@@ -18,7 +18,7 @@ const ProductNavBar: React.FC<HeaderProps> = ({
 
   return (
     <div className={styles.background}>
-      <Container className={styles.container}>
+      <Container>
         <div className={styles.productNavBarChildren}>
           <CatalogOfGoods
             catalog={t('catalog')}

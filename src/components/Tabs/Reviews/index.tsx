@@ -52,7 +52,7 @@ const Reviews: React.FC<ReviewsProp> = ({
                   {usersThink}
                 </span>
               </div>
-              <div>{Date.now()}</div>
+              <div>{items.date}</div>
             </div>
             <div className={styles.message}>{items.comment}</div>
             <div className={styles.footerReview}>

@@ -1,35 +1,40 @@
 import React from 'react';
-import { Locale } from '@/i18n-config';
 import Image from 'next/image';
-import Link from 'next/link';
 import Container from '@/components/Container';
 import Pagination from '@/components/Pagination/Pagination';
 import Navigation from '@/components/Navigation/Navigation';
 import { getBlogs } from '@/services/axios';
-import { IBlogsProps } from '@/types';
-import imgPost from '../../../../../public/images/blogImg.jpg';
+import { Link } from '@/i18n/routing';
+import type { IBlogsProps } from '@/types';
+import { getTranslations } from 'next-intl/server';
 import style from './blog.module.css';
 
 export const dynamic = 'force-dynamic';
 
-async function Blog({ params }: { params: { lang: Locale } }) {
+interface Props {
+  params: {
+    lang: string;
+  };
+}
+
+async function Blog({ params }: Props) {
   const blogs = await getBlogs();
-  const locale = params.lang;
+  const { lang } = await params;
+  const t = await getTranslations({ lang, namespace: 'blog' });
 
   return (
     <Container>
       <div>
-        <Navigation navigationPage="Блог" />
+        <Navigation navigationPage={t('title')} />
       </div>
       <div className={style.blogs_container}>
-        <h1 className={style.blogs_title}>Блог</h1>
+        <h1 className={style.blogs_title}>{t('title')}</h1>
         <ul className={style.blogs_list}>
           {blogs &&
             blogs?.map(({ id, postTitle, imageUrl }: IBlogsProps) => (
               <li key={id} className={style.blogs_item}>
-                <Link href={`/${locale}/blog/${id}`}>
+                <Link href={`${id}`}>
                   <Image
-                    // src={imgPost}
                     src={imageUrl}
                     alt="img blog"
                     width="180"
@@ -37,8 +42,8 @@ async function Blog({ params }: { params: { lang: Locale } }) {
                     className={style.blogs_item_img}
                   />
                   <div className={style.blogs_item_content}>
-                    <h2 className={style.blogs_item_date}>15.08.23</h2>
-                    <p className={style.blogs_item_description}>{postTitle}</p>
+                    <span className={style.blogs_item_date}>15.08.23</span>
+                    <h2 className={style.blogs_item_description}>{postTitle}</h2>
                   </div>
                 </Link>
               </li>
