@@ -24,6 +24,7 @@ import Navigation from '../Navigation/Navigation';
 import Payment from '../Payment';
 import styles from './productWrapper.module.css';
 import Button from '../Button';
+import ReviewedGoods from '../ReviewedGoods';
 
 interface ProductWrapperProp {
   reviews: Review[];
@@ -50,6 +51,7 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
 
   if (!product) return <div>Product not found</div>;
   const isAvailable = product.attributes[attrIndex].quantity > 0;
+  const newPrice = product.basePrice - product.basePrice * (product.attributes[0].priceDeviation / 100);
   const cart = {
     productId: product.productId,
     quantity: 0,
@@ -122,7 +124,7 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
                 <ReviewCount reviewCount={product.reviewCount} />
               </div>
               <div className={styles.priceBlock}>
-                <p className={styles.price}>{product.basePrice}₴</p>
+                <p className={styles.price}>{newPrice}₴</p>
                 <p className={styles.available}>
                   {isAvailable ? t('card.available') : t('card.outOfStock')}
                 </p>
@@ -189,9 +191,7 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
           />
         )}
       </section>
-      <div className={styles.prevViewed}>
-        <h2>{t('page.previouslyViewed')}</h2>
-      </div>
+      <ReviewedGoods title={t('page.previouslyViewed')} onBuyClick={handleBuyClick} onFavoriteClick={handleFavoriteClick} />
     </Container>
   );
 };

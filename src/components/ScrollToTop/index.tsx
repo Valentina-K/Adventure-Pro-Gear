@@ -3,9 +3,8 @@
 import Image from 'next/image';
 import scrollUp from '@/../public/icons/scrollUp.svg';
 import clsx from 'clsx';
-
-import styles from './styles.module.css';
 import { useState, useEffect } from 'react';
+import styles from './styles.module.css';
 
 function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false);
