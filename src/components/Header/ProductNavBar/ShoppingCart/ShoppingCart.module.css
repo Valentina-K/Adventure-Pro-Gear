@@ -1,10 +1,7 @@
 .shoppingCart {
   cursor: pointer;
   margin-right: 20px;
-}
-
-.shoppingCart > img {
-  padding: 8px;
+  padding: 8px; 
 }
 
 .shoppingCart > img:hover {
