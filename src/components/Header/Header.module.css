@@ -36,14 +36,12 @@
   padding: 0 30px;
 }
 
-.navItem {
-  padding-right: 30px;
-  padding-left: 30px;
-  box-sizing: border-box;
-  text-align: center;
-}
-
 .navItem > a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+  margin: 0 20px;
   text-decoration: none;
   color: var(--white);
 }
@@ -53,10 +51,7 @@
 }
 
 .globusIcon {
-  background-color: var(--darkBlue);
-  order: 2;
-  padding-left: 8px;
-  color: var(--white);
+  margin-left: 8px;
 }
 
 .langSelect {
