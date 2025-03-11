@@ -32,7 +32,7 @@ const Search: React.FC<SearchProps> = ({
   const { data, isLoading, error } = useGetProductsQuery();
   const dispatch = useDispatch();
   if (error) console.log(error);
-  if (!isLoading) console.log(data);
+  // if (!isLoading) console.log(data);
   useEffect(() => {
     if (value.length >= 1) {
       const filtered = data?.content.filter(product =>
