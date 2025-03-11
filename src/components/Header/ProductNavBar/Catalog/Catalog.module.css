@@ -1,17 +1,17 @@
 .catalog {
-  width: 199px;
-  position: relative;
-  top: 0;
   display: flex;
-  background-color: var(--mediumBlue);
-  padding: 17.5px 71px 20.5px 10px;
-  cursor: pointer;
   align-items: center;
+  padding: 10px;
+  width: 280px;
+  min-height: 62px;
+  font-size: 18px;
+  background-color: var(--mediumBlue);
+  cursor: pointer;
   line-height: 22px;
-}
 
-.icon {
-  margin-right: 8px;
+  & > img {
+    margin-right: 8px;
+  }
 }
 
 .catalogList__container{
