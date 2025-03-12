@@ -4,16 +4,17 @@
 }
 
 .searchBar_container {
-  width: 332px;
+  width: 366px;
   border: 1px solid var(--label);
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
   padding: 16px;
+  margin-right: 20px;
 }
 
 .contentPage_container {
   width: 100%;
-  margin-left: 20px;
+  /* margin-left: 20px; */
 }
 
 .input_container {

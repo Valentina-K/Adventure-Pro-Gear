@@ -10,20 +10,9 @@ export const dynamic = 'force-dynamic';
 
 interface IRecommendationProp {
   recommendation: Product[];
-  locale?: Locale;
-  translation: {
-    card: {
-      addToFollowing: string;
-      sale: string;
-      new: string;
-      available: string;
-      outOfStock: string;
-      buy: string;
-    };
-  };
 }
 
-const Recommendation: React.FC<IRecommendationProp> = ({ locale, translation, recommendation }) => {
+const Recommendation: React.FC<IRecommendationProp> = ({ recommendation }) => {
   const [sizeView, setSizeView] = useState<number>(0);
 
   useEffect(() => {

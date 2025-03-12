@@ -55,7 +55,7 @@ const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm }) => {
   }
 
   const handleSubmitForm: SubmitHandler<FormValues> = async data => {
-    if (!session) router.push(`/${locale}${AppRoutes.SIGNIN}`);
+    if (!session) router.push(`/${AppRoutes.SIGNIN}`);
     const { comment } = data;
     const { productId } = params;
     const response = await createReview({ comment, rating: rating_, productId }, token);

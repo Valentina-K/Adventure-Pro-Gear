@@ -3,15 +3,13 @@
   cursor: pointer;
   transition: all 0.7s ease-in-out;
   margin-top: 2px;
+  padding: 6px 8px 0px 8px;
 }
 
 .input_item:not(:last-child) {
   margin-right: 10px;
 }
 
-.input_img {
-  padding: 6px 8px 0px 8px;
-}
 
 /* ========active-grid============ */
 .input_item_active {

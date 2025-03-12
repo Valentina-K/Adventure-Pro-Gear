@@ -12,7 +12,6 @@ import ScrollToTop from '@/components/ScrollToTop';
 import AuthModal from '@/components/AuthModal';
 import Container from '@/components/Container';
 import type { Metadata, NextPage } from 'next';
-
 import '@/app/styles/_normilize.css';
 import '@/app/styles/globals.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -73,7 +72,7 @@ const RootLayout: NextPage<RootLayoutProps> = async ({ params: { lang: locale },
 
 export default RootLayout;
 
-/* 
+/*
 <ProductProvider initialProducts={res?.data.content}>
 </ProductProvider>
  */

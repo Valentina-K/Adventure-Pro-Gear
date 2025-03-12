@@ -1,5 +1,4 @@
 import React from 'react';
-import { Locale } from '@/i18n-config';
 import { getBlogsId, getProducts } from '@/services/axios';
 import Image from 'next/image';
 import { dataReview } from '@/assets/json';
@@ -10,7 +9,7 @@ import style from './blogId.module.css';
 import facebook from '../../../../../../public/icons/facebook_blue.svg';
 import telegram from '../../../../../../public/icons/telegram.svg';
 
-async function BlogId({ params }: { params: { blogId: string; lang: Locale } }) {
+async function BlogId({ params }: { params: { blogId: string } }) {
   const blog = await getBlogsId(params.blogId);
 
   // toDo: too slow
@@ -51,17 +50,6 @@ async function BlogId({ params }: { params: { blogId: string; lang: Locale } }) 
 
       <div className={style.recommendation_container}>
         <Recommendation
-          translation={{
-            card: {
-              addToFollowing: '',
-              sale: '',
-              new: '',
-              available: '',
-              outOfStock: '',
-              buy: '',
-            },
-          }}
-          locale={params.lang}
           recommendation={recommendationProducts}
         />
       </div>

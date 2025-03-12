@@ -54,7 +54,7 @@
 }
 
 .cardLink{
-  text-decoration: none;
+  display: inline-block;
 }
 
 .imageWrapper {

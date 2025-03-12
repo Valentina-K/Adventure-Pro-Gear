@@ -13,16 +13,6 @@ const CatalogNameList: React.FC<ICatalogNameListProps> = ({ item }) => {
   return (
     <Card
       product={item}
-      translation={{
-        card: {
-          addToFollowing: '',
-          sale: '',
-          new: '',
-          available: '',
-          outOfStock: '',
-          buy: '',
-        },
-      }}
       // eslint-disable-next-line react/jsx-no-bind
       onBuyClick={(): void => {
         throw new Error('Function not implemented.');
