@@ -7,16 +7,14 @@ import styles from './CatalogNameList.module.css';
 
 interface ICatalogNameListProps {
   item: Product;
+  onBuyClick: (id: number) => void;
 }
 
-const CatalogNameList: React.FC<ICatalogNameListProps> = ({ item }) => {
+const CatalogNameList: React.FC<ICatalogNameListProps> = ({ item, onBuyClick }) => {
   return (
     <Card
       product={item}
-      // eslint-disable-next-line react/jsx-no-bind
-      onBuyClick={(): void => {
-        throw new Error('Function not implemented.');
-      }}
+      onBuyClick={onBuyClick}
       onFavoriteClick={(productId: number, isFavorite: boolean): void => {
         throw new Error('Function not implemented.');
       }}

@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { useLocale } from 'next-intl';
 import type { IVisibleSubcategory } from '@/types/IVisibleSubcategory';
-
+import { AppRoutes } from '@/constants/routes';
 import style from './Subcategory.module.css';
 
 interface ISubcategoryProps {
@@ -47,12 +47,11 @@ const Subcategory: React.FC<ISubcategoryProps> = ({
                       key={id}
                       onClick={handlerToggleCatalog}
                     >
-                      <Link href={`/${locale}/catalog/${id}?page=1`}>
+                      <Link href={`/${AppRoutes.CATALOG}/${id}?page=1`}>
                         <p className={style.list_descr}>
                           {locale === 'uk' ? subcategoryNameUa : subcategoryNameEn}
                         </p>
                       </Link>
-
                     </li>
                   )
                 )}

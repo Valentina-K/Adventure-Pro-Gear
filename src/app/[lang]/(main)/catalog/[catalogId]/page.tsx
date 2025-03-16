@@ -28,7 +28,7 @@ const CatalogId = ({
   params,
 }: {
   params: {
-   catalogId: string;
+    catalogId: string;
   };
 }) => {
   const locale = useLocale();
@@ -162,7 +162,10 @@ const CatalogId = ({
               {products &&
                 products?.map((item: Product) => (
                   <li key={item?.productId} className={styles.item}>
-                    <CatalogNameList item={item} />
+                    <CatalogNameList
+                      item={item}
+                      onBuyClick={(): void => {}}
+                    />
                   </li>
                 ))}
             </ul>

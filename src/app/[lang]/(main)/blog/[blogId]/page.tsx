@@ -1,7 +1,13 @@
-import React from 'react';
-import { getBlogsId, getProducts } from '@/services/axios';
+'use client';
+
+import React, { useEffect, useState } from 'react';
+import { useLocale } from 'next-intl';
 import Image from 'next/image';
+import { useSelector } from 'react-redux';
+import { selectAllProducts } from '@/redux/features/selectors';
+import { getBlogsId } from '@/clientServices/clientAxios';
 import { dataReview } from '@/assets/json';
+import { Product } from '@/interfaces/product';
 import Container from '@/components/Container';
 import Navigation from '@/components/Navigation/Navigation';
 import Recommendation from '@/components/Recommendation/Recommendation';
@@ -9,24 +15,48 @@ import style from './blogId.module.css';
 import facebook from '../../../../../../public/icons/facebook_blue.svg';
 import telegram from '../../../../../../public/icons/telegram.svg';
 
-async function BlogId({ params }: { params: { blogId: string } }) {
-  const blog = await getBlogsId(params.blogId);
+interface IBlog {
+  titleEn: string;
+  titleUa: string;
+  imageUrl: string;
+  contentUa: string;
+  contentEn: string;
+  createdAt: string;
+}
 
-  // toDo: too slow
-  const recommendation = await getProducts();
-  const recommendationProducts = recommendation?.data?.content?.slice(0, 6);
+function BlogId({ params }: { params: { blogId: string } }) {
+  const locale = useLocale();
+  const recommendation = useSelector(selectAllProducts);
+  const recommendationProducts = recommendation.slice(0, 6);
+  
+  const [blog, setBlog] = useState<IBlog>({});
+
+  useEffect(() => {
+    const fetchData = (async () => {
+      const blogs = await getBlogsId(params.blogId);
+      setBlog(blogs);
+    })();
+  }, [params.blogId]);
 
   return (
     <Container>
       <div>
-        <Navigation navigationPage="Блог" title={blog.postTitle} />
+        <Navigation navigationPage="Блог" title={locale === 'uk' ? blog?.titleUa : blog.titleEn} />
       </div>
-      <div className={style.post_container}>
-        <h1 className={style.title}>{blog.postTitle}</h1>
-        <p className={style.data}>15.08.23</p>
-        <Image src={blog.imageUrl} alt="img blog" width="280" height="218" className={style.blog_img} />
-        <p>{blog.content}</p>
-      </div>
+      {blog && (
+        <div className={style.post_container}>
+          <h1 className={style.title}>{locale === 'uk' ? blog?.titleUa : blog?.titleEn}</h1>
+          <p className={style.data}>{blog?.createdAt}</p>
+          <Image
+            src={blog?.imageUrl}
+            alt="img blog"
+            width="280"
+            height="218"
+            className={style.blog_img}
+          />
+          <p>{locale === 'uk' ? blog?.contentUa : blog?.contentEn}</p>
+        </div>
+      )}
 
       <div className={style.review_container}>
         <span className={style.review}>Як Вам стаття? Залиште реакцію! </span>
