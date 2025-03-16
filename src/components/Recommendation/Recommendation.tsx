@@ -10,9 +10,10 @@ export const dynamic = 'force-dynamic';
 
 interface IRecommendationProp {
   recommendation: Product[];
+  t: any;
 }
 
-const Recommendation: React.FC<IRecommendationProp> = ({ recommendation }) => {
+const Recommendation: React.FC<IRecommendationProp> = ({ recommendation, t }) => {
   const [sizeView, setSizeView] = useState<number>(0);
 
   useEffect(() => {
@@ -34,7 +35,7 @@ const Recommendation: React.FC<IRecommendationProp> = ({ recommendation }) => {
 
   return (
     <>
-      <h1 className={style.title}>Ми рекомендуємо</h1>
+      <h1 className={style.title}>{t('recommendation')}</h1>
 
       {sizeView < 1179 ? (
         <ProductCardsSlider

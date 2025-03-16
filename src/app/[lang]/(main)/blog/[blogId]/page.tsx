@@ -1,13 +1,13 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
 import { selectAllProducts } from '@/redux/features/selectors';
 import { getBlogsId } from '@/clientServices/clientAxios';
 import { dataReview } from '@/assets/json';
-import { Product } from '@/interfaces/product';
+
 import Container from '@/components/Container';
 import Navigation from '@/components/Navigation/Navigation';
 import Recommendation from '@/components/Recommendation/Recommendation';
@@ -26,10 +26,18 @@ interface IBlog {
 
 function BlogId({ params }: { params: { blogId: string } }) {
   const locale = useLocale();
+  const t = useTranslations('blogId');
   const recommendation = useSelector(selectAllProducts);
   const recommendationProducts = recommendation.slice(0, 6);
-  
-  const [blog, setBlog] = useState<IBlog>({});
+
+  const [blog, setBlog] = useState<IBlog>({
+    titleEn: "",
+    titleUa: "",
+    imageUrl: "",
+    contentUa: "",
+    contentEn: "",
+    createdAt: ""
+  });
 
   useEffect(() => {
     const fetchData = (async () => {
@@ -59,7 +67,7 @@ function BlogId({ params }: { params: { blogId: string } }) {
       )}
 
       <div className={style.review_container}>
-        <span className={style.review}>Як Вам стаття? Залиште реакцію! </span>
+        <span className={style.review}>{t('feedback')}</span>
         {dataReview?.map(({ reviewImg, review, size }) => (
           <span key={review} className={style.review_item}>
             <Image src={reviewImg} alt={review} width={size} height={size} />
@@ -70,18 +78,16 @@ function BlogId({ params }: { params: { blogId: string } }) {
       <div className={style.send_btn_container}>
         <button type="button" className={style.send_btn}>
           <Image src={facebook} alt="facebook" width="24" height="24" />
-          <span className={style.send_btn_text}>Поділитися</span>
+          <span className={style.send_btn_text}>{t('share')}</span>
         </button>
         <button type="button" className={style.send_btn}>
           <Image src={telegram} alt="telegram" width={24} height={24} />
-          <span className={style.send_btn_text}>Відправити</span>
+          <span className={style.send_btn_text}>{t('send')}</span>
         </button>
       </div>
 
       <div className={style.recommendation_container}>
-        <Recommendation
-          recommendation={recommendationProducts}
-        />
+        <Recommendation recommendation={recommendationProducts} t={t} />
       </div>
     </Container>
   );
