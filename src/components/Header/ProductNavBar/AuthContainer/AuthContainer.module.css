@@ -6,6 +6,7 @@
 
 .dropDownContainerVisible {
   display: flex;
+  top: 100%;
 }
 
 .dropDownContainerInvisible {

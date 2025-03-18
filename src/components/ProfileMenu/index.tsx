@@ -1,16 +1,17 @@
 'use client';
 
 import React, { useState, Suspense } from 'react';
+import Image from 'next/image';
+import clsx from 'clsx'
 import { useSession, signOut } from 'next-auth/react';
 import { useLocale, useTranslations } from 'next-intl';
-import { Link } from '@/i18n/routing';
+import { Link, usePathname } from '@/i18n/routing';
 import { profileLinks } from '@/routes';
 
 import Loading from '@/components/Loading';
-import Image from 'next/image';
-import SignOut from '@/../public/icons/SignOut.svg';
-import { AppRoutes } from '@/constants/routes';
 import styles from './ProfileMenu.module.css';
+// import SignOut from '@/../public/icons/SignOut.svg';
+// import { AppRoutes } from '@/constants/routes';
 
 // import Orders from '@/../public/icons/Orders.svg';
 // import OrdersWhite from '@/../public/icons/OrdersWhite.svg';
@@ -25,11 +26,11 @@ const ProfileMenu: React.FC<ProfileMenuProps> = ({ className }) => {
   const { data: session, status } = useSession();
   const locale = useLocale();
   const t = useTranslations('profile.menuLinks');
+  const pathName = usePathname();
 
   return (
     <div className={`${styles.profileMenu} ${className}`}>
       <div className={styles.profileInfo}>
-        {/* <Loading /> */}
         {status === 'loading' ? (
           <Loading className={styles.loaddingProfilePicture} />
         ) : (
@@ -44,7 +45,7 @@ const ProfileMenu: React.FC<ProfileMenuProps> = ({ className }) => {
         {profileLinks.map(({ path, label, icon, id }) => {
           return (
             <li key={id} className={styles.menuItem}>
-              <Link href={path}>
+              <Link href={path} className={clsx({ [styles.active]: pathName !== '/' && pathName === `${path}/` })}>
                 <Image src={icon} width={24} height={24} alt="some icon" />
                 {t(label)}
               </Link>
