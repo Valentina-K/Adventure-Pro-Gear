@@ -43,7 +43,7 @@ export default function FieldPassword({
       />
 
       {errors && (
-        <div className={styles.errorContainer}>
+        <div className={styles.errorPassword}>
           <Image
             src={Error}
             alt="error icon"

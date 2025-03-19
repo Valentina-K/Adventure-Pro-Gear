@@ -12,13 +12,12 @@ interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const Modal: React.FC<ModalProps> = ({ children, className, closeModal }) => (
-  <>
-    <div className={styles.overlay} />
+  <div className="modal-backdrop visible">
     <Container className={styles.containerModal}>
       <div className={`${className} ${styles.modal}`}>
         {children}
         <Image
-          src='/icons/Close.svg'
+          src="/icons/Close.svg"
           className={styles.closeButton}
           onClick={closeModal}
           width={24}
@@ -27,7 +26,7 @@ const Modal: React.FC<ModalProps> = ({ children, className, closeModal }) => (
         />
       </div>
     </Container>
-  </>
+  </div>
 );
 
 export default Modal;
