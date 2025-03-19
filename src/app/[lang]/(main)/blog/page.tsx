@@ -6,8 +6,8 @@ import Navigation from '@/components/Navigation/Navigation';
 import { getBlogs } from '@/services/axios';
 import { Link } from '@/i18n/routing';
 import type { IBlogsProps } from '@/types';
-import style from './blog.module.css';
 import { getTranslations } from 'next-intl/server';
+import style from './blog.module.css';
 
 export const dynamic = 'force-dynamic';
 
@@ -49,7 +49,6 @@ async function Blog({ params }: Props) {
               </li>
             ))}
         </ul>
-
         {/* <Pagination searchParams={{}} /> */}
       </div>
     </Container>

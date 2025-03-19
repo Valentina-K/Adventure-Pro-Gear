@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import { useLocale } from 'next-intl';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import arrowsLeft from '@/../public/icons/Arrows.svg';
@@ -17,7 +18,8 @@ function Navigation({
   navigationPage?: string;
   title?: string;
   productName?: string;
-}) {
+  }) {
+  const locale = useLocale();
   const router = useRouter();
   const pathName = usePathname();
   const [loading, setLoading] = useState(false);
@@ -26,7 +28,7 @@ function Navigation({
   const filteredArray = pathArray.filter(element => element !== '');
 
   const handleRedirectHomeClick = () => {
-    router.push(`/${filteredArray[0]}/`);
+    router.push(`${locale === "uk" ? "/" : `/${filteredArray[0]}/`}`);
     setLoading(prev => !prev);
   };
 

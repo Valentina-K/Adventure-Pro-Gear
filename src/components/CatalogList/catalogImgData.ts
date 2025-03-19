@@ -7,6 +7,7 @@ import winter from '../../../public/icons/catalog/winter.svg';
 import fishing from '../../../public/icons/catalog/fishing.svg';
 import cycling from '../../../public/icons/catalog/cycling.svg';
 import food from '../../../public/icons/catalog/food.svg';
+import swimming from '../../../public/icons/catalog/swimming.svg';
 
 export const catalogImg = [
   {
@@ -44,5 +45,9 @@ export const catalogImg = [
   {
     id: 9,
     img: food,
+  },
+  {
+    id: 10,
+    img: swimming,
   },
 ];

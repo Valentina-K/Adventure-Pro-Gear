@@ -152,6 +152,12 @@
       "usersThink": " users found this review helpful"
     }
   },
+  "blogId": {
+    "share": "Share",
+    "send": "Send",
+    "feedback": "How do you like the article? Leave a comment!",
+    "recommendation": "We recommend"
+  },
   "footer": {
     "information": {
       "title": "Information",

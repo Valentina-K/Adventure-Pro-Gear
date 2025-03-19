@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
-import { useLocale } from 'next-intl'
+import { useLocale } from 'next-intl';
 import { resetPaswordAction, ErrorMessages } from '@/app/actions';
 import { getAllTranslations, getTranslation } from '@/dictionaries/dictionaries';
 import { AppRoutes } from '@/constants/routes';

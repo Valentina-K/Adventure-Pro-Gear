@@ -75,3 +75,42 @@ export const getCategory = async () => {
     console.log(error);
   }
 };
+
+export const getSubcategoryId = async (subcategoryId: string) => {
+  try {
+    const products = await axiosInstance.get(
+      `api/public/categories/subsubcategory/${subcategoryId}`
+    );
+    return products;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getProductsFilter = async (
+  {
+    page,
+    priceFrom,
+    priceTo,
+    subcategoryId,
+  }: { page: string; subcategoryId: string; priceFrom: string; priceTo: string}
+) => {
+  try {
+    const products = await axiosInstance.get(
+      `api/public/products/filter?page=${page}&size=10&priceFrom=${priceFrom}&priceTo=${priceTo}`
+      // subcategoryId=${subcategoryId}`
+    );
+    return products;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getBlogsId = async (blogId: string) => {
+  try {
+    const response = await axiosInstance.get(`api/blog/posts/${blogId}`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

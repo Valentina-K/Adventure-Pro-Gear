@@ -12,4 +12,5 @@ export enum AppRoutes {
   FAVORITES = '/favorites',
   ORDERS = '/orders',
   PRODUCTS = `/filtered_products?search=*`,
+  CATALOG = `catalog`,
 }

@@ -9,14 +9,23 @@ import Likes from './Likes';
 import CatalogOfGoods from './Catalog';
 import styles from './ProductNavBar.module.css';
 
-const ProductNavBar: React.FC<HeaderProps> = ({ setVisibleSubcategory }) => {
+const ProductNavBar: React.FC<HeaderProps> = ({
+  setVisibleSubcategory,
+  setToggleCatalog,
+  toggleCatalog,
+}) => {
   const t = useTranslations('nav');
 
   return (
     <div className={styles.background}>
       <Container>
         <div className={styles.productNavBarChildren}>
-          <CatalogOfGoods setVisibleSubcategory={setVisibleSubcategory} />
+          <CatalogOfGoods
+            catalog={t('catalog')}
+            setVisibleSubcategory={setVisibleSubcategory}
+            setToggleCatalog={setToggleCatalog}
+            toggleCatalog={toggleCatalog}
+          />
           <Search
             unavailable={t('search.unavailable')}
             showall={t('search.showall')}

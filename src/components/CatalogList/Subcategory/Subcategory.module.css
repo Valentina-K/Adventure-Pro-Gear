@@ -1,5 +1,7 @@
 .container {
-  position: absolute;
+  position: fixed;
+  top: 147px;
+  z-index: 10;
   width: 73%;
   max-width: 900px;
   border-bottom-left-radius: 2px;
@@ -45,6 +47,7 @@
   font-weight: var(--medium);
   font-size: var(--small-14);
   line-height: var(--line-height-21);
+  color: var(--darkBlue);
   letter-spacing: 0%;
   margin-bottom: 6px;
 }

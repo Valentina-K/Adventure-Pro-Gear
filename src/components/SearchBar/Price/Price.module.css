@@ -1,0 +1,115 @@
+.title {
+  font-weight: var(--wight-large);
+  font-size: var(--small-14);
+  line-height: var(--line-height-21);
+  margin-bottom: 8px;
+}
+
+.tab {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+.range[type='range'] {
+  width: 245px;
+  height: 30px;
+  overflow: hidden;
+  outline: none;
+}
+
+.range[type='range'],
+.range[type='range']::-webkit-slider-runnable-track,
+.range[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  background: none;
+}
+
+.range[type='range']::-webkit-slider-runnable-track {
+  width: 200px;
+  height: 1px;
+  background: none;
+}
+
+/* .range[type='range']:nth-child(2)::-webkit-slider-runnable-track {
+  background: none;
+} */
+
+.range[type='range']::-webkit-slider-thumb {
+  position: relative;
+  height: 12px;
+  width: 12px;
+  margin-top: -7px;
+  background: var(--greenForBtn);
+  border: 1px solid var(--greenForBtn);
+  outline: none;
+  border-radius: 25px;
+  cursor: pointer;
+  z-index: 1;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+}
+
+/* .range[type='range']::-webkit-slider-thumb:active {
+  cursor: grabbing;
+} */
+
+.range[type='range']:nth-child(1)::-webkit-slider-thumb {
+  z-index: 2;
+}
+
+.rangeslider {
+  position: relative;
+  height: 20px;
+  width: 210px;
+  display: inline-block;
+  margin-top: -5px;
+}
+
+.rangeslider input {
+  position: absolute;
+}
+
+.min {
+  position: absolute;
+}
+
+.max {
+  position: relative;
+}
+
+.slider {
+  position: relative;
+  top: -23px;
+  width: 99%;
+  height: 2px;
+  background-color: var(--gray-300);
+}
+
+.progress {
+  position: absolute;
+  height: 100%;
+  background-color: var(--greenForBtn);
+}
+
+.price {
+  display: flex;
+  align-items: center;
+}
+
+.priceValue {
+  width: 82px;
+  text-align: center;
+  color: var(--mediumBlue);
+  border: 0.8px solid var(--gray-300);
+  border-radius: 2px;
+  padding: 7px;
+}
+
+.priceSpan {
+  margin: 0 21px;
+}

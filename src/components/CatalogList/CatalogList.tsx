@@ -2,13 +2,12 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useLocale } from 'next-intl';
-
+import { getCategory } from '@/clientServices/clientAxios';
 import arrows from '../../../public/icons/Arrows.svg';
 import style from './CatalogList.module.css';
-import { getCategory } from '@/clientServices/clientAxios';
 import { catalogImg } from './catalogImgData';
 import Container from '../Container';
-// import Spinner from '@/app/loading';
+import Loading from '../Loading';
 
 interface ICatalogListProps {
   // locale?: Locale;
@@ -81,7 +80,9 @@ const CatalogList: React.FC<ICatalogListProps> = ({ setVisibleSubcategory }) => 
             </ul>
           </div>
         ) : (
-          <div className={style.spinner_container}>{/* <Spinner /> */}</div>
+          <div className={style.spinner_container}>
+            <Loading />
+          </div>
         )}
       </Container>
     </div>

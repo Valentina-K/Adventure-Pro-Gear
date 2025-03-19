@@ -1,21 +1,24 @@
 import React, { useState } from 'react';
-import { Locale } from '@/i18n-config';
 import Image from 'next/image';
 import Grids from '@/../public/icons/Grid.svg';
 import CatalogList from '@/components/CatalogList/CatalogList';
-import styles from './Catalog.module.css';
 import { useTranslations } from 'next-intl';
+import styles from './Catalog.module.css';
 
 interface SearchProps {
-  locale?: Locale;
   catalog?: string;
   setVisibleSubcategory: any;
+  setToggleCatalog: (str: any) => void;
+  toggleCatalog?: boolean;
 }
 
-const CatalogOfGoods: React.FC<SearchProps> = ({ setVisibleSubcategory }) => {
+const CatalogOfGoods: React.FC<SearchProps> = ({
+  catalog,
+  setVisibleSubcategory,
+  setToggleCatalog,
+  toggleCatalog,
+}) => {
   const t = useTranslations('nav');
-
-  const [toggleCatalog, setToggleCatalog] = useState<boolean>(false);
 
   const handlerToggleCatalog = (e: React.MouseEvent<HTMLDivElement>) => {
     const evtTarget = e.target as HTMLElement;
@@ -27,7 +30,7 @@ const CatalogOfGoods: React.FC<SearchProps> = ({ setVisibleSubcategory }) => {
       return;
     }
 
-    setToggleCatalog(prev => !prev);
+    setToggleCatalog((prev: any) => !prev);
     setVisibleSubcategory([]);
   };
 
@@ -37,8 +40,10 @@ const CatalogOfGoods: React.FC<SearchProps> = ({ setVisibleSubcategory }) => {
       <p>{t('catalog')}</p>
 
       {toggleCatalog && (
-        <div className={styles.overlay}>
+        <div className={styles.catalogList__container}>
           <CatalogList setVisibleSubcategory={setVisibleSubcategory} />
+
+          <div className={styles.overlay}> </div>
         </div>
       )}
     </div>
