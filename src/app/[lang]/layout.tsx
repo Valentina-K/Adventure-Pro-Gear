@@ -58,9 +58,7 @@ const RootLayout: NextPage<RootLayoutProps> = async ({ params: { lang: locale },
               <main>{children}</main>
               <Footer />
               <ScrollToTop />
-              <Container>
-                <AuthModal />
-              </Container>
+              <AuthModal />
               <ToastContainer hideProgressBar={true} />
             </NextIntlClientProvider>
           </SessionProvider>
