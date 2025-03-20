@@ -27,12 +27,12 @@ const DropDown: React.FC<DropDownProps> = ({ className, isLinkClicked }) => {
       ) : (
         <ul>
           <li>
-            <Link href={`${path}${AppRoutes.SIGNIN}`} onClick={isLinkClicked}>
+            <Link href={`${path}${AppRoutes.SIGNIN}`} scroll={false} onClick={isLinkClicked}>
               {t('login.title')}
             </Link>
           </li>
           <li>
-            <Link href={`${path}${AppRoutes.SIGN_UP}`} onClick={isLinkClicked}>
+            <Link href={`${path}${AppRoutes.SIGN_UP}`} scroll={false} onClick={isLinkClicked}>
               {t('registration.title')}
             </Link>
           </li>
