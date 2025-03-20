@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Product } from '@/interfaces/product';
-import { act } from 'react';
+import { Cart, Product } from '@/interfaces/product';
 
 interface ProductState {
   page: number;
@@ -9,6 +8,7 @@ interface ProductState {
   totalElements: number;
   filteredProducts: Product[];
   reviewedProducts: Product[];
+  cart: Cart | null;
 }
 
 const initialState: ProductState = {
@@ -18,6 +18,7 @@ const initialState: ProductState = {
   totalElements: 0,
   filteredProducts: [],
   reviewedProducts: [],
+  cart: null,
 };
 
 const productsSlice = createSlice({
@@ -25,25 +26,28 @@ const productsSlice = createSlice({
   initialState,
   reducers: {
     setPage(state, action: PayloadAction<any>) {
-      state.page = action.payload;
+      return { ...state, page: action.payload };
     },
     setSize(state, action: PayloadAction<any>) {
-      state.size = action.payload;
+      return { ...state, size: action.payload };
     },
     setTotalPages(state, action: PayloadAction<any>) {
-      state.totalPages = action.payload;
+      return { ...state, totalPages: action.payload };
     },
     setTotalElements(state, action: PayloadAction<any>) {
-      state.totalElements = action.payload;
+      return { ...state, totalElements: action.payload };
     },
     setFilteredProducts(state, action: PayloadAction<any>) {
-      state.filteredProducts = action.payload;
+      return { ...state, filteredProducts: action.payload };
     },
     setReviewedProducts(state, action: PayloadAction<any>) {
       const index = state.reviewedProducts.findIndex(
         product => product.productId === action.payload.productId
       );
       if (index === -1) state.reviewedProducts.push(action.payload);
+    },
+    setShoppingCart(state, action: PayloadAction<any>) {
+      return { ...state, cart: action.payload };
     },
   },
 });
@@ -55,6 +59,7 @@ export const {
   setTotalElements,
   setFilteredProducts,
   setReviewedProducts,
+  setShoppingCart,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

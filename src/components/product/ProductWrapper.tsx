@@ -13,7 +13,7 @@ import ReviewCount from '@/components/ReviewCount';
 import QuantitySelector from '@/components/QuantitySelector/QuantitySelector';
 import { Review } from '@/interfaces/product';
 import { getAllReviewsByProductId } from '@/clientServices/clientAxios';
-import { setReviewedProducts } from '@/redux/products/slice';
+import { setReviewedProducts, setShoppingCart } from '@/redux/products/slice';
 import Payments from '@/constants/payments';
 import Comercial from '@/../public/icons/Comercial.svg';
 import { useAppSelector, useAppDispatch } from '@/redux/store';
@@ -51,13 +51,8 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
 
   if (!product) return <div>Product not found</div>;
   const isAvailable = product.attributes[attrIndex].quantity > 0;
-  const newPrice = product.basePrice - product.basePrice * (product.attributes[0].priceDeviation / 100);
-  const cart = {
-    productId: product.productId,
-    quantity: 0,
-    payment,
-    color: product.attributes[attrIndex].color,
-  };
+  const newPrice =
+    product.basePrice - product.basePrice * (product.attributes[0].priceDeviation / 100);
 
   const handleChoiceColor = (index: number) => {
     // console.log('from colorChoice', index);
@@ -70,11 +65,14 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
   };
 
   const handleBuyClick = () => {
-    cart.productId = product.productId;
-    cart.quantity = buyQuantity;
-    cart.payment = payment;
-    cart.color = product.attributes[attrIndex].color;
-    // console.log('from buyClick: ', cart);
+    const shoppingCart = {
+      productId: product.productId,
+      quantity: buyQuantity,
+      payment,
+      color: product.attributes[attrIndex].color,
+      size: product.attributes[attrIndex].size,
+    };
+    dispatch(setShoppingCart(shoppingCart));
   };
 
   const onChoisePayment = (name: Payments) => {
@@ -191,7 +189,11 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
           />
         )}
       </section>
-      <ReviewedGoods title={t('page.previouslyViewed')} onBuyClick={handleBuyClick} onFavoriteClick={handleFavoriteClick} />
+      <ReviewedGoods
+        title={t('page.previouslyViewed')}
+        onBuyClick={handleBuyClick}
+        onFavoriteClick={handleFavoriteClick}
+      />
     </Container>
   );
 };

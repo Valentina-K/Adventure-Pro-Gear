@@ -13,6 +13,12 @@
 }
 
 .image{
-    object-fit: contain;
+    object-fit: none;
     cursor: pointer;
+    border-radius: 8px;
+    border: 1px solid #bfbcbc;
+}
+
+.image:hover{
+    box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.2);
 }
