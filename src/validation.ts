@@ -31,18 +31,18 @@ export const getSignUpSchema = (t: any) =>
     }),
     password: z
       .string()
-      .min(8, t('password-errors-registration.quantity'))
+      .min(8, t('password-errors-registration.fullMessage'))
       .refine(value => /\d/.test(value), {
-        message: t('password-errors-registration.oneDigit'),
+        message: t('password-errors-registration.fullMessage'),
       })
       .refine(value => /[A-Z]/.test(value), {
-        message: t('password-errors-registration.oneUppercaseLetter'),
+        message: t('password-errors-registration.fullMessage'),
       })
       .refine(value => /[a-z]/.test(value), {
-        message: t('password-errors-registration.oneLowercaseLetter'),
+        message: t('password-errors-registration.fullMessage'),
       })
-      .refine(value => /[!@#$%^&*()_+[\]{};':"\\|,.<>/?]/.test(value), {
-        message: t('password-errors-registration.oneSpecialCharacter'),
+      .refine(value => /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(value), {
+        message: t('password-errors-registration.fullMessage'),
       }),
   });
 
