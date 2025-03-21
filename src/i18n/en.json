@@ -73,7 +73,8 @@
           "oneDigit": "Password must contain at least one number",
           "oneUppercaseLetter": "Password must contain at least one uppercase letter",
           "oneLowercaseLetter": "Password must contain at least one lowercase letter",
-          "oneSpecialCharacter": "Password must contain at least one special character - @#$%^&+="
+          "oneSpecialCharacter": "Password must contain at least one special character - @#$%^&+=",
+          "fullMessage": "Password must be at least 8 characters - 1 uppercase letter, 1 lowercase letter, 1 special character - @#$%^&+="
         }
       }
     },
