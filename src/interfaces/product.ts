@@ -1,3 +1,5 @@
+import Payments from '@/constants/payments';
+
 export interface Attributes {
   id: number;
   productId: number | null;
@@ -77,4 +79,12 @@ export interface Review {
   dislikes: number;
   comment: string;
   date: string;
+}
+
+export interface Cart {
+  productId: number;
+  quantity: number;
+  payment: Payments;
+  color: string;
+  size: string;
 }
