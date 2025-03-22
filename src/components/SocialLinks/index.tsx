@@ -6,7 +6,7 @@ import style from './SocialLinks.module.css';
 const SocialLinks = ({ className }: { className?: string }) => (
   <ul className={clsx(className, style.socials)}>
     <li>
-      <Link href="" rel="noopener noreferrer">
+      <Link href="https://linkedin.com/" target="_blank" rel="noopener noreferrer">
         <svg
           width="24"
           height="24"
@@ -36,7 +36,7 @@ const SocialLinks = ({ className }: { className?: string }) => (
       </Link>
     </li>
     <li>
-      <Link href="" rel="noopener noreferrer">
+      <Link href="https://facebook.com/" target="_blank" rel="noopener noreferrer">
         <svg
           width="24"
           height="24"
@@ -58,7 +58,7 @@ const SocialLinks = ({ className }: { className?: string }) => (
       </Link>
     </li>
     <li>
-      <Link href="" rel="noopener noreferrer">
+      <Link href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
         <svg
           width="24"
           height="24"
@@ -86,7 +86,7 @@ const SocialLinks = ({ className }: { className?: string }) => (
       </Link>
     </li>
     <li>
-      <Link href="" rel="noopener noreferrer">
+      <Link href="https://x.com/" target="_blank" rel="noopener noreferrer">
         <svg
           width="24"
           height="24"
