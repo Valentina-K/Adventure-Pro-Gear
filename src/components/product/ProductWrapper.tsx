@@ -11,7 +11,7 @@ import Tabs from '@/components/Tabs';
 import RatingStars from '@/components/RatingStars';
 import ReviewCount from '@/components/ReviewCount';
 import QuantitySelector from '@/components/QuantitySelector/QuantitySelector';
-import { Review } from '@/interfaces/product';
+import { Review } from '@/types/product';
 import { getAllReviewsByProductId } from '@/clientServices/clientAxios';
 import { setReviewedProducts, setShoppingCart } from '@/redux/products/slice';
 import Payments from '@/constants/payments';

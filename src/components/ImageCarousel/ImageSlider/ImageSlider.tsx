@@ -1,6 +1,6 @@
 'use client';
 
-import { Contents } from '@/interfaces/product';
+import { Contents } from '@/types/product';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';

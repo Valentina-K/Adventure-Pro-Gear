@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Characteristics } from '@/interfaces/product';
+import { Characteristics } from '@/types/product';
 import { useLocale, useTranslations } from 'next-intl';
 import ReviewForm from './SendReview/ReviewForm';
 import styles from './Tabs.module.css';
