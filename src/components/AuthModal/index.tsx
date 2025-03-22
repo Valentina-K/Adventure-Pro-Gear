@@ -30,7 +30,11 @@ const AuthModal = () => {
   const router = useRouter();
 
   const closeModal = () => {
-    router.push(`/${path.split('/')[1]}`, { scroll: false });
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete('auth');
+
+    const newUrl = `${path}${params.toString() ? `?${params.toString()}` : ''}`;
+    router.push(newUrl, { scroll: false });
   };
 
   useEffect(() => {

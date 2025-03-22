@@ -13,7 +13,7 @@ interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const Modal: React.FC<ModalProps> = ({ children, className, closeModal }) => (
   <div className="modal-backdrop visible">
-    <Container className={styles.containerModal}>
+    <div className={styles.containerModal}>
       <div className={`${className} ${styles.modal}`}>
         {children}
         <Image
@@ -25,7 +25,7 @@ const Modal: React.FC<ModalProps> = ({ children, className, closeModal }) => (
           alt="close icon"
         />
       </div>
-    </Container>
+    </div>
   </div>
 );
 

@@ -4,6 +4,8 @@ import Image from 'next/image';
 import { useLocale } from 'next-intl';
 import { useParams } from 'next/navigation';
 import { usePathname, useRouter } from '@/i18n/routing';
+import { useSearchParams } from 'next/navigation';
+
 import styles from '../Header.module.css';
 
 const CustomSingleValue = (props: any) => (
@@ -20,6 +22,8 @@ const CustomSingleValue = (props: any) => (
 );
 
 const LangLinks = () => {
+  const currentSearchParams = useSearchParams();
+
   const router = useRouter();
   const locale = useLocale();
   const pathname = usePathname();
@@ -36,7 +40,7 @@ const LangLinks = () => {
     startTransition(() => {
       router.replace(
         // @ts-expect-error
-        { pathname, params },
+        { pathname, params, query: Object.fromEntries(currentSearchParams.entries()) },
         { locale: selectedOption.value }
       );
     });
