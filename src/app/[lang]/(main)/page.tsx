@@ -1,14 +1,15 @@
 import React from 'react';
 import { getServerSession } from 'next-auth/next';
+import type { IPageProps } from '@/types';
+
 import { options } from '@/config';
-import { Locale } from '@/i18n-config';
 import Container from '@/components/Container';
 import SignOutButton from '@/components/SignOutButton';
 import { getProducts } from '@/services/axios';
 import Hero from '@/components/Hero/Hero';
 import AuthModal from '@/components/AuthModal';
 
-const Page = async ({ params }: { params: { lang: Locale } }) => {
+async function Page({ params }: IPageProps) {
   const session = await getServerSession(options);
 
   // toDo: too slow
@@ -35,6 +36,6 @@ const Page = async ({ params }: { params: { lang: Locale } }) => {
       </Container>
     </section>
   );
-};
+}
 
 export default Page;

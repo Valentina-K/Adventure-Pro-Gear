@@ -5,21 +5,15 @@ import Pagination from '@/components/Pagination/Pagination';
 import Navigation from '@/components/Navigation/Navigation';
 import { getBlogs } from '@/services/axios';
 import { Link } from '@/i18n/routing';
-import type { IBlogsProps } from '@/types';
+import type { IBlogsProps, IPageProps } from '@/types';
 import { getTranslations } from 'next-intl/server';
 import style from './blog.module.css';
 
 export const dynamic = 'force-dynamic';
 
-interface Props {
-  params: {
-    lang: string;
-  };
-}
-
-async function Blog({ params }: Props) {
+async function Blog({ params }: IPageProps) {
   const blogs = await getBlogs();
-  const { lang } = await params;
+  const { lang } = params;
   const t = await getTranslations({ lang, namespace: 'blog' });
 
   return (

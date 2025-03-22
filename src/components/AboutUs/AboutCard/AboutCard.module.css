@@ -1,6 +1,7 @@
 .list_card {
   list-style: none;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: stretch;
   margin-left: -20px;
@@ -8,6 +9,9 @@
 }
 
 .item_card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: calc((100% - 60px) / 3);
   text-align: center;
   border-radius: 5px;
@@ -17,7 +21,7 @@
     rgba(30, 95, 114, 0.1) 98.66%
   );
   margin-left: 20px;
-  padding: 0 8px 16px 8px;
+  padding: 0 16px 16px 16px;
 }
 
 .item_card:not(:first-child) {
