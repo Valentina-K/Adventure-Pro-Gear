@@ -99,7 +99,7 @@
 }
 
 .image{  
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .specialWrapper {
@@ -359,12 +359,12 @@
   }
 }
 
-.buySection:hover{
+/* .buySection:hover{
   @media screen and (min-width: 1180px) {
     opacity: 1;
     visibility: visible;    
   }
-}
+} */
 
 .buyButton {
   padding: 10px 20px;

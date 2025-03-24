@@ -11,6 +11,7 @@ import { useGetProductsQuery } from '@/redux/features/apiSlice';
 import { useDispatch } from 'react-redux';
 import { setFilteredProducts } from '@/redux/products/slice';
 import Button from '../Button';
+import noImage from '@/../public/images/no_image.png';
 import styles from './Search.module.css';
 
 interface SearchProps {
@@ -106,8 +107,7 @@ const Search: React.FC<SearchProps> = ({
                     onClick={() => handleProductClick(product)}
                   >
                     <span className={styles.smallcard_icon}>
-                      {/* <Image alt="Product icon" src={product.selfLink} width={80} height={80} /> */}
-                      Icon
+                      <Image alt="Product icon" src={product.contents.length > 0 ? product.contents[0].source : noImage} width={80} height={80} />
                     </span>
                     <div className={styles.smallcard_main}>
                       <span className={styles.smallcard_name}>
