@@ -9,7 +9,7 @@ import Container from '@/components/Container';
 import Navigation from '@/components/Navigation/Navigation';
 import SearchBar from '@/components/SearchBar/SearchBar';
 import Pagination from '@/components/Pagination/Pagination';
-import { Product } from '@/interfaces/product';
+import { Product } from '@/types/product';
 import CatalogNameList from '@/components/ForCatalogPage/CatalogNameList/CatalogNameList';
 import ViewCatalogList from '@/components/ForCatalogPage/ViewCatalogList/ViewCatalogList';
 import DropdownMenu from '@/components/ForCatalogPage/DropdownMenu/DropdownMenu';

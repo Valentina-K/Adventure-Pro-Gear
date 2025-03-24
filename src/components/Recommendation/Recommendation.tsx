@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Product } from '@/interfaces/product';
+import { Product } from '@/types/product';
 import { Locale } from '@/i18n-config';
 import style from './Recommendation.module.css';
 import ProductCardsSlider from '../ProductCardsSlider';

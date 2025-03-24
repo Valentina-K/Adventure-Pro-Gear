@@ -7,7 +7,7 @@ import FollowinIcon from '@/../public/icons/Following.svg';
 import FollowingFill from '@/../public/icons/FollowingFill.svg';
 import Comercial from '@/../public/icons/Comercial.svg';
 import NotAvailable from '@/../public/images/soldout.png';
-import { Product } from '@/interfaces/product';
+import { Product } from '@/types/product';
 import { Link } from '../../i18n/routing';
 import Button from '../Button';
 import RatingStars from '../RatingStars';

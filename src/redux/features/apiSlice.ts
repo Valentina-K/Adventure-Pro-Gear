@@ -1,5 +1,5 @@
 // Import the RTK Query methods from the React-specific entry point
-import { Product } from '@/interfaces/product';
+import { Product } from '@/types/product';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 interface ProductsResponse {
