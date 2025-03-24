@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Contents } from '@/interfaces/product';
+import { Contents } from '@/types/product';
 import noImage from '@/../public/images/no_image.png';
 import ImageSlider from './ImageSlider/ImageSlider';
 import styles from './ImageCarousel.module.css';

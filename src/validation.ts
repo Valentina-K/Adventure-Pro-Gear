@@ -41,7 +41,13 @@ export const getSignUpSchema = (t: any) =>
       .refine(value => /[a-z]/.test(value), {
         message: t('password-errors-registration.fullMessage'),
       })
-      .refine(value => /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(value), {
+      // .refine(value => /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(value), {
+      //   message: t('password-errors-registration.fullMessage'),
+      // }),
+      .refine(value => /[@#$%^&+=]/.test(value), {
+        message: t('password-errors-registration.fullMessage'),
+      })
+      .refine(value => !/[^A-Za-z0-9@#$%^&+=]/.test(value), {
         message: t('password-errors-registration.fullMessage'),
       }),
   });

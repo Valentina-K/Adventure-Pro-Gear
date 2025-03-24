@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Product } from '@/interfaces/product';
+import { Product } from '@/types/product';
 import Card from '../../Card';
 import styles from './CatalogNameList.module.css';
 

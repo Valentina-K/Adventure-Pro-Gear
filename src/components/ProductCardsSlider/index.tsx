@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Locale } from '@/i18n-config';
-import { Product } from '@/interfaces/product';
+import { Product } from '@/types/product';
 import Card from '../Card';
 import styles from './ProductCardsSlider.module.css';
 import { useLocale, useTranslations } from 'next-intl';

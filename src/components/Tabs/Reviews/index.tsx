@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Review } from '@/interfaces/product';
+import { Review } from '@/types/product';
 import RatingStars from '@/components/RatingStars';
 import Image from 'next/image';
 import Like from '@/../public/images/ThumbsUp.png';

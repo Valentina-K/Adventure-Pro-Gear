@@ -196,5 +196,42 @@
   "blog": {
     "title": "Blog",
     "description": "The Adventure Pro Gear blog"
+  },
+  "aboutPage": {
+    "title": "About us",
+    "hero": {
+      "title": "Welcome to",
+      "subtitle": "your trusted partner in the world of outdoor gear!"
+    },
+    "advantages": {
+      "title": "About us",
+      "desc": "We are a team of enthusiasts united by a shared love of adventure and outdoor activities. Our online store was created to provide you with access to high-quality and functional equipment that will accompany you at every stage of your tourist vacation. <br><br> Adventure Pro Gear was born from the desire to make tourism accessible to everyone. We believe that everyone has the right to exciting trips and unforgettable experiences. Our mission is to provide you with excellent and reliable equipment so that you can enjoy every moment of your adventures.",
+      "sectionFeatures": {
+        "1": {
+          "title": "Quality without compromise",
+          "desc": "We choose only high-quality materials and products that will stand the test of time and extreme conditions."
+        },
+        "2": {
+          "title": "Wide selection",
+          "desc": "Here you will find everything you need for any type of trip - from easy camping to extreme mountain climbing."
+        },
+        "3": {
+          "title": "Customer focus",
+          "desc": "Your comfort and satisfaction are our priority. We work for you and are always ready to provide advice and support."
+        }
+      },
+      "sectionList": {
+        "1": {
+          "desc": "Adventure Pro Gear is your new adventure and travel store. Our achievements are the result of hard work and a focus on quality. We are proud of our achievements, which testify to our dedication to your needs. New reliable quality, new adventures, new opportunities - all this awaits you at Adventure Pro Gear. Join our community and let us make your adventure dreams a reality."
+        },
+        "2": {
+          "title": "Adventure Pro Gear Community",
+          "desc": "Join our Adventure Pro Gear community of enthusiasts and share your adventures with us! We believe that every customer's story is a new challenge for us to develop and improve our products."
+        }
+      },
+      "sectionThanks": {
+        "desc": "Thank you for choosing Adventure Pro Gear. Together we will conquer new heights and conquer new paths!"
+      }
+    }
   }
 }

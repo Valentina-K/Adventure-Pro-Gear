@@ -6,7 +6,7 @@ import { useLocale } from 'next-intl';
 import Image from 'next/image';
 import SearchIcon from '@/../public/icons/SearchIcon.svg';
 import { AppRoutes } from '@/constants/routes';
-import { Product } from '@/interfaces/product';
+import { Product } from '@/types/product';
 import { useGetProductsQuery } from '@/redux/features/apiSlice';
 import { useDispatch } from 'react-redux';
 import { setFilteredProducts } from '@/redux/products/slice';

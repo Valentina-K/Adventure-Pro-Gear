@@ -5,13 +5,15 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { getServerSession } from 'next-auth/next';
 import ReduxProvider from '@/redux/provider';
+
+import type { Metadata, NextPage } from 'next';
+import type { IPageProps } from '@/types'
 import SessionProvider from '@/components/SessionProvider';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ScrollToTop from '@/components/ScrollToTop';
 import AuthModal from '@/components/AuthModal';
-import Container from '@/components/Container';
-import type { Metadata, NextPage } from 'next';
+
 import '@/app/styles/_normilize.css';
 import '@/app/styles/globals.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -26,11 +28,8 @@ const inter = Montserrat({
   weight: ['400', '700'],
 });
 
-interface RootLayoutProps {
+interface RootLayoutProps extends IPageProps {
   children: React.ReactNode;
-  params: {
-    lang?: string;
-  };
 }
 
 const RootLayout: NextPage<RootLayoutProps> = async ({ params: { lang: locale }, children }) => {
