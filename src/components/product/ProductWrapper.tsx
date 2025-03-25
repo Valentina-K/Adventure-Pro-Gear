@@ -11,10 +11,10 @@ import Tabs from '@/components/Tabs';
 import RatingStars from '@/components/RatingStars';
 import ReviewCount from '@/components/ReviewCount';
 import QuantitySelector from '@/components/QuantitySelector/QuantitySelector';
-import { Review } from '@/types/product';
+import { Attributes, Review } from '@/types/product';
 import { getAllReviewsByProductId } from '@/clientServices/clientAxios';
 import { setReviewedProducts, setShoppingCart } from '@/redux/products/slice';
-import Payments from '@/constants/payments';
+// import Payments from '@/constants/payments';
 import Comercial from '@/../public/icons/Comercial.svg';
 import { useAppSelector, useAppDispatch } from '@/redux/store';
 import ProductCardsSlider from '../ProductCardsSlider';
@@ -37,11 +37,10 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
   const t = useTranslations('product');
   const products = useSelector(selectAllProducts);
   const product = useSelector(selectProductById(Number(productId)));
-  // console.log(product, productId);
   const [attrIndex, setAttrIndex] = useState(0);
   const [buyQuantity, setBuyQuantity] = useState(0);
   const [tabIndex, setTabIndex] = useState(0);
-  const [payment, setPayment] = useState<Payments>(Payments.VISA);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [productReviews, setReviews] = useState<Review[]>(reviews);
   useEffect(() => {
     if (product) {
@@ -68,16 +67,10 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
     const shoppingCart = {
       productId: product.productId,
       quantity: buyQuantity,
-      payment,
       color: product.attributes[attrIndex].color,
       size: product.attributes[attrIndex].size,
     };
     dispatch(setShoppingCart(shoppingCart));
-  };
-
-  const onChoisePayment = (name: Payments) => {
-    setPayment(name);
-    // console.log('from choise payment: ', name);
   };
 
   const handleFavoriteClick = () => {};
@@ -91,6 +84,11 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
     }
   };
 
+  const handleItemClick = (index: number) => {
+    setActiveIndex(index === activeIndex ? null : index);
+  };
+  console.log(t('page.size'));
+  console.log(!isAvailable && activeIndex === null);
   const colorItems = product.attributes.map((attr: { color: string; pictureUrl: string }) => ({
     color: attr.color,
     url: attr.pictureUrl,
@@ -143,20 +141,39 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
               onColorChoice={handleChoiceColor}
               imageArray={colorItems}
             />
-            <div className={styles.buySection}>
-              <QuantitySelector
-                quantity={product.attributes[attrIndex].quantity}
-                onChange={quantity => handleChangeQuantity(quantity)}
-              />
-              <Button
-                className={styles.buyButton}
-                text={t('card.buy')}
-                disabled={!isAvailable}
-                icon={<Image src={Comercial} width={20} height={20} alt="Comercial" />}
-                onClick={handleBuyClick}
-              />
+            <div>
+              <p className={styles.textSize}>{t('page.size')}</p>
+              <div className={styles.sizeContainer}>
+                {product.attributes.map((attr: Attributes, index: number) => (
+                  <button
+                    key={attr.id}
+                    className={
+                      index === activeIndex ? `${styles.size} ${styles.active}` : `${styles.size}`
+                    }
+                    onClick={() => handleItemClick(index)}
+                  >
+                    {attr.size}
+                  </button>
+                ))}
+              </div>
             </div>
-            <Payment title={t('page.paymentMethod')} onClick={onChoisePayment} />
+            <div>
+              {activeIndex === null && <p className={styles.alert}>{t('page.alert')}</p>}
+              <div className={styles.buySection}>
+                <QuantitySelector
+                  quantity={product.attributes[attrIndex].quantity}
+                  onChange={quantity => handleChangeQuantity(quantity)}
+                />
+                <Button
+                  className={styles.buyButton}
+                  text={t('card.buy')}
+                  disabled={!isAvailable || activeIndex === null}
+                  icon={<Image src={Comercial} width={20} height={20} alt="Comercial" />}
+                  onClick={handleBuyClick}
+                />
+              </div>
+            </div>
+            <Payment title={t('page.paymentMethod')} />
           </section>
           <section className={styles.additionalOffers}>
             <div className={styles.withThisBuy}>

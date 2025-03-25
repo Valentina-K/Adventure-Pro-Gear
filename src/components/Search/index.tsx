@@ -10,8 +10,8 @@ import { Product } from '@/types/product';
 import { useGetProductsQuery } from '@/redux/features/apiSlice';
 import { useDispatch } from 'react-redux';
 import { setFilteredProducts } from '@/redux/products/slice';
-import Button from '../Button';
 import noImage from '@/../public/images/no_image.png';
+import Button from '../Button';
 import styles from './Search.module.css';
 
 interface SearchProps {
@@ -37,7 +37,9 @@ const Search: React.FC<SearchProps> = ({
   useEffect(() => {
     if (value.length >= 1) {
       const filtered = data?.content.filter(product =>
-        (locale === 'uk' ? product.productNameUa : product.productNameEn)
+        (product.productNameUa)
+          .toLowerCase()
+          .includes(value.toLowerCase()) || (product.productNameEn)
           .toLowerCase()
           .includes(value.toLowerCase()));
       if (filtered) setFilteredItems(filtered);

@@ -70,7 +70,7 @@ const ProductCardsSlider: React.FC<CardsSliderProp> = ({
                 {slide.attributes.length > 0 && (
                   <Card
                     product={slide}
-                    onBuyClick={onBuyClick}
+                    variant='small'
                     onFavoriteClick={onFavoriteClick}
                   />
                 )}

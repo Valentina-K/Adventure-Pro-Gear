@@ -8,7 +8,7 @@ interface ProductState {
   totalElements: number;
   filteredProducts: Product[];
   reviewedProducts: Product[];
-  cart: Cart | null;
+  cart: Cart[];
 }
 
 const initialState: ProductState = {
@@ -18,7 +18,7 @@ const initialState: ProductState = {
   totalElements: 0,
   filteredProducts: [],
   reviewedProducts: [],
-  cart: null,
+  cart: [],
 };
 
 const productsSlice = createSlice({
@@ -47,8 +47,11 @@ const productsSlice = createSlice({
       if (index === -1) state.reviewedProducts.push(action.payload);
     },
     setShoppingCart(state, action: PayloadAction<any>) {
-      return { ...state, cart: action.payload };
+      state.cart.push(action.payload);
     },
+    clearShoppingCart(state) {
+      return { ...state, cart: [] };
+    }
   },
 });
 
@@ -60,6 +63,7 @@ export const {
   setFilteredProducts,
   setReviewedProducts,
   setShoppingCart,
+  clearShoppingCart,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

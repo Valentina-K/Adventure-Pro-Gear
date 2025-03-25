@@ -164,7 +164,7 @@ const CatalogId = ({
                   <li key={item?.productId} className={styles.item}>
                     <CatalogNameList
                       item={item}
-                      onBuyClick={(): void => {}}
+                      variant={gridActive.table ? 'big' : 'standart'}
                     />
                   </li>
                 ))}

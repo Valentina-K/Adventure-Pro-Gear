@@ -1,19 +1,20 @@
-.wrapper{
+.wrapper {
     margin-bottom: 105px;
 }
 
-.title{
+.title {
     margin-bottom: 16px;
     font-family: Montserrat;
-font-weight: 600;
-font-size: 20px;
-line-height: 150%;
-letter-spacing: 0%;
-color: #353535;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    color: #353535;
 }
 
-.cards{
+.cards {
     display: flex;
     gap: 20px;
     overflow-x: auto;
+    padding-left: 48px;
 }

@@ -16,7 +16,7 @@
   }
 
   @media screen and (min-width: 1180px) {
-    width: 180px;
+    width: 205px;
     gap: 16px;
   }
 }
@@ -40,7 +40,7 @@
   @media screen and (min-width: 644px) {
     width: 280px;
     padding: 16px;
-  }
+  }  
 }
 
 .cardWrapper.small {
@@ -75,8 +75,8 @@
   }
 
   @media screen and (min-width: 1180px) {
-    width: 164px;
-    height: 160px;
+    width: 189px;
+    height: 185px;
   }
 }
 
@@ -381,4 +381,12 @@
 
 .buyButton.big {
   font-size: var(--large-20);
+}
+
+.buyButton:hover {
+  background: var(--greenForBtnHov);
+}
+
+.buyButton:active{
+  background: var(--greenForBtnAct);
 }
