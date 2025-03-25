@@ -104,7 +104,7 @@ const ProductCardsSlider: React.FC<CardsSliderProp> = ({
               <div key={index} className={styles.slide}>
                 <Card
                   product={slide}
-                  onBuyClick={onBuyClick}
+                  // onBuyClick={onBuyClick}
                   onFavoriteClick={onFavoriteClick}
                 />
               </div>

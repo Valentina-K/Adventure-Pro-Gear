@@ -7,7 +7,7 @@ import { getServerSession } from 'next-auth/next';
 import ReduxProvider from '@/redux/provider';
 
 import type { Metadata, NextPage } from 'next';
-import type { IPageProps } from '@/types'
+import type { IPageProps } from '@/types';
 import SessionProvider from '@/components/SessionProvider';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
