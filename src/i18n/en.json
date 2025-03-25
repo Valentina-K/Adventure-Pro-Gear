@@ -154,10 +154,12 @@
     }
   },
   "blogId": {
+    "parent_category": "Blog",
     "share": "Share",
     "send": "Send",
     "feedback": "How do you like the article? Leave a comment!",
-    "recommendation": "We recommend"
+    "recommendation": "We recommend",
+    "latest": "Latest posts"
   },
   "footer": {
     "information": {

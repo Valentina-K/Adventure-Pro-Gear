@@ -6,7 +6,7 @@ import aboutLogo from '@/../public/images/about/aboutLogo.svg';
 import styles from './AboutHeader.module.css';
 import { useTranslations } from 'next-intl'
 
-function AboutHeader() {
+function AboutHeader({ title }: { title: string }) {
   const t = useTranslations('aboutPage.hero');
 
   const slugs: Record<string, string> = {
@@ -16,16 +16,16 @@ function AboutHeader() {
   };
 
   return (
-    <div className={styles.about}>
+    <section className={styles.about}>
       <Container>
-        <Navigation navigationPage="Про нас" />
+        <Navigation title={title} />
         <div className={styles.about_container}>
           <p className={styles.descr_overtext}>{t('title')}</p>
           <Image src={aboutLogo} alt="logo" fill sizes="auto" className={styles.about_logo} />
           <p className={styles.descr_subtext}>{t('subtitle')}</p>
         </div>
       </Container>
-    </div>
+    </section>
   );
 }
 

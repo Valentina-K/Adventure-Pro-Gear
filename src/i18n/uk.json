@@ -154,10 +154,12 @@
     }
   },
   "blogId": {
+    "parent_category": "Блог",
     "share": "Поділитися",
     "send": "Відправити",
     "feedback": "Як Вам стаття? Залиште реакцію!",
-    "recommendation": "Ми рекомендуємо"
+    "recommendation": "Ми рекомендуємо",
+    "latest": "Останні статті"
   },
   "footer": {
     "information": {
