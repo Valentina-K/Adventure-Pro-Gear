@@ -1,19 +1,14 @@
-'use client';
-
-import React, { useEffect, useState } from 'react';
-import { useLocale, useTranslations } from 'next-intl';
+import React, { Suspense } from 'react';
+import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
-import { useSelector } from 'react-redux';
-import { selectAllProducts } from '@/redux/features/selectors';
-import { getBlogsId } from '@/clientServices/clientAxios';
+import { getBlogs, getBlogsId } from '@/services/axios';
 import { dataReview } from '@/assets/json';
 
 import Container from '@/components/Container';
 import Navigation from '@/components/Navigation/Navigation';
 import Recommendation from '@/components/Recommendation/Recommendation';
 import style from './blogId.module.css';
-import facebook from '../../../../../../public/icons/facebook_blue.svg';
-import telegram from '../../../../../../public/icons/telegram.svg';
+import CategoryList from '@/components/BlogPage/categoryList';
 
 interface IBlog {
   titleEn: string;
@@ -24,71 +19,87 @@ interface IBlog {
   createdAt: string;
 }
 
-function BlogId({ params }: { params: { blogId: string } }) {
-  const locale = useLocale();
-  const t = useTranslations('blogId');
-  const recommendation = useSelector(selectAllProducts);
-  const recommendationProducts = recommendation.slice(0, 6);
+interface Props {
+  params: {
+    blogId: string;
+    lang: string;
+  };
+  searchParams: {
+    [key: string]: string | string[] | undefined;
+  };
+}
 
-  const [blog, setBlog] = useState<IBlog>({
-    titleEn: "",
-    titleUa: "",
-    imageUrl: "",
-    contentUa: "",
-    contentEn: "",
-    createdAt: ""
-  });
+async function BlogId({ params }: Props) {
+  const { lang, blogId } = params;
+  const blog = await getBlogsId(blogId);
+  const blogs = await getBlogs();
+  const t = await getTranslations({ lang, namespace: 'blogId' });
 
-  useEffect(() => {
-    const fetchData = (async () => {
-      const blogs = await getBlogsId(params.blogId);
-      setBlog(blogs);
-    })();
-  }, [params.blogId]);
+  const title = lang === 'uk' ? blog?.titleUa : blog?.titleEn;
+  const content = lang === 'uk' ? blog?.contentUa : blog?.contentEn;
+  const data = new Date(blog?.createdAt).toLocaleDateString('uk-UA');
+  const image = blog?.imageUrl;
 
   return (
     <Container>
-      <div>
-        <Navigation navigationPage="Блог" title={locale === 'uk' ? blog?.titleUa : blog.titleEn} />
-      </div>
+      <Navigation title={title} />
       {blog && (
-        <div className={style.post_container}>
-          <h1 className={style.title}>{locale === 'uk' ? blog?.titleUa : blog?.titleEn}</h1>
-          <p className={style.data}>{blog?.createdAt}</p>
-          <Image
-            src={blog?.imageUrl}
-            alt="img blog"
-            width="280"
-            height="218"
-            className={style.blog_img}
-          />
-          <p>{locale === 'uk' ? blog?.contentUa : blog?.contentEn}</p>
-        </div>
+        <article className={style.post_container}>
+          <h1 className={style.title}>{title}</h1>
+          <p className={style.data}>{data}</p>
+          <div className={style.blog_img}>
+            <Image src={image} alt="img blog" width="280" height="218" />
+          </div>
+
+          <div className={style.blog_content}>
+            <div
+              className="contentBlock"
+              dangerouslySetInnerHTML={{
+                __html: content,
+              }}
+            />
+
+            <aside className={style.aside}>
+              <div className={style.aside_articles}>
+                <h3>{t('latest')}</h3>
+                <Suspense fallback={<div>Loading...</div>}>
+                  <CategoryList blogs={blogs} lang={lang} length={2} currentBlogId={blogId} />
+                </Suspense>
+              </div>
+
+              <div className={style.aside_review}>
+                <div className={style.review_container}>
+                  <h2 className={style.review}>{t('feedback')}</h2>
+                  <ul className={style.review_list}>
+                    {dataReview?.map(({ reviewImg, review, size }) => (
+                      <li key={review}>
+                        <button type="button" className={style.review_item}>
+                          <Image src={reviewImg} alt={review} width={size} height={size} />
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className={style.send_btn_container}>
+                  <button type="button" className={style.send_btn}>
+                    <Image src="/icons/facebook_blue.svg" alt="facebook" width="24" height="24" />
+                    <span className={style.send_btn_text}>{t('share')}</span>
+                  </button>
+                  <button type="button" className={style.send_btn}>
+                    <Image src="/icons/telegram.svg" alt="telegram" width={24} height={24} />
+                    <span className={style.send_btn_text}>{t('send')}</span>
+                  </button>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </article>
       )}
 
-      <div className={style.review_container}>
-        <span className={style.review}>{t('feedback')}</span>
-        {dataReview?.map(({ reviewImg, review, size }) => (
-          <span key={review} className={style.review_item}>
-            <Image src={reviewImg} alt={review} width={size} height={size} />
-          </span>
-        ))}
-      </div>
-
-      <div className={style.send_btn_container}>
-        <button type="button" className={style.send_btn}>
-          <Image src={facebook} alt="facebook" width="24" height="24" />
-          <span className={style.send_btn_text}>{t('share')}</span>
-        </button>
-        <button type="button" className={style.send_btn}>
-          <Image src={telegram} alt="telegram" width={24} height={24} />
-          <span className={style.send_btn_text}>{t('send')}</span>
-        </button>
-      </div>
-
-      <div className={style.recommendation_container}>
+      {/* <div className={style.recommendation_container}>
         <Recommendation recommendation={recommendationProducts} t={t} />
-      </div>
+      </div> */}
     </Container>
   );
 }

@@ -15,8 +15,8 @@ async function AboutUs({ params }: IPageProps) {
   const t = await getTranslations({ lang, namespace: 'aboutPage' });
 
   return (
-    <div>
-      <AboutHeader />
+    <>
+      <AboutHeader title={t('title')} />
 
       <Container>
         <AboutHero />
@@ -28,7 +28,7 @@ async function AboutUs({ params }: IPageProps) {
           <p className={styles.about_text}>{t('advantages.sectionThanks.desc')}</p>
         </div>
       </Container>
-    </div>
+    </>
   );
 }
 

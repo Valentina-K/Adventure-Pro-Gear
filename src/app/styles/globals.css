@@ -102,3 +102,31 @@ body.modal-open {
     opacity: 1;
   }
 }
+
+.contentBlock {
+  line-height: 1.5;
+  p {
+    margin: 12px 0;
+  }
+  h2 {
+    margin-bottom: 12px;
+  }
+  ul {
+    margin-left: 20px;
+    margin-bottom: 12px;
+    list-style-type: disc;
+    & li {
+      margin-bottom: 12px;
+      list-style-type: disc;
+    }
+  }
+  ol {
+    margin-left: 20px;
+    margin-bottom: 12px;
+    list-style-type: decimal;
+    & li {
+      margin-bottom: 12px;
+      list-style-type: decimal;
+    }
+  }
+}

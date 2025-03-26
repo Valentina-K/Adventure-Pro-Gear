@@ -10,6 +10,11 @@ import homeIcon from '@/../public/icons/home.svg';
 import styles from './Navigation.module.css';
 import Loading from '../Loading';
 
+interface BreadcrumbItem {
+  label: string;
+  href: string;
+}
+
 function Navigation({
   navigationPage,
   title,
@@ -18,61 +23,77 @@ function Navigation({
   navigationPage?: string;
   title?: string;
   productName?: string;
-  }) {
+}) {
   const locale = useLocale();
   const router = useRouter();
   const pathName = usePathname();
   const [loading, setLoading] = useState(false);
 
-  const pathArray = pathName.split('/');
-  const filteredArray = pathArray.filter(element => element !== '');
+  // Generate breadcrumb items based on the current path
+  const generateBreadcrumbs = (): BreadcrumbItem[] => {
+    const pathArray = pathName.split('/').filter(item => item !== '');
+    const breadcrumbs: BreadcrumbItem[] = [];
+    let currentPath = '';
+
+    pathArray.forEach((path, index) => {
+      currentPath += `/${path}`;
+
+      // Skip locale segment in the breadcrumb display
+      if (index === 0 && (path === 'uk' || path === 'en')) {
+        return;
+      }
+
+      let label = path.replace(/-/g, ' ');
+      if (index === pathArray.length - 1 && title) {
+        label = title;
+      } else if (productName && index === pathArray.length - 1) {
+        label = productName;
+      }
+
+      breadcrumbs.push({
+        label: label,
+        href: currentPath,
+      });
+    });
+
+    return breadcrumbs;
+  };
 
   const handleRedirectHomeClick = () => {
-    router.push(`${locale === "uk" ? "/" : `/${filteredArray[0]}/`}`);
+    router.push(`${locale === 'uk' ? '/' : `/${locale}/`}`);
     setLoading(prev => !prev);
   };
 
+  const breadcrumbs = generateBreadcrumbs();
+
   return (
-    <div className={styles.about_navigation_container}>
-      <Image
-        src={homeIcon}
-        alt="home Icon"
-        width={24}
-        height={24}
-        className={styles.homeIcon}
-        onClick={handleRedirectHomeClick}
-      />
-      <Image
-        src={arrowsLeft}
-        alt="arrows Left"
-        width={20}
-        height={20}
-        className={`${styles.about_navigation_img} ${title ? styles.title_navigation : ''}`}
-      />
+    <nav className={styles.about_navigation_container} aria-label="Breadcrumb">
+      <button onClick={handleRedirectHomeClick} className={styles.homeIcon}>
+        <Image src={homeIcon} alt="Home" width={24} height={24} />
+      </button>
 
-      {/* <Link
-        href={`/${filteredArray[0]}/${filteredArray[1]}/`}
-        className={`${styles.about_navigation} ${!title ? styles.title_navigation : ''}`}
-      >
-        {filteredArray[0] === 'uk-UA'
-          ? productName || navigationPage
-          : productName || filteredArray[1].replace('_', ' ')}
-      </Link> */}
-
-      {title && (
-        <>
+      {breadcrumbs.map((breadcrumb, index) => (
+        <React.Fragment key={breadcrumb.href}>
           <Image
             src={arrowsLeft}
-            alt="arrows Left"
+            alt="separator"
             width={20}
             height={20}
             className={styles.about_navigation_img}
           />
-          <p className={`${styles.about_navigation} ${styles.title_navigation}`}>{title}</p>
-        </>
-      )}
+          <Link
+            href={breadcrumb.href}
+            className={`${styles.about_navigation} ${
+              index === breadcrumbs.length - 1 ? styles.title_navigation : ''
+            }`}
+          >
+            {breadcrumb.label}
+          </Link>
+        </React.Fragment>
+      ))}
+
       {loading && <Loading />}
-    </div>
+    </nav>
   );
 }
 
