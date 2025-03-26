@@ -8,7 +8,7 @@ import Container from '@/components/Container';
 import Navigation from '@/components/Navigation/Navigation';
 import Recommendation from '@/components/Recommendation/Recommendation';
 import style from './blogId.module.css';
-import CategoryList from '@/components/BlogPage/categoryList';
+import BlogList from '@/components/BlogPage/blogList';
 
 interface IBlog {
   titleEn: string;
@@ -63,7 +63,7 @@ async function BlogId({ params }: Props) {
               <div className={style.aside_articles}>
                 <h3>{t('latest')}</h3>
                 <Suspense fallback={<div>Loading...</div>}>
-                  <CategoryList blogs={blogs} lang={lang} length={2} currentBlogId={blogId} />
+                  <BlogList blogs={blogs} lang={lang} length={2} currentBlogId={blogId} />
                 </Suspense>
               </div>
 

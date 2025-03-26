@@ -197,7 +197,8 @@
   },
   "blog": {
     "title": "Blog",
-    "description": "The Adventure Pro Gear blog"
+    "description": "The Adventure Pro Gear blog",
+    "all_blogs": "All blogs"
   },
   "aboutPage": {
     "title": "About us",
@@ -235,5 +236,8 @@
         "desc": "Thank you for choosing Adventure Pro Gear. Together we will conquer new heights and conquer new paths!"
       }
     }
+  },
+  "contactPage": {
+    "title": "Our contacts"
   }
 }

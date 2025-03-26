@@ -197,7 +197,8 @@
   },
   "blog": {
     "title": "Блог",
-    "description": "Блог Adventure Pro Gear"
+    "description": "Блог Adventure Pro Gear",
+    "all_blogs": "Всі статті"
   },
   "aboutPage": {
     "title": "Про нас",
@@ -235,5 +236,8 @@
         "desc": "Дякуємо за те, що обрали Adventure Pro Gear. Разом ми будемо завоювати нові вершини та долати нові шляхи!"
       }
     }
+  },
+  "contactPage": {
+    "title": "Наші контакти"
   }
 }

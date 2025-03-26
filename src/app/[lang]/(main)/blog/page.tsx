@@ -6,7 +6,7 @@ import { getBlogs } from '@/services/axios';
 import type { IBlogsProps, IPageProps } from '@/types';
 import { getTranslations } from 'next-intl/server';
 import style from './blog.module.css';
-import CategoryList from '@/components/BlogPage/categoryList';
+import BlogList from '@/components/BlogPage/blogList';
 
 async function Blog({ params }: IPageProps) {
   const blogs = await getBlogs();
@@ -21,7 +21,7 @@ async function Blog({ params }: IPageProps) {
         <h1 className={style.blogs_title}>{t('title')}</h1>
 
         <Suspense fallback={<div>Loading...</div>}>
-          <CategoryList blogs={blogs} lang={lang} />
+          <BlogList blogs={blogs} lang={lang} />
         </Suspense>
 
         {/* <Pagination searchParams={{}} /> */}

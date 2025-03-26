@@ -1,5 +1,5 @@
 import React from 'react';
-import type { IBlogsProps, IPageProps } from '@/types';
+import type { IBlogsProps } from '@/types';
 import Image from 'next/image';
 import { Link } from '@/i18n/routing';
 import style from './style.module.css';
@@ -12,7 +12,7 @@ interface Props {
   currentBlogId?: string | number;
 }
 
-const categoryList = ({ blogs, length, lang, currentBlogId }: Props) => {
+const blogList = ({ blogs, length, lang, currentBlogId }: Props) => {
   return (
     <ul className={clsx(style.blogs_list, { [style.column]: length })}>
       {blogs
@@ -47,4 +47,4 @@ const categoryList = ({ blogs, length, lang, currentBlogId }: Props) => {
   );
 };
 
-export default categoryList;
+export default blogList;
