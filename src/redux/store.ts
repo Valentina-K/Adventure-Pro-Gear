@@ -1,7 +1,6 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useSelector, useDispatch } from 'react-redux';
 import { persistStore, persistReducer } from "redux-persist";
-// import storage from "redux-persist/lib/storage";
 import { apiSlice } from '@/redux/features/apiSlice';
 import productReducer from '@/redux/products/slice';
 import storage from './storage';

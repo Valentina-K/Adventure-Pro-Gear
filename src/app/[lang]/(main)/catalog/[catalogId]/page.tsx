@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useCallback, useEffect, useState } from 'react';
-import { usePathname, useSearchParams, useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from '@/i18n/routing';
 import { useLocale } from 'next-intl';
 import { getProductsFilter, getSubcategoryId } from '@/clientServices/clientAxios';
 import { useGetProductsQuery } from '@/redux/features/apiSlice';
@@ -164,7 +165,7 @@ const CatalogId = ({
                   <li key={item?.productId} className={styles.item}>
                     <CatalogNameList
                       item={item}
-                      onBuyClick={(): void => {}}
+                      variant={gridActive.table ? 'big' : 'standart'}
                     />
                   </li>
                 ))}

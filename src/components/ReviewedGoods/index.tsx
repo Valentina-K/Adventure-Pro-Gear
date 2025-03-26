@@ -18,7 +18,7 @@ function ReviewedGoods({ title, onBuyClick, onFavoriteClick }: ReviewedGoodsProp
           <Card
             key={product.productId}
             product={product}
-            onBuyClick={onBuyClick}
+            variant='small'
             onFavoriteClick={onFavoriteClick}
           />
         ))}

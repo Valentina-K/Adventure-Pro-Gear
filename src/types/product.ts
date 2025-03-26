@@ -1,5 +1,3 @@
-import Payments from '@/constants/payments';
-
 export interface Attributes {
   id: number;
   productId: number | null;
@@ -84,7 +82,6 @@ export interface Review {
 export interface Cart {
   productId: number;
   quantity: number;
-  payment: Payments;
   color: string;
   size: string;
 }

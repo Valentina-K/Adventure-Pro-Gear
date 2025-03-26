@@ -5,20 +5,15 @@
     font-weight: 600;
     line-height: 30px;
     color: #353535;
-  }
+}
 
-.container{
+.container {
     display: flex;
     gap: 30px;
 }
 
-.image{
+.image {
     object-fit: none;
-    cursor: pointer;
     border-radius: 8px;
-    border: 1px solid #bfbcbc;
-}
-
-.image:hover{
-    box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.2);
+    border: 1px solid #F5FFFF;
 }

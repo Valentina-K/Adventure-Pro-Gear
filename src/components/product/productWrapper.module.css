@@ -6,7 +6,10 @@
     display: flex;
     gap: 20px;
     width: 100%;
-    margin-bottom: 16px;
+    margin-bottom: 24px;
+    font-family: Montserrat;
+    letter-spacing: 0.02em;
+    font-weight: 500;
 }
 
 .rightBlock {
@@ -31,11 +34,8 @@
 }
 
 .titleProduct {
-    font-family: Montserrat;
     font-size: 30px;
-    font-weight: 500;
     line-height: 45px;
-    letter-spacing: 0.02em;
     text-align: left;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
@@ -56,11 +56,9 @@
 }
 
 .price {
-    font-family: Montserrat;
     font-size: 34px;
     font-weight: 700;
     line-height: 51px;
-    letter-spacing: 0.02em;
     text-align: left;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
@@ -68,7 +66,6 @@
 }
 
 .available {
-    font-family: Montserrat;
     font-size: 16px;
     font-weight: 600;
     line-height: 24px;
@@ -82,9 +79,7 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
-    font-family: Montserrat;
     font-size: 12px;
-    font-weight: 500;
     line-height: 18px;
     letter-spacing: 0.04em;
     text-align: left;
@@ -97,12 +92,43 @@
     margin-left: 16px;
 }
 
-/* .availableBlock{
+.textSize {
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 150%;
+    color: #353535;
+}
 
-} */
+.sizeContainer {
+    display: flex;
+    gap: 16px;
+}
+
+.size {
+    padding: 4px 8px;
+    border-radius: 2px;
+    border: 1px solid #1E5F72;
+    font-size: 14px;
+    line-height: 150%;
+    color: #353535;
+}
+
+.size.active {
+    color: #F5FFFF;
+    background-color: #1E5F72;
+}
+
 .buySection {
     display: flex;
     gap: 24px;
+}
+
+.alert {
+    font-size: 16px;
+    line-height: 150%;
+    color: #AC0000;
+    margin-bottom: 16px;
 }
 
 .buyButton {
@@ -121,7 +147,15 @@
 }
 
 .buyButton:hover {
-    background: var(--greenForBtnHover);
+    background: var(--greenForBtnHov);
+}
+
+.buyButton:active {
+    background: var(--greenForBtnAct);
+}
+
+.buyButton:disabled {
+    background: var(--disabled);
 }
 
 .additionalOffers {
