@@ -3,8 +3,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  // baseURL: 'https://adventure-production.up.railway.app/',
-  baseURL: 'https://adventure-production-f742.up.railway.app/',
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
 axios.defaults.withCredentials = true;
@@ -87,14 +86,17 @@ export const getSubcategoryId = async (subcategoryId: string) => {
   }
 };
 
-export const getProductsFilter = async (
-  {
-    page,
-    priceFrom,
-    priceTo,
-    subcategoryId,
-  }: { page: string; subcategoryId: string; priceFrom: string; priceTo: string}
-) => {
+export const getProductsFilter = async ({
+  page,
+  priceFrom,
+  priceTo,
+  subcategoryId,
+}: {
+  page: string;
+  subcategoryId: string;
+  priceFrom: string;
+  priceTo: string;
+}) => {
   try {
     const products = await axiosInstance.get(
       `api/public/products/filter?page=${page}&size=10&priceFrom=${priceFrom}&priceTo=${priceTo}`
