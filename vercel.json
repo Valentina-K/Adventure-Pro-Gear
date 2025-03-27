@@ -9,7 +9,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "/function/:path*"
+      "destination": "http://13.217.73.157:8080/:path*"
     }
   ],
   "headers": [
