@@ -7,10 +7,8 @@ export const token: { access: string | null; refresh: string | null } = {
   refresh: null,
 };
 
-// https://empowering-happiness-production.up.railway.app/
-// https://adventure-production-f742.up.railway.app/
 const axiosInstance = axios.create({
-  baseURL: 'https://adventure-production-f742.up.railway.app/',
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
 axios.defaults.withCredentials = true;
