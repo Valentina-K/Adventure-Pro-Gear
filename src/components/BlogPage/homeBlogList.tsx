@@ -15,6 +15,10 @@ const homeBlogList = async ({ lang }: Props) => {
   const t = await getTranslations({ lang, namespace: 'blog' });
   const blogs = await getBlogs();
 
+  if (blogs.length < 5) {
+    return null;
+  }
+
   return (
     <section className={style.home_blog}>
       <div className={style.home_blog_title}>
