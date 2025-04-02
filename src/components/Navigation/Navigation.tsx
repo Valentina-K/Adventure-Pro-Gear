@@ -15,24 +15,30 @@ interface BreadcrumbItem {
   href: string;
 }
 
-function Navigation({
-  navigationPage,
-  title,
-  productName,
-}: {
+interface Props {
   navigationPage?: string;
   title?: string;
   productName?: string;
-}) {
+  breadcrumbs?: string[];
+}
+
+function Navigation({ navigationPage, title, productName, breadcrumbs: providedBreadcrumbs }: Props) {
   const locale = useLocale();
   const router = useRouter();
   const pathName = usePathname();
   const [loading, setLoading] = useState(false);
 
-  // Generate breadcrumb items based on the current path
   const generateBreadcrumbs = (): BreadcrumbItem[] => {
+    // If breadcrumbs array is provided, use it directly
+    if (providedBreadcrumbs) {
+      return providedBreadcrumbs.map((label, index) => ({
+        label,
+        href: index === 0 ? '/' : `/${providedBreadcrumbs.slice(1, index + 1).join('/')}`,
+      }));
+    }
+
     const pathArray = pathName.split('/').filter(item => item !== '');
-    const breadcrumbs: BreadcrumbItem[] = [];
+    const generatedBreadcrumbs: BreadcrumbItem[] = [];
     let currentPath = '';
 
     pathArray.forEach((path, index) => {
@@ -50,13 +56,13 @@ function Navigation({
         label = productName;
       }
 
-      breadcrumbs.push({
+      generatedBreadcrumbs.push({
         label: label,
         href: currentPath,
       });
     });
 
-    return breadcrumbs;
+    return generatedBreadcrumbs;
   };
 
   const handleRedirectHomeClick = () => {

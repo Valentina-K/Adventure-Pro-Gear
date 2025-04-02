@@ -22,9 +22,9 @@
     &:hover {
       color: #fff;
       box-shadow:
-        0px -1px 20px 0px rgba(30, 95, 114, 0.2),
-        -9px 4px 20px 0px rgba(50, 109, 126, 0.2),
-        10px 9px 20px 0px rgba(69, 151, 175, 0.2);
+        0px -1px 20px 0px rgba(30, 95, 114, 0.1),
+        -9px 4px 20px 0px rgba(50, 109, 126, 0.1),
+        10px 9px 20px 0px rgba(69, 151, 175, 0.1);
       transform: scale(1.01);
     }
 

@@ -238,6 +238,15 @@
     }
   },
   "contactPage": {
-    "title": "Our contacts"
+    "breadcrumbs": [
+      "Contacts"
+    ],
+    "title": "Our contacts",
+    "address": "Our store is located at the address:",
+    "phone": "Phone",
+    "email": "Email",
+    "workHours": "We work according to the following schedule:",
+    "weekdays": "Monday-Saturday: 10-19",
+    "weekend": "Sunday: 10-17 without lunch and weekends!"
   }
 }
