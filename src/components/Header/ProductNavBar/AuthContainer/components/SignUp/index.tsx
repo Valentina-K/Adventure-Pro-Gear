@@ -1,6 +1,6 @@
-import { Fragment, useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocale, useTranslations } from 'next-intl';
@@ -15,7 +15,7 @@ import { Button, Field } from '@/components/UI';
 import FieldPassword from '@/components/UI/Field/FieldPassword';
 
 import styles from './SignUp.module.css';
-import 'react-toastify/dist/ReactToastify.css';
+// import 'react-toastify/dist/ReactToastify.css';
 
 const SignUp = () => {
   const router = useRouter();
@@ -24,6 +24,7 @@ const SignUp = () => {
   const tValidate = useTranslations('auth.registration.zod');
 
   const [loading, setLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const {
     register,
@@ -48,45 +49,59 @@ const SignUp = () => {
     }
 
     if (response?.success) {
-      router.push(`/${locale}${AppRoutes.SIGNIN}`);
+      setIsSuccess(true);
+      // router.push(`/${locale}${AppRoutes.SIGNIN}`);
 
-      toast.success(
-        <>
-          {response.success.map((line: string, index: number) => (
-            <Fragment key={index}>
-              {index === 0 ? (
-                <h4>{line}</h4>
-              ) : index === 2 ? (
-                <p>
-                  {line
-                    .split('\n')
-                    .map(substring =>
-                      substring === 'Contact us. ' || substring === "Зв'язатися з нами. " ? (
-                        <Link href={`${AppRoutes.HOME}`}>{substring}</Link>
-                      ) : (
-                        substring
-                      )
-                    )}
-                </p>
-              ) : (
-                <p>{line}</p>
-              )}
-              {index < response.success.length - 1 && <br />}
-            </Fragment>
-          ))}
-        </>,
-        {
-          position: 'top-right',
-          className: `${styles.toastMessage}`,
-          bodyClassName: `${styles.toastBody}`,
-          icon: false,
-          autoClose: 36000000,
-        }
-      );
+      // toast.success(
+      //   <>
+      //     {response.success.map((line: string, index: number) => (
+      //       <Fragment key={index}>
+      //         {index === 0 ? (
+      //           <h4>{line}</h4>
+      //         ) : index === 2 ? (
+      //           <p>
+      //             {line
+      //               .split('\n')
+      //               .map(substring =>
+      //                 substring === 'Contact us. ' || substring === "Зв'язатися з нами. " ? (
+      //                   <Link href={`${AppRoutes.HOME}`}>{substring}</Link>
+      //                 ) : (
+      //                   substring
+      //                 )
+      //               )}
+      //           </p>
+      //         ) : (
+      //           <p>{line}</p>
+      //         )}
+      //         {index < response.success.length - 1 && <br />}
+      //       </Fragment>
+      //     ))}
+      //   </>,
+      //   {
+      //     position: 'top-right',
+      //     className: `${styles.toastMessage}`,
+      //     bodyClassName: `${styles.toastBody}`,
+      //     icon: false,
+      //     autoClose: 36000000,
+      //   }
+      // );
     }
 
     setLoading(false);
   };
+
+  if (isSuccess) {
+    return (
+      <div className={styles.formContainer}>
+        <div className={styles.modalContent}>
+          <h2 style={{ marginBottom: '20px' }}>{t('registration.success.0')}</h2>
+          <p>{t('registration.success.1')}</p>
+          <br />
+          <p>{t('registration.success.2')}</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.formContainer}>
