@@ -13,7 +13,7 @@ export const getSignUpSchema = (t: any) =>
     name: z
       .string()
       .min(2, t('name-errors-registration.minLength'))
-      .regex(/^[a-zA-Z]+$/, t('name-errors-registration.onlyLetters'))
+      .regex(/^[^\d]+$/, t('name-errors-registration.onlyLetters'))
       .max(64, t('name-errors-registration.maxLength'))
       .refine(value => !/^\s|\s$/.test(value), {
         message: t('name-errors-registration.noSpaces'),
@@ -22,7 +22,7 @@ export const getSignUpSchema = (t: any) =>
       .string()
       .min(2, t('surname-errors-registration.minLength'))
       .max(64, t('surname-errors-registration.maxLength'))
-      .regex(/^[a-zA-Z]+$/, t('surname-errors-registration.onlyLetters'))
+      .regex(/^[^\d]+$/, t('surname-errors-registration.onlyLetters'))
       .refine(value => !/^\s|\s$/.test(value), {
         message: t('surname-errors-registration.noSpaces'),
       }),
