@@ -16,14 +16,24 @@ export const apiSlice = createApi({
     getProducts: builder.query<ProductsResponse, void>({
       async queryFn(_arg, _queryApi, _extraOptions, fetchWithBQ) {
         // 1. Запрашиваем первую страницу (10 элементов)
-        const firstResponse = await fetchWithBQ('api/public/products?page=0&size=10');
+        const firstResponse = await fetchWithBQ({
+          url: 'api/public/products?page=0&size=10',
+          headers: {
+            'ngrok-skip-browser-warning': 'true',
+          },
+        });
         if (firstResponse.error) return { error: firstResponse.error };
         const firstData = firstResponse.data as ProductsResponse;
         // 2. Получаем общее количество
         const totalElements = firstData.totalElements;
         // 3. Если totalElements больше 10, делаем повторный запрос
         if (totalElements > 10) {
-          const fullResponse = await fetchWithBQ(`api/public/products?page=0&size=${totalElements}`);
+          const fullResponse = await fetchWithBQ({
+            url: `api/public/products?page=0&size=${totalElements}`,
+            headers: {
+              'ngrok-skip-browser-warning': 'true',
+            },
+          });
           if (fullResponse.error) return { error: fullResponse.error };
           return { data: fullResponse.data as ProductsResponse };
         }
