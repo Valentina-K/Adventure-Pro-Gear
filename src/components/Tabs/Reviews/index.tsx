@@ -30,7 +30,7 @@ const Reviews: React.FC<ReviewsProp> = ({
   const { data: session } = useSession();
   const token = session?.user?.token.accessToken;
   const router = useRouter();
-  const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = async (id:number, e: React.MouseEvent<HTMLButtonElement>) => {
     if (!token) {
       router.push(`/${AppRoutes.SIGNIN}`);
       return;
@@ -38,8 +38,8 @@ const Reviews: React.FC<ReviewsProp> = ({
     e.preventDefault();
     const target = e.target as HTMLButtonElement;
     let response;
-    if (target.id === 'like') response = await addLike(Number(target.id), token);
-    else response = await addDislike(Number(target.id), token);
+    if (target.id === 'like') response = await addLike(id, token);
+    else response = await addDislike(id, token);
     console.log('response', response);
   };
   return (
@@ -69,11 +69,11 @@ const Reviews: React.FC<ReviewsProp> = ({
             <div className={styles.footerReview}>
               <p className={styles.isHelpful}>{helpful}</p>
               <div className={styles.yesOrNot}>
-                <button className={styles.like_dislike} onClick={handleClick}>
+                <button className={styles.like_dislike} onClick={(e) => handleClick(items.id, e)}>
                   <Image src={Like} alt="like" width={28} height={28} id="like" />
                   <span>{items.likes}</span>
                 </button>
-                <button className={styles.like_dislike} onClick={handleClick}>
+                <button className={styles.like_dislike} onClick={(e)=>handleClick(items.id, e)}>
                   <Image src={Dislike} alt="dislike" width={28} height={28} id="dislike" />
                   <span>{items.dislikes}</span>
                 </button>
