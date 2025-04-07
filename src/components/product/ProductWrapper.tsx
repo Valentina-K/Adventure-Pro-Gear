@@ -189,16 +189,12 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
             <div className={styles.withThisBuy}>
               <ProductCardsSlider
                 products={products}
-                onBuyClick={handleBuyClick}
-                onFavoriteClick={handleFavoriteClick}
                 title={t('page.buyWithThis')}
               />
             </div>
             <div className={styles.relatedProducts}>
               <ProductCardsSlider
                 products={products}
-                onBuyClick={handleBuyClick}
-                onFavoriteClick={handleFavoriteClick}
                 title={t('page.similarProducts')}
               />
             </div>

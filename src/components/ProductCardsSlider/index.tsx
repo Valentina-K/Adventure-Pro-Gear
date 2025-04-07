@@ -1,34 +1,20 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Locale } from '@/i18n-config';
 import { Product } from '@/types/product';
+import { useLocale, useTranslations } from 'next-intl';
 import Card from '../Card';
 import styles from './ProductCardsSlider.module.css';
-import { useLocale, useTranslations } from 'next-intl';
+
 
 interface CardsSliderProp {
   products: Product[];
   recommendation?: Product[];
- /*  translation: {
-    card: {
-      addToFollowing: string;
-      sale: string;
-      new: string;
-      available: string;
-      outOfStock: string;
-      buy: string;
-    };
-  }; */
-  onBuyClick: (id: number) => void;
-  onFavoriteClick: (productId: number, isFavorite: boolean) => void;
   title: string;
 }
 
 const ProductCardsSlider: React.FC<CardsSliderProp> = ({
   products,
-  onBuyClick,
-  onFavoriteClick,
   title,
   recommendation,
 }) => {
@@ -71,7 +57,6 @@ const ProductCardsSlider: React.FC<CardsSliderProp> = ({
                   <Card
                     product={slide}
                     variant='small'
-                    onFavoriteClick={onFavoriteClick}
                   />
                 )}
               </div>
@@ -104,8 +89,6 @@ const ProductCardsSlider: React.FC<CardsSliderProp> = ({
               <div key={index} className={styles.slide}>
                 <Card
                   product={slide}
-                  // onBuyClick={onBuyClick}
-                  onFavoriteClick={onFavoriteClick}
                 />
               </div>
             ))}
