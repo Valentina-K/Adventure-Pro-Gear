@@ -7,6 +7,9 @@ import Image from 'next/image';
 import Like from '@/../public/images/ThumbsUp.png';
 import Dislike from '@/../public/images/ThumbsDown.png';
 import { addDislike, addLike } from '@/clientServices/clientAxios';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { AppRoutes } from '@/constants/routes';
 import styles from './Reviews.module.css';
 
 interface ReviewsProp {
@@ -24,11 +27,19 @@ const Reviews: React.FC<ReviewsProp> = ({
   helpful,
   usersThink,
 }) => {
+  const { data: session } = useSession();
+  const token = session?.user?.token.accessToken;
+  const router = useRouter();
   const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (!token) {
+      router.push(`/${AppRoutes.SIGNIN}`);
+      return;
+    }
+    e.preventDefault();
     const target = e.target as HTMLButtonElement;
     let response;
-    if (target.id === 'like') response = await addLike(Number(target.id));
-    else response = await addDislike(Number(target.id));
+    if (target.id === 'like') response = await addLike(Number(target.id), token);
+    else response = await addDislike(Number(target.id), token);
     console.log('response', response);
   };
   return (
