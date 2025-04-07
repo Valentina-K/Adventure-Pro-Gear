@@ -9,10 +9,9 @@ import Button from '@/components/Button';
 import { useParams, useRouter } from 'next/navigation';
 import { AppRoutes } from '@/constants/routes';
 import { createReview } from '@/clientServices/clientAxios';
+import { useLocale, useTranslations } from 'next-intl';
 import SetStarRating from '../SetStarRating';
 import styles from './ReviewForm.module.css';
-import { useLocale } from 'next-intl';
-import { useTranslations } from 'next-intl';
 
 type FormValues = {
   password: string;

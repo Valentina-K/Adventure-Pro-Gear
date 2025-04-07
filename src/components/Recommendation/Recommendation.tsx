@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { Product } from '@/types/product';
-import { Locale } from '@/i18n-config';
 import style from './Recommendation.module.css';
 import ProductCardsSlider from '../ProductCardsSlider';
 
@@ -40,16 +39,12 @@ const Recommendation: React.FC<IRecommendationProp> = ({ recommendation, t }) =>
       {sizeView < 1179 ? (
         <ProductCardsSlider
           products={recommendation}
-          onBuyClick={handleBuyClick}
-          onFavoriteClick={handleFavoriteClick}
           title=""
         />
       ) : (
         <ProductCardsSlider
           recommendation={recommendation}
           products={[]}
-          onBuyClick={handleBuyClick}
-          onFavoriteClick={handleFavoriteClick}
           title=""
         />
       )}

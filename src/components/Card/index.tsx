@@ -21,7 +21,6 @@ import styles from './Card.module.css';
 
 interface CardProps {
   variant?: 'big' | 'standart' | 'small';
-  onFavoriteClick?: (productId: number, isFavorite: boolean) => void;
   product: Product;
 }
 

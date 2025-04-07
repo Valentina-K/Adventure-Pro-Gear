@@ -55,6 +55,33 @@
     gap: 8px;
 }
 
+.priceWithDiscount {
+    width: max-content;
+    position: relative;
+}
+
+.oldPrice {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 150%;
+    text-decoration: line-through;
+    color: #7D7D7D;
+    margin-right: 16px;
+}
+
+.discount {
+    position: absolute;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 150%;
+    color: #F5FFFF;
+    background: #C83C33;
+    display: inline-block;
+    border-radius: 5px;
+    padding-right: 6px;
+    padding-left: 6px;
+}
+
 .price {
     font-size: 34px;
     font-weight: 700;

@@ -7,6 +7,9 @@ import Image from 'next/image';
 import Like from '@/../public/images/ThumbsUp.png';
 import Dislike from '@/../public/images/ThumbsDown.png';
 import { addDislike, addLike } from '@/clientServices/clientAxios';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { AppRoutes } from '@/constants/routes';
 import styles from './Reviews.module.css';
 
 interface ReviewsProp {
@@ -24,11 +27,19 @@ const Reviews: React.FC<ReviewsProp> = ({
   helpful,
   usersThink,
 }) => {
-  const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const { data: session } = useSession();
+  const token = session?.user?.token.accessToken;
+  const router = useRouter();
+  const handleClick = async (id:number, e: React.MouseEvent<HTMLButtonElement>) => {
+    if (!token) {
+      router.push(`/${AppRoutes.SIGNIN}`);
+      return;
+    }
+    e.preventDefault();
     const target = e.target as HTMLButtonElement;
     let response;
-    if (target.id === 'like') response = await addLike(Number(target.id));
-    else response = await addDislike(Number(target.id));
+    if (target.id === 'like') response = await addLike(id, token);
+    else response = await addDislike(id, token);
     console.log('response', response);
   };
   return (
@@ -58,11 +69,11 @@ const Reviews: React.FC<ReviewsProp> = ({
             <div className={styles.footerReview}>
               <p className={styles.isHelpful}>{helpful}</p>
               <div className={styles.yesOrNot}>
-                <button className={styles.like_dislike} onClick={handleClick}>
+                <button className={styles.like_dislike} onClick={(e) => handleClick(items.id, e)}>
                   <Image src={Like} alt="like" width={28} height={28} id="like" />
                   <span>{items.likes}</span>
                 </button>
-                <button className={styles.like_dislike} onClick={handleClick}>
+                <button className={styles.like_dislike} onClick={(e)=>handleClick(items.id, e)}>
                   <Image src={Dislike} alt="dislike" width={28} height={28} id="dislike" />
                   <span>{items.dislikes}</span>
                 </button>

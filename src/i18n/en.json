@@ -128,7 +128,9 @@
       "paymentMethod": "Payment method",
       "availableOptions": "Available options",
       "color": "Color",
-      "clear": "Clear"
+      "clear": "Clear",
+      "size":"Size (choose color first)",
+      "alert": "First, choose your product option."
     },
     "card": {
       "addToFollowing": "Log in to add item to your wish list",
