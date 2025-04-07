@@ -53,20 +53,60 @@ export const createReview = async (data: any, token: string) => {
   }
 };
 
-export const addLike = async (id: number) => {
-  return await axiosInstance.post(`api/public/products/reviews/${id}/like`);
+export const addLike = async (id: number, token: string) => {
+  try {
+    const response = await axiosInstance.post(`api/public/products/reviews/${id}/like`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+  // return await axiosInstance.post(`api/public/products/reviews/${id}/like`);
 };
 
-export const addDislike = async (id: number) => {
-  return await axiosInstance.post(`api/public/products/reviews/${id}/dislike`);
+export const addDislike = async (id: number, token: string) => {
+  try {
+    const response = await axiosInstance.post(`api/public/products/reviews/${id}/dislike`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+  // return await axiosInstance.post(`api/public/products/reviews/${id}/dislike`);
 };
 
-export const addUnlike = async (id: number) => {
-  return await axiosInstance.post(`api/public/products/reviews/${id}/unlike`);
+export const addUnlike = async (id: number, token: string) => {
+  try {
+    const response = await axiosInstance.post(`api/public/products/reviews/${id}/unlike`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+  // return await axiosInstance.post(`api/public/products/reviews/${id}/unlike`);
 };
 
-export const addUnDislike = async (id: number) => {
-  return await axiosInstance.post(`api/public/products/reviews/${id}/undislike`);
+export const addUnDislike = async (id: number, token: string) => {
+  try {
+    const response = await axiosInstance.post(`api/public/products/reviews/${id}/undislike`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+  // return await axiosInstance.post(`api/public/products/reviews/${id}/undislike`);
 };
 
 export const getCategory = async () => {

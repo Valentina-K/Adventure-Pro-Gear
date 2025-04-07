@@ -120,7 +120,17 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
                 <ReviewCount reviewCount={product.reviewCount} />
               </div>
               <div className={styles.priceBlock}>
-                <p className={styles.price}>{newPrice}₴</p>
+                {product.basePrice !== newPrice ? (
+                  <>
+                    <div className={styles.priceWithDiscount}>
+                      <span className={styles.oldPrice}>{product.basePrice}₴</span>
+                      <span className={styles.discount}>{product.attributes[0].priceDeviation}%</span>
+                    </div>
+                    <p className={styles.price}>{newPrice}₴</p>
+                  </>
+                ) : (
+                  <p className={styles.price}>{product.basePrice}₴</p>
+                )}
                 <p className={styles.available}>
                   {isAvailable ? t('card.available') : t('card.outOfStock')}
                 </p>
@@ -179,16 +189,12 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
             <div className={styles.withThisBuy}>
               <ProductCardsSlider
                 products={products}
-                onBuyClick={handleBuyClick}
-                onFavoriteClick={handleFavoriteClick}
                 title={t('page.buyWithThis')}
               />
             </div>
             <div className={styles.relatedProducts}>
               <ProductCardsSlider
                 products={products}
-                onBuyClick={handleBuyClick}
-                onFavoriteClick={handleFavoriteClick}
                 title={t('page.similarProducts')}
               />
             </div>

@@ -19,7 +19,6 @@ function ReviewedGoods({ title, onBuyClick, onFavoriteClick }: ReviewedGoodsProp
             key={product.productId}
             product={product}
             variant='small'
-            onFavoriteClick={onFavoriteClick}
           />
         ))}
       </div>
