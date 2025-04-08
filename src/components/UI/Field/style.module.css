@@ -30,7 +30,7 @@
 }
 
 .error {
-  color: red;
+  color: var(--erro-100);
   font-weight: var(--medium);
 	line-height: 1.1;
   font-size: 13px;
@@ -58,7 +58,7 @@
 }
 
 .errorImage {
-  margin-right: 6px;
+  margin: 0 4px 0 0;
 }
 
 .hideIcon {

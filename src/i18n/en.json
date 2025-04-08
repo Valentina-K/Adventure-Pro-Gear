@@ -199,7 +199,8 @@
   },
   "blog": {
     "title": "Blog",
-    "description": "The Adventure Pro Gear blog"
+    "description": "The Adventure Pro Gear blog",
+    "all_blogs": "All blogs"
   },
   "aboutPage": {
     "title": "About us",
@@ -237,5 +238,17 @@
         "desc": "Thank you for choosing Adventure Pro Gear. Together we will conquer new heights and conquer new paths!"
       }
     }
+  },
+  "contactPage": {
+    "breadcrumbs": [
+      "Contacts"
+    ],
+    "title": "Our contacts",
+    "address": "Our store is located at the address:",
+    "phone": "Phone",
+    "email": "Email",
+    "workHours": "We work according to the following schedule:",
+    "weekdays": "Monday-Saturday: 10-19",
+    "weekend": "Sunday: 10-17 without lunch and weekends!"
   }
 }
