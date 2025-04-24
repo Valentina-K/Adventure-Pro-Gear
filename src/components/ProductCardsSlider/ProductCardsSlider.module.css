@@ -1,6 +1,6 @@
 .container {
   margin-bottom: 36px;
-  height: 438px;
+  height: 519px;
 }
 
 .title {
@@ -13,23 +13,33 @@
 }
 
 .slider {
+  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  overflow: hidden;
+  width: 580px;
 }
 
-.slides {
+.slides {  
   display: flex;
-  margin-bottom: 24px;
-  gap: 20px;
+  margin-bottom: 24px;  
+  transition: transform 0.5s ease-in-out;
 }
 
 .slide {
   flex: 1;
+  display: flex;
+  gap: 20px;
   margin-bottom: 5px;
+  width: 100%;
+  height: 433px;
 }
 
 .nav {
+  position: absolute;
+  bottom: 0;
+  left: calc((100% - 58px) / 2);
   display: flex;
   gap: 5px;
   width: 58px;
@@ -43,6 +53,10 @@
   background-color: #CCCCCC;
   cursor: pointer;
   transition: 0.5s;
+}
+
+.nav button:hover{
+  background-color: #152A38;
 }
 
 .nav button.active {

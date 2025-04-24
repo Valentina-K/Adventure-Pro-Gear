@@ -4,11 +4,9 @@ import styles from './ReviewedGoods.module.css';
 
 interface ReviewedGoodsProps {
   title: string;
-  onBuyClick: (id: number) => void;
-  onFavoriteClick: (productId: number, isFavorite: boolean) => void;
 }
 
-function ReviewedGoods({ title, onBuyClick, onFavoriteClick }: ReviewedGoodsProps) {
+function ReviewedGoods({ title }: ReviewedGoodsProps) {
   const products = useAppSelector(state => state.products.reviewedProducts);
   return (
     <section className={styles.wrapper}>
