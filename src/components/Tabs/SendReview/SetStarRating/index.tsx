@@ -32,7 +32,7 @@ const SetStarRating: React.FC<SetStarRatingProp> = ({ onStarClick, refresh, rate
     }
     getStars();
     onStarClick(starIndex);
-  }, [starIndex, onStarClick]);
+  }, [starIndex]);
 
   return (
     <div className={styles.ratingReview}>

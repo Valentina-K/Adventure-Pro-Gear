@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -70,7 +70,7 @@ const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm }) => {
       setIsSubmitted(false);
     } else setRefresh(false);
   }, [isSubmitted]);
-  const starClick = (rating: number) => setRating(rating);
+  const starClick = useCallback((rating: number) => setRating(rating), []);
   return (
     <form className={styles.reviewForm} onSubmit={handleSubmit(handleSubmitForm)}>
       <div className={styles.textReviewBlock}>

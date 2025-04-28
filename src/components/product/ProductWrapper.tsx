@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectAllProducts, selectProductById } from '@/redux/features/selectors';
+import { selectAllProducts, selectProductById, selectProductByCategory, selectProductBySubcategory } from '@/redux/features/selectors';
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
 import Container from '@/components/Container';
@@ -35,8 +35,10 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
   const dispatch = useAppDispatch();
   const locale = useLocale();
   const t = useTranslations('product');
-  const products = useSelector(selectAllProducts);
   const product = useSelector(selectProductById(Number(productId)));
+  const buyWithThisProducts = useSelector(selectProductByCategory(product?.category.id, 9));
+  const similarProducts =
+  useSelector(selectProductBySubcategory(product?.category.subcategories[0].id, 9));
   const [attrIndex, setAttrIndex] = useState(0);
   const [buyQuantity, setBuyQuantity] = useState(0);
   const [tabIndex, setTabIndex] = useState(0);
@@ -46,9 +48,15 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
     if (product) {
       dispatch(setReviewedProducts(product));
     }
-  }, [product, dispatch]);
+  }, [product?.productId, dispatch]);
+
+  const handleChangeQuantity = useCallback((quantity: number) => {
+    // console.log('from changeQuantity', quantity);
+    setBuyQuantity(quantity);
+  }, []);
 
   if (!product) return <div>Product not found</div>;
+  console.log(product?.category.subcategories[0].id);
   const isAvailable = product.attributes[attrIndex].quantity > 0;
   const newPrice =
     product.basePrice - product.basePrice * (product.attributes[0].priceDeviation / 100);
@@ -56,11 +64,6 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
   const handleChoiceColor = (index: number) => {
     // console.log('from colorChoice', index);
     setAttrIndex(index);
-  };
-
-  const handleChangeQuantity = (quantity: number) => {
-    // console.log('from changeQuantity', quantity);
-    setBuyQuantity(quantity);
   };
 
   const handleBuyClick = () => {
@@ -87,8 +90,8 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
   const handleItemClick = (index: number) => {
     setActiveIndex(index === activeIndex ? null : index);
   };
-  console.log(t('page.size'));
-  console.log(!isAvailable && activeIndex === null);
+  console.log('buyWithThisProducts', buyWithThisProducts);
+  console.log('similarProducts', similarProducts);
   const colorItems = product.attributes.map((attr: { color: string; pictureUrl: string }) => ({
     color: attr.color,
     url: attr.pictureUrl,
@@ -188,13 +191,13 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
           <section className={styles.additionalOffers}>
             <div className={styles.withThisBuy}>
               <ProductCardsSlider
-                products={products}
+                products={buyWithThisProducts}
                 title={t('page.buyWithThis')}
               />
             </div>
             <div className={styles.relatedProducts}>
               <ProductCardsSlider
-                products={products}
+                products={similarProducts}
                 title={t('page.similarProducts')}
               />
             </div>
@@ -214,8 +217,6 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
       </section>
       <ReviewedGoods
         title={t('page.previouslyViewed')}
-        onBuyClick={handleBuyClick}
-        onFavoriteClick={handleFavoriteClick}
       />
     </Container>
   );

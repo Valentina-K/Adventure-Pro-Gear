@@ -7,6 +7,7 @@
   background: var(--wightAuth);
   border-radius: 5px;
   width: 156px;
+  height: max-content;
   box-sizing: border-box;
   box-shadow: none;
   transition: box-shadow 0.5s;
