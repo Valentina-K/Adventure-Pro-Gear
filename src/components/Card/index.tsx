@@ -163,7 +163,10 @@ const Card: React.FC<CardProps> = ({
             {product.basePrice !== newPrice ? (
               <div className={styles.price}>
                 <div className={styles.oldPrice}>
-                  <span>{product.basePrice} ₴</span>
+                  <span>
+                    {product.basePrice}
+                    ₴
+                  </span>
                   <span
                     className={
                       variant === 'big'
@@ -171,7 +174,8 @@ const Card: React.FC<CardProps> = ({
                         : `${styles.deviation}`
                     }
                   >
-                    {product.attributes[0].priceDeviation} %
+                    {product.attributes[0].priceDeviation}
+                    %
                   </span>
                 </div>
                 <div
@@ -179,7 +183,8 @@ const Card: React.FC<CardProps> = ({
                     variant === 'big' ? `${styles.newPrice} ${styles.big}` : `${styles.newPrice}`
                   }
                 >
-                  {newPrice} ₴
+                  {newPrice}
+                  ₴
                 </div>
               </div>
             ) : (
@@ -188,7 +193,8 @@ const Card: React.FC<CardProps> = ({
                   variant === 'big' ? `${styles.newPrice} ${styles.big}` : `${styles.newPrice}`
                 }
               >
-                {product.basePrice} ₴
+                {product.basePrice}
+                ₴
               </div>
             )}
           </div>
