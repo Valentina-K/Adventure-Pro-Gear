@@ -1,8 +1,10 @@
 'use client';
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {
+  useCallback, useEffect, useState, useMemo
+} from 'react';
 import { useSelector } from 'react-redux';
-import { selectAllProducts, selectProductById, selectProductByCategory, selectProductBySubcategory } from '@/redux/features/selectors';
+import { selectProductById, selectProductByCategory, selectProductBySubcategory } from '@/redux/features/selectors';
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
 import Container from '@/components/Container';
@@ -14,9 +16,9 @@ import QuantitySelector from '@/components/QuantitySelector/QuantitySelector';
 import { Attributes, Review } from '@/types/product';
 import { getAllReviewsByProductId } from '@/clientServices/clientAxios';
 import { setReviewedProducts, setShoppingCart } from '@/redux/products/slice';
-// import Payments from '@/constants/payments';
+
 import Comercial from '@/../public/icons/Comercial.svg';
-import { useAppSelector, useAppDispatch } from '@/redux/store';
+import { useAppDispatch } from '@/redux/store';
 import ProductCardsSlider from '../ProductCardsSlider';
 import Reviews from '../Tabs/Reviews';
 import ImageCarousel from '../ImageCarousel/ImageCarousel';
@@ -48,7 +50,10 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
     if (product) {
       dispatch(setReviewedProducts(product));
     }
-  }, [product?.productId, dispatch]);
+  }, [product, dispatch]);
+
+  const buyWithThisProductsMemo = useMemo(() => buyWithThisProducts, [buyWithThisProducts]);
+  const similarProductsMemo = useMemo(() => similarProducts, [similarProducts]);
 
   const handleChangeQuantity = useCallback((quantity: number) => {
     // console.log('from changeQuantity', quantity);
@@ -56,7 +61,7 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
   }, []);
 
   if (!product) return <div>Product not found</div>;
-  console.log(product?.category.subcategories[0].id);
+
   const isAvailable = product.attributes[attrIndex].quantity > 0;
   const newPrice =
     product.basePrice - product.basePrice * (product.attributes[0].priceDeviation / 100);
@@ -90,8 +95,7 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
   const handleItemClick = (index: number) => {
     setActiveIndex(index === activeIndex ? null : index);
   };
-  console.log('buyWithThisProducts', buyWithThisProducts);
-  console.log('similarProducts', similarProducts);
+
   const colorItems = product.attributes.map((attr: { color: string; pictureUrl: string }) => ({
     color: attr.color,
     url: attr.pictureUrl,
@@ -126,13 +130,25 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
                 {product.basePrice !== newPrice ? (
                   <>
                     <div className={styles.priceWithDiscount}>
-                      <span className={styles.oldPrice}>{product.basePrice}₴</span>
-                      <span className={styles.discount}>{product.attributes[0].priceDeviation}%</span>
+                      <span className={styles.oldPrice}>
+                        {product.basePrice}
+                        ₴
+                      </span>
+                      <span className={styles.discount}>
+                        {product.attributes[0].priceDeviation}
+                        %
+                      </span>
                     </div>
-                    <p className={styles.price}>{newPrice}₴</p>
+                    <p className={styles.price}>
+                      {newPrice}
+                      ₴
+                    </p>
                   </>
                 ) : (
-                  <p className={styles.price}>{product.basePrice}₴</p>
+                  <p className={styles.price}>
+                    {product.basePrice}
+                    ₴
+                  </p>
                 )}
                 <p className={styles.available}>
                   {isAvailable ? t('card.available') : t('card.outOfStock')}
@@ -140,10 +156,14 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
               </div>
               <div className={styles.specialInfo}>
                 <p>
-                  {t('page.code')}:<span>{product.productId}</span>
+                  {t('page.code')}
+                  :
+                  <span>{product.productId}</span>
                 </p>
                 <p>
-                  {t('page.manufacturer')}:<span>Terra Incognita</span>
+                  {t('page.manufacturer')}
+                  :
+                  <span>Terra Incognita</span>
                 </p>
               </div>
             </div>
@@ -191,13 +211,13 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
           <section className={styles.additionalOffers}>
             <div className={styles.withThisBuy}>
               <ProductCardsSlider
-                products={buyWithThisProducts}
+                products={buyWithThisProductsMemo}
                 title={t('page.buyWithThis')}
               />
             </div>
             <div className={styles.relatedProducts}>
               <ProductCardsSlider
-                products={similarProducts}
+                products={similarProductsMemo}
                 title={t('page.similarProducts')}
               />
             </div>
