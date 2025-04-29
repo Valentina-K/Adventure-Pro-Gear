@@ -27,9 +27,9 @@ interface CardProps {
 const getClassName = (variant: string) => {
   switch (variant) {
     case 'big':
-      return `${styles.cardWrapper} ${styles.big}`;
+      return `${styles.cardWrapper} ${styles.cardBig}`;
     case 'small':
-      return `${styles.cardWrapper} ${styles.small}`;
+      return `${styles.cardWrapper} ${styles.cardSmall}`;
     default:
       return styles.cardWrapper;
   }
@@ -38,9 +38,9 @@ const getClassName = (variant: string) => {
 const getImgClassName = (variant: string, isAvailable: boolean) => {
   switch (variant) {
     case 'big':
-      return !isAvailable ? `${styles.imageWrapper} ${styles.big} ${styles.outStock}` : `${styles.imageWrapper} ${styles.big}`;
+      return !isAvailable ? `${styles.imageWrapper} ${styles.imgBig} ${styles.outStock}` : `${styles.imageWrapper} ${styles.imgBig}`;
     case 'small':
-      return !isAvailable ? `${styles.imageWrapper} ${styles.small} ${styles.outStock}` : `${styles.imageWrapper} ${styles.small}`;
+      return !isAvailable ? `${styles.imageWrapper} ${styles.imgSmall} ${styles.outStock}` : `${styles.imageWrapper} ${styles.imgSmall}`;
     default:
       return !isAvailable ? `${styles.imageWrapper} ${styles.outStock}` : styles.imageWrapper;
   }
@@ -54,34 +54,26 @@ const Card: React.FC<CardProps> = ({
   const dispatch = useAppDispatch();
   const locale = useLocale();
   const t = useTranslations('product');
-  const [newPrice, setNewPrice] = useState<number>(0);
-  const [isAvailable, setIsAvailable] = useState<boolean>(true);
-  const [productName, setProductName] = useState<string>('');
-  const [classNameImg, setClassNameImg] = useState<string>(styles.imageWrapper);
+
+  const isAvailable = product.attributes[0].quantity > 0;
+  const newPrice = product.basePrice - product.basePrice *
+  (product.attributes[0].priceDeviation / 100);
+  const productName = locale === 'uk' ? product.productNameUa : product.productNameEn;
+  const classNameImg = getImgClassName(variant, isAvailable);
+
   const [addToFavorite, setAddToFavorite] = useState<boolean>(false);
   const [message, setMessage] = useState<string | null>(null);
-  const [following, setFollowing] = useState(FollowinIcon);
+  const followingIcon = addToFavorite ? FollowingFill : FollowinIcon;
+
   const productImage =
     product.contents.length > 0 ? product.contents[0].source : noImage;
   const className = getClassName(variant);
+  console.log(className);
   useEffect(() => {
-    if (message) {
-      const timer = setTimeout(() => setMessage(null), 2000);
-      return () => clearTimeout(timer); // Очистка таймера при размонтировании
-    }
+    if (!message) return;
+    const timer = setTimeout(() => setMessage(null), 2000);
+    return () => clearTimeout(timer);
   }, [message]);
-
-  useEffect(() => {
-    setNewPrice(
-      product.basePrice - product.basePrice * (product.attributes[0].priceDeviation / 100)
-    );
-    setProductName(locale === 'uk' ? product.productNameUa : product.productNameEn);
-    setIsAvailable(product.attributes[0].quantity > 0);
-    setClassNameImg(getImgClassName(variant, isAvailable));
-    if (addToFavorite) {
-      setFollowing(FollowingFill);
-    } else setFollowing(FollowinIcon);
-  }, [product, locale, addToFavorite, isAvailable, variant]);
 
   const handleAddToFavorite: (event: React.MouseEvent<HTMLButtonElement>) => void = event => {
     event.preventDefault(); // Отменяет переход
@@ -144,7 +136,7 @@ const Card: React.FC<CardProps> = ({
             {product.attributes[0].label && <div className={styles.new}>{t('card.new')}</div>}
           </div>
           <button onClick={handleAddToFavorite} className={styles.following}>
-            <Image src={following} width={20} height={18} alt="following" />
+            <Image src={followingIcon} width={20} height={18} alt="following" />
           </button>
         </div>
         <div className={styles.cardContent}>
@@ -222,4 +214,4 @@ const Card: React.FC<CardProps> = ({
   );
 };
 
-export default Card;
+export default React.memo(Card);

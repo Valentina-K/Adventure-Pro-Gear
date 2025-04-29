@@ -71,10 +71,10 @@
   width: calc((100% - 60px) / 3) !important;
 }
 
-.item_active .item section {
+/* .item_active .item section {
   width: 280px !important;
-}
+} */
 
-.item_active .item section a div:first-child {
+/* .item_active .item section a div:first-child {
   width: 270px;
-}
+} */
