@@ -3,6 +3,7 @@ import React from 'react';
 import arrowsLeft from '@/../public/icons/Arrows.svg';
 import arrowsRight from '@/../public/icons/arrowsRight.svg';
 import style from './Pagination.module.css';
+import { toNumber } from 'lodash';
 
 function Pagination(
   {
@@ -35,21 +36,21 @@ function Pagination(
 
   const generatePages = () => {
     const pages = [];
-    const maxVisiblePages = 3; // Скільки номерів відображати (без "...")
+    const maxVisiblePages = 2; // Скільки номерів відображати (без "...")
     const sidePages = 2; // Скільки сторінок навколо поточної
 
     if (totalPage <= maxVisiblePages) {
       return Array.from({ length: totalPage }, (_, i) => i + 1);
     }
 
-    pages.push(1); // Перша сторінка
+    pages.push(0); // Перша сторінка
 
     if (Number(currentPage) > sidePages + 2) {
       pages.push('...');
     }
 
     for (
-      let i = Math.max(2, Number(currentPage) - sidePages);
+      let i = Math.max(1, Number(currentPage) - sidePages);
       i <= Math.min(totalPage - 1, Number(currentPage) + sidePages);
       i += 1
     ) {
@@ -67,7 +68,7 @@ function Pagination(
 
   return (
     <div className={style.pagination_container}>
-      {totalPage > 0 && Number(currentPage) !== 1 && (
+      {totalPage > 0 && Number(currentPage) !== 0 && (
         <button className={style.pagination_btn_back} onClick={handleBackPage}>
           <Image src={arrowsRight} alt="arrows Right" width={20} height={20} />
           <span> Назад</span>
@@ -76,14 +77,15 @@ function Pagination(
 
       {totalPage > 0
         ? generatePages()?.map((page, index) => (
-          <button
-            key={index + 1}
-            className={Number(currentPage) === page ? style.activePage : ''}
-            onClick={() => typeof page === "number" && createQueryString('page', `${page}`)}
-          >
-            {page}
-          </button>
-        ))
+            <button
+              key={index + 1}
+              className={Number(currentPage) === page ? style.activePage : ''}
+              onClick={() => typeof page === 'number' && createQueryString('page', `${page}`)}
+            >
+             {page !== '...' ? Number(page + 1) : '...'}
+
+            </button>
+          ))
         : ''}
       {totalPage > 0 && Number(currentPage) !== totalPage ? (
         <button className={style.pagination_btn_more} onClick={handleMorePage}>

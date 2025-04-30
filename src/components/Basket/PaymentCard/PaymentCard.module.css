@@ -1,0 +1,68 @@
+.paymentCard_container {
+  display: flex;
+}
+
+.paymentCard_container div {
+  flex: 0 1 50%;
+}
+
+.title {
+  font-weight: var(--wight-600);
+  font-size: var(--large-20);
+  line-height: 150%;
+  letter-spacing: 0%;
+  margin-bottom: 24px;
+}
+
+.radio_container input[type='radio']:checked {
+  accent-color: #4e4c4c;
+}
+
+.input {
+  cursor: pointer;
+}
+
+.checked_container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.label {
+  font-weight: var(--medium);
+  font-size: var(--medium-18);
+  line-height: 150%;
+  letter-spacing: 0%;
+  margin: 0 16px 0 8px;
+  cursor: pointer;
+}
+
+.form {
+  margin-bottom: 24px;
+}
+
+.descr {
+  max-width: 560px;
+  font-weight: var(--medium);
+  font-size: var(--medium-16);
+  line-height: 150%;
+  letter-spacing: 0%;
+  margin-bottom: 24px;
+}
+
+.sumOrder {
+  font-weight: var(--medium);
+  font-size: var(--medium-16);
+  line-height: 150%;
+  letter-spacing: 0%;
+  text-align: end;
+}
+
+.sumOrder span {
+  font-weight: var(--wight-600);
+  font-size: var(--large-24);
+  line-height: 150%;
+  letter-spacing: 0%;
+  color: var(--mediumBlue);
+  margin-left: 24px;
+}

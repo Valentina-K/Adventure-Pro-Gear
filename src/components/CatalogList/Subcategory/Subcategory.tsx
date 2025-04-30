@@ -47,7 +47,7 @@ const Subcategory: React.FC<ISubcategoryProps> = ({
                       key={id}
                       onClick={handlerToggleCatalog}
                     >
-                      <Link href={`/${AppRoutes.CATALOG}/${id}?page=1`}>
+                      <Link href={`/${AppRoutes.CATALOG}/${id}?page=0`}>
                         <p className={style.list_descr}>
                           {locale === 'uk' ? subcategoryNameUa : subcategoryNameEn}
                         </p>

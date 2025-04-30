@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectAllProducts, selectProductById } from '@/redux/features/selectors';
 import Image from 'next/image';
+import noImage from '@/../public/images/no_image.png';
 import { useLocale, useTranslations } from 'next-intl';
 import Container from '@/components/Container';
 import { AvailableColors } from '@/components/AvailableColors';
@@ -65,6 +66,10 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
 
   const handleBuyClick = () => {
     const shoppingCart = {
+      selfLink: product.contents.length > 0 ? product.contents[0].source : noImage,
+      productNameEn: product.productNameEn,
+      productNameUa: product.productNameUa,
+      basePrice: product.basePrice,
       productId: product.productId,
       quantity: buyQuantity,
       color: product.attributes[attrIndex].color,

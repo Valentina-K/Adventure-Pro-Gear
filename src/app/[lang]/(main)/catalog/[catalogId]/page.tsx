@@ -36,7 +36,7 @@ const CatalogId = ({
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-  const paramsGetPage = searchParams.get('page') || '1';
+  const paramsGetPage = searchParams.get('page') || '0';
 
   const { data, isLoading, error } = useGetProductsQuery();
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -70,7 +70,6 @@ const CatalogId = ({
       setTotalPage(pages - 1);
 
       setProducts(productsAll?.data?.content);
-      // createQueryString('subcategoryId', (params.catalogId).toString());
     })();
   }, [maxValue, minValue, page, params.catalogId, searchParams]);
 
@@ -88,8 +87,8 @@ const CatalogId = ({
       paramsCreate.set(name, value);
 
       if (name === 'priceTo' || name === 'priceFrom') {
-        setPage('1');
-        paramsCreate.set('page', '1');
+        setPage('0');
+        paramsCreate.set('page', '0');
       }
 
       if (name === 'page') {

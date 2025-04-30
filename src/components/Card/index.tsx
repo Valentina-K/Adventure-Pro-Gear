@@ -9,7 +9,7 @@ import FollowingFill from '@/../public/icons/FollowingFill.svg';
 import Comercial from '@/../public/icons/Comercial.svg';
 import NotAvailable from '@/../public/images/soldout.png';
 import { Product } from '@/types/product';
-import Payments from '@/constants/payments';
+// import Payments from '@/constants/payments';
 import { setShoppingCart } from '@/redux/products/slice';
 import { useAppDispatch } from '@/redux/store';
 import noImage from '@/../public/images/no_image.png';
@@ -39,18 +39,19 @@ const getClassName = (variant: string) => {
 const getImgClassName = (variant: string, isAvailable: boolean) => {
   switch (variant) {
     case 'big':
-      return !isAvailable ? `${styles.imageWrapper} ${styles.big} ${styles.outStock}` : `${styles.imageWrapper} ${styles.big}`;
+      return !isAvailable
+        ? `${styles.imageWrapper} ${styles.big} ${styles.outStock}`
+        : `${styles.imageWrapper} ${styles.big}`;
     case 'small':
-      return !isAvailable ? `${styles.imageWrapper} ${styles.small} ${styles.outStock}` : `${styles.imageWrapper} ${styles.small}`;
+      return !isAvailable
+        ? `${styles.imageWrapper} ${styles.small} ${styles.outStock}`
+        : `${styles.imageWrapper} ${styles.small}`;
     default:
       return !isAvailable ? `${styles.imageWrapper} ${styles.outStock}` : styles.imageWrapper;
   }
 };
 
-const Card: React.FC<CardProps> = ({
-  product,
-  variant = 'standart',
-}) => {
+const Card: React.FC<CardProps> = ({ product, variant = 'standart' }) => {
   const session = useSession();
   const dispatch = useAppDispatch();
   const locale = useLocale();
@@ -62,8 +63,7 @@ const Card: React.FC<CardProps> = ({
   const [addToFavorite, setAddToFavorite] = useState<boolean>(false);
   const [message, setMessage] = useState<string | null>(null);
   const [following, setFollowing] = useState(FollowinIcon);
-  const productImage =
-    product.contents.length > 0 ? product.contents[0].source : noImage;
+  const productImage = product.contents.length > 0 ? product.contents[0].source : noImage;
   const className = getClassName(variant);
   useEffect(() => {
     if (message) {
@@ -97,9 +97,13 @@ const Card: React.FC<CardProps> = ({
     event.preventDefault();
     event.stopPropagation();
     const shoppingCart = {
+      selfLink: product.contents.length > 0 ? product.contents[0].source : noImage,
+      productNameEn: product.productNameEn,
+      productNameUa: product.productNameUa,
+      basePrice: product.basePrice,
       productId: product.productId,
       quantity: 1,
-      payment: Payments.VISA,
+      // payment: Payments.VISA,
       color: product.attributes[0].color,
       size: product.attributes[0].size,
     };

@@ -1,0 +1,73 @@
+.title {
+  font-weight: var(--wight-600);
+  font-size: var(--large-20);
+  line-height: 150%;
+  letter-spacing: 0%;
+  margin-bottom: 16px;
+}
+
+
+.delivery_container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 19px;
+}
+
+.delivery {
+  width: 100%;
+  display: flex;
+  gap: 8px;
+}
+
+.delivery p {
+  font-weight: var(--medium);
+  font-size: var(--medium-18);
+  line-height: 150%;
+  letter-spacing: 0%;
+}
+
+.delivery span {
+  display: block;
+  margin-left: auto;
+}
+
+.sumOrder {
+  font-weight: var(--medium);
+  font-size: var(--medium-16);
+  line-height: 150%;
+  letter-spacing: 0%;
+  text-align: end;
+}
+
+
+.sumOrder span {
+  font-weight: var(--wight-600);
+  font-size: var(--large-24);
+  line-height: 150%;
+  letter-spacing: 0%;
+  color: var(--mediumBlue);
+  margin-left: 24px;
+}
+.coupon {
+  display: flex;
+  align-items: end;
+  gap: 32px;
+  margin-bottom: 16px;
+}
+
+.coupon p {
+  font-weight: var(--medium);
+  font-size: var(--large-20);
+  line-height: 150%;
+  letter-spacing: 0%;
+}
+
+.coupon input {
+  outline: none;
+  width: 238px;
+  height: 48px;
+  border: 1px solid var(--gray-300);
+  border-radius: 4px;
+  color: var(--placeholder);
+  padding: 10px 16px;
+}

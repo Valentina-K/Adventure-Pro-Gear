@@ -36,8 +36,8 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
   }
 
   useEffect(() => {
-    if (value < quantity) setIsDisabledPlus(false);
-    else setIsDisabledPlus(true);
+    // if (value < quantity) setIsDisabledPlus(false);
+    // else setIsDisabledPlus(true);
     if (value > 1) setIsDisabledSubt(false);
     else setIsDisabledSubt(true);
     onChange(value);
