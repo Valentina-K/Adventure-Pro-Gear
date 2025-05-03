@@ -9,6 +9,7 @@ import Navigation from '@/components/Navigation/Navigation';
 import BlogList from '@/components/BlogPage/blogList';
 import type { IPageProps } from '@/types';
 import style from './blog.module.css';
+import BlogPagination from '@/components/Pagination/BlogPagination'
 
 async function Blog({ params, searchParams }: IPageProps & { searchParams: { page?: string } }) {
   const { lang } = params;
@@ -32,7 +33,7 @@ async function Blog({ params, searchParams }: IPageProps & { searchParams: { pag
           <BlogList blogs={blogs} lang={lang} />
         </Suspense>
 
-        <Pagination totalPage={blogs?.totalPages} currentPage={currentPage} />
+        <BlogPagination totalPage={blogs?.totalPages} currentPage={currentPage} />
       </div>
     </Container>
   );
