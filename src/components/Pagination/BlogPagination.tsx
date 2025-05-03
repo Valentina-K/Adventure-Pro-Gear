@@ -8,20 +8,25 @@ import { useTranslations } from 'next-intl';
 
 import style from './Pagination.module.css';
 
-const BlogPagination = ({ totalPage, currentPage }: { totalPage: number; currentPage: number }) => {
+interface PaginationProps {
+  totalPage: number;
+  currentPage: number;
+  createQueryString?: (name: string, value: string) => void;
+}
+
+const Pagination = ({ totalPage, currentPage, createQueryString }: PaginationProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const t = useTranslations('blog');
 
-  const createQueryString = (name: string, value: string) => {
-    const params = new URLSearchParams(searchParams);
-    params.set(name, value);
-    return `?${params.toString()}`;
-  };
-
   const handleChangePage = (page: number) => {
-    const query = createQueryString('page', `${page}`);
-    router.push(query);
+    if (createQueryString) {
+      createQueryString('page', `${page}`);
+    } else {
+      const params = new URLSearchParams(searchParams);
+      params.set('page', `${page}`);
+      router.push(`?${params.toString()}`);
+    }
   };
 
   const handleBackPage = () => handleChangePage(currentPage - 1);
@@ -56,8 +61,12 @@ const BlogPagination = ({ totalPage, currentPage }: { totalPage: number; current
   return (
     <div className={style.pagination_container}>
       {totalPage > 0 && currentPage !== 1 && (
-        <button className={style.pagination_btn_back} onClick={handleBackPage}>
-          <Image src="/icons/arrowsRight.svg" alt="arrows Right" width={20} height={20} />
+        <button
+          className={style.pagination_btn_back}
+          onClick={handleBackPage}
+          aria-label={t('prev')}
+        >
+          <Image src="/icons/arrowsRight.svg" alt="Previous page" width={20} height={20} />
           <span>{t('prev')}</span>
         </button>
       )}
@@ -65,12 +74,16 @@ const BlogPagination = ({ totalPage, currentPage }: { totalPage: number; current
       {totalPage > 0 &&
         generatePages().map((page, index) =>
           page === '...' ? (
-            <span key={`dots-${index}`}>...</span>
+            <span key={`dots-${index}`} aria-hidden="true">
+              ...
+            </span>
           ) : (
             <button
               key={page}
               className={currentPage === page ? style.activePage : ''}
               onClick={() => handleChangePage(page as number)}
+              aria-label={`Go to page ${page}`}
+              aria-current={currentPage === page ? 'page' : undefined}
             >
               {page}
             </button>
@@ -78,13 +91,17 @@ const BlogPagination = ({ totalPage, currentPage }: { totalPage: number; current
         )}
 
       {totalPage > 0 && currentPage !== totalPage && (
-        <button className={style.pagination_btn_more} onClick={handleMorePage}>
+        <button
+          className={style.pagination_btn_more}
+          onClick={handleMorePage}
+          aria-label={t('next')}
+        >
           <span>{t('next')}</span>
-          <Image src="/icons/Arrows.svg" alt="arrows Left" width={20} height={20} />
+          <Image src="/icons/Arrows.svg" alt="Next page" width={20} height={20} />
         </button>
       )}
     </div>
   );
 };
 
-export default BlogPagination;
+export default Pagination;
