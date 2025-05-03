@@ -7,30 +7,36 @@
 
 .pagination_container button {
   border: none;
-
   font-size: var(--small-14);
   font-weight: var(--medium);
   line-height: var(--line-height-21);
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
   background-color: transparent;
-  margin-right: 2px;
-  padding: 5px 10px;
+  margin-right: 4px;
+  padding: 6px 12px;
   cursor: pointer;
-}
+  transition: background-color 0.1s ease-in-out;
 
-.pagination_container button:last-child {
-  margin-right: 0;
-  padding: 5px 0;
+  &:hover {
+    background-color: rgba(30, 94, 114, 0.1);
+  }
 }
 
 .pagination_btn_more,
 .pagination_btn_back {
   display: flex;
   text-align: center;
+  gap: 4px;
 }
 
-.activePage {
+.pagination_container .pagination_btn_more {
+  margin-right: 0;
+  padding: 6px 12px;
+  border-radius: 2px;
+}
+
+button.activePage {
   background-color: var(--greem) !important;
   color: var(--wightAuth);
   border-radius: 2px;

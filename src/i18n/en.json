@@ -200,7 +200,9 @@
   "blog": {
     "title": "Blog",
     "description": "The Adventure Pro Gear blog",
-    "all_blogs": "All blogs"
+    "all_blogs": "All blogs",
+    "next": "Next",
+    "prev": "Prev"
   },
   "aboutPage": {
     "title": "About us",
