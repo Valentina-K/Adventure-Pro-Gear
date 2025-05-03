@@ -1,17 +1,26 @@
 import React, { Suspense } from 'react';
-import Container from '@/components/Container';
-// import Pagination from '@/components/Pagination/Pagination';
-import Navigation from '@/components/Navigation/Navigation';
-import { getBlogs } from '@/services/axios';
-import type { IBlogsProps, IPageProps } from '@/types';
+import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
-import style from './blog.module.css';
-import BlogList from '@/components/BlogPage/blogList';
 
-async function Blog({ params }: IPageProps) {
-  const blogs = await getBlogs();
+import { getBlogs } from '@/services/axios';
+import Container from '@/components/Container';
+import Pagination from '@/components/Pagination/Pagination';
+import Navigation from '@/components/Navigation/Navigation';
+import BlogList from '@/components/BlogPage/blogList';
+import type { IPageProps } from '@/types';
+import style from './blog.module.css';
+import BlogPagination from '@/components/Pagination/BlogPagination'
+
+async function Blog({ params, searchParams }: IPageProps & { searchParams: { page?: string } }) {
   const { lang } = params;
+  const pageParam = Number(searchParams.page) || 1;
+
   const t = await getTranslations({ lang, namespace: 'blog' });
+
+  const blogs = await getBlogs(pageParam - 1, 12);
+  const currentPage = blogs.pageable.pageNumber + 1;
+
+  if (pageParam < 1) return notFound();
 
   return (
     <Container>
@@ -24,7 +33,7 @@ async function Blog({ params }: IPageProps) {
           <BlogList blogs={blogs} lang={lang} />
         </Suspense>
 
-        {/* <Pagination searchParams={{}} /> */}
+        <BlogPagination totalPage={blogs?.totalPages} currentPage={currentPage} />
       </div>
     </Container>
   );

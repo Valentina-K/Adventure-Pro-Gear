@@ -206,9 +206,15 @@ export const updateEmailService = async (personalData: any) => {
   }
 };
 
-export const getBlogs = async () => {
+export const getBlogs = async (page = 0, size = 5, sort = 'createdAt') => {
   try {
-    const response = await axiosInstance.get('api/blog/posts');
+    const response = await axiosInstance.get('api/blog/posts', {
+      params: {
+        page,
+        size,
+        sort,
+      },
+    });
     return response.data;
   } catch (error) {
     console.log(error);

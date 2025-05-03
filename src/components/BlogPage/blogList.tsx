@@ -2,21 +2,24 @@ import React from 'react';
 import type { IBlogsProps } from '@/types';
 import Image from 'next/image';
 import { Link } from '@/i18n/routing';
-import style from './style.module.css';
 import clsx from 'clsx';
+import style from './style.module.css';
 
 interface Props {
-  blogs: IBlogsProps[];
+  blogs: {
+    content: IBlogsProps[];
+  };
   length?: number;
   lang?: string;
   currentBlogId?: string | number;
+
 }
 
 const blogList = ({ blogs, length, lang, currentBlogId }: Props) => {
   return (
     <ul className={clsx(style.blogs_list, { [style.column]: length })}>
-      {blogs
-        ?.filter(blog => Number(blog.id) !== Number(currentBlogId))
+      {blogs?.content
+        .filter(blog => Number(blog.id) !== Number(currentBlogId))
         .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
         .slice(0, length)
         .map(({ id, titleEn, titleUa, imageUrl, createdAt }: IBlogsProps) => (

@@ -203,7 +203,9 @@
   "blog": {
     "title": "Блог",
     "description": "Блог Adventure Pro Gear",
-    "all_blogs": "Всі статті"
+    "all_blogs": "Всі статті",
+    "next": "Наступна",
+    "prev": "Попередня"
   },
   "aboutPage": {
     "title": "Про нас",
