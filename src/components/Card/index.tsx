@@ -68,7 +68,6 @@ const Card: React.FC<CardProps> = ({
   const productImage =
     product.contents.length > 0 ? product.contents[0].source : noImage;
   const className = getClassName(variant);
-  console.log(className);
   useEffect(() => {
     if (!message) return;
     const timer = setTimeout(() => setMessage(null), 2000);

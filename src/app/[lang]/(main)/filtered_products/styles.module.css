@@ -1,0 +1,74 @@
+.catalog_container {
+    display: flex;
+    margin-bottom: 120px;
+  }
+  
+  .searchBar_container {
+    width: 366px;
+    border: 1px solid var(--label);
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    padding: 16px;
+    margin-right: 20px;
+  }
+  
+  .contentPage_container {
+    width: 100%;
+    /* margin-left: 20px; */
+  }
+  
+  .input_container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .title {
+    font-weight: var(--wight-600);
+    font-size: var(--large-28);
+    line-height: var(--line-height-42);
+    color: var(--greenForBtn);
+  }
+  
+  .input_list {
+    display: flex;
+    margin-bottom: 16px;
+    margin-left: auto;
+  }
+  
+  .input_item {
+    cursor: pointer;
+    transition: all 0.7s ease-in-out;
+  }
+  
+  .input_item:not(:last-child) {
+    margin-right: 10px;
+  }
+  
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -20px;
+    margin-bottom: -20px;
+  }
+  
+  .item {
+    width: calc((100% - 80px) / 4) !important;
+  
+    margin-right: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .item section:hover {
+    box-shadow: none !important;
+  }
+  
+  .item section {
+    background-color: transparent !important;
+  }
+  
+  /* ========active-grid============ */
+  .item_active .item {
+    width: calc((100% - 60px) / 3) !important;
+  }
+    
+  
