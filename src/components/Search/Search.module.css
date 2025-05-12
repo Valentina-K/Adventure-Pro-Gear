@@ -24,6 +24,8 @@
   position: absolute;
   right: 24px;
   top: 20.5px;
+  background: none;
+  border: none;
   /* pointer-events: none; */
 }
 

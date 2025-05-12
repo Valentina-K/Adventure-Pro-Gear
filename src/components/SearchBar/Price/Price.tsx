@@ -16,6 +16,8 @@ interface IPriceProps {
   maxValue: number;
   minValue: number;
   setPage: any;
+  minRange?: number;
+  maxRange?: number;
 }
 
 const Price: FC<IPriceProps> = ({
@@ -25,12 +27,14 @@ const Price: FC<IPriceProps> = ({
   maxValue,
   minValue,
   setPage,
+  minRange = 0,
+  maxRange = 100000,
 }) => {
   const [searchFieldActive, setSearchFieldActive] = useState(false);
-  const [search, setSearch] = useState<ISearch>({
+  /* const [search, setSearch] = useState<ISearch>({
     rangeMin: 0,
     rangeMax: 100000,
-  });
+  }); */
 
   const handleFieldActive = () => {
     setSearchFieldActive(prev => !prev);
@@ -48,18 +52,21 @@ const Price: FC<IPriceProps> = ({
       setMaxValue(value);
       setPage(1);
     }
-    setSearch({
+    /* setSearch({
       ...search,
       rangeMin: minValue,
       rangeMax: maxValue,
-    });
+    }); */
   };
 
   const getProgressStyle = () => {
-    const range = 100000 - 0;
+    const range = maxRange - minRange;
+    const left = ((minValue - minRange) / range) * 100;
+    const width = ((maxValue - minValue) / range) * 100;
+    /* const range = 100000 - 0;
 
     const left = ((minValue - 0) / range) * 100;
-    const width = ((maxValue - minValue) / range) * 100;
+    const width = ((maxValue - minValue) / range) * 100; */
 
     return {
       left: `${left}%`,
@@ -80,8 +87,8 @@ const Price: FC<IPriceProps> = ({
               type="range"
               name="rangeMin"
               value={minValue}
-              min="0"
-              max="100000"
+              min={minRange}
+              max={maxRange}
               step="10"
               className={`${styles.min} ${styles.range}`}
               onChange={handleChangeRanges}
@@ -91,8 +98,8 @@ const Price: FC<IPriceProps> = ({
               type="range"
               name="rangeMax"
               value={maxValue}
-              min="0"
-              max="100000"
+              min={minRange}
+              max={maxRange}
               step="10"
               className={`${styles.max} ${styles.range}`}
               onChange={handleChangeRanges}
