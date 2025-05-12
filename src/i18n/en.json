@@ -8,7 +8,8 @@
     "search": {
       "placeholder": "Search",
       "unavailable": "Nothing was found for your request. Try again.",
-      "showall": "Show all"
+      "showall": "Show all",
+      "searchResults": "Phrase search results"
     },
     "catalog": " Catalog of goods",
     "lang": [
