@@ -1,25 +1,26 @@
 import React, { Suspense } from 'react';
 import { getServerSession } from 'next-auth/next';
-import type { IPageProps } from '@/types';
+import { EmblaOptionsType } from 'embla-carousel';
+import { getTranslations } from 'next-intl/server';
 
+import type { IPageProps } from '@/types';
 import { options } from '@/config';
 import Container from '@/components/Container';
 import SignOutButton from '@/components/SignOutButton';
 import { getProducts } from '@/services/axios';
-import Hero from '@/components/Hero/Hero';
-import AuthModal from '@/components/AuthModal';
-import { getTranslations } from 'next-intl/server';
+// import Hero from '@/components/Hero/Hero';
+// import AuthModal from '@/components/AuthModal';
 import HomeBlogList from '@/components/BlogPage/homeBlogList';
+import ProductSlider from '@/components/ProductSlider';
 
 async function Page({ params }: IPageProps) {
   const { lang } = params;
-
   const session = await getServerSession(options);
   const tBlog = await getTranslations({ lang, namespace: 'blog' });
+  const OPTIONS: EmblaOptionsType = { align: 'start', loop: true };
 
   // toDo: too slow
-  // const res = await getProducts();
-  // console.log(res);
+  const products = await getProducts();
 
   return (
     <Container>
@@ -41,18 +42,24 @@ async function Page({ params }: IPageProps) {
       </section>
 
       <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+
+      <Suspense fallback={<div>Loading...</div>}>
+        <ProductSlider title="Новинки" slides={products?.data?.content} options={OPTIONS} />
+      </Suspense>
+
+      <Suspense fallback={<div>Loading...</div>}>
+        <ProductSlider
+          title="Акції"
+          slides={products?.data?.content}
+          options={OPTIONS}
+          delay={3050}
+        />
+      </Suspense>
 
       <Suspense fallback={<div>Loading...</div>}>
         <HomeBlogList lang={lang} />
       </Suspense>
+      
     </Container>
   );
 }
