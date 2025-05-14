@@ -11,6 +11,7 @@ import Navigation from '@/components/Navigation/Navigation';
 import SearchBar from '@/components/SearchBar/SearchBar';
 import Pagination from '@/components/Pagination/Pagination';
 import { Product } from '@/types/product';
+import useDebounce from '@/hooks/useDebounce';
 import CatalogNameList from '@/components/ForCatalogPage/CatalogNameList/CatalogNameList';
 import ViewCatalogList from '@/components/ForCatalogPage/ViewCatalogList/ViewCatalogList';
 import DropdownMenu from '@/components/ForCatalogPage/DropdownMenu/DropdownMenu';
@@ -44,7 +45,8 @@ const CatalogId = ({
 
   const [minValue, setMinValue] = useState(0);
   const [maxValue, setMaxValue] = useState(100000);
-
+  const debouncedMinValue = useDebounce(minValue, 500);
+  const debouncedMaxValue = useDebounce(maxValue, 500);
   const [subcategory, setSubcategory] = useState<ICategoriesApi[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [totalPage, setTotalPage] = useState<number>(0);
@@ -59,8 +61,8 @@ const CatalogId = ({
     const fetchData = (async () => {
       const productsAll = await getProductsFilter({
         page: `${page}`,
-        priceFrom: `${minValue}`,
-        priceTo: `${maxValue}`,
+        priceFrom: `${debouncedMinValue}`,
+        priceTo: `${debouncedMaxValue}`,
         subcategoryId: params.catalogId,
       });
 
@@ -72,7 +74,7 @@ const CatalogId = ({
       setProducts(productsAll?.data?.content);
       // createQueryString('subcategoryId', (params.catalogId).toString());
     })();
-  }, [maxValue, minValue, page, params.catalogId, searchParams]);
+  }, [debouncedMaxValue, debouncedMinValue, page, params.catalogId, searchParams]);
 
   useEffect(() => {
     const fetchData = (async () => {

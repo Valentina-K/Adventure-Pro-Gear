@@ -20,11 +20,7 @@ interface SearchProps {
   showall: string;
 }
 
-const Search: React.FC<SearchProps> = ({
-  placeholder,
-  unavailable,
-  showall,
-}) => {
+const Search: React.FC<SearchProps> = ({ placeholder, unavailable, showall }) => {
   const locale = useLocale();
   const [value, setValue] = useState<string>('');
   const [filteredItems, setFilteredItems] = useState<Product[]>([]);
@@ -32,16 +28,16 @@ const Search: React.FC<SearchProps> = ({
   const router = useRouter();
   const { data, isLoading, error } = useGetProductsQuery();
   const dispatch = useDispatch();
+
   if (error) console.log(error);
-  // if (!isLoading) console.log(data);
+
   useEffect(() => {
     if (value.length >= 1) {
-      const filtered = data?.content.filter(product =>
-        (product.productNameUa)
-          .toLowerCase()
-          .includes(value.toLowerCase()) || (product.productNameEn)
-          .toLowerCase()
-          .includes(value.toLowerCase()));
+      const filtered = data?.content.filter(
+        product =>
+          product.productNameUa.toLowerCase().includes(value.toLowerCase()) ||
+          product.productNameEn.toLowerCase().includes(value.toLowerCase())
+      );
       if (filtered) setFilteredItems(filtered);
     } else {
       setFilteredItems([]);
@@ -91,12 +87,9 @@ const Search: React.FC<SearchProps> = ({
         onFocus={handleFocus}
         onBlur={handleBlur}
       />
-      <span
-        className={styles.search_icon}
-        onClick={handleAllClick}
-      >
+      <button className={styles.search_icon} onClick={handleAllClick} aria-label="Search">
         <Image src={SearchIcon} alt="Search Icon" width={22} height={22} priority />
-      </span>
+      </button>
 
       {isDropdownVisible && value.length >= 1 && (
         <ul className={styles.dropdown}>
@@ -109,7 +102,12 @@ const Search: React.FC<SearchProps> = ({
                     onClick={() => handleProductClick(product)}
                   >
                     <span className={styles.smallcard_icon}>
-                      <Image alt="Product icon" src={product.contents.length > 0 ? product.contents[0].source : noImage} width={80} height={80} />
+                      <Image
+                        alt="Product icon"
+                        src={product.contents.length > 0 ? product.contents[0].source : noImage}
+                        width={80}
+                        height={80}
+                      />
                     </span>
                     <div className={styles.smallcard_main}>
                       <span className={styles.smallcard_name}>
