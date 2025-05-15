@@ -8,15 +8,15 @@ import { options } from '@/config';
 import Container from '@/components/Container';
 import SignOutButton from '@/components/SignOutButton';
 import { getProducts } from '@/services/axios';
-// import Hero from '@/components/Hero/Hero';
-// import AuthModal from '@/components/AuthModal';
 import HomeBlogList from '@/components/BlogPage/homeBlogList';
 import ProductSlider from '@/components/ProductSlider';
+import MainListCat from '@/components/MainListCat';
+import Banner from '@/components/ProductSlider/Banner';
 
 async function Page({ params }: IPageProps) {
   const { lang } = params;
   const session = await getServerSession(options);
-  const tBlog = await getTranslations({ lang, namespace: 'blog' });
+  const tHome = await getTranslations({ lang, namespace: 'homePage' });
   const OPTIONS: EmblaOptionsType = { align: 'start', loop: true };
 
   // toDo: too slow
@@ -24,42 +24,36 @@ async function Page({ params }: IPageProps) {
 
   return (
     <Container>
-      <br />
-      <section>
-        {session ? (
-          <>
-            {/* <Hero data={res && res.data} locale={params.lang} /> */}
-            <h1>Authenticated</h1>
-            <SignOutButton />
-          </>
-        ) : (
-          <>
-            {/* <Hero data={res && res.data} locale={params.lang} /> */}
-            <h1>Not Authenticated</h1>
-          </>
-        )}
-        {/* <AuthModal locale={params.lang} /> */}
-      </section>
+      <Banner />
+
+      <Suspense fallback={<div>Loading...</div>}>
+        <MainListCat />
+      </Suspense>
 
       <br />
 
       <Suspense fallback={<div>Loading...</div>}>
-        <ProductSlider title="Новинки" slides={products?.data?.content} options={OPTIONS} />
+        <ProductSlider title={tHome('news')} slides={products?.data?.content} options={OPTIONS} />
       </Suspense>
 
       <Suspense fallback={<div>Loading...</div>}>
         <ProductSlider
-          title="Акції"
+          title={tHome('sale')}
           slides={products?.data?.content}
           options={OPTIONS}
           delay={3050}
         />
       </Suspense>
 
+      <br />
+      <br />
+
       <Suspense fallback={<div>Loading...</div>}>
         <HomeBlogList lang={lang} />
       </Suspense>
-      
+
+      <br />
+      <br />
     </Container>
   );
 }
