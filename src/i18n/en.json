@@ -253,5 +253,11 @@
     "workHours": "We work according to the following schedule:",
     "weekdays": "Monday-Saturday: 10-19",
     "weekend": "Sunday: 10-17 without lunch and weekends!"
+  },
+  "homePage" : {
+    "title": "Thousands of products for bright adventures!",
+    "description": "",
+    "news": "News",
+    "sale": "Sale"
   }
 }
