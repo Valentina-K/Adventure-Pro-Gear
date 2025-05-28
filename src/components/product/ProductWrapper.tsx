@@ -52,6 +52,11 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
     }
   }, [product, dispatch]);
 
+  const refreshReviews = async () => {
+    const data = await getAllReviewsByProductId(productId);
+    setReviews(data?.data);
+  };
+
   const buyWithThisProductsMemo = useMemo(() => buyWithThisProducts, [buyWithThisProducts]);
   const similarProductsMemo = useMemo(() => similarProducts, [similarProducts]);
 
@@ -232,6 +237,7 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
             reviewTitle={t('tabs.reviews')}
             helpful={t('tabs.helpful')}
             usersThink={t('tabs.usersThink')}
+            refreshReviews={refreshReviews}
           />
         )}
       </section>

@@ -9,9 +9,13 @@ export const token: { access: string | null; refresh: string | null } = {
 
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
-  headers: {
+  /* headers: {
     'ngrok-skip-browser-warning': 'true',
-  },
+  }, */
+});
+
+const refreshAxios = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
 axios.defaults.withCredentials = true;
@@ -20,7 +24,7 @@ axiosInstance.interceptors.request.use(
   async config => {
     const session = await getServerSession(options);
     const publicEndpoints = [
-      '/api/public/auth/refresh-token',
+      '/api/public/auth/refresh_token',
       '/api/public/password-reset/request',
       '/api/public/password-reset/reset',
       '/api/public/products',
@@ -38,14 +42,19 @@ axiosInstance.interceptors.request.use(
 );
 
 export const refreshTokenService = async (refreshToken: string) => {
-  const response = await axios.post('/api/public/auth/refresh-token', {
-    refreshToken,
-  });
-  console.log('RefreshToken Response: ', response);
-  if (response.status >= 400) {
-    throw new Error(`Refresh token error: ${response.status}`);
+  try {
+    const res = await refreshAxios.post(
+      '/api/public/auth/refresh_token',
+      {
+        refreshToken: `Bearer ${refreshToken}`,
+      }
+    );
+    return res;
+  } catch (error) {
+    return {
+      error: 'RefreshAccessTokenError',
+    };
   }
-  return response;
 };
 
 export const getProducts = async () => {
@@ -138,13 +147,13 @@ export const forgotPasswordService = async (email: FormDataEntryValue) => {
 };
 
 export const resetPasswordService = async (
-  token: FormDataEntryValue | null,
+  resetToken: FormDataEntryValue | null,
   newPassword: FormDataEntryValue,
   confirmPassword: FormDataEntryValue
 ) => {
   try {
     const resetPassword = await axiosInstance.post('/api/public/password-reset/reset', {
-      token,
+      token: resetToken,
       newPassword,
       confirmPassword,
     });

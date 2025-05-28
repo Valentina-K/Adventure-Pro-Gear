@@ -114,7 +114,7 @@ const Card: React.FC<CardProps> = ({
               {message}
             </div>
           )}
-          <Image className={styles.image} src={productImage} alt={productName} layout="fill" />
+          <Image className={styles.image} src={productImage} alt={productName} fill={true} />
           <div
             className={
               variant === 'big'

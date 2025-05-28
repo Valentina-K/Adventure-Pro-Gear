@@ -1,7 +1,9 @@
 import type { NextAuthOptions, User } from 'next-auth';
-import axios from 'axios';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
+import axios from 'axios';
+import _ from 'lodash';
+
 import {
   signInService,
   getUserInfoService,
@@ -10,6 +12,7 @@ import {
 } from '@/services/axios';
 import { AppRoutes } from '@/constants/routes';
 
+// Расширенный пользователь — нужен только в jwt при логине
 interface ExtendedUser extends User {
   token: {
     accessToken: string;
@@ -17,104 +20,135 @@ interface ExtendedUser extends User {
   };
 }
 
-const _ = require('lodash');
-
 export const options: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
-        email: { label: 'Email', type: 'email', placeholder: 'Email' },
+        email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' },
       },
       type: 'credentials',
       async authorize(credentials) {
-        if (!credentials) return;
+        if (!credentials) return null;
         const { email, password } = credentials;
         try {
-          const token = await signInService({ email, password });
-          apiToken.access = token.data.accessToken;
-          apiToken.refresh = token.data.refreshToken;
-          const userInfo = await getUserInfoService(apiToken.access);
-          if (userInfo.data.status >= 400) {
-            const errorMessage = userInfo.data.message;
-            throw new Error(
-              typeof errorMessage === 'string' ? errorMessage : JSON.stringify(errorMessage)
-            );
-          }
-          const user = {
-            ...userInfo.data,
-            token: token.data,
-            rememberMe: true,
+          const tokenResponse = await signInService({ email, password });
+          const tokenData = tokenResponse.data;
+
+          apiToken.access = tokenData.accessToken;
+          apiToken.refresh = tokenData.refreshToken;
+
+          const userInfoResponse = await getUserInfoService(apiToken.access);
+          const userInfo = userInfoResponse.data;
+
+          return {
+            ...userInfo,
+            token: tokenData, // вот почему ExtendedUser
           };
-          if (user) return user;
-          else return null;
         } catch (error) {
-          console.log(error, (error as Error).message);
-          if (axios.isAxiosError(error)) {
-            // This means the error is an Axios error and you can handle it accordingly
-            if (error.response) {
-              console.log('Error response data:', error.response.data);
-              const errorMessage =
-                error.response.data.message ||
-                error.response.data.errorMessage ||
-                'An unknown error occurred';
-              throw new Error(errorMessage);
-            } else {
-              console.log('Error without response data:', error);
-              throw new Error('No response received');
-            }
+          console.error('Authorize error:', error);
+
+          if (axios.isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.message || 'Authorization failed');
           } else {
-            // Handle non-Axios errors
-            console.log('Non-Axios error:', error);
-            throw new Error((error as Error).message);
+            throw new Error('Unknown error during login');
           }
-          // return error;
         }
       },
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
+
   callbacks: {
-    async jwt({ token, user, session }) {
-      if (user) {
-        token = { ...token, ...user };
-      }
+    async jwt({ token, user }) {
+      // При логине
       if (user && 'token' in user) {
         const extUser = user as ExtendedUser;
-        if (extUser.token.accessToken) {
-          const decoded = jwtDecode<JwtPayload>(extUser.token.accessToken);
-          const exp = (decoded.exp as number) * 1000;
-          if (Date.now() > exp) {
-            try {
-              const refreshedToken = await refreshTokenService(extUser.token.refreshToken);
-              const tokens = refreshedToken.data;
-              if (tokens.accessToken) {
-                extUser.token.accessToken = tokens.accessToken;
-                apiToken.access = tokens.accessToken;
-              }
-            } catch (error) {
-              console.error('Error refreshing token:', error);
-              // @ts-ignore
-              token.token.error = 'Failed to refresh session.';
-            }
+        console.log('extUser', extUser);
+        return {
+          ...token,
+          accessToken: extUser.token.accessToken,
+          refreshToken: extUser.token.refreshToken,
+          _refreshAttempted: false,
+          name: user.name,
+          surname: user.surname,
+          email: user.email,
+          role: user.role,
+          phone: user.phone,
+          street: user.street,
+          city: user.city,
+        };
+      }
+
+      // Проверка accessToken
+      if (token.accessToken) {
+        const decoded = jwtDecode<JwtPayload>(token.accessToken);
+        const exp = decoded.exp ? decoded.exp * 1000 : 0;
+
+        // Если токен ещё валиден
+        if (Date.now() < exp) {
+          return token;
+        }
+        if (token.error === 'RefreshAccessTokenError') {
+          return token;
+        }
+        if (token._refreshAttempted || token.error) {
+          return {
+            ...token,
+            error: 'RefreshAccessTokenError',
+          };
+        }
+        // Обновляем токен
+        try {
+          const refreshed = await refreshTokenService(token.refreshToken as string);
+          const newTokens = refreshed.data;
+          if (!newTokens || !newTokens.accessToken) {
+            throw new Error('No accessToken in response');
           }
+
+          return {
+            ...token,
+            accessToken: newTokens.accessToken,
+            refreshToken: newTokens.refreshToken ?? token.refreshToken,
+            _refreshAttempted: true,
+          };
+        } catch (err) {
+          console.error('Token refresh failed:', err);
+          return {
+            ...token,
+            error: 'RefreshAccessTokenError',
+          };
         }
       }
+
       return token;
     },
+
     async session({ session, token }) {
-      if (token.token) {
-        const deepClone = _.cloneDeep(token);
-        session.user = { ...deepClone };
+      if (token) {
+        session.user = {
+          name: token.name,
+          surname: token.surname,
+          email: token.email,
+          accessToken: token.accessToken,
+          refreshToken: token.refreshToken,
+          role: token.role,
+          phone: token.phone,
+          street: token.street,
+          city: token.city,
+        };
       }
-      return { ...session };
+
+      return session;
     },
   },
+
   session: {
     strategy: 'jwt',
-    maxAge: 30 * 24 * 60 * 60,
+    maxAge: 30 * 24 * 60 * 60, // 30 дней
   },
+
   pages: {
     signIn: AppRoutes.SIGNIN,
   },
