@@ -36,6 +36,7 @@ function FilteredProduct({ searchParams }: FilteredProductsPageProps) {
   const debouncedMinValue = useDebounce(minValue, 500);
   const debouncedMaxValue = useDebounce(maxValue, 500);
   const [sortOrder, setSortOrder] = useState('default');
+  const [difference, setDifference] = useState(0);
   const t = useTranslations('nav.search');
 
   useEffect(() => {
@@ -45,6 +46,7 @@ function FilteredProduct({ searchParams }: FilteredProductsPageProps) {
     setMaxRangeValue(Math.max(...prices));
     setMinValue(Math.min(...prices));
     setMaxValue(Math.max(...prices));
+    setDifference((Math.max(...prices) - Math.min(...prices)) / 10);
   }, [products]);
 
   useEffect(() => {
@@ -96,6 +98,7 @@ function FilteredProduct({ searchParams }: FilteredProductsPageProps) {
             setPage={setPage}
             minRange={minRangeValue}
             maxRange={maxRangeValue}
+            difference={difference}
           />
         </div>
         <div className={styles.contentPage_container}>

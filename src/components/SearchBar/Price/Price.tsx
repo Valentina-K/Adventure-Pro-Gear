@@ -18,6 +18,7 @@ interface IPriceProps {
   setPage: any;
   minRange?: number;
   maxRange?: number;
+  difference?: number;
 }
 
 const Price: FC<IPriceProps> = ({
@@ -29,25 +30,25 @@ const Price: FC<IPriceProps> = ({
   setPage,
   minRange = 0,
   maxRange = 100000,
+  difference = 100,
 }) => {
   const [searchFieldActive, setSearchFieldActive] = useState(false);
   /* const [search, setSearch] = useState<ISearch>({
     rangeMin: 0,
     rangeMax: 100000,
   }); */
-
   const handleFieldActive = () => {
     setSearchFieldActive(prev => !prev);
   };
 
   const handleChangeRanges = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.name === 'rangeMin') {
-      const value = Math.min(Number(e.target.value), maxValue - 100);
+      const value = Math.min(Number(e.target.value), maxValue - difference);
       createQueryString('priceFrom', value.toString());
       setMinValue(value);
       setPage(1);
     } else if (e.target.name === 'rangeMax') {
-      const value = Math.max(Number(e.target.value), minValue + 100);
+      const value = Math.max(Number(e.target.value), minValue + difference);
       createQueryString('priceTo', value.toString());
       setMaxValue(value);
       setPage(1);
