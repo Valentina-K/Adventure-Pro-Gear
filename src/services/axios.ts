@@ -30,6 +30,7 @@ axiosInstance.interceptors.request.use(
       '/api/public/products',
       'api/public/auth/login',
       'api/public/product',
+      'api/blog/posts'
     ];
     const needsAuth = !publicEndpoints.some(endpoint => config?.url?.startsWith(endpoint));
 

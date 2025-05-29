@@ -65,7 +65,6 @@ export const options: NextAuthOptions = {
       // При логине
       if (user && 'token' in user) {
         const extUser = user as ExtendedUser;
-        console.log('extUser', extUser);
         return {
           ...token,
           accessToken: extUser.token.accessToken,
@@ -75,9 +74,10 @@ export const options: NextAuthOptions = {
           surname: user.surname,
           email: user.email,
           role: user.role,
-          phone: user.phone,
-          street: user.street,
+          phoneNumber: user.phoneNumber,
+          streetAndHouseNumber: user.streetAndHouseNumber,
           city: user.city,
+          postalCode: user.postalCode,
         };
       }
 
@@ -134,9 +134,10 @@ export const options: NextAuthOptions = {
           accessToken: token.accessToken,
           refreshToken: token.refreshToken,
           role: token.role,
-          phone: token.phone,
-          street: token.street,
+          phoneNumber: token.phoneNumber,
+          streetAndHouseNumber: token.streetAndHouseNumber,
           city: token.city,
+          postalCode: token.postalCode,
         };
       }
 
