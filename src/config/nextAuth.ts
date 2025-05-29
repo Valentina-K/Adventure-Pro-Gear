@@ -3,7 +3,6 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
 import axios from 'axios';
 import _ from 'lodash';
-
 import {
   signInService,
   getUserInfoService,
@@ -11,7 +10,7 @@ import {
   token as apiToken,
 } from '@/services/axios';
 import { AppRoutes } from '@/constants/routes';
-
+import ensureJwtShape from '../utils/ensureJwtShape';
 // Расширенный пользователь — нужен только в jwt при логине
 interface ExtendedUser extends User {
   token: {
@@ -20,7 +19,7 @@ interface ExtendedUser extends User {
   };
 }
 
-export const options: NextAuthOptions = {
+const options: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: 'Credentials',
@@ -44,7 +43,7 @@ export const options: NextAuthOptions = {
 
           return {
             ...userInfo,
-            token: tokenData, // вот почему ExtendedUser
+            token: tokenData,
           };
         } catch (error) {
           console.error('Authorize error:', error);
@@ -65,60 +64,57 @@ export const options: NextAuthOptions = {
       // При логине
       if (user && 'token' in user) {
         const extUser = user as ExtendedUser;
-        return {
+        return ensureJwtShape({
           ...token,
           accessToken: extUser.token.accessToken,
           refreshToken: extUser.token.refreshToken,
-          _refreshAttempted: false,
+          refreshAttempted: false,
           name: user.name,
-          surname: user.surname,
+          surname: extUser.surname,
           email: user.email,
-          role: user.role,
-          phoneNumber: user.phoneNumber,
-          streetAndHouseNumber: user.streetAndHouseNumber,
-          city: user.city,
-          postalCode: user.postalCode,
-        };
+          role: extUser.role,
+        });
       }
 
       // Проверка accessToken
       if (token.accessToken) {
-        const decoded = jwtDecode<JwtPayload>(token.accessToken);
+        const accessTokenStr = typeof token.accessToken === 'string' ? token.accessToken : '';
+        const decoded = jwtDecode<JwtPayload>(accessTokenStr);
         const exp = decoded.exp ? decoded.exp * 1000 : 0;
 
         // Если токен ещё валиден
         if (Date.now() < exp) {
-          return token;
+          return ensureJwtShape(token);
         }
         if (token.error === 'RefreshAccessTokenError') {
-          return token;
+          return ensureJwtShape(token);
         }
-        if (token._refreshAttempted || token.error) {
-          return {
+        if (token.refreshAttempted || token.error) {
+          return ensureJwtShape({
             ...token,
             error: 'RefreshAccessTokenError',
-          };
+          });
         }
         // Обновляем токен
         try {
           const refreshed = await refreshTokenService(token.refreshToken as string);
-          const newTokens = refreshed.data;
+          const newTokens = refreshed;
           if (!newTokens || !newTokens.accessToken) {
             throw new Error('No accessToken in response');
           }
 
-          return {
+          return ensureJwtShape({
             ...token,
             accessToken: newTokens.accessToken,
             refreshToken: newTokens.refreshToken ?? token.refreshToken,
-            _refreshAttempted: true,
-          };
+            refreshAttempted: true,
+          });
         } catch (err) {
           console.error('Token refresh failed:', err);
-          return {
+          return ensureJwtShape({
             ...token,
             error: 'RefreshAccessTokenError',
-          };
+          });
         }
       }
 
@@ -127,17 +123,16 @@ export const options: NextAuthOptions = {
 
     async session({ session, token }) {
       if (token) {
-        session.user = {
-          name: token.name,
-          surname: token.surname,
-          email: token.email,
-          accessToken: token.accessToken,
-          refreshToken: token.refreshToken,
-          role: token.role,
-          phoneNumber: token.phoneNumber,
-          streetAndHouseNumber: token.streetAndHouseNumber,
-          city: token.city,
-          postalCode: token.postalCode,
+        return {
+          ...session,
+          user: {
+            name: token.name,
+            surname: token.surname,
+            email: token.email,
+            accessToken: token.accessToken,
+            refreshToken: token.refreshToken,
+            role: token.role,
+          },
         };
       }
 
@@ -154,3 +149,5 @@ export const options: NextAuthOptions = {
     signIn: AppRoutes.SIGNIN,
   },
 };
+
+export default options;

@@ -30,14 +30,13 @@ const Reviews: React.FC<ReviewsProp> = ({
   refreshReviews,
 }) => {
   const { data: session, status } = useSession();
-  console.log(session);
   const token = session?.user?.accessToken;
   const router = useRouter();
   if (!token && status === 'authenticated') {
     console.error('No access token found');
   }
   const handleClick = async (id:number, e: React.MouseEvent<HTMLButtonElement>) => {
-    if (!session) {
+    if (!session || !token) {
       router.push(`/${AppRoutes.SIGNIN}`);
       return;
     }
@@ -56,7 +55,8 @@ const Reviews: React.FC<ReviewsProp> = ({
     <div className={styles.wrapper}>
       <h2 className={styles.title}>
         {reviewTitle}
-        <span className={styles.productName}> 
+        {' '}
+        <span className={styles.productName}>
           {productName}
         </span>
       </h2>

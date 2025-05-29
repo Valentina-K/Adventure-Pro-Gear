@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getServerSession } from 'next-auth';
-import { options } from '@/config';
+import options from '@/config/nextAuth';
 
 export const token: { access: string | null; refresh: string | null } = {
   access: null,
@@ -35,7 +35,7 @@ axiosInstance.interceptors.request.use(
     const needsAuth = !publicEndpoints.some(endpoint => config?.url?.startsWith(endpoint));
 
     if (needsAuth && !config.headers.Authorization) {
-      config.headers.Authorization = `Bearer ${session?.user?.token.accessToken}`;
+      config.headers.Authorization = `Bearer ${session?.user?.accessToken}`;
     }
     return config;
   },
@@ -50,7 +50,7 @@ export const refreshTokenService = async (refreshToken: string) => {
         refreshToken: `Bearer ${refreshToken}`,
       }
     );
-    return res;
+    return res.data;
   } catch (error) {
     return {
       error: 'RefreshAccessTokenError',
@@ -106,13 +106,16 @@ export const getAllReviews = async (productId: number) => {
 };
 
 export const signUpService = async (credentials: any) => {
-  const { name, surname, email, password } = credentials;
-  return await axiosInstance.post('/api/public/registration/register', {
+  const {
+    name, surname, email, password
+  } = credentials;
+  const result = await axiosInstance.post('/api/public/registration/register', {
     name,
     surname,
     email,
     password,
   });
+  return result;
 };
 
 export const signInService = async (credentials: any) => {
@@ -158,7 +161,6 @@ export const resetPasswordService = async (
       newPassword,
       confirmPassword,
     });
-    console.log(resetPassword);
     return resetPassword.status;
   } catch (e) {
     console.log(e);
@@ -166,15 +168,19 @@ export const resetPasswordService = async (
 };
 
 export const getUsers = async () => {
-  /* return {data:undefined}; */ return await axiosInstance.get('/api/users');
+  const result = await axiosInstance.get('/api/users');
+  /* return {data:undefined}; */ return result;
 };
 
 export const deletePost = async (id: string) => {
-  /* return {data:undefined}; */ return await axiosInstance.delete(`/api/v1/products/${id}`);
+  const result = await axiosInstance.delete(`/api/v1/products/${id}`);
+  /* return {data:undefined}; */ return result;
 };
 
 export const updateUserDataService = async (personalData: any) => {
-  const { name, surname, phone, street, city } = personalData;
+  const {
+    name, surname, phone, street, city
+  } = personalData;
   try {
     const response = await axiosInstance.put('/api/users/me/update', {
       name,

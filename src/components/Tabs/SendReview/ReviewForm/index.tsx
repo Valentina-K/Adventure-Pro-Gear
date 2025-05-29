@@ -54,7 +54,7 @@ const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm }) => {
   }
 
   const handleSubmitForm: SubmitHandler<FormValues> = async data => {
-    if (!session) {
+    if (!session || !token) {
       router.push(`/${AppRoutes.SIGNIN}`);
       return;
     }

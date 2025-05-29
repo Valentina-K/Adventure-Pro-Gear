@@ -2,9 +2,8 @@ import React, { Suspense } from 'react';
 import { getServerSession } from 'next-auth/next';
 import { EmblaOptionsType } from 'embla-carousel';
 import { getTranslations } from 'next-intl/server';
-
 import type { IPageProps } from '@/types';
-import { options } from '@/config';
+import options from '@/config/nextAuth';
 import Container from '@/components/Container';
 import SignOutButton from '@/components/SignOutButton';
 import { getProducts } from '@/services/axios';
