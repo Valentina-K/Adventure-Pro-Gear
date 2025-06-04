@@ -6,8 +6,8 @@ interface ButtonProps
     React.AriaAttributes {
   children: React.ReactNode;
   color?: 'primary' | 'secondary' | 'transparent';
-	size?: 'small' | 'medium' | 'large';
-	full?: boolean
+  size?: 'small' | 'medium' | 'large';
+  full?: boolean
   icon?: React.ReactNode;
 }
 

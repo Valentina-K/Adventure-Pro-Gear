@@ -53,7 +53,7 @@ export const profileLinks: Props[] = [
     id: 4,
     label: 'exit',
     path: `${profile}/exit`,
-    icon: '/icons/Orders.svg',
+    icon: '/icons/SignOut.svg',
   },
 ];
 

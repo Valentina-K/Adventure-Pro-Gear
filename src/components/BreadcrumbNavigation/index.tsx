@@ -7,36 +7,29 @@ import BreadcrumbHome from '@/../public/icons/BreadcrumbHome.svg';
 import Arrows from '@/../public/icons/Arrows.svg';
 import { AppRoutes } from '@/constants/routes';
 import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { Locale } from '@/i18n-config';
 import Container from '../Container';
 import styles from './BreadcrumbNav.module.css';
 
 interface BreadcrumbNavigationProps {
   locale: Locale;
-  breadcrumbsData?: { [key: string]: string };
+  /* breadcrumbsData?: { [key: string]: string }; */
+  breadcrumbsData?: string;
 }
 
 const BreadcrumbNavigation: React.FC<BreadcrumbNavigationProps> = ({ locale, breadcrumbsData }) => {
+  const t = useTranslations(breadcrumbsData);
   const pathName = usePathname();
-  console.log(pathName);
-
   const modifyPathName = (path: string) => {
     const pathArray = path.split(AppRoutes.HOME);
     const filteredArray = pathArray.filter(element => element !== '');
-    console.log(filteredArray);
-    if (locale) {
+    if (locale && locale !== 'uk') {
       filteredArray.splice(0, 1);
     }
-    console.log('filtered Array: ', filteredArray);
     return filteredArray;
   };
   const pathParts = modifyPathName(pathName);
-  // const breadcrumbs = pathParts.map((pathname: string, index: number) => {
-  //   const href = pathParts.slice(0, index + 1).join('/');
-  //   const isLastItem = index === pathParts.length - 1;
-  //   const label = (breadcrumbsData && breadcrumbsData[pathname]) || pathname;
-  // });
-  console.log('Path Parts: ', pathParts);
 
   return (
     <div className={styles.breadcrumbsContainer}>
@@ -52,14 +45,14 @@ const BreadcrumbNavigation: React.FC<BreadcrumbNavigationProps> = ({ locale, bre
             <div key={index} className={styles.listItem}>
               <li>
                 {index === pathParts.length - 1 ? (
-                  <p>{breadcrumbsData && breadcrumbsData[pathPart]}</p>
+                  <p>{t(pathPart)}</p>
                 ) : (
                   <Link href={`/${locale}/${pathPart}/`}>
-                    {breadcrumbsData && breadcrumbsData[pathPart]}
+                    {t(pathPart)}
                   </Link>
                 )}
               </li>
-              {index !== pathParts.length - 1 ? (
+              {index !== pathParts.length - 1 && (
                 <Image
                   src={Arrows}
                   alt="arrow icon"
@@ -67,9 +60,7 @@ const BreadcrumbNavigation: React.FC<BreadcrumbNavigationProps> = ({ locale, bre
                   height={22}
                   className={styles.arrowIcon}
                 />
-              ) : (
-                <>{pathParts}</>
-              )}
+              ) }
             </div>
           ))}
         </ul>

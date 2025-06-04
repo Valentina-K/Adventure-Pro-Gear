@@ -1,12 +1,9 @@
 import React from 'react';
-import SignOutButton from '@/components/SignOutButton';
+import ExitModal from '@/components/ProfileMenu/ExitModal/ExitModal';
 
 function page() {
   return (
-    <div>
-      Sign Out page
-      <SignOutButton />
-    </div>
+    <ExitModal />
   );
 }
 
