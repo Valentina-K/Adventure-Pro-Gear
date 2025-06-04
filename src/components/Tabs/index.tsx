@@ -84,11 +84,16 @@ const Tabs: React.FC<TabsProps> = ({
         <div className={toggleState === 0 ? activeContentStyle : styles.content}>
           <div>{description}</div>
           <div className={styles.attributesBlock}>
-            <h3>{t('tabs.characteristics')}:</h3>
+            <h3>
+              {t('tabs.characteristics')}
+              :
+            </h3>
             <ul>
               {characteristics.map((item, index) => (
                 <li key={index}>
-                  {item.name}: {item.value}
+                  {item.name}
+                  :
+                  {item.value}
                 </li>
               ))}
             </ul>

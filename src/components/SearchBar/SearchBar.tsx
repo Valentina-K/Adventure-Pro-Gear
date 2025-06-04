@@ -12,6 +12,9 @@ interface ISearchBarProps {
   maxValue: number;
   minValue: number;
   setPage: any;
+  minRange?: number;
+  maxRange?: number;
+  difference?: number;
 }
 // eslint-disable-next-line arrow-body-style
 const SearchBar: FC<ISearchBarProps> = ({
@@ -21,6 +24,9 @@ const SearchBar: FC<ISearchBarProps> = ({
   maxValue,
   minValue,
   setPage,
+  minRange = 0,
+  maxRange = 100000,
+  difference = 100,
 }) => (
   <div className={styles.container}>
     <form>
@@ -31,6 +37,9 @@ const SearchBar: FC<ISearchBarProps> = ({
         setMinValue={setMinValue}
         setMaxValue={setMaxValue}
         setPage={setPage}
+        difference={difference}
+        minRange={minRange}
+        maxRange={maxRange}
       />
     </form>
   </div>

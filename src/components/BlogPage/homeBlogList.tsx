@@ -2,10 +2,10 @@ import React from 'react';
 import Image from 'next/image';
 import { Link } from '@/i18n/routing';
 import { getBlogs } from '@/services/axios';
-import { IBlogsProps } from '@/types';
-import style from './style.module.css';
 import { getTranslations } from 'next-intl/server';
 import clsx from 'clsx';
+import { IBlogsProps } from '@/types';
+import style from './style.module.css';
 
 interface Props {
   lang?: string;
@@ -13,9 +13,9 @@ interface Props {
 
 const homeBlogList = async ({ lang }: Props) => {
   const t = await getTranslations({ lang, namespace: 'blog' });
-  const blogs = await getBlogs();
+  const blogs = await getBlogs(0, 5);
 
-  if (blogs.length < 5) {
+  if (!blogs || blogs.totalElements < 5) {
     return null;
   }
 
@@ -26,7 +26,7 @@ const homeBlogList = async ({ lang }: Props) => {
       </div>
 
       <ul className={style.home_blog_list}>
-        {blogs?.slice(0, 5).map(({ id, titleEn, titleUa, imageUrl }: IBlogsProps) => (
+        {blogs?.content.slice(0, 5).map(({ id, titleEn, titleUa, imageUrl }: IBlogsProps) => (
           <li key={id} className={style.blogs_item}>
             <Link href={`/blog/${id}`} className={style.home_blog_link}>
               <div className={style.blogs_item_img}>

@@ -64,7 +64,6 @@ const Card: React.FC<CardProps> = ({ product, variant = 'standart' }) => {
   const productImage =
     product.contents.length > 0 ? product.contents[0].source : noImage;
   const className = getClassName(variant);
-  console.log(className);
   useEffect(() => {
     if (!message) return;
     const timer = setTimeout(() => setMessage(null), 2000);
@@ -115,7 +114,7 @@ const Card: React.FC<CardProps> = ({ product, variant = 'standart' }) => {
               {message}
             </div>
           )}
-          <Image className={styles.image} src={productImage} alt={productName} layout="fill" />
+          <Image className={styles.image} src={productImage} alt={productName} fill={true} />
           <div
             className={
               variant === 'big'

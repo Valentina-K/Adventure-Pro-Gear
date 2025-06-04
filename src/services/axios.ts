@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getServerSession } from 'next-auth';
-import { options } from '@/config';
+import options from '@/config/nextAuth';
 
 export const token: { access: string | null; refresh: string | null } = {
   access: null,
@@ -9,9 +9,13 @@ export const token: { access: string | null; refresh: string | null } = {
 
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
-  headers: {
+  /* headers: {
     'ngrok-skip-browser-warning': 'true',
-  },
+  }, */
+});
+
+const refreshAxios = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
 axios.defaults.withCredentials = true;
@@ -20,17 +24,18 @@ axiosInstance.interceptors.request.use(
   async config => {
     const session = await getServerSession(options);
     const publicEndpoints = [
-      '/api/public/auth/refresh-token',
+      '/api/public/auth/refresh_token',
       '/api/public/password-reset/request',
       '/api/public/password-reset/reset',
       '/api/public/products',
       'api/public/auth/login',
       'api/public/product',
+      'api/blog/posts'
     ];
     const needsAuth = !publicEndpoints.some(endpoint => config?.url?.startsWith(endpoint));
 
     if (needsAuth && !config.headers.Authorization) {
-      config.headers.Authorization = `Bearer ${session?.user?.token.accessToken}`;
+      config.headers.Authorization = `Bearer ${session?.user?.accessToken}`;
     }
     return config;
   },
@@ -38,14 +43,19 @@ axiosInstance.interceptors.request.use(
 );
 
 export const refreshTokenService = async (refreshToken: string) => {
-  const response = await axios.post('/api/public/auth/refresh-token', {
-    refreshToken,
-  });
-  console.log('RefreshToken Response: ', response);
-  if (response.status >= 400) {
-    throw new Error(`Refresh token error: ${response.status}`);
+  try {
+    const res = await refreshAxios.post(
+      '/api/public/auth/refresh_token',
+      {
+        refreshToken: `Bearer ${refreshToken}`,
+      }
+    );
+    return res.data;
+  } catch (error) {
+    return {
+      error: 'RefreshAccessTokenError',
+    };
   }
-  return response;
 };
 
 export const getProducts = async () => {
@@ -96,13 +106,16 @@ export const getAllReviews = async (productId: number) => {
 };
 
 export const signUpService = async (credentials: any) => {
-  const { name, surname, email, password } = credentials;
-  return await axiosInstance.post('/api/public/registration/register', {
+  const {
+    name, surname, email, password
+  } = credentials;
+  const result = await axiosInstance.post('/api/public/registration/register', {
     name,
     surname,
     email,
     password,
   });
+  return result;
 };
 
 export const signInService = async (credentials: any) => {
@@ -138,17 +151,16 @@ export const forgotPasswordService = async (email: FormDataEntryValue) => {
 };
 
 export const resetPasswordService = async (
-  token: FormDataEntryValue | null,
+  resetToken: FormDataEntryValue | null,
   newPassword: FormDataEntryValue,
   confirmPassword: FormDataEntryValue
 ) => {
   try {
     const resetPassword = await axiosInstance.post('/api/public/password-reset/reset', {
-      token,
+      token: resetToken,
       newPassword,
       confirmPassword,
     });
-    console.log(resetPassword);
     return resetPassword.status;
   } catch (e) {
     console.log(e);
@@ -156,15 +168,19 @@ export const resetPasswordService = async (
 };
 
 export const getUsers = async () => {
-  /* return {data:undefined}; */ return await axiosInstance.get('/api/users');
+  const result = await axiosInstance.get('/api/users');
+  /* return {data:undefined}; */ return result;
 };
 
 export const deletePost = async (id: string) => {
-  /* return {data:undefined}; */ return await axiosInstance.delete(`/api/v1/products/${id}`);
+  const result = await axiosInstance.delete(`/api/v1/products/${id}`);
+  /* return {data:undefined}; */ return result;
 };
 
 export const updateUserDataService = async (personalData: any) => {
-  const { name, surname, phone, street, city } = personalData;
+  const {
+    name, surname, phone, street, city
+  } = personalData;
   try {
     const response = await axiosInstance.put('/api/users/me/update', {
       name,
@@ -206,9 +222,15 @@ export const updateEmailService = async (personalData: any) => {
   }
 };
 
-export const getBlogs = async () => {
+export const getBlogs = async (page = 0, size = 5, sort = 'createdAt') => {
   try {
-    const response = await axiosInstance.get('api/blog/posts');
+    const response = await axiosInstance.get('api/blog/posts', {
+      params: {
+        page,
+        size,
+        sort,
+      },
+    });
     return response.data;
   } catch (error) {
     console.log(error);

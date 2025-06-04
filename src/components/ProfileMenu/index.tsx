@@ -35,7 +35,7 @@ const ProfileMenu: React.FC<ProfileMenuProps> = ({ className }) => {
           <Loading className={styles.loaddingProfilePicture} />
         ) : (
           <Link href="/personal_account/">
-            <div className={styles.profilePhoto}>{`${session?.user?.name[0]}`}</div>
+            <div className={styles.profilePhoto}>{`${session?.user?.name}`}</div>
             <div>{`${session?.user?.name} ${session?.user?.surname}`}</div>
           </Link>
         )}

@@ -4,9 +4,9 @@ import axios from 'axios';
 
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
-  headers: {
+  /* headers: {
     'ngrok-skip-browser-warning': 'true',
-  },
+  }, */
 });
 
 axios.defaults.withCredentials = true;
@@ -53,11 +53,12 @@ export const createReview = async (data: any, token: string) => {
   }
 };
 
-export const addLike = async (id: number, token: string) => {
+export const toggleLike = async (id: number, token: string) => {
   try {
-    const response = await axiosInstance.post(`api/public/products/reviews/${id}/like`, {
+    const response = await axiosInstance.post(`api/public/products/reviews/${String(id)}/toggle-like`, {}, {
       headers: {
         Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
       },
     });
     return response.data;
@@ -67,46 +68,18 @@ export const addLike = async (id: number, token: string) => {
   // return await axiosInstance.post(`api/public/products/reviews/${id}/like`);
 };
 
-export const addDislike = async (id: number, token: string) => {
+export const toggleDislike = async (id: number, token: string) => {
   try {
-    const response = await axiosInstance.post(`api/public/products/reviews/${id}/dislike`, {
+    const response = await axiosInstance.post(`api/public/products/reviews/${String(id)}/toggle-dislike`, {}, {
       headers: {
         Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
       },
     });
     return response.data;
   } catch (error) {
     console.log(error);
   }
-  // return await axiosInstance.post(`api/public/products/reviews/${id}/dislike`);
-};
-
-export const addUnlike = async (id: number, token: string) => {
-  try {
-    const response = await axiosInstance.post(`api/public/products/reviews/${id}/unlike`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
-  // return await axiosInstance.post(`api/public/products/reviews/${id}/unlike`);
-};
-
-export const addUnDislike = async (id: number, token: string) => {
-  try {
-    const response = await axiosInstance.post(`api/public/products/reviews/${id}/undislike`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
-  // return await axiosInstance.post(`api/public/products/reviews/${id}/undislike`);
 };
 
 export const getCategory = async () => {

@@ -6,7 +6,7 @@ import RatingStars from '@/components/RatingStars';
 import Image from 'next/image';
 import Like from '@/../public/images/ThumbsUp.png';
 import Dislike from '@/../public/images/ThumbsDown.png';
-import { addDislike, addLike } from '@/clientServices/clientAxios';
+import { toggleDislike, toggleLike } from '@/clientServices/clientAxios';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { AppRoutes } from '@/constants/routes';
@@ -18,6 +18,7 @@ interface ReviewsProp {
   reviewTitle: string;
   helpful: string;
   usersThink: string;
+  refreshReviews: () => void;
 }
 
 const Reviews: React.FC<ReviewsProp> = ({
@@ -26,27 +27,38 @@ const Reviews: React.FC<ReviewsProp> = ({
   reviewTitle,
   helpful,
   usersThink,
+  refreshReviews,
 }) => {
-  const { data: session } = useSession();
-  const token = session?.user?.token.accessToken;
+  const { data: session, status } = useSession();
+  const token = session?.user?.accessToken;
   const router = useRouter();
+  if (!token && status === 'authenticated') {
+    console.error('No access token found');
+  }
   const handleClick = async (id:number, e: React.MouseEvent<HTMLButtonElement>) => {
-    if (!token) {
+    if (!session || !token) {
       router.push(`/${AppRoutes.SIGNIN}`);
       return;
     }
     e.preventDefault();
     const target = e.target as HTMLButtonElement;
     let response;
-    if (target.id === 'like') response = await addLike(id, token);
-    else response = await addDislike(id, token);
-    console.log('response', response);
+    if (target.id === 'like') response = await toggleLike(id, token);
+    else response = await toggleDislike(id, token);
+    if (!response) {
+      console.log('Error response');
+      return;
+    }
+    refreshReviews();
   };
   return (
     <div className={styles.wrapper}>
       <h2 className={styles.title}>
         {reviewTitle}
-        <span className={styles.productName}> {productName}</span>
+        {' '}
+        <span className={styles.productName}>
+          {productName}
+        </span>
       </h2>
       <ul className={styles.reviewsList}>
         {reviews.map((items, index) => (
@@ -58,7 +70,7 @@ const Reviews: React.FC<ReviewsProp> = ({
                 <span>
                   {items.likes + items.dislikes === 0
                     ? 0
-                    : (100 * items.likes) / (items.likes + items.dislikes)}
+                    : Math.round((100 * items.likes) / (items.likes + items.dislikes))}
                   {' %'}
                   {usersThink}
                 </span>

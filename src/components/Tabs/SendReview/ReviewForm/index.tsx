@@ -48,13 +48,16 @@ const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm }) => {
 
   const params = useParams();
   const router = useRouter();
-  const token = session?.user?.token.accessToken;
+  const token = session?.user?.accessToken;
   if (!token && status === 'authenticated') {
     console.error('No access token found');
   }
 
   const handleSubmitForm: SubmitHandler<FormValues> = async data => {
-    if (!session) router.push(`/${AppRoutes.SIGNIN}`);
+    if (!session || !token) {
+      router.push(`/${AppRoutes.SIGNIN}`);
+      return;
+    }
     const { comment } = data;
     const { productId } = params;
     const response = await createReview({ comment, rating: rating_, productId }, token);

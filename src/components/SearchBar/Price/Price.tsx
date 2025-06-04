@@ -16,6 +16,9 @@ interface IPriceProps {
   maxValue: number;
   minValue: number;
   setPage: any;
+  minRange?: number;
+  maxRange?: number;
+  difference?: number;
 }
 
 const Price: FC<IPriceProps> = ({
@@ -25,41 +28,46 @@ const Price: FC<IPriceProps> = ({
   maxValue,
   minValue,
   setPage,
+  minRange = 0,
+  maxRange = 100000,
+  difference = 100,
 }) => {
   const [searchFieldActive, setSearchFieldActive] = useState(false);
-  const [search, setSearch] = useState<ISearch>({
+  /* const [search, setSearch] = useState<ISearch>({
     rangeMin: 0,
     rangeMax: 100000,
-  });
-
+  }); */
   const handleFieldActive = () => {
     setSearchFieldActive(prev => !prev);
   };
 
   const handleChangeRanges = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.name === 'rangeMin') {
-      const value = Math.min(Number(e.target.value), maxValue - 100);
+      const value = Math.min(Number(e.target.value), maxValue - difference);
       createQueryString('priceFrom', value.toString());
       setMinValue(value);
       setPage(0);
     } else if (e.target.name === 'rangeMax') {
-      const value = Math.max(Number(e.target.value), minValue + 100);
+      const value = Math.max(Number(e.target.value), minValue + difference);
       createQueryString('priceTo', value.toString());
       setMaxValue(value);
       setPage(0);
     }
-    setSearch({
+    /* setSearch({
       ...search,
       rangeMin: minValue,
       rangeMax: maxValue,
-    });
+    }); */
   };
 
   const getProgressStyle = () => {
-    const range = 100000 - 0;
+    const range = maxRange - minRange;
+    const left = ((minValue - minRange) / range) * 100;
+    const width = ((maxValue - minValue) / range) * 100;
+    /* const range = 100000 - 0;
 
     const left = ((minValue - 0) / range) * 100;
-    const width = ((maxValue - minValue) / range) * 100;
+    const width = ((maxValue - minValue) / range) * 100; */
 
     return {
       left: `${left}%`,
@@ -80,8 +88,8 @@ const Price: FC<IPriceProps> = ({
               type="range"
               name="rangeMin"
               value={minValue}
-              min="0"
-              max="100000"
+              min={minRange}
+              max={maxRange}
               step="10"
               className={`${styles.min} ${styles.range}`}
               onChange={handleChangeRanges}
@@ -91,8 +99,8 @@ const Price: FC<IPriceProps> = ({
               type="range"
               name="rangeMax"
               value={maxValue}
-              min="0"
-              max="100000"
+              min={minRange}
+              max={maxRange}
               step="10"
               className={`${styles.max} ${styles.range}`}
               onChange={handleChangeRanges}

@@ -8,7 +8,8 @@
     "search": {
       "placeholder": "Search",
       "unavailable": "Nothing was found for your request. Try again.",
-      "showall": "Show all"
+      "showall": "Show all",
+      "searchResults": "Phrase search results"
     },
     "catalog": " Catalog of goods",
     "lang": [
@@ -200,7 +201,9 @@
   "blog": {
     "title": "Blog",
     "description": "The Adventure Pro Gear blog",
-    "all_blogs": "All blogs"
+    "all_blogs": "All blogs",
+    "next": "Next",
+    "prev": "Prev"
   },
   "aboutPage": {
     "title": "About us",
@@ -250,5 +253,11 @@
     "workHours": "We work according to the following schedule:",
     "weekdays": "Monday-Saturday: 10-19",
     "weekend": "Sunday: 10-17 without lunch and weekends!"
+  },
+  "homePage" : {
+    "title": "Thousands of products for bright adventures!",
+    "description": "",
+    "news": "News",
+    "sale": "Sale"
   }
 }
