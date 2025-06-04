@@ -1,10 +1,9 @@
 import QuantitySelector from '@/components/QuantitySelector/QuantitySelector';
-import React, { useState } from 'react';
-import { Cart } from '@/types';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '@/redux/store';
-import { setQuantityCart } from '@/redux/products/slice';
+import { deleteShoppingProduct, setQuantityCart } from '@/redux/products/slice';
 import { selectOpenShoppingCart } from '@/redux/products/selectors';
 import trash from '../../../../public/icons/trash.svg';
 import styles from './BasketList.module.css';
@@ -22,7 +21,7 @@ interface IBasketListProps {
     mpe?: string;
     comment: string;
   };
-  setFormData: any;
+  setFormData: (form: any) => void;
   setSumOrder: any;
   variant?: 'default' | 'small';
 }
@@ -35,28 +34,33 @@ const BasketList: React.FC<IBasketListProps> = ({
 }) => {
   let shoppingCart = useSelector(selectOpenShoppingCart);
   const dispatch = useAppDispatch();
-  const [products, setProducts] = useState<Cart[]>(shoppingCart);
 
-  const trs = (basePrice: number, quantity: number) => {
-    setSumOrder((prev: number) => prev + basePrice * quantity);
-  };
+  useEffect(() => {
+    const total = shoppingCart.reduce((acc, item) => acc + item.basePrice * item.quantity, 0);
+    setSumOrder(total);
+  }, [shoppingCart]);
 
-  const handleChangeQuantity = (quantity: number, productId: number, basePrice: number) => {
-    // const changeProduct = products.map(item =>
-    //   (item.productId === productId ? { ...item, quantity: quantity } : item));
+  const handleChangeQuantity = (quantity: number, productId: number) => {
     dispatch(
       setQuantityCart({
         productId,
         quantity,
       })
     );
-    // setProducts(changeProduct);
-    trs(basePrice, quantity);
+
+    setFormData((prev: any) => ({
+      ...prev,
+      basket: shoppingCart,
+    }));
   };
+
+  const handleDeleteProduct = (product: number) => {
+    dispatch(deleteShoppingProduct(product));
+  }
 
   return (
     <ul className={styles.list}>
-      {products?.map(
+      {shoppingCart?.map(
         ({
           selfLink,
           productNameEn,
@@ -72,7 +76,7 @@ const BasketList: React.FC<IBasketListProps> = ({
               <Image src={selfLink} alt="photo" width={180} height={180} />
               <div className={styles.content}>
                 <h2 className={styles.item_title}>{productNameUa}</h2>
-                {variant !== 'small' && <p className={styles.item_price}>{basePrice} ₴</p>}
+                {variant !== 'small' && <p className={styles.item_price}>{basePrice}₴</p>}
 
                 <p className={styles.item_descr}>-Колір: {color}</p>
                 <p className={styles.item_descr}>Розмір: {size}</p>
@@ -80,20 +84,25 @@ const BasketList: React.FC<IBasketListProps> = ({
               </div>
 
               <div className={styles.count}>
-                <Image src={trash} alt="delete" className={styles.delete} />
+                <Image
+                  src={trash}
+                  alt="delete"
+                  className={styles.delete}
+                  onClick={() => handleDeleteProduct(productId)}
+                />
 
                 <div
                   className={`${variant === 'small' ? styles.quantity_container_small : styles.quantity_container}`}
                 >
                   {variant === 'small' ? (
                     <QuantitySelector
-                      onChange={quantity => handleChangeQuantity(quantity, productId, basePrice)}
+                      onChange={quantity => handleChangeQuantity(quantity, productId)}
                       quantity={quantity}
                       variant="small"
                     />
                   ) : (
                     <QuantitySelector
-                      onChange={quantity => handleChangeQuantity(quantity, productId, basePrice)}
+                      onChange={quantity => handleChangeQuantity(quantity, productId)}
                       quantity={quantity}
                     />
                   )}

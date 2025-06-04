@@ -14,7 +14,7 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
   quantity,
   variant = 'standart',
 }) => {
-  const [value, setValue] = useState<number>(1);
+  const [value, setValue] = useState<number>(quantity || 1);
   const [isDisabledPlus, setIsDisabledPlus] = useState<boolean>(false);
   const [isDisabledSubt, setIsDisabledSubt] = useState<boolean>(false);
 
@@ -36,12 +36,13 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
   }
 
   useEffect(() => {
-    if (value < quantity) setIsDisabledPlus(false);
-    else setIsDisabledPlus(true);
+    // if (value < quantity) setIsDisabledPlus(false);
+    // else setIsDisabledPlus(true);
     if (value > 1) setIsDisabledSubt(false);
     else setIsDisabledSubt(true);
     onChange(value);
-  }, [value]);
+  }, [value, quantity]);
+
 
   return (
     <div className={classNameWrapper}>

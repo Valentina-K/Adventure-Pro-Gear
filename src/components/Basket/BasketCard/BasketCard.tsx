@@ -19,7 +19,7 @@ interface IBasketCardProps {
     mpe?: string;
     comment: string;
   };
-  setFormData: any;
+  setFormData: (form: any) => void;
 }
 
 const BasketCard: React.FC<IBasketCardProps> = ({ formData, setFormData }) => {

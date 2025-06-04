@@ -10,7 +10,8 @@ import DeliveryCard from '@/components/Basket/DeliveryCard/Delivery';
 import PaymentCard from '@/components/Basket/PaymentCard/PaymentCard';
 import arrows from '../../../../../public/icons/Arrows.svg';
 import arrowsRight from '../../../../../public/icons/arrowsRight.svg';
-
+import { useAppDispatch } from '@/redux/store';
+import { clearShoppingCart } from '@/redux/products/slice';
 import styles from './basket.module.css';
 
 const Basket = () => {
@@ -26,6 +27,8 @@ const Basket = () => {
     mpe: '',
     comment: '',
   });
+
+  const dispatch = useAppDispatch();
 
   const [activeCard, setActiveCard] = useState<boolean[]>([true]);
   const [activeForm, setActiveForm] = useState<string>('');
@@ -45,6 +48,7 @@ const Basket = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('formData', formData);
+    dispatch(clearShoppingCart());
   };
   return (
     <Container>

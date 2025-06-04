@@ -65,6 +65,7 @@
 .delete {
   margin-left: auto;
   margin-bottom: 24px;
+  cursor: pointer;
 }
 
 .quantity_container {

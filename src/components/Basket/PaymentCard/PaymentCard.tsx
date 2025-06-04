@@ -9,7 +9,7 @@ import googlePay from '../../../../public/images/googlePay.png';
 
 import BasketList from '../BasketList/BasketList';
 
-const PaymentCard = ({ setFormData }: { setFormData: any }) => {
+const PaymentCard = ({ setFormData }: { setFormData: (form: any) => void }) => {
   const [activePayment, setActivePayment] = useState(1);
   const [sumOrder, setSumOrder] = useState(0);
 
@@ -110,7 +110,23 @@ const PaymentCard = ({ setFormData }: { setFormData: any }) => {
         </div>
       </div>
       <div>
-        <BasketList setSumOrder={setSumOrder} variant="small" />
+        <BasketList
+          setSumOrder={setSumOrder}
+          variant="small"
+          formData={{
+            name: '',
+            surname: '',
+            tel: undefined,
+            postAddress: '',
+            city: '',
+            pochtIndex: '',
+            basket: [],
+            company: undefined,
+            mpe: undefined,
+            comment: '',
+          }}
+          setFormData={setFormData}
+        />
         <p className={styles.sumOrder}>
           Загальна сума
           <span>{sumOrder}</span>

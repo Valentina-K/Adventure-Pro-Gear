@@ -9,7 +9,7 @@ import FollowingFill from '@/../public/icons/FollowingFill.svg';
 import Comercial from '@/../public/icons/Comercial.svg';
 import NotAvailable from '@/../public/images/soldout.png';
 import { Product } from '@/types/product';
-// import Payments from '@/constants/payments';
+import Payments from '@/constants/payments';
 import { setShoppingCart } from '@/redux/products/slice';
 import { useAppDispatch } from '@/redux/store';
 import noImage from '@/../public/images/no_image.png';
@@ -89,7 +89,7 @@ const Card: React.FC<CardProps> = ({ product, variant = 'standart' }) => {
       basePrice: product.basePrice,
       productId: product.productId,
       quantity: 1,
-      // payment: Payments.VISA,
+      payment: Payments.VISA,
       color: product.attributes[0].color,
       size: product.attributes[0].size,
     };

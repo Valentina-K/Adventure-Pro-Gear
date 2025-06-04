@@ -3,6 +3,7 @@
 }
 
 .paymentCard_container div {
+  position: relative;
   flex: 0 1 50%;
 }
 
@@ -51,6 +52,9 @@
 }
 
 .sumOrder {
+  position: absolute;
+  bottom: -15px;
+  right: 0;
   font-weight: var(--medium);
   font-size: var(--medium-16);
   line-height: 150%;

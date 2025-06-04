@@ -90,6 +90,10 @@ const Slide: React.FC<CardProps> = ({ product, variant }) => {
     event.preventDefault();
     event.stopPropagation();
     const shoppingCart = {
+      selfLink: product.contents.length > 0 ? product.contents[0].source : noImage,
+      productNameEn: product.productNameEn,
+      productNameUa: product.productNameUa,
+      basePrice: product.basePrice,
       productId: product.productId,
       quantity: 1,
       payment: Payments.VISA,

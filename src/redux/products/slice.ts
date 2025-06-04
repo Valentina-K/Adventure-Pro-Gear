@@ -50,10 +50,13 @@ const productsSlice = createSlice({
       state.cart.push(action.payload);
     },
     setQuantityCart(state, action: PayloadAction<any>) {
-      state.cart.findIndex(item =>
-        (item.productId === action.payload.productId
-          ? { ...item, quantity: action.payload.quantity }
-          : item));
+      const item = state.cart.find(item => item.productId === action.payload.productId);
+      if (item) {
+        item.quantity = action.payload.quantity;
+      }
+    },
+    deleteShoppingProduct(state, action: PayloadAction<any>) {
+      state.cart = state.cart.filter(item => item.productId !== action.payload);     
     },
     clearShoppingCart(state) {
       return { ...state, cart: [] };
@@ -70,6 +73,7 @@ export const {
   setReviewedProducts,
   setShoppingCart,
   setQuantityCart,
+  deleteShoppingProduct,
   clearShoppingCart,
 } = productsSlice.actions;
 
