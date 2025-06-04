@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import delivery from "../../../../public/icons/delivery.svg";
-import styles from "./BasketCard.module.css";
+import delivery from '../../../../public/icons/delivery.svg';
+import styles from './BasketCard.module.css';
 import BasketList from '../BasketList/BasketList';
 
 interface IBasketCardProps {

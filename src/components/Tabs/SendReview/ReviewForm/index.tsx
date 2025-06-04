@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -9,10 +9,9 @@ import Button from '@/components/Button';
 import { useParams, useRouter } from 'next/navigation';
 import { AppRoutes } from '@/constants/routes';
 import { createReview } from '@/clientServices/clientAxios';
+import { useLocale, useTranslations } from 'next-intl';
 import SetStarRating from '../SetStarRating';
 import styles from './ReviewForm.module.css';
-import { useLocale } from 'next-intl';
-import { useTranslations } from 'next-intl';
 
 type FormValues = {
   password: string;
@@ -71,7 +70,7 @@ const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm }) => {
       setIsSubmitted(false);
     } else setRefresh(false);
   }, [isSubmitted]);
-  const starClick = (rating: number) => setRating(rating);
+  const starClick = useCallback((rating: number) => setRating(rating), []);
   return (
     <form className={styles.reviewForm} onSubmit={handleSubmit(handleSubmitForm)}>
       <div className={styles.textReviewBlock}>

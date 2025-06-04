@@ -7,6 +7,7 @@ body,
   font-weight: var(--medium);
   line-height: var(--line-height-24);
   color: var(--black-900);
+  background-color: var(--wightAuth);
 }
 
 * {

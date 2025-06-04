@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { getServerSession } from 'next-auth/next';
 import type { IPageProps } from '@/types';
 
@@ -8,18 +8,23 @@ import SignOutButton from '@/components/SignOutButton';
 import { getProducts } from '@/services/axios';
 import Hero from '@/components/Hero/Hero';
 import AuthModal from '@/components/AuthModal';
+import { getTranslations } from 'next-intl/server';
+import HomeBlogList from '@/components/BlogPage/homeBlogList';
 
 async function Page({ params }: IPageProps) {
+  const { lang } = params;
+
   const session = await getServerSession(options);
+  const tBlog = await getTranslations({ lang, namespace: 'blog' });
 
   // toDo: too slow
   // const res = await getProducts();
   // console.log(res);
 
   return (
-    <section>
-      <Container>
-        <br />
+    <Container>
+      <br />
+      <section>
         {session ? (
           <>
             {/* <Hero data={res && res.data} locale={params.lang} /> */}
@@ -33,8 +38,22 @@ async function Page({ params }: IPageProps) {
           </>
         )}
         {/* <AuthModal locale={params.lang} /> */}
-      </Container>
-    </section>
+      </section>
+
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+
+      <Suspense fallback={<div>Loading...</div>}>
+        <HomeBlogList lang={lang} />
+      </Suspense>
+    </Container>
   );
 }
 

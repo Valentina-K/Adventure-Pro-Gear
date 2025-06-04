@@ -49,9 +49,15 @@ const productsSlice = createSlice({
     setShoppingCart(state, action: PayloadAction<any>) {
       state.cart.push(action.payload);
     },
+    setQuantityCart(state, action: PayloadAction<any>) {
+      state.cart.findIndex(item =>
+        (item.productId === action.payload.productId
+          ? { ...item, quantity: action.payload.quantity }
+          : item));
+    },
     clearShoppingCart(state) {
       return { ...state, cart: [] };
-    }
+    },
   },
 });
 
@@ -63,6 +69,7 @@ export const {
   setFilteredProducts,
   setReviewedProducts,
   setShoppingCart,
+  setQuantityCart,
   clearShoppingCart,
 } = productsSlice.actions;
 

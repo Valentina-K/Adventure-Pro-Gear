@@ -41,7 +41,7 @@
 }
 
 .send_btn {
-  min-width: 159px;
+  min-width: 140px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -57,7 +57,7 @@
 }
 
 .send_btn_text {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
   line-height: 27px;
   text-align: left;
@@ -69,7 +69,7 @@
 
 .blog_content {
   display: grid;
-  grid-template-columns: 1fr 380px;
+  grid-template-columns: 1fr 350px;
   gap: 28px;
 }
 
@@ -119,7 +119,7 @@
 .review {
   font-size: var(--small-16);
   line-height: var(--line-height-24);
-  text-align: left;
+  text-align: center;
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
   color: var(--primaryBlue);

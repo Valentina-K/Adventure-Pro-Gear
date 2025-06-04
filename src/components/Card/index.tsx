@@ -21,16 +21,15 @@ import styles from './Card.module.css';
 
 interface CardProps {
   variant?: 'big' | 'standart' | 'small';
-  onFavoriteClick?: (productId: number, isFavorite: boolean) => void;
   product: Product;
 }
 
 const getClassName = (variant: string) => {
   switch (variant) {
     case 'big':
-      return `${styles.cardWrapper} ${styles.big}`;
+      return `${styles.cardWrapper} ${styles.cardBig}`;
     case 'small':
-      return `${styles.cardWrapper} ${styles.small}`;
+      return `${styles.cardWrapper} ${styles.cardSmall}`;
     default:
       return styles.cardWrapper;
   }
@@ -39,13 +38,9 @@ const getClassName = (variant: string) => {
 const getImgClassName = (variant: string, isAvailable: boolean) => {
   switch (variant) {
     case 'big':
-      return !isAvailable
-        ? `${styles.imageWrapper} ${styles.big} ${styles.outStock}`
-        : `${styles.imageWrapper} ${styles.big}`;
+      return !isAvailable ? `${styles.imageWrapper} ${styles.big} ${styles.outStock}` : `${styles.imageWrapper} ${styles.big}`;
     case 'small':
-      return !isAvailable
-        ? `${styles.imageWrapper} ${styles.small} ${styles.outStock}`
-        : `${styles.imageWrapper} ${styles.small}`;
+      return !isAvailable ? `${styles.imageWrapper} ${styles.small} ${styles.outStock}` : `${styles.imageWrapper} ${styles.small}`;
     default:
       return !isAvailable ? `${styles.imageWrapper} ${styles.outStock}` : styles.imageWrapper;
   }
@@ -56,33 +51,25 @@ const Card: React.FC<CardProps> = ({ product, variant = 'standart' }) => {
   const dispatch = useAppDispatch();
   const locale = useLocale();
   const t = useTranslations('product');
-  const [newPrice, setNewPrice] = useState<number>(0);
-  const [isAvailable, setIsAvailable] = useState<boolean>(true);
-  const [productName, setProductName] = useState<string>('');
-  const [classNameImg, setClassNameImg] = useState<string>(styles.imageWrapper);
+
+  const isAvailable = product.attributes[0].quantity > 0;
+  const newPrice = product.basePrice - product.basePrice *
+  (product.attributes[0].priceDeviation / 100);
+  const productName = locale === 'uk' ? product.productNameUa : product.productNameEn;
+  const classNameImg = getImgClassName(variant, isAvailable);
+
   const [addToFavorite, setAddToFavorite] = useState<boolean>(false);
   const [message, setMessage] = useState<string | null>(null);
   const [following, setFollowing] = useState(FollowinIcon);
-  const productImage = product.contents.length > 0 ? product.contents[0].source : noImage;
+  const productImage =
+    product.contents.length > 0 ? product.contents[0].source : noImage;
   const className = getClassName(variant);
+  console.log(className);
   useEffect(() => {
-    if (message) {
-      const timer = setTimeout(() => setMessage(null), 2000);
-      return () => clearTimeout(timer); // Очистка таймера при размонтировании
-    }
+    if (!message) return;
+    const timer = setTimeout(() => setMessage(null), 2000);
+    return () => clearTimeout(timer);
   }, [message]);
-
-  useEffect(() => {
-    setNewPrice(
-      product.basePrice - product.basePrice * (product.attributes[0].priceDeviation / 100)
-    );
-    setProductName(locale === 'uk' ? product.productNameUa : product.productNameEn);
-    setIsAvailable(product.attributes[0].quantity > 0);
-    setClassNameImg(getImgClassName(variant, isAvailable));
-    if (addToFavorite) {
-      setFollowing(FollowingFill);
-    } else setFollowing(FollowinIcon);
-  }, [product, locale, addToFavorite, isAvailable, variant]);
 
   const handleAddToFavorite: (event: React.MouseEvent<HTMLButtonElement>) => void = event => {
     event.preventDefault(); // Отменяет переход
@@ -168,7 +155,7 @@ const Card: React.FC<CardProps> = ({ product, variant = 'standart' }) => {
             {product.basePrice !== newPrice ? (
               <div className={styles.price}>
                 <div className={styles.oldPrice}>
-                  <span>{product.basePrice} ₴</span>
+                  <span>{product.basePrice}₴</span>
                   <span
                     className={
                       variant === 'big'
@@ -176,7 +163,7 @@ const Card: React.FC<CardProps> = ({ product, variant = 'standart' }) => {
                         : `${styles.deviation}`
                     }
                   >
-                    {product.attributes[0].priceDeviation} %
+                    {product.attributes[0].priceDeviation}%
                   </span>
                 </div>
                 <div
@@ -184,7 +171,7 @@ const Card: React.FC<CardProps> = ({ product, variant = 'standart' }) => {
                     variant === 'big' ? `${styles.newPrice} ${styles.big}` : `${styles.newPrice}`
                   }
                 >
-                  {newPrice} ₴
+                  {newPrice}₴
                 </div>
               </div>
             ) : (
@@ -193,7 +180,7 @@ const Card: React.FC<CardProps> = ({ product, variant = 'standart' }) => {
                   variant === 'big' ? `${styles.newPrice} ${styles.big}` : `${styles.newPrice}`
                 }
               >
-                {product.basePrice} ₴
+                {product.basePrice}₴
               </div>
             )}
           </div>
@@ -221,4 +208,4 @@ const Card: React.FC<CardProps> = ({ product, variant = 'standart' }) => {
   );
 };
 
-export default Card;
+export default React.memo(Card);

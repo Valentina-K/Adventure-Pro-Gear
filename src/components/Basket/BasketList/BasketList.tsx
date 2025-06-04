@@ -1,10 +1,10 @@
-'use strict';
-
 import QuantitySelector from '@/components/QuantitySelector/QuantitySelector';
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { Cart } from '@/types';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
+import { useAppDispatch } from '@/redux/store';
+import { setQuantityCart } from '@/redux/products/slice';
 import { selectOpenShoppingCart } from '@/redux/products/selectors';
 import trash from '../../../../public/icons/trash.svg';
 import styles from './BasketList.module.css';
@@ -34,22 +34,29 @@ const BasketList: React.FC<IBasketListProps> = ({
   variant = 'default',
 }) => {
   let shoppingCart = useSelector(selectOpenShoppingCart);
+  const dispatch = useAppDispatch();
   const [products, setProducts] = useState<Cart[]>(shoppingCart);
 
-  const [sum, setSum] = useState(0);
+  const trs = (basePrice: number, quantity: number) => {
+    setSumOrder((prev: number) => prev + basePrice * quantity);
+  };
 
-  const handleChangeQuantity = (quantity: number, productId: number) => {
-    console.log('from changeQuantity', quantity, productId);
-
-    const changeProduct = shoppingCart.map(item =>
-      (item.productId === productId ? { ...item, quantity: quantity } : item));
-
-    setSum(quantity);
+  const handleChangeQuantity = (quantity: number, productId: number, basePrice: number) => {
+    // const changeProduct = products.map(item =>
+    //   (item.productId === productId ? { ...item, quantity: quantity } : item));
+    dispatch(
+      setQuantityCart({
+        productId,
+        quantity,
+      })
+    );
+    // setProducts(changeProduct);
+    trs(basePrice, quantity);
   };
 
   return (
     <ul className={styles.list}>
-      {shoppingCart?.map(
+      {products?.map(
         ({
           selfLink,
           productNameEn,
@@ -63,7 +70,6 @@ const BasketList: React.FC<IBasketListProps> = ({
           <li className={styles.item} key={productId}>
             <div className={styles.card}>
               <Image src={selfLink} alt="photo" width={180} height={180} />
-              {/* <div className={styles.img}> </div> */}
               <div className={styles.content}>
                 <h2 className={styles.item_title}>{productNameUa}</h2>
                 {variant !== 'small' && <p className={styles.item_price}>{basePrice} ₴</p>}
@@ -81,18 +87,18 @@ const BasketList: React.FC<IBasketListProps> = ({
                 >
                   {variant === 'small' ? (
                     <QuantitySelector
-                      onChange={quantity => handleChangeQuantity(quantity, productId)}
+                      onChange={quantity => handleChangeQuantity(quantity, productId, basePrice)}
                       quantity={quantity}
                       variant="small"
                     />
                   ) : (
                     <QuantitySelector
-                      onChange={quantity => handleChangeQuantity(quantity, productId)}
+                      onChange={quantity => handleChangeQuantity(quantity, productId, basePrice)}
                       quantity={quantity}
                     />
                   )}
 
-                  <p className={styles.item_price}>{sum}₴</p>
+                  <p className={styles.item_price}>{quantity * basePrice}₴</p>
                 </div>
               </div>
             </div>

@@ -84,4 +84,9 @@ export interface Cart {
   quantity: number;
   color: string;
   size: string;
+
+  selfLink: string;
+  productNameEn: string;
+  productNameUa: string;
+  basePrice: number;
 }
