@@ -100,9 +100,10 @@
     "breadcrumbs": {
       "personal_account": "Personal Account",
       "orders": "Orders",
-      "edit_data": "Edit Data",
-      "favourites": "Favourites",
-      "update_password": "Update the Password"
+      "edit_data": "Edit data",
+      "favorites": "Favorites",
+      "update_password": "Update the Password",
+      "exit": "Exit"
     }
   },
   "profile": {
@@ -117,7 +118,13 @@
       "Edit Data",
       "Favorites",
       "Exit"
-    ]
+    ],
+    "exitModal": {
+      "title": "Are you sure you want to exit your Personal Account?",
+      "text": "Your shopping cart will be saved and waiting for you.",
+      "cancel": "No, stay.",
+      "continue": "Yes, go out."
+    }
   },
   "product": {
     "page": {

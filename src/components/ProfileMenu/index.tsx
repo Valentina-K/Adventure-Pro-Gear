@@ -1,32 +1,27 @@
 'use client';
 
-import React, { useState, Suspense } from 'react';
+import React from 'react';
 import Image from 'next/image';
-import clsx from 'clsx'
-import { useSession, signOut } from 'next-auth/react';
-import { useLocale, useTranslations } from 'next-intl';
+import clsx from 'clsx';
+import { useSearchParams } from 'next/navigation';
+import { useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 import { Link, usePathname } from '@/i18n/routing';
 import { profileLinks } from '@/routes';
-
 import Loading from '@/components/Loading';
 import styles from './ProfileMenu.module.css';
-// import SignOut from '@/../public/icons/SignOut.svg';
-// import { AppRoutes } from '@/constants/routes';
-
-// import Orders from '@/../public/icons/Orders.svg';
-// import OrdersWhite from '@/../public/icons/OrdersWhite.svg';
-// import EditData from '@/../public/icons/EditData.svg';
-// import EditDataWhite from '@/../public/icons/EditDataWhite.svg';
 
 interface ProfileMenuProps {
   className?: string;
 }
 
 const ProfileMenu: React.FC<ProfileMenuProps> = ({ className }) => {
+  const searchParams = useSearchParams();
   const { data: session, status } = useSession();
-  const locale = useLocale();
   const t = useTranslations('profile.menuLinks');
   const pathName = usePathname();
+  const hideMenu = searchParams.get('hideMenu') === 'true';
+  if (hideMenu) return null;
 
   return (
     <div className={`${styles.profileMenu} ${className}`}>
@@ -35,17 +30,27 @@ const ProfileMenu: React.FC<ProfileMenuProps> = ({ className }) => {
           <Loading className={styles.loaddingProfilePicture} />
         ) : (
           <Link href="/personal_account/">
-            <div className={styles.profilePhoto}>{`${session?.user?.name}`}</div>
+            <div className={styles.profilePhoto}>
+              <Image src="/icons/Person.svg" width={24} height={24} alt="profile photo" />
+            </div>
             <div>{`${session?.user?.name} ${session?.user?.surname}`}</div>
           </Link>
         )}
       </div>
 
       <ul className={styles.menuList}>
-        {profileLinks.map(({ path, label, icon, id }) => {
+        {profileLinks.map(({
+          path, label, icon, id
+        }) => {
+          const isExit = id === 4;
+          const cleanPath = path.replace(/\/$/, '');
+          const isActive = pathName.startsWith(cleanPath);
           return (
             <li key={id} className={styles.menuItem}>
-              <Link href={path} className={clsx({ [styles.active]: pathName !== '/' && pathName === `${path}/` })}>
+              <Link
+                href={isExit ? `${path}?hideMenu=true` : path}
+                className={clsx({ [styles.active]: isActive })}
+              >
                 <Image src={icon} width={24} height={24} alt="some icon" />
                 {t(label)}
               </Link>
