@@ -37,7 +37,7 @@ const CatalogId = ({
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-  const paramsGetPage = searchParams.get('page') || '0';
+  const paramsGetPage = searchParams.get('page') || '1';
 
   const { data, isLoading, error } = useGetProductsQuery();
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -69,7 +69,7 @@ const CatalogId = ({
       setTotalElements(productsAll?.data?.totalElements);
       const pages = productsAll?.data?.totalPages;
 
-      setTotalPage(pages - 1);
+      setTotalPage(pages);
 
       setProducts(productsAll?.data?.content);
     })();
@@ -164,10 +164,7 @@ const CatalogId = ({
               {products &&
                 products?.map((item: Product) => (
                   <li key={item?.productId} className={styles.item}>
-                    <CatalogNameList
-                      item={item}
-                      variant={gridActive.table ? 'big' : 'standart'}
-                    />
+                    <CatalogNameList item={item} variant={gridActive.table ? 'big' : 'standart'} />
                   </li>
                 ))}
             </ul>

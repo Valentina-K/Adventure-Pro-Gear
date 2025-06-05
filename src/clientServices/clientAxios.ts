@@ -115,7 +115,7 @@ export const getProductsFilter = async ({
 }) => {
   try {
     const products = await axiosInstance.get(
-      `api/public/products/filter?page=${page}&size=2&subcategoryId=${subcategoryId}&priceFrom=${priceFrom}&priceTo=${priceTo}`
+      `api/public/products/filter?page=${page}&size=4&subcategoryId=${subcategoryId}&priceFrom=${priceFrom}&priceTo=${priceTo}`
     );
     return products;
   } catch (error) {

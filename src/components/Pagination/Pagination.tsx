@@ -3,7 +3,6 @@ import React from 'react';
 import arrowsLeft from '@/../public/icons/Arrows.svg';
 import arrowsRight from '@/../public/icons/arrowsRight.svg';
 import style from './Pagination.module.css';
-import { toNumber } from 'lodash';
 
 function Pagination(
   {
@@ -43,14 +42,14 @@ function Pagination(
       return Array.from({ length: totalPage }, (_, i) => i + 1);
     }
 
-    pages.push(0); // Перша сторінка
+    pages.push(1); // Перша сторінка
 
     if (Number(currentPage) > sidePages + 2) {
       pages.push('...');
     }
 
     for (
-      let i = Math.max(1, Number(currentPage) - sidePages);
+      let i = Math.max(2, Number(currentPage) - sidePages);
       i <= Math.min(totalPage - 1, Number(currentPage) + sidePages);
       i += 1
     ) {
@@ -75,19 +74,21 @@ function Pagination(
         </button>
       )}
 
-      {totalPage > 0
-        ? generatePages()?.map((page, index) => (
+      {
+        totalPage > 0 &&
+          generatePages()?.map((page, index) => (
             <button
               key={index + 1}
-              className={Number(currentPage) === page ? style.activePage : ''}
-              onClick={() => typeof page === 'number' && createQueryString('page', `${page}`)}
+              className={
+                Number(currentPage) + 1 === Number(page) ? style.activePage : ''
+              }
+              onClick={() => typeof page === 'number' && createQueryString('page', `${page - 1}`)}
             >
-             {page !== '...' ? Number(page + 1) : '...'}
-
+              {page !== '...' ? Number(page) : '...'}
             </button>
           ))
-        : ''}
-      {totalPage > 0 && Number(currentPage) !== totalPage ? (
+      }
+      {totalPage > 0 && Number(currentPage) !== (totalPage - 1) ? (
         <button className={style.pagination_btn_more} onClick={handleMorePage}>
           <span>Вперед</span>
           <Image src={arrowsLeft} alt="arrows Left" width={20} height={20} />
