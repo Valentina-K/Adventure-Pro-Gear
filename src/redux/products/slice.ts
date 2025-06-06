@@ -47,10 +47,13 @@ const productsSlice = createSlice({
       if (index === -1) state.reviewedProducts.push(action.payload);
     },
     setShoppingCart(state, action: PayloadAction<any>) {
+      if (!state.cart) {
+        state.cart = [];
+      }
       state.cart.push(action.payload);
     },
     setQuantityCart(state, action: PayloadAction<any>) {
-      const item = state.cart.find(item => item.productId === action.payload.productId);
+      const item = state.cart.find(it => it.productId === action.payload.productId);
       if (item) {
         item.quantity = action.payload.quantity;
       }
