@@ -24,7 +24,7 @@ function FilteredProduct({ searchParams }: FilteredProductsPageProps) {
   const products = useSelector(selectFilteredProducts);
   const [sortProducts, setSortProducts] = useState<Product[]>(products);
   const [totalPage, setTotalPage] = useState<number>(0);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [gridActive, setGridActive] = useState({
     table: false,
     grid: true,
@@ -59,7 +59,7 @@ function FilteredProduct({ searchParams }: FilteredProductsPageProps) {
 
     setTotalPage(Math.ceil(filtered.length / 12));
 
-    const startIdx = (page - 1) * 12;
+    const startIdx = (page) * 12;
     const paginated = filtered.slice(startIdx, startIdx + 12);
     setSortProducts(paginated);
   }, [products, debouncedMinValue, debouncedMaxValue, sortOrder, page]);

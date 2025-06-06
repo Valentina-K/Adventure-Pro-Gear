@@ -1,6 +1,7 @@
 import QuantitySelector from '@/components/QuantitySelector/QuantitySelector';
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '@/redux/store';
 import { deleteShoppingProduct, setQuantityCart } from '@/redux/products/slice';
@@ -56,26 +57,30 @@ const BasketList: React.FC<IBasketListProps> = ({
 
   const handleDeleteProduct = (product: number) => {
     dispatch(deleteShoppingProduct(product));
-  }
+  };
 
   return (
     <ul className={styles.list}>
       {shoppingCart?.map(
         ({
+          image,
           selfLink,
           productNameEn,
           productNameUa,
           basePrice,
           productId,
           quantity,
+          totalQuantity,
           color,
           size,
         }) => (
           <li className={styles.item} key={productId}>
             <div className={styles.card}>
-              <Image src={selfLink} alt="photo" width={180} height={180} />
+              <Image src={image} alt="photo" width={180} height={180} />
               <div className={styles.content}>
-                <h2 className={styles.item_title}>{productNameUa}</h2>
+                <Link href={selfLink}>
+                  <h2 className={styles.item_title}>{productNameUa}</h2>
+                </Link>
                 {variant !== 'small' && <p className={styles.item_price}>{basePrice}₴</p>}
 
                 <p className={styles.item_descr}>-Колір: {color}</p>
@@ -96,14 +101,16 @@ const BasketList: React.FC<IBasketListProps> = ({
                 >
                   {variant === 'small' ? (
                     <QuantitySelector
-                      onChange={quantity => handleChangeQuantity(quantity, productId)}
+                      onChange={quant => handleChangeQuantity(quant, productId)}
                       quantity={quantity}
+                      totalQuantity={totalQuantity}
                       variant="small"
                     />
                   ) : (
                     <QuantitySelector
-                      onChange={quantity => handleChangeQuantity(quantity, productId)}
+                      onChange={quant => handleChangeQuantity(quant, productId)}
                       quantity={quantity}
+                      totalQuantity={totalQuantity}
                     />
                   )}
 

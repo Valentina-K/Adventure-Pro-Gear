@@ -82,9 +82,10 @@ export interface Review {
 export interface Cart {
   productId: number;
   quantity: number;
+  totalQuantity: number;
   color: string;
   size: string;
-
+  image: string;
   selfLink: string;
   productNameEn: string;
   productNameUa: string;

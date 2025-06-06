@@ -17,7 +17,7 @@ import QuantitySelector from '@/components/QuantitySelector/QuantitySelector';
 import { Attributes, Review } from '@/types/product';
 import { getAllReviewsByProductId } from '@/clientServices/clientAxios';
 import { setReviewedProducts, setShoppingCart } from '@/redux/products/slice';
-
+import { usePathname } from 'next/navigation';
 import Comercial from '@/../public/icons/Comercial.svg';
 import { useAppDispatch } from '@/redux/store';
 import ProductCardsSlider from '../ProductCardsSlider';
@@ -47,6 +47,8 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
   const [tabIndex, setTabIndex] = useState(0);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [productReviews, setReviews] = useState<Review[]>(reviews);
+  const pathname = usePathname();
+  const fullUrl = `${pathname}`;
   useEffect(() => {
     if (product) {
       dispatch(setReviewedProducts(product));
@@ -79,12 +81,14 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
 
   const handleBuyClick = () => {
     const shoppingCart = {
-      selfLink: product.contents.length > 0 ? product.contents[0].source : noImage,
+      image: product.contents.length > 0 ? product.contents[0].source : noImage,
+      selfLink: fullUrl,
       productNameEn: product.productNameEn,
       productNameUa: product.productNameUa,
       basePrice: product.basePrice,
       productId: product.productId,
       quantity: buyQuantity,
+      totalQuantity: product.attributes[attrIndex].quantity,
       color: product.attributes[attrIndex].color,
       size: product.attributes[attrIndex].size,
     };
@@ -204,7 +208,7 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
               {activeIndex === null && <p className={styles.alert}>{t('page.alert')}</p>}
               <div className={styles.buySection}>
                 <QuantitySelector
-                  quantity={product.attributes[attrIndex].quantity}
+                  totalQuantity={product.attributes[attrIndex].quantity}
                   onChange={quantity => handleChangeQuantity(quantity)}
                 />
                 <Button

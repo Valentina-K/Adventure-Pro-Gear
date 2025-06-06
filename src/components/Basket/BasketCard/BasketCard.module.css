@@ -50,7 +50,7 @@
 }
 .coupon {
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   gap: 32px;
   margin-bottom: 16px;
 }
