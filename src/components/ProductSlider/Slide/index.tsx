@@ -86,12 +86,20 @@ const Slide: React.FC<CardProps> = ({ product, variant }) => {
     } else setMessage(t('card.addToFollowing'));
   };
 
+  const domain = typeof window !== 'undefined' ? window.location.origin : '';
+
   const handleBuyClick: (event: React.MouseEvent<HTMLButtonElement>) => void = event => {
     event.preventDefault();
     event.stopPropagation();
     const shoppingCart = {
+      image: product.contents.length > 0 ? product.contents[0].source : noImage,
+      selfLink: `${domain}/product/${product.productId}`,
+      productNameEn: product.productNameEn,
+      productNameUa: product.productNameUa,
+      basePrice: product.basePrice,
       productId: product.productId,
       quantity: 1,
+      totalQuantity: product.attributes[0].quantity,
       payment: Payments.VISA,
       color: product.attributes[0].color,
       size: product.attributes[0].size,

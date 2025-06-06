@@ -1,0 +1,53 @@
+.invoice_container {
+  position: absolute;
+  right: 0;
+}
+
+.title {
+  font-weight: var(--medium);
+  font-size: var(--medium-18);
+  line-height: 150%;
+  letter-spacing: 0%;
+  margin-bottom: 24px;
+}
+
+/* =========form========== */
+.radio_container {
+  display: flex;
+  margin-bottom: 24px;
+}
+
+.input {
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.radio_container input[type='radio']:checked {
+  accent-color: #4e4c4c;
+}
+
+.label {
+  display: flex;
+
+  font-weight: var(--medium);
+  font-size: var(--medium-16);
+  line-height: 150%;
+  letter-spacing: 0%;
+  margin-right: 36px;
+  cursor: pointer;
+}
+
+.deliveryForm_container {
+}
+
+.textarea {
+  resize: none;
+  outline: none;
+  width: 580px;
+  min-height: 174px;
+  border: 1px solid var(--gray-300);
+  border-radius: 5px;
+  color: var(--placeholder);
+  padding: 14px 20px;
+  margin-bottom: 24px;
+}

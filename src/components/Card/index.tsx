@@ -38,18 +38,15 @@ const getClassName = (variant: string) => {
 const getImgClassName = (variant: string, isAvailable: boolean) => {
   switch (variant) {
     case 'big':
-      return !isAvailable ? `${styles.imageWrapper} ${styles.imgBig} ${styles.outStock}` : `${styles.imageWrapper} ${styles.imgBig}`;
+      return !isAvailable ? `${styles.imageWrapper} ${styles.big} ${styles.outStock}` : `${styles.imageWrapper} ${styles.big}`;
     case 'small':
-      return !isAvailable ? `${styles.imageWrapper} ${styles.imgSmall} ${styles.outStock}` : `${styles.imageWrapper} ${styles.imgSmall}`;
+      return !isAvailable ? `${styles.imageWrapper} ${styles.small} ${styles.outStock}` : `${styles.imageWrapper} ${styles.small}`;
     default:
       return !isAvailable ? `${styles.imageWrapper} ${styles.outStock}` : styles.imageWrapper;
   }
 };
 
-const Card: React.FC<CardProps> = ({
-  product,
-  variant = 'standart',
-}) => {
+const Card: React.FC<CardProps> = ({ product, variant = 'standart' }) => {
   const session = useSession();
   const dispatch = useAppDispatch();
   const locale = useLocale();
@@ -63,8 +60,7 @@ const Card: React.FC<CardProps> = ({
 
   const [addToFavorite, setAddToFavorite] = useState<boolean>(false);
   const [message, setMessage] = useState<string | null>(null);
-  const followingIcon = addToFavorite ? FollowingFill : FollowinIcon;
-
+  const [following, setFollowing] = useState(FollowinIcon);
   const productImage =
     product.contents.length > 0 ? product.contents[0].source : noImage;
   const className = getClassName(variant);
@@ -83,12 +79,19 @@ const Card: React.FC<CardProps> = ({
     } else setMessage(t('card.addToFollowing'));
   };
 
+  const domain = typeof window !== 'undefined' ? window.location.origin : '';
   const handleBuyClick: (event: React.MouseEvent<HTMLButtonElement>) => void = event => {
     event.preventDefault();
     event.stopPropagation();
     const shoppingCart = {
+      image: product.contents.length > 0 ? product.contents[0].source : noImage,
+      selfLink: `${domain}/product/${product.productId}`,
+      productNameEn: product.productNameEn,
+      productNameUa: product.productNameUa,
+      basePrice: product.basePrice,
       productId: product.productId,
       quantity: 1,
+      totalQuantity: product.attributes[0].quantity,
       payment: Payments.VISA,
       color: product.attributes[0].color,
       size: product.attributes[0].size,
@@ -135,7 +138,7 @@ const Card: React.FC<CardProps> = ({
             {product.attributes[0].label && <div className={styles.new}>{t('card.new')}</div>}
           </div>
           <button onClick={handleAddToFavorite} className={styles.following}>
-            <Image src={followingIcon} width={20} height={18} alt="following" />
+            <Image src={following} width={20} height={18} alt="following" />
           </button>
         </div>
         <div className={styles.cardContent}>
@@ -154,10 +157,7 @@ const Card: React.FC<CardProps> = ({
             {product.basePrice !== newPrice ? (
               <div className={styles.price}>
                 <div className={styles.oldPrice}>
-                  <span>
-                    {product.basePrice}
-                    ₴
-                  </span>
+                  <span>{product.basePrice}₴</span>
                   <span
                     className={
                       variant === 'big'
@@ -165,8 +165,7 @@ const Card: React.FC<CardProps> = ({
                         : `${styles.deviation}`
                     }
                   >
-                    {product.attributes[0].priceDeviation}
-                    %
+                    {product.attributes[0].priceDeviation}%
                   </span>
                 </div>
                 <div
@@ -174,8 +173,7 @@ const Card: React.FC<CardProps> = ({
                     variant === 'big' ? `${styles.newPrice} ${styles.big}` : `${styles.newPrice}`
                   }
                 >
-                  {newPrice}
-                  ₴
+                  {newPrice}₴
                 </div>
               </div>
             ) : (
@@ -184,8 +182,7 @@ const Card: React.FC<CardProps> = ({
                   variant === 'big' ? `${styles.newPrice} ${styles.big}` : `${styles.newPrice}`
                 }
               >
-                {product.basePrice}
-                ₴
+                {product.basePrice}₴
               </div>
             )}
           </div>

@@ -46,12 +46,12 @@ const Price: FC<IPriceProps> = ({
       const value = Math.min(Number(e.target.value), maxValue - difference);
       createQueryString('priceFrom', value.toString());
       setMinValue(value);
-      setPage(1);
+      setPage(0);
     } else if (e.target.name === 'rangeMax') {
       const value = Math.max(Number(e.target.value), minValue + difference);
       createQueryString('priceTo', value.toString());
       setMaxValue(value);
-      setPage(1);
+      setPage(0);
     }
     /* setSearch({
       ...search,

@@ -69,10 +69,9 @@ const CatalogId = ({
       setTotalElements(productsAll?.data?.totalElements);
       const pages = productsAll?.data?.totalPages;
 
-      setTotalPage(pages - 1);
+      setTotalPage(pages);
 
       setProducts(productsAll?.data?.content);
-      // createQueryString('subcategoryId', (params.catalogId).toString());
     })();
   }, [debouncedMaxValue, debouncedMinValue, page, params.catalogId, searchParams]);
 
@@ -90,8 +89,8 @@ const CatalogId = ({
       paramsCreate.set(name, value);
 
       if (name === 'priceTo' || name === 'priceFrom') {
-        setPage('1');
-        paramsCreate.set('page', '1');
+        setPage('0');
+        paramsCreate.set('page', '0');
       }
 
       if (name === 'page') {
@@ -165,10 +164,7 @@ const CatalogId = ({
               {products &&
                 products?.map((item: Product) => (
                   <li key={item?.productId} className={styles.item}>
-                    <CatalogNameList
-                      item={item}
-                      variant={gridActive.table ? 'big' : 'standart'}
-                    />
+                    <CatalogNameList item={item} variant={gridActive.table ? 'big' : 'standart'} />
                   </li>
                 ))}
             </ul>

@@ -5,16 +5,18 @@ import styles from './QuantitySelector.module.css';
 
 interface QuantitySelectorProps {
   onChange: (value: number) => void;
-  quantity: number;
+  quantity?: number;
+  totalQuantity: number;
   variant?: 'standart' | 'small' | 'admin';
 }
 
 const QuantitySelector: React.FC<QuantitySelectorProps> = ({
   onChange,
-  quantity,
+  quantity = 1,
+  totalQuantity,
   variant = 'standart',
 }) => {
-  const [value, setValue] = useState<number>(1);
+  const [value, setValue] = useState<number>(quantity);
   const [isDisabledPlus, setIsDisabledPlus] = useState<boolean>(false);
   const [isDisabledSubt, setIsDisabledSubt] = useState<boolean>(false);
 
@@ -36,12 +38,12 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
   }
 
   useEffect(() => {
-    if (value < quantity) setIsDisabledPlus(false);
+    if (value < totalQuantity) setIsDisabledPlus(false);
     else setIsDisabledPlus(true);
     if (value > 1) setIsDisabledSubt(false);
     else setIsDisabledSubt(true);
     onChange(value);
-  }, [value, quantity]);
+  }, [value, totalQuantity]);
 
   return (
     <div className={classNameWrapper}>

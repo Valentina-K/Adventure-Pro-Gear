@@ -15,6 +15,7 @@ const publicRoutes = [
   AppRoutes.FORGOT_PASSWORD,
   `/?auth=reset-password&token=*`,
   '/contacts/',
+  '/basket',
   '/about_us/',
   '/policy/',
   '/error/',

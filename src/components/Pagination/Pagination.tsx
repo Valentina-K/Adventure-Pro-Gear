@@ -35,7 +35,7 @@ function Pagination(
 
   const generatePages = () => {
     const pages = [];
-    const maxVisiblePages = 3; // Скільки номерів відображати (без "...")
+    const maxVisiblePages = 2; // Скільки номерів відображати (без "...")
     const sidePages = 2; // Скільки сторінок навколо поточної
 
     if (totalPage <= maxVisiblePages) {
@@ -67,25 +67,28 @@ function Pagination(
 
   return (
     <div className={style.pagination_container}>
-      {totalPage > 0 && Number(currentPage) !== 1 && (
+      {totalPage > 0 && Number(currentPage) !== 0 && (
         <button className={style.pagination_btn_back} onClick={handleBackPage}>
           <Image src={arrowsRight} alt="arrows Right" width={20} height={20} />
           <span> Назад</span>
         </button>
       )}
 
-      {totalPage > 0
-        ? generatePages()?.map((page, index) => (
-          <button
-            key={index + 1}
-            className={Number(currentPage) === page ? style.activePage : ''}
-            onClick={() => typeof page === "number" && createQueryString('page', `${page}`)}
-          >
-            {page}
-          </button>
-        ))
-        : ''}
-      {totalPage > 0 && Number(currentPage) !== totalPage ? (
+      {
+        totalPage > 0 &&
+          generatePages()?.map((page, index) => (
+            <button
+              key={index + 1}
+              className={
+                Number(currentPage) + 1 === Number(page) ? style.activePage : ''
+              }
+              onClick={() => typeof page === 'number' && createQueryString('page', `${page - 1}`)}
+            >
+              {page !== '...' ? Number(page) : '...'}
+            </button>
+          ))
+      }
+      {totalPage > 0 && Number(currentPage) !== (totalPage - 1) ? (
         <button className={style.pagination_btn_more} onClick={handleMorePage}>
           <span>Вперед</span>
           <Image src={arrowsLeft} alt="arrows Left" width={20} height={20} />
