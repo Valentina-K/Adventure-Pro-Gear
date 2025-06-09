@@ -9,20 +9,6 @@ import styles from './Tabs.module.css';
 interface TabsProps {
   description: string;
   characteristics: Characteristics[];
-  /* translation: {
-    tabs: {
-      description: string;
-      characteristics: string;
-      reviews: string;
-      important_to_us: string;
-      tell_us: string;
-      message: string;
-      rate: string;
-      send: string;
-      password: string;
-      thanking: string;
-    };
-  }; */
   onChangeTab: (tabIndex: number) => void;
   onReviewSend: (isSend: boolean) => void;
 }

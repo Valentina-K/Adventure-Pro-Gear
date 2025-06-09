@@ -21,20 +21,6 @@ type FormValues = {
 
 interface ReviewFormProp {
   onSubmitForm: (isOk: boolean) => void;
-  /* translation: {
-    tabs: {
-      description: string;
-      characteristics: string;
-      reviews: string;
-      important_to_us: string;
-      tell_us: string;
-      message: string;
-      rate: string;
-      send: string;
-      password: string;
-      thanking: string;
-    };
-  }; */
 }
 
 const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm }) => {
@@ -55,6 +41,7 @@ const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm }) => {
 
   const handleSubmitForm: SubmitHandler<FormValues> = async data => {
     if (!session || !token) {
+      localStorage.setItem("redirectAfterLogin", window.location.pathname);
       router.push(`/${AppRoutes.SIGNIN}`);
       return;
     }
@@ -83,16 +70,18 @@ const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm }) => {
       <div className={styles.inputBlock}>
         {!session && (
           <>
-            <label>
+            <label htmlFor="review-email">
               <input
+                id="review-email"
                 className={styles.reviewInput}
                 type="email"
                 {...register('email', { required: true })}
                 placeholder="E-mail"
               />
             </label>
-            <label>
+            <label htmlFor="review-password">
               <input
+                id="review-password"
                 className={styles.reviewInput}
                 type="password"
                 {...register('password', { required: true })}

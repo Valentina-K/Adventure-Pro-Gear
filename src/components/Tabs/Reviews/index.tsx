@@ -37,6 +37,7 @@ const Reviews: React.FC<ReviewsProp> = ({
   }
   const handleClick = async (id:number, e: React.MouseEvent<HTMLButtonElement>) => {
     if (!session || !token) {
+      localStorage.setItem("redirectAfterLogin", window.location.pathname);
       router.push(`/${AppRoutes.SIGNIN}`);
       return;
     }
