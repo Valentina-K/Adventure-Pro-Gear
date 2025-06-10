@@ -59,7 +59,7 @@ const productsSlice = createSlice({
       }
     },
     deleteShoppingProduct(state, action: PayloadAction<any>) {
-      state.cart = state.cart.filter(item => item.productId !== action.payload);     
+      state.cart = state.cart.filter(item => item.productId !== action.payload);
     },
     clearShoppingCart(state) {
       return { ...state, cart: [] };
