@@ -32,7 +32,6 @@ const AuthModal = () => {
   const closeModal = () => {
     const params = new URLSearchParams(searchParams.toString());
     params.delete('auth');
-
     const newUrl = `${path}${params.toString() ? `?${params.toString()}` : ''}`;
     router.push(newUrl, { scroll: false });
   };

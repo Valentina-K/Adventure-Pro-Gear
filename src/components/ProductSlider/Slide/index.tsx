@@ -79,7 +79,7 @@ const Slide: React.FC<CardProps> = ({ product, variant }) => {
 
   const handleAddToFavorite: (event: React.MouseEvent<HTMLButtonElement>) => void = event => {
     event.preventDefault();
-    event.stopPropagation(); 
+    event.stopPropagation();
     if (session.data) {
       setAddToFavorite(!addToFavorite);
       // onFavoriteClick(product.productId, !addToFavorite);

@@ -41,9 +41,15 @@ const SignIn: React.FC = () => {
       });
 
       if (response?.ok) {
-        router.push({
-          pathname: `${AppRoutes.PERSONAL_ACCOUNT}`,
-        });
+        const redirectUrl = localStorage.getItem('redirectAfterLogin') || '/';
+        if (redirectUrl !== '/') {
+          localStorage.removeItem('redirectAfterLogin');
+          router.push(redirectUrl);
+        } else {
+          router.push({
+            pathname: `${AppRoutes.PERSONAL_ACCOUNT}`,
+          });
+        }
       } else {
         setError('email', {
           type: 'manual',
@@ -79,10 +85,7 @@ const SignIn: React.FC = () => {
           required
         />
 
-        <Link
-          href={`${AppRoutes.FORGOT_PASSWORD}`}
-          className={styles.restorePasswordLink}
-        >
+        <Link href={`${AppRoutes.FORGOT_PASSWORD}`} className={styles.restorePasswordLink}>
           {t('login.forgotPassword')}
         </Link>
 
