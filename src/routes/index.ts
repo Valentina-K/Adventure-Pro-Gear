@@ -85,7 +85,7 @@ export const footerInformationLinks: Props[] = [
   {
     id: 5,
     label: 'term',
-    path: '',
+    path: '/policy',
     icon: '',
   },
 ];

@@ -12,10 +12,7 @@
       "searchResults": "Phrase search results"
     },
     "catalog": " Catalog of goods",
-    "lang": [
-      "Українська",
-      "English"
-    ]
+    "lang": ["Українська", "English"]
   },
   "auth": {
     "name": "Name",
@@ -88,10 +85,7 @@
     "resetPasswordModal": {
       "heading": "Reset password",
       "info": "Enter new password",
-      "placeholder": [
-        "New Password",
-        "Confirm new password"
-      ],
+      "placeholder": ["New Password", "Confirm new password"],
       "submit-button": "Save"
     },
     "confirmPassword": "Password is not matching!"
@@ -113,12 +107,7 @@
       "favorites": "Favorites",
       "exit": "Exit"
     },
-    "menuData": [
-      "Orders",
-      "Edit Data",
-      "Favorites",
-      "Exit"
-    ],
+    "menuData": ["Orders", "Edit Data", "Favorites", "Exit"],
     "exitModal": {
       "title": "Are you sure you want to exit your Personal Account?",
       "text": "Your shopping cart will be saved and waiting for you.",
@@ -137,7 +126,7 @@
       "availableOptions": "Available options",
       "color": "Color",
       "clear": "Clear",
-      "size":"Size (choose color first)",
+      "size": "Size (choose color first)",
       "alert": "First, choose your product option."
     },
     "card": {
@@ -250,9 +239,7 @@
     }
   },
   "contactPage": {
-    "breadcrumbs": [
-      "Contacts"
-    ],
+    "breadcrumbs": ["Contacts"],
     "title": "Our contacts",
     "address": "Our store is located at the address:",
     "phone": "Phone",
@@ -261,10 +248,127 @@
     "weekdays": "Monday-Saturday: 10-19",
     "weekend": "Sunday: 10-17 without lunch and weekends!"
   },
-  "homePage" : {
+  "homePage": {
     "title": "Thousands of products for bright adventures!",
     "description": "",
     "news": "News",
     "sale": "Sale"
+  },
+  "policy": {
+    "title": "User Agreement",
+    "description": "The following text constitutes an agreement between the online store, whose website is located on the Internet at zzzzzzzz.com.ua, hereinafter referred to as the \"Online Store\", and the user of the Online Store's services, hereinafter referred to as the \"Customer\", and defines the terms for purchasing goods through the online store's website.",
+    "block1": {
+      "title": "1. General Provisions",
+      "1-1": "1.1. This agreement is a public offer agreement (in accordance with Articles 633, 641 and Chapter 63 of the Civil Code of Ukraine), its terms are identical for all customers regardless of status (individual, legal entity, individual entrepreneur).",
+      "1-2": "1.2. By accepting the terms of this agreement, i.e., the public offer of the Online Store, the user becomes a Customer."
+    },
+    "block2": {
+      "title": "2. Terms and Definitions",
+      "2-1": "2.1. Product — the list of goods published on the Online Store's website.",
+      "2-2": "2.2. Customer — an individual who has reached the age of eighteen, receives information from the Online Store, places orders and purchases Products presented on the Online Store's website for purposes not related to business activities, or a legal entity/individual entrepreneur.",
+      "2-3": "2.3. Order — a completed and submitted request by the Customer, addressed to the Online Store, for the purchase and delivery of Products on their behalf and by their instruction.",
+      "2-4": "2.4. Website — a collection of pages accessible through a web browser and software modules unified by a single management system, located on the Internet at zzzzzzz.com.ua and containing all the features of a public offer for the sale of Products.",
+      "2-5": "2.5. Personal Account — a space on the Website accessible to the Customer, which displays their personal information and history of Orders placed by them."
+    },
+    "block3": {
+      "title": "3. Subject of the Agreement",
+      "3-1": "3.1. This agreement defines the procedure for interaction and conditions for the Online Store to provide services to the Customer, based on their aspirations, desires and ability to use services for the sale of Products on behalf of and at the expense of the Customer, their delivery, as well as the Online Store's desire to provide the Customer with information about the Product of interest to the Customer and sell the required Products.",
+      "3-2": "3.2. The Online Store provides the Customer with sales and delivery services for Products.",
+      "3-3": "3.3. The Customer accepts the terms of this agreement at the moment of placing an Order by clicking the \"Place Order\" button, which expresses the Customer's confirmation of reading the text of this agreement and agreeing to its terms. Subsequently, any objections from the Customer regarding providing their consent in this manner relieves the Online Store of any liability for non-performance of the terms of this agreement and leaves the Online Store with the right to cancel the Order unilaterally."
+    },
+    "block4": {
+      "title": "4. Website Usage Rules",
+      "4-1": "4.1. The Customer may browse the Website content, place orders, and use its other services.",
+      "4-2": "4.2. Registration is required for the Customer to access personalized information and gain additional Website functionality.",
+      "4-3": {
+        "text": "4.3. The Customer can register on the website in the following way: complete registration. During registration, the Customer enters the following data:",
+        "name": "• First name, last name",
+        "password": "• Password",
+        "email": "• Email address"
+      },
+      "4-4": "4.4. The Customer undertakes to provide accurate, precise and complete information about themselves. The Online Store is not responsible for the accuracy and correctness of information provided by the Customer during registration and Order placement.",
+      "4-5": "4.5. After registering on the Website, the Customer is granted access to their Personal Account.",
+      "4-6": "4.6. The Customer undertakes not to disclose access parameters specified during registration to third parties. If the Customer suspects unauthorized use of such parameters by third parties, the Customer undertakes to immediately notify the Online Store by calling the contact center at the phone number specified on the terraincognita.com.ua website.",
+      "4.7": "4.7. The Customer is responsible for any actions performed on the Website under their account and on their behalf.",
+      "4-8": "4.8. The Online Store has the right to refuse the Customer use of the Online Store's services if there are grounds to believe that the Customer provided false information, as well as in case of dishonest behavior (for example, violation of the terms of this agreement, etc.).",
+      "4-9": "4.9. It is prohibited to use the Website for illegal and prohibited activities. Online Store customers agree to comply with Ukrainian laws and behavioral norms accepted on the Internet, namely, but not limited to, posting materials of extremist, pornographic or other nature on the website that affects and/or restricts the honor, dignity and/or business reputation of third parties and violates generally accepted moral norms, as well as posting advertising information without the Online Store's permission."
+    },
+    "block5": {
+      "title": "5. Order Placement Procedure",
+      "5-1": "5.1. The Customer places an Order on the Website independently by adding selected Products to the virtual cart \"My Orders\" and clicking the \"Place Order\" button.",
+      "5-2": "5.2. All Customers can place Orders for Products, regardless of registration. Orders are processed and delivered throughout Ukraine according to the terms and delivery methods specified in the 'Delivery' section on the terraincognita.com.ua website.",
+      "5-3": "5.3. Payment is made: online by bank payment card, cash payment in stores or by card, as well as cash on delivery when the Product is delivered by postal services. Payment is made in the national currency of Ukraine — hryvnias."
+    },
+    "block6": {
+      "title": "6. Payment Procedure",
+      "6-1": "6.1. Payment for Products is made directly in stores, by cash or bank card, online payment or cash on delivery. You can also pay on the website through online payment. More information about delivery methods can be found in the 'Payment' section on the zzzzzz.com.ua website."
+    },
+    "block7": {
+      "title": "7. Exchange and Return Terms",
+      "7-1": "7.1. Detailed return conditions are described in the 'Exchange and Returns' section on the zzzz.com.ua website."
+    },
+    "block8": {
+      "title": "8. Order Delivery Procedure",
+      "8-1": {
+        "title": "8.1. Delivery Terms:",
+        "8-1-1": "8.1.1. Delivery throughout Ukraine is free with a minimum order amount of 3,000.00 UAH for non-promotional items.",
+        "8-1-2": "8.1.2. When ordering products worth from 1 UAH to 3,000.00 UAH, delivery cost is according to the rates of the carrier 'Nova Poshta'."
+      },
+      "8-2": "8.2. The Customer should inquire with the Online Store administration about the possibility of delivery outside Ukraine.",
+      "8-3": "8.3. Upon Order delivery, the Customer receives the following documents from the Online Store representative: a cash receipt (or expense invoice) confirming the Customer's payment for the Product and/or Online Store services.",
+      "8-4": "8.4. More information about delivery terms and methods can be found in the 'Delivery' section on the zzz.com.ua website."
+    },
+    "block9": {
+      "title": "9. Warranty Obligations",
+      "9-1": "9.1. Product quality meets standards, technical specifications, other technical documentation that establishes quality requirements or samples (standards). Product compliance with Ukrainian legislation requirements is confirmed in the manner and procedure provided by current Ukrainian legislation.",
+      "9-2": "9.2. The Seller guarantees that it transfers to the Customer the ordered Product of proper quality, suitable for use for the purpose for which such Product is normally used.",
+      "9-3": "9.3. The Seller ensures proper use by the Customer of the purchased Product during the warranty period established by Ukrainian regulatory legal acts.",
+      "9-4": "9.4. The warranty period begins from the date of sale (the date on which the cash receipt or expense invoice was issued) of the ordered Product to the Customer.",
+      "9-5": {
+        "text": "9.5. If the Customer discovers Product defects during the warranty period, the Customer has the right:",
+        "variant1": "9.5.1. to proportional reduction of the Product price;",
+        "variant2": "9.5.2. to free elimination of Product defects within a reasonable time;",
+        "variant3": "9.5.3. to compensation for expenses for eliminating Product defects."
+      },
+      "9-6": {
+        "text": "9.6. If the Customer discovers significant Product defects during the warranty period, the Customer has the right:",
+        "variant1": "9.6.1. to terminate the Public Agreement and return the money paid for the Product;",
+        "variant2": "9.6.2. to demand replacement of the Product with the same or similar one from those available to the Seller."
+      },
+      "9-7": "9.7. The warranty period is extended by the term of the Seller's free elimination of Product defects. The specified term is calculated from the day when the Customer transferred the Product to the Seller for defect elimination.",
+      "9-8": "9.8. More information about warranty obligations can be found in the 'Warranty' section on the terraincognita.com.ua website."
+    },
+    "block10": {
+      "title": "10. Confidentiality and Personal Data Protection",
+      "10-1": "10.1. When registering on the Website, the Customer provides personal data specified in paragraph 4.3.1. of this agreement.",
+      "10-2": {
+        "text": "10.2. The Customer can register on the website in the following way: complete registration. During registration, the Customer enters the following data:",
+        "delivery": "• delivery addresses",
+        "info": "• information about the Customer's tastes, interests, preferences",
+        "other": "• and other information."
+      },
+      "10-3": "10.3. By providing personal data on the Website during registration or Order placement, the Customer gives voluntary consent to the processing and use (including transfer) of their personal data without limitation of the validity period of such consent in accordance with the Law of Ukraine \"On Personal Data Protection\" dated June 1, 2010.",
+      "10-4": "10.4. The Online Store uses the obtained personal data for the purposes of selling Products and providing services defined by this agreement, for promoting services provided by the Online Store, including through automated processing of personal data.",
+      "10-5": "10.5. The Online Store undertakes not to disclose information received from the Customer. Providing information by the Online Store to agents and third parties acting under an agreement with the Online Store, including for fulfilling obligations to the Customer, as well as in cases where disclosure of such information is established by legislative requirements, is not considered a violation.",
+      "10-6": "10.6. The Customer is responsible for keeping their personal data up to date. The Online Store is not responsible for poor performance or non-performance of its obligations due to outdated information about the Customer or non-compliance with reality."
+    },
+    "block11": {
+      "title": "11. Information Messages",
+      "11-1": "11.1. By registering on the Website or placing an Order without registration, the Customer gives the Online Store consent to receive information messages from the Online Store and its partners acting under an agreement with the Online Store, via short message service (SMS) and email.",
+      "11-2": "11.2. At any time, the Customer has the right to refuse receiving such mailings; for this, it is necessary to contact customer support with a request."
+    },
+    "block12": {
+      "title": "12. Rules for Using Materials Posted on the Website",
+      "12-1": "12.1. The Website contains materials, trademarks, trade names and other legally protected materials, including but not limited to texts, photographs, graphic images and others.",
+      "12-2": "12.2. All Website content is protected by Ukrainian legislation.",
+      "12-3": "12.3. The Customer has no right to use materials posted on the Website, such as: making changes, publishing, transferring to third parties, participating in sales or assignment, creating derivative products, etc."
+    },
+    "block13": {
+      "title": "13. Other Terms",
+      "13-1": "13.1. This agreement is concluded on the territory of Ukraine and is governed by Ukrainian civil law.",
+      "13-2": "13.2. The invalidity of any clause or part of this agreement does not lead to the invalidity of the agreement as a whole.",
+      "13-3": "13.3. All disputes arising between the Customer and the Online Store are resolved through negotiations. In case of failure to reach resolution of the disputed issue, the Customer or Online Store may apply to judicial authorities for dispute resolution in accordance with current legislation.",
+      "13-4": "13.4. The Online Store has the right to make changes to the text of this agreement at its own discretion at any time and without prior notice to Customers. The current (valid) version of the agreement is always available at zzz.com.ua."
+    }
   }
 }
