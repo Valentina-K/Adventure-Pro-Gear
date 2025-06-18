@@ -1,7 +1,8 @@
+import Favorites from '@/components/ProfileMenu/Favorites/Favorites';
 import React from 'react';
 
-function Favorites() {
-  return <div>Save your favourite items here!</div>;
+function page() {
+  return <Favorites />;
 }
 
-export default Favorites;
+export default page;

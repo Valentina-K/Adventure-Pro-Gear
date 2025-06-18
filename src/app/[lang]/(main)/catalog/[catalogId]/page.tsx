@@ -12,10 +12,10 @@ import SearchBar from '@/components/SearchBar/SearchBar';
 import Pagination from '@/components/Pagination/Pagination';
 import { Product } from '@/types/product';
 import useDebounce from '@/hooks/useDebounce';
-import CatalogNameList from '@/components/ForCatalogPage/CatalogNameList/CatalogNameList';
 import ViewCatalogList from '@/components/ForCatalogPage/ViewCatalogList/ViewCatalogList';
 import DropdownMenu from '@/components/ForCatalogPage/DropdownMenu/DropdownMenu';
-
+import useLocalStorage from '@/hooks/useLocalStorage';
+import Card from '@/components/Card';
 import styles from './CatalogName.module.css';
 
 interface ICategoriesApi {
@@ -56,6 +56,7 @@ const CatalogId = ({
     table: false,
     grid: true,
   });
+  const favStorage = useLocalStorage('favorites');
 
   useEffect(() => {
     const fetchData = (async () => {
@@ -164,7 +165,7 @@ const CatalogId = ({
               {products &&
                 products?.map((item: Product) => (
                   <li key={item?.productId} className={styles.item}>
-                    <CatalogNameList item={item} variant={gridActive.table ? 'big' : 'standart'} />
+                    <Card product={item} variant={gridActive.table ? 'big' : 'standart'} favoriteStore={favStorage} />
                   </li>
                 ))}
             </ul>

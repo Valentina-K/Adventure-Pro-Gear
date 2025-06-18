@@ -5,7 +5,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import Navigation from '@/components/Navigation/Navigation';
 import { selectFilteredProducts } from '@/redux/products/selectors';
 import { useSelector } from 'react-redux';
-import CatalogNameList from '@/components/ForCatalogPage/CatalogNameList/CatalogNameList';
 import Pagination from '@/components/Pagination/Pagination';
 import ViewCatalogList from '@/components/ForCatalogPage/ViewCatalogList/ViewCatalogList';
 import DropdownMenu from '@/components/ForCatalogPage/DropdownMenu/DropdownMenu';
@@ -13,6 +12,8 @@ import SearchBar from '@/components/SearchBar/SearchBar';
 import { useTranslations } from 'next-intl';
 import { Product } from '@/types';
 import useDebounce from '@/hooks/useDebounce';
+import useLocalStorage from '@/hooks/useLocalStorage';
+import Card from '@/components/Card';
 import styles from './styles.module.css';
 
 interface FilteredProductsPageProps {
@@ -38,6 +39,7 @@ function FilteredProduct({ searchParams }: FilteredProductsPageProps) {
   const [sortOrder, setSortOrder] = useState('default');
   const [difference, setDifference] = useState(0);
   const t = useTranslations('nav.search');
+  const favStorage = useLocalStorage('favorites');
 
   useEffect(() => {
     if (products.length === 0) return;
@@ -122,7 +124,7 @@ function FilteredProduct({ searchParams }: FilteredProductsPageProps) {
               {sortProducts &&
                 sortProducts.map((item: Product) => (
                   <li key={item.productId} className={styles.item}>
-                    <CatalogNameList item={item} variant={gridActive.table ? 'big' : 'standart'} />
+                    <Card product={item} variant={gridActive.table ? 'big' : 'standart'} favoriteStore={favStorage} />
                   </li>
                 ))}
             </ul>
