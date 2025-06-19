@@ -42,7 +42,7 @@
 @media screen and (min-width: 644px) {
   .cardBig {
     width: 280px;
-    padding: 16px 16px 16px 0;
+    padding: 16px;
   }
 }
 

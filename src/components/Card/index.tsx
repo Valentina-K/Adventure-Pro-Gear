@@ -13,6 +13,7 @@ import Payments from '@/constants/payments';
 import { setShoppingCart } from '@/redux/products/slice';
 import { useAppDispatch } from '@/redux/store';
 import noImage from '@/../public/images/no_image.png';
+import type { FavoriteStore } from '@/hooks/useLocalStorage';
 import { Link } from '../../i18n/routing';
 import Button from '../Button';
 import RatingStars from '../RatingStars';
@@ -22,6 +23,7 @@ import styles from './Card.module.css';
 interface CardProps {
   variant?: 'big' | 'standart' | 'small';
   product: Product;
+  favoriteStore: FavoriteStore;
 }
 
 const getClassName = (variant: string) => {
@@ -38,45 +40,68 @@ const getClassName = (variant: string) => {
 const getImgClassName = (variant: string, isAvailable: boolean) => {
   switch (variant) {
     case 'big':
-      return !isAvailable ? `${styles.imageWrapper} ${styles.big} ${styles.outStock}` : `${styles.imageWrapper} ${styles.big}`;
+      return !isAvailable
+        ? `${styles.imageWrapper} ${styles.imgBig} ${styles.outStock}`
+        : `${styles.imageWrapper} ${styles.imgBig}`;
     case 'small':
-      return !isAvailable ? `${styles.imageWrapper} ${styles.small} ${styles.outStock}` : `${styles.imageWrapper} ${styles.small}`;
+      return !isAvailable
+        ? `${styles.imageWrapper} ${styles.imgSmall} ${styles.outStock}`
+        : `${styles.imageWrapper} ${styles.imgSmall}`;
     default:
       return !isAvailable ? `${styles.imageWrapper} ${styles.outStock}` : styles.imageWrapper;
   }
 };
 
-const Card: React.FC<CardProps> = ({ product, variant = 'standart' }) => {
+const Card: React.FC<CardProps> = ({ product, variant = 'standart', favoriteStore }) => {
   const session = useSession();
   const dispatch = useAppDispatch();
   const locale = useLocale();
   const t = useTranslations('product');
+  const { addItem, removeItem, isExistItem } = favoriteStore;
 
   const isAvailable = product.attributes[0].quantity > 0;
-  const newPrice = product.basePrice - product.basePrice *
-  (product.attributes[0].priceDeviation / 100);
+  const newPrice =
+    product.basePrice - product.basePrice * (product.attributes[0].priceDeviation / 100);
   const productName = locale === 'uk' ? product.productNameUa : product.productNameEn;
   const classNameImg = getImgClassName(variant, isAvailable);
 
   const [addToFavorite, setAddToFavorite] = useState<boolean>(false);
   const [message, setMessage] = useState<string | null>(null);
   const [following, setFollowing] = useState(FollowinIcon);
-  const productImage =
-    product.contents.length > 0 ? product.contents[0].source : noImage;
+  const productImage = product.contents.length > 0 ? product.contents[0].source : noImage;
   const className = getClassName(variant);
+
   useEffect(() => {
     if (!message) return;
     const timer = setTimeout(() => setMessage(null), 2000);
     return () => clearTimeout(timer);
   }, [message]);
 
-  const handleAddToFavorite: (event: React.MouseEvent<HTMLButtonElement>) => void = event => {
-    event.preventDefault(); // Отменяет переход
-    event.stopPropagation(); // Остановит всплытие
+  useEffect(() => {
     if (session.data) {
-      setAddToFavorite(!addToFavorite);
-      // onFavoriteClick(product.productId, !addToFavorite);
-    } else setMessage(t('card.addToFollowing'));
+      const icon = isExistItem(product.productId) ? FollowingFill : FollowinIcon;
+      setFollowing(icon);
+    }
+  }, [session, isExistItem, product]);
+
+  const handleAddToFavorite = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    if (!session.data) {
+      setMessage(t('card.addToFollowing'));
+      return;
+    }
+
+    const isCurrentlyFavorite = isExistItem(product.productId);
+    if (isCurrentlyFavorite) {
+      removeItem(product.productId);
+      setFollowing(FollowinIcon);
+      setAddToFavorite(false);
+    } else {
+      addItem(product);
+      setFollowing(FollowingFill);
+      setAddToFavorite(true);
+    }
   };
 
   const domain = typeof window !== 'undefined' ? window.location.origin : '';

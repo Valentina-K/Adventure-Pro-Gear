@@ -4,10 +4,10 @@ import React from 'react';
 import { EmblaOptionsType } from 'embla-carousel';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
-
-import { DotButton, useDotButton } from './EmblaCarouselDotButton';
-import Slide from './Slide';
 import { Product } from '@/types';
+import useLocalStorage from '@/hooks/useLocalStorage';
+import { DotButton, useDotButton } from './EmblaCarouselDotButton';
+import Card from '../Card';
 import styles from './styles.module.css';
 
 type Props = {
@@ -15,9 +15,7 @@ type Props = {
   slides: Product[];
   options?: EmblaOptionsType;
   delay?: number;
-  className?: string;
   autoplay?: boolean;
-  variant?: 'big' | 'small';
   length?: number;
 };
 
@@ -27,7 +25,7 @@ const EmblaCarousel: React.FC<Props> = ({ slides, options, title, length = 4, de
     [Autoplay({ delay })]
   );
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi);
-
+  const favStorage = useLocalStorage('favorites');
   return (
     <section className={`${styles.embla}`}>
       <h2 className={styles.title}>{title}</h2>
@@ -36,7 +34,7 @@ const EmblaCarousel: React.FC<Props> = ({ slides, options, title, length = 4, de
         <ul className={styles.embla__container}>
           {slides?.map((slide, index) => (
             <li className={styles.embla__slide} key={index}>
-              <Slide product={slide} />
+              <Card variant='big' product={slide} favoriteStore={favStorage} />
             </li>
           ))}
         </ul>

@@ -1,9 +1,9 @@
 import React from 'react';
 import Navigation from '@/components/Navigation/Navigation';
 import Container from '@/components/Container';
-import styles from './policy.module.css';
 import { IPageProps } from '@/types';
 import { getTranslations } from 'next-intl/server';
+import styles from './policy.module.css';
 
 async function page({ params }: IPageProps) {
   const { lang } = params;

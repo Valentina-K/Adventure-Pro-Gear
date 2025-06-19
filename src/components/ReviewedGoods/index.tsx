@@ -1,3 +1,4 @@
+import useLocalStorage from '@/hooks/useLocalStorage';
 import { useAppSelector } from '../../redux/store';
 import Card from '../Card';
 import styles from './ReviewedGoods.module.css';
@@ -8,6 +9,7 @@ interface ReviewedGoodsProps {
 
 function ReviewedGoods({ title }: ReviewedGoodsProps) {
   const products = useAppSelector(state => state.products.reviewedProducts);
+  const favStorage = useLocalStorage('favorites');
   return (
     <section className={styles.wrapper}>
       <h2 className={styles.title}>{title}</h2>
@@ -17,6 +19,7 @@ function ReviewedGoods({ title }: ReviewedGoodsProps) {
             key={product.productId}
             product={product}
             variant='small'
+            favoriteStore={favStorage}
           />
         ))}
       </div>
