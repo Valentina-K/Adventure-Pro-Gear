@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo } from 'react';
 import { Product } from '@/types/product';
+import useLocalStorage from '@/hooks/useLocalStorage';
 import Card from '../Card';
 import styles from './ProductCardsSlider.module.css';
 
@@ -13,15 +14,16 @@ interface CardsSliderProp {
 
 const ProductCardsSlider: React.FC<CardsSliderProp> = ({ products, title, recommendation }) => {
   const [activeNav, setActiveNav] = useState(0);
+  const favStorage = useLocalStorage('favorites');
   const groupedSlides = useMemo(() =>
     [products.slice(0, 3), products.slice(3, 6), products.slice(6, 9)], [products]);
 
   const recommendationSlides = useMemo(() =>
     recommendation?.map((slide) => (
       <div key={slide.productId} className={styles.slide}>
-        <Card product={slide} />
+        <Card product={slide} favoriteStore={favStorage} />
       </div>
-    )), [recommendation]);
+    )), [recommendation, favStorage]);
 
   return (
     <div className={styles.container}>
@@ -35,7 +37,7 @@ const ProductCardsSlider: React.FC<CardsSliderProp> = ({ products, title, recomm
             {groupedSlides.map((group, i) => (
               <div key={i} className={styles.slide}>
                 {group.map(item => (
-                  <Card key={item.productId} product={item} variant="small" />
+                  <Card key={item.productId} product={item} variant="small" favoriteStore={favStorage} />
                 ))}
               </div>
             ))}

@@ -113,6 +113,12 @@
       "text": "Your shopping cart will be saved and waiting for you.",
       "cancel": "No, stay.",
       "continue": "Yes, go out."
+    },
+    "favorites": {
+      "title": "Favorite",
+      "text": "You have no saved products yet.",
+      "outOfStock": "Out of stock",
+      "available": "In stock"
     }
   },
   "product": {
