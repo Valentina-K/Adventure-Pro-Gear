@@ -1,0 +1,52 @@
+.wrapper {
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.title {
+  margin-bottom: 16px;
+  font-family: 'Montserrat';
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 150%;
+  letter-spacing: 0%;
+  color: #353535;
+}
+
+.cards {
+  display: flex;
+  gap: 20px;
+}
+
+.paginationControls {
+}
+
+.arrowLeft {
+  position: absolute;
+  top: 50%;
+  left: -25px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+  transition: 0.5s;
+}
+
+.arrowRight {
+  position: absolute;
+  top: 50%;
+  right: -25px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+  transition: 0.5s;
+}
+
+.arrowLeft:hover,
+.arrowRight:hover {
+  background-color: #b1b5b6;
+  border-radius: 4px;
+}

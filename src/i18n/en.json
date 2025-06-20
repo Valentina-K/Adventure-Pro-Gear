@@ -119,7 +119,10 @@
       "text": "You have no saved products yet.",
       "outOfStock": "Out of stock",
       "available": "In stock"
-    }
+    },
+    "alreadyShownProducts": "Recently viewed products",
+    "welcomeMessage": "Welcome to your personal account!",
+    "noShownProducts": "You haven't viewed any products yet. Start exploring our catalog — you might find something perfect for your next adventures!"
   },
   "product": {
     "page": {

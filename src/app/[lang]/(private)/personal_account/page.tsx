@@ -1,8 +1,8 @@
-import SignOutButton from '@/components/SignOutButton';
-import { getTranslation, getAllTranslations } from '@/dictionaries/dictionaries';
 import { Locale } from '@/i18n-config';
-import BreadcrumbNavigation from '@/components/BreadcrumbNavigation';
 import React from 'react';
+import ReviewedGoodsProfile from '@/components/ReviewedGoodsProfile';
+import { getTranslations } from 'next-intl/server';
+import styles from './personalAccount.module.css';
 
 interface PersonalAccountProps {
   params: {
@@ -11,14 +11,13 @@ interface PersonalAccountProps {
 }
 
 const PersonalAccount: React.FC<PersonalAccountProps> = async ({ params }) => {
-  // const translations = await getAllTranslations(params.lang);
-  // const getFunc = getTranslation(translations);
-  // const profileMenuData = getFunc('profile');
+  const { lang } = params;
+  const t = await getTranslations({ lang, namespace: 'profile' });
   return (
-    <>
-      <p>Welcome! This is your personal account.</p>
-      <SignOutButton />
-    </>
+    <section className={styles.alreadyShownBox}>
+      <p className={styles.welcomeMessage}>{t('welcomeMessage')}</p>
+      <ReviewedGoodsProfile title={t('alreadyShownProducts')} emptyBanner={t('noShownProducts')} />
+    </section>
   );
 };
 
