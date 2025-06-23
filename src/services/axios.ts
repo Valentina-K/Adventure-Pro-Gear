@@ -238,3 +238,21 @@ export const getBlogsId = async (blogId: string) => {
     console.log(error);
   }
 };
+
+export const getOrders = async () => {
+  try {
+    const orders = await axiosInstance.get('api/orders/me');
+    return orders.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getOrderById = async (id: number) => {
+  try {
+    const order = await axiosInstance.get(`api/orders/${id}`);
+    return order;
+  } catch (error) {
+    console.log(error);
+  }
+};

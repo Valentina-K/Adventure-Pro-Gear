@@ -95,8 +95,6 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
     dispatch(setShoppingCart(shoppingCart));
   };
 
-  const handleFavoriteClick = () => {};
-
   const handleChangeTab = (index: number) => setTabIndex(index);
 
   const handleReviewSend = async (isSend: boolean) => {

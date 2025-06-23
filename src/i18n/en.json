@@ -120,6 +120,20 @@
       "outOfStock": "Out of stock",
       "available": "In stock"
     },
+    "orders": {
+      "title": "Orders",
+      "notOrdersYet": "You have no orders yet.",
+      "number": "Number",
+      "date":"Date",
+      "totalAmount": "Total amount",
+      "status": "Status",
+      "shippingAddress": "Shipping address",
+      "billingAddress": "Billing address",
+      "orderDate": "Order date:",
+      "orderStatus": "Order status",
+      "track": "Order tracking number",
+      "yourGoods": "Your goods"
+    },
     "alreadyShownProducts": "Recently viewed products",
     "welcomeMessage": "Welcome to your personal account!",
     "noShownProducts": "You haven't viewed any products yet. Start exploring our catalog — you might find something perfect for your next adventures!"

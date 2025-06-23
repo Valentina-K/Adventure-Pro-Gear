@@ -1,0 +1,9 @@
+.orderContainer{
+    display: flex;
+    width: 100%;
+}
+
+.item{
+    padding-left: 16px;
+    flex: 1;
+}

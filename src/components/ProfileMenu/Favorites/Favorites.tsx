@@ -7,13 +7,13 @@ import FavoritesList from './FavoritesList/FavoritesList';
 import styles from './Favorites.module.css';
 
 function Favorites() {
-  const t = useTranslations('profile.favorites');
+  const t = useTranslations('profile');
   const { list } = useLocalStorage('favorites');
 
   return (
     <div className={styles.wrapper}>
-      <h2 className={styles.title}>{t("title")}</h2>
-      {list.length > 0 ? <FavoritesList /> : <p className={styles.text}>{t("text")}</p>}
+      <h2 className={styles.title}>{t("favorites.title")}</h2>
+      {list.length > 0 ? <FavoritesList /> : <p className={styles.text}>{t("favorites.text")}</p>}
     </div>
   );
 }

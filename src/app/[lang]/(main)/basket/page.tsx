@@ -8,10 +8,10 @@ import Container from '@/components/Container';
 import BasketCard from '@/components/Basket/BasketCard/BasketCard';
 import DeliveryCard from '@/components/Basket/DeliveryCard/Delivery';
 import PaymentCard from '@/components/Basket/PaymentCard/PaymentCard';
-import arrows from '../../../../../public/icons/Arrows.svg';
-import arrowsRight from '../../../../../public/icons/arrowsRight.svg';
 import { useAppDispatch } from '@/redux/store';
 import { clearShoppingCart } from '@/redux/products/slice';
+import arrows from '../../../../../public/icons/Arrows.svg';
+import arrowsRight from '../../../../../public/icons/arrowsRight.svg';
 import styles from './basket.module.css';
 
 const Basket = () => {
