@@ -23,10 +23,9 @@ interface IBasketCardProps {
     ordersLists: {}[];
   };
   setFormData: (form: any) => void;
-  setDisebleForm: any;
 }
 
-const BasketCard: React.FC<IBasketCardProps> = ({ formData, setFormData, setDisebleForm }) => {
+const BasketCard: React.FC<IBasketCardProps> = ({ formData, setFormData }) => {
   const t = useTranslations('basket.basketCard');
   const params = useParams();
   const [sumOrder, setSumOrder] = useState(0);
@@ -38,7 +37,6 @@ const BasketCard: React.FC<IBasketCardProps> = ({ formData, setFormData, setDise
         setSumOrder={setSumOrder}
         setFormData={setFormData}
         formData={formData}
-        setDisebleForm={setDisebleForm}
       />
       <div className={styles.delivery_container}>
         <div className={styles.delivery}>

@@ -92,7 +92,7 @@ const Basket = () => {
       </ul>
 
       {activeCard?.length === 1 && (
-        <BasketCard formData={formData} setFormData={setFormData} setDisebleForm={setDisebleForm} />
+        <BasketCard formData={formData} setFormData={setFormData} />
       )}
       {activeCard?.length === 2 && (
         <DeliveryCard

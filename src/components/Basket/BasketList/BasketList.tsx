@@ -28,7 +28,6 @@ interface IBasketListProps {
   setFormData: (form: any) => void;
   setSumOrder: any;
   variant?: 'default' | 'small';
-  setDisebleForm: any;
 }
 
 const BasketList: React.FC<IBasketListProps> = ({
@@ -36,7 +35,6 @@ const BasketList: React.FC<IBasketListProps> = ({
   setFormData,
   setSumOrder,
   variant = 'default',
-  setDisebleForm,
 }) => {
   const params = useParams();
   let shoppingCart = useSelector(selectOpenShoppingCart);
