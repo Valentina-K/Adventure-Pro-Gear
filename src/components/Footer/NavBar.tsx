@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { Link, usePathname } from '@/i18n/routing';
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
-import { footerInformationLinks } from '@/routes';
+import { footerInformationLinks, footerSupportLinks } from '@/routes';
 
 import logoFooter from '@/../public/logo-footer.svg';
 import SocialLinks from '@/components/SocialLinks';
@@ -43,6 +43,22 @@ const Footer = () => {
         <div>
           <b>{t('support.title')}</b>
           <ul className={style.menu}>
+            {footerSupportLinks.map(({ path, label, id }) => {
+              return (
+                <li className={style.navItem} key={id}>
+                  <Link
+                    href={path}
+                    className={clsx({
+                      [style.active]: pathName !== '/' && pathName === `${path}/`,
+                    })}
+                  >
+                    {t(`support.${label}`)}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+          {/* <ul className={style.menu}>
             <li className={style.navItem}>
               <Link href="">{t('support.guarantee')}</Link>
             </li>
@@ -55,7 +71,7 @@ const Footer = () => {
             <li className={style.navItem}>
               <Link href="">{t('support.return')}</Link>
             </li>
-          </ul>
+          </ul> */}
         </div>
 
         <div>

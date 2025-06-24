@@ -100,19 +100,19 @@ export const footerSupportLinks: Props[] = [
   {
     id: 2,
     label: 'delivery',
-    path: '',
+    path: '/payment_delivery#delivery',
     icon: '',
   },
   {
     id: 3,
     label: 'payment',
-    path: '',
+    path: '/payment_delivery#payment',
     icon: '',
   },
   {
     id: 4,
     label: 'return',
-    path: '',
+    path: '/payment_delivery#return',
     icon: '',
   },
 ];

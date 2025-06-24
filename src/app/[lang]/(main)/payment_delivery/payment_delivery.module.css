@@ -1,0 +1,61 @@
+.policy {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  color: #353535;
+  padding-bottom: 120px;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.blockImg {
+  display: flex;
+  gap: 20px;
+}
+
+.mainTitle {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.subTitle {
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.text {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.subText {
+  display: flex;
+  gap: 6px;
+  padding-left: 6px;
+}
+
+.footerBlock {
+  max-width: 880px;
+  font-size: 28px;
+  line-height: 150%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.mainText {
+  font-weight: 700;
+  color: #1e5f72;
+}
+
+.scrollSection {
+  scroll-margin-top: 170px;
+}
