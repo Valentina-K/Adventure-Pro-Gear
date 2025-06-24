@@ -379,5 +379,43 @@
       "13-3": "13.3. All disputes arising between the Customer and the Online Store are resolved through negotiations. In case of failure to reach resolution of the disputed issue, the Customer or Online Store may apply to judicial authorities for dispute resolution in accordance with current legislation.",
       "13-4": "13.4. The Online Store has the right to make changes to the text of this agreement at its own discretion at any time and without prior notice to Customers. The current (valid) version of the agreement is always available at zzz.com.ua."
     }
+  },
+  "security_policy": {
+    "title": "Security Policy",
+    "block1": {
+      "title": "Personal Data Protection:",
+      "text1": "Describe the types of personal data you collect from users on your website. This may include names, addresses, phone numbers, email addresses, and more.",
+      "text2": "Explain the specific measures you take to protect this data from unauthorized access, such as encryption, secure transmission via HTTPS, and so on."
+    },
+    "block2": {
+      "title": "Data Encryption:",
+      "text1": "Explain how you use encryption to safeguard sensitive information during transmission over the internet. Include details about the encryption algorithms and protocols in use.",
+      "text2": "Clarify how encrypted data is securely stored on your company’s servers."
+    },
+    "block3": {
+      "title": "Payment Security:",
+      "text1": "Provide details about the payment methods you support and how you ensure the security of payment processes on your site.",
+      "text2": "Describe the payment gateways you use and their security features, such as 3D Secure authentication."
+    },
+    "block4": {
+      "title": "Use of Cookies:",
+      "text1": "Explain which cookies are used on your website and for what purposes. Let users know how they can manage their cookie preferences and control what data they choose to share.",
+      "text2": "Provide a link to your full Cookie Policy for more information."
+    },
+    "block5": {
+      "title": "Access Control Policy:",
+      "text1": "Describe how you limit access to confidential information within your organization. This may include access levels, authentication, and access auditing procedures.",
+      "text2": "Mention the use of internal monitoring and auditing systems to detect unusual activity or unauthorized access attempts."
+    },
+    "block6": {
+      "title": "Website Security Information:",
+      "text1": "Share the security measures you implement to protect your website from hacking attempts, viruses, and other threats.",
+      "text2": "Include information about using secure HTTPS connections, Web Application Firewalls (WAF), and other relevant protections."
+    },
+    "block7": {
+      "title": "Security Breach Notification Policy:",
+      "text1": "Explain how users can report potential security breaches and how your company responds to such reports.",
+      "text2": "Outline the procedures and communication channels available for contacting your support team or security department in case of a suspected security issue."
+    }
   }
 }

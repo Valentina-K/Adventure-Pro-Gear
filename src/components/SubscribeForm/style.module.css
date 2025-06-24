@@ -31,6 +31,15 @@
   gap: 8px;
 }
 
+.agreement_label {
+  color: #f5ffff;
+  transition: 0.5s;
+}
+
+.agreement_label:hover {
+  color: var(--yellow);
+}
+
 .btn {
   display: flex;
   padding: 10px 10px;
