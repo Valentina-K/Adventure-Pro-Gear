@@ -6,6 +6,7 @@ import clsx from 'clsx';
 
 import style from './style.module.css';
 import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/routing';
 
 const SubscribeForm: React.FC = () => {
   const t = useTranslations('footer.subscribe');
@@ -41,7 +42,9 @@ const SubscribeForm: React.FC = () => {
             aria-labelledby="agreement-label"
           />
           <label id="agreement-label" htmlFor="agreement">
-            {t('agreement')}
+            <Link className={style.agreement_label} href="/security_policy">
+              {t('agreement')}
+            </Link>
           </label>
         </div>
       </div>
