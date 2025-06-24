@@ -119,6 +119,20 @@
       "text": "You have no saved products yet.",
       "outOfStock": "Out of stock",
       "available": "In stock"
+    },
+    "editProfile": {
+      "title": "Edit data",
+      "personalData": "Personal data",
+      "mailing": {
+        "mailing": "Newsletter",
+        "descr": "Subscribe to site news",
+        "yes": "Yes",
+        "no": "No"
+      },
+      "newPassword": "Change password",
+      "newEmail": "Change E-mail",
+      "emailDescr": "After clicking the 'Change E-mail' button, you will need to confirm your new e-mail. Please check your mailbox and follow the link in the email to complete the verification process. Until then, your account will be temporarily unavailable. Thank you for your understanding and patience!",
+      "delete": "Delete account"
     }
   },
   "product": {
@@ -156,6 +170,46 @@
       "thanking": "Thank you for your feedback! Your opinion is extremely important to us.",
       "helpful": "Is this review helpful?",
       "usersThink": " users found this review helpful"
+    }
+  },
+  "basket": {
+    "title": "Order placement",
+    "basket": "Basket",
+    "payment": "Payment",
+    "backBasket": "Back to cart",
+    "backProducts": "Back to product selection",
+    "continue": "Continue",
+    "submitOrder": "Submit order",
+    "basketCard": {
+      "title": "Your order",
+      "delivery": "Delivery",
+      "coupon": "Do you have a discount coupon?",
+      "sum": "Total amount"
+    },
+    "basketList": {
+      "color": "Color",
+      "size": "Size"
+    },
+    "delivery": {
+      "contact": "Contact Information",
+      "descr": "Thank you for your choice! To complete the purchase and arrange delivery, please log in to your account or register so we can process your order more quickly and conveniently. This will help us ensure successful delivery of your item. Thank you for your understanding and cooperation!",
+      "newClient": "I am a new customer",
+      "oldClient": "I am a returning customer",
+      "dataDelivery": "Delivery Information",
+      "saveAddress": "Save address for future purchases"
+    },
+    "invoice": {
+      "data": "Invoice Information",
+      "dataRepit": "Same as delivery information",
+      "other": "Other / company"
+    },
+    "choosePayment":{
+      "chooseMethod": "Choose a payment method",
+      "card": "Payment card",
+      "paymentVia": "Payment via",
+      "descrPayPal": "You will be redirected to PayPal. After that, you will return to our store to complete your order.",
+      "descrGooglePay": "You will be redirected to Google Pay. After that, you will return to our store to complete your order.",
+      "sum": "Total amount"
     }
   },
   "blogId": {

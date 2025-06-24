@@ -41,6 +41,11 @@
   position: relative;
 }
 
+.auth_container {
+  display: flex;
+  margin-bottom: 34px;
+}
+
 /* ========FORM========== */
 .form_title {
   font-weight: var(--medium);

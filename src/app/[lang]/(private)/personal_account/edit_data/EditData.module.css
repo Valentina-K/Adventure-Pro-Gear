@@ -62,6 +62,7 @@
 
 .subscriptionContainer {
   display: flex;
+  align-items: center;
 }
 
 .subscription {
@@ -85,9 +86,10 @@
 }
 
 .EditPassword {
-  display: flex;
-  justify-content: space-between;
-  gap: 40px;
+  display: block;
+  align-self: baseline;
+  /* justify-content: space-between;
+  gap: 40px; */
 }
 
 .EditPassword > div > input {
@@ -96,7 +98,8 @@
 }
 
 .EditPassword > div > input + img {
-  top: 34px;
+  /* top: 34px; */
+  top: 15px;
 }
 
 .EditPassword input:last-of-type {
@@ -105,6 +108,7 @@
 
 .deleteAccount {
   color: var(--erro-100);
+  cursor: pointer;
 }
 
 .EditEmailContainer {
@@ -134,4 +138,39 @@
   border-radius: 5px;
   max-width: 248px;
   padding: 9px;
+}
+
+.signInToastBody {
+  color: var(--black);
+  font-family: '__Montserrat_7dfeba';
+}
+
+.signInToastErrorMessage {
+  background-color: var(--wightAuth);
+}
+
+/* ==========radio============== */
+.radio_container {
+  display: flex;
+  margin-bottom: 9px;
+}
+
+.input {
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.radio_container input[type='radio']:checked {
+  accent-color: #4e4c4c;
+}
+
+.label {
+  display: flex;
+
+  font-weight: var(--medium);
+  font-size: var(--medium-16);
+  line-height: 150%;
+  letter-spacing: 0%;
+  margin-right: 36px;
+  cursor: pointer;
 }

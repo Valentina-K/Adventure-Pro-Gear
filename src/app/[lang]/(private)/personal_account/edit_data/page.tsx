@@ -1,20 +1,22 @@
 'use client';
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { Locale } from '@/i18n-config';
-import { updatePersonalData, updatePassword, updateEmail } from '@/app/actions';
+import React, { useEffect, useRef, useState } from 'react';
+import { useParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import {
+  updatePersonalData,
+  updatePassword,
+  updateEmail,
+  getPersonalData,
+  deleteUser,
+} from '@/app/actions';
+import { signOut } from 'next-auth/react';
+import { toast } from 'react-toastify';
 import Form from '@/components/Form';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
-import Checkbox from '@/components/Checkbox/Checkbox';
+// import Checkbox from '@/components/Checkbox/Checkbox';
 import styles from './EditData.module.css';
-
-interface EditDataProps {
-  params: {
-    lang: Locale;
-  };
-}
 
 type FormDataGroup = 'personalData' | 'newPassword' | 'newEmail';
 
@@ -38,8 +40,11 @@ interface FormData {
   };
 }
 
-const EditData: React.FC<EditDataProps> = ({ params }) => {
-  console.log('Params: ', params);
+const EditData = () => {
+  const params = useParams();
+  const t = useTranslations('profile.editProfile');
+  const calledRef = useRef(false);
+
   const [formData, setFormData] = useState<FormData>({
     personalData: {
       name: '',
@@ -62,6 +67,59 @@ const EditData: React.FC<EditDataProps> = ({ params }) => {
 
   const [actionType, setActionType] = useState<string | null>(null);
 
+  const [shouldSignOut, setShouldSignOut] = useState(false);
+
+  useEffect(() => {
+    if (shouldSignOut) {
+      const timer = setTimeout(() => {
+        signOut({ callbackUrl: '/?auth=signin' });
+      }, 4500);
+
+      return () => clearTimeout(timer);
+    }
+  }, [shouldSignOut]);
+
+  useEffect(() => {
+    if (calledRef.current) return;
+    calledRef.current = true;
+
+    (async () => {
+      const user = await getPersonalData();
+
+      const sanitizeValue = (value: string | null | undefined) =>
+        (value === 'null' || value == null ? '' : value);
+
+      if (typeof user === 'object' && !Array.isArray(user)) {
+        setFormData({
+          personalData: {
+            name: sanitizeValue(user.name),
+            surname: sanitizeValue(user.surname),
+            phoneNumber: sanitizeValue(user.phoneNumber),
+            streetAndHouseNumber: sanitizeValue(user.streetAndHouseNumber),
+            city: sanitizeValue(user.city),
+            postalCode: sanitizeValue(user.postalCode),
+          },
+          newPassword: {
+            password: sanitizeValue(user.password),
+            confirmPassword: sanitizeValue(user.confirmPassword),
+          },
+          newEmail: {
+            email: sanitizeValue(user.email),
+            password: sanitizeValue(user.password),
+            confirmPassword: sanitizeValue(user.confirmPassword),
+          },
+        });
+      } else {
+        toast.error(user, {
+          position: 'top-right',
+          className: `${styles.signInToastErrorMessage}`,
+          bodyClassName: `${styles.signInToastBody}`,
+          autoClose: 36000000,
+        });
+      }
+    })();
+  }, []);
+
   const handleChange = (group: FormDataGroup) => (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData(prevData => ({
       ...prevData,
@@ -73,14 +131,20 @@ const EditData: React.FC<EditDataProps> = ({ params }) => {
   };
 
   const filterEmptyFields = (data: Record<string, string>) => {
+    // eslint-disable-next-line no-shadow
     const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => {
-      if (value.trim() !== '') {
-        formData.append(key, value);
-      }
+      // if (value.trim() !== '') {
+      formData.append(key, value);
+      // }
     });
     console.log('Filtered form Data:', formData);
     return formData;
+  };
+
+  const deleteAccount = async () => {
+    const res = await deleteUser();
+    console.log('res delete', res);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -88,17 +152,95 @@ const EditData: React.FC<EditDataProps> = ({ params }) => {
 
     switch (actionType) {
       case 'updatePersonalData':
+        // eslint-disable-next-line no-case-declarations
         const filteredPersonalData = filterEmptyFields(formData.personalData);
-        await updatePersonalData(filteredPersonalData);
-        break;
+        // eslint-disable-next-line no-case-declarations
+        const res = await updatePersonalData(filteredPersonalData);
+
+        if (res) {
+          // if (
+          // eslint-disable-next-line max-len
+          //   Object.values(res).some(value => value === '' || value === null || value === undefined)
+          // ) {
+          //   return toast.error('Fill in all required fields for input', {
+          //     position: 'top-right',
+          //     className: `${styles.signInToastErrorMessage}`,
+          //     bodyClassName: `${styles.signInToastBody}`,
+          //     autoClose: 36000000,
+          //   });
+          // }
+
+          if (typeof res === 'object') {
+            toast.success('Information successfully updated. You need to sign in again.', {
+              position: 'top-right',
+              className: `${styles.signInToastErrorMessage}`,
+              bodyClassName: `${styles.signInToastBody}`,
+              autoClose: 36000000,
+            });
+            setShouldSignOut(true);
+            return;
+          } else {
+            return toast.error(typeof res === 'string' ? res : 'Please try again later.', {
+              position: 'top-right',
+              className: `${styles.signInToastErrorMessage}`,
+              bodyClassName: `${styles.signInToastBody}`,
+              autoClose: 36000000,
+            });
+          }
+        }
+      // eslint-disable-next-line no-fallthrough
       case 'updatePassword':
+        // eslint-disable-next-line no-case-declarations
         const filteredPasswordData = filterEmptyFields(formData.newPassword);
-        await updatePassword(filteredPasswordData);
-        break;
+        // eslint-disable-next-line no-case-declarations
+        const resupdatePassword = await updatePassword(filteredPasswordData);
+
+        // if (resupdatePassword) {
+        if (resupdatePassword.length === 0) {
+          toast.success('Password successfully updated. You need to sign in again.', {
+            position: 'top-right',
+            className: `${styles.signInToastErrorMessage}`,
+            bodyClassName: `${styles.signInToastBody}`,
+            autoClose: 36000000,
+          });
+          setShouldSignOut(true);
+          return;
+        } else {
+          return toast.error(resupdatePassword || 'Please try again later.', {
+            position: 'top-right',
+            className: `${styles.signInToastErrorMessage}`,
+            bodyClassName: `${styles.signInToastBody}`,
+            autoClose: 36000000,
+          });
+        }
+      // }
+      // break;
       case 'updateEmail':
+        // eslint-disable-next-line no-case-declarations
         const filteredEmailData = filterEmptyFields(formData.newEmail);
-        await updateEmail(filteredEmailData);
-        break;
+        // eslint-disable-next-line no-case-declarations
+        const resFilteredEmail = await updateEmail(filteredEmailData);
+
+        // if (resFilteredEmail) {
+        if (resFilteredEmail.length === 0) {
+          toast.success('Password successfully updated. You need to sign in again.', {
+            position: 'top-right',
+            className: `${styles.signInToastErrorMessage}`,
+            bodyClassName: `${styles.signInToastBody}`,
+            autoClose: 36000000,
+          });
+          setShouldSignOut(true);
+          return;
+        } else {
+          return toast.error(resFilteredEmail || 'Please try again later.', {
+            position: 'top-right',
+            className: `${styles.signInToastErrorMessage}`,
+            bodyClassName: `${styles.signInToastBody}`,
+            autoClose: 36000000,
+          });
+          // }
+        }
+      // break;
       default:
         console.error('Unknown action type');
     }
@@ -107,53 +249,58 @@ const EditData: React.FC<EditDataProps> = ({ params }) => {
   return (
     <Form className={styles.editDataForm} onSubmit={handleSubmit}>
       <div className={styles.heading}>
-        <h4 className={styles.formHeader}>Редагувати дані</h4>
-        <Link className={styles.deleteAccount} href="/">
-          Видалити акаунт
-        </Link>
+        <h4 className={styles.formHeader}>{t('title')}</h4>
+        <p className={styles.deleteAccount} aria-hidden="true" onClick={deleteAccount}>
+          {t('delete')}
+        </p>
       </div>
       <div className={styles.personalDataContainerWithHeader}>
-        <p className={styles.personalDataHeder}>Особисті дані</p>
+        <p className={styles.personalDataHeder}>{t('personalData')}</p>
         <div className={styles.personalDataContainer}>
           <div className={styles.personalData}>
             <Input
-              placeholder="Імʼя"
+              placeholder={params.lang === 'uk' ? 'Імʼя' : 'Name'}
               name="name"
+              value={formData?.personalData?.name}
               type="text"
               onChange={handleChange('personalData')}
             />
             <Input
-              placeholder="Прізвище"
+              placeholder={params.lang === 'uk' ? 'Прізвище' : 'Surname'}
               name="surname"
+              value={formData?.personalData?.surname}
               type="text"
               onChange={handleChange('personalData')}
             />
             <Input
               type="text"
-              placeholder="Телефон"
+              placeholder={params.lang === 'uk' ? 'Телефон' : 'Phone'}
+              value={formData?.personalData?.phoneNumber}
               name="phoneNumber"
               onChange={handleChange('personalData')}
             />
-            {/* <Input placeholder="Вулиця та номер будинку" />
-          <Input placeholder="Місто" />
-          <Input placeholder="Поштовий індекс" /> */}
           </div>
           <div className={styles.personalData}>
             <Input
-              placeholder="Вулиця та номер будинку"
+              placeholder={
+                params.lang === 'uk' ? 'Вулиця та номер будинку' : 'Street and house number'
+              }
               name="streetAndHouseNumber"
+              value={formData?.personalData?.streetAndHouseNumber}
               type="text"
               onChange={handleChange('personalData')}
             />
             <Input
-              placeholder="Місто"
+              placeholder={params.lang === 'uk' ? 'Місто' : 'City'}
               name="city"
+              value={formData?.personalData?.city}
               type="text"
               onChange={handleChange('personalData')}
             />
             <Input
-              placeholder="Поштовий індекс"
+              placeholder={params.lang === 'uk' ? 'Поштовий індекс' : 'Postal code'}
               name="postalCode"
+              value={formData?.personalData?.postalCode}
               type="text"
               onChange={handleChange('personalData')}
             />
@@ -161,79 +308,112 @@ const EditData: React.FC<EditDataProps> = ({ params }) => {
         </div>
       </div>
       <div className={styles.mailingContainet}>
-        <h6 className={styles.spam}>Розсилка</h6>
+        <h6 className={styles.spam}>{t('mailing.mailing')}</h6>
         <div className={styles.subscriptionContainer}>
-          <p className={styles.subscription}>Підписатися на новини сайту?</p>
-          <Checkbox text="Так" className={styles.checkbox} />
-          <Checkbox text="Ні" className={styles.checkbox} />
+          <p className={styles.subscription}>{t('mailing.descr')}</p>
+          <div className={styles.radio_container}>
+            <div className={styles.radio_container}>
+              <input
+                type="radio"
+                id="yes"
+                name="rememberme"
+                defaultChecked
+                className={styles.input}
+              />
+              <label htmlFor="yes" className={styles.label}>
+                {t('mailing.yes')}
+              </label>
+            </div>
+
+            <div className={styles.radio_container}>
+              <input
+                type="radio"
+                name="rememberme"
+                id="no"
+                value="other"
+                className={styles.input}
+              />
+              <label htmlFor="no" className={styles.label}>
+                {t('mailing.no')}
+              </label>
+            </div>
+          </div>
+          {/* <Checkbox text="Так" className={styles.checkbox} />
+        <Checkbox text="Ні" className={styles.checkbox} /> */}
         </div>
       </div>
       <Button
         className={styles.submitButton}
-        text="Зберегти дані"
+        backgroundColor="#376B8E"
+        color="#F5FFFF"
+        text={params.lang === 'uk' ? 'Зберегти дані' : 'Save data'}
         type="submit"
-        color="transparent"
+        // color="transparent"
         onClick={() => setActionType('updatePersonalData')}
       />
       {/* <Input type="submit" value="Зберегти дані" /> */}
       <br />
-      <h6 className={styles.spam}>Змінити пароль</h6>
+      <h6 className={styles.spam}>{t('newPassword')}</h6>
       <div className={styles.EditPassword}>
         <Input
-          placeholder="Новий пароль"
+          placeholder={params.lang === 'uk' ? 'Новий пароль' : 'New password'}
           type="password"
-          value={formData.newPassword.password}
+          name="password"
+          value={formData?.newPassword?.password}
           onChange={handleChange('newPassword')}
         />
         <Input
-          placeholder="Повторити пароль"
+          placeholder={params.lang === 'uk' ? 'Повторити пароль' : 'Repeat password'}
           type="password"
-          value={formData.newPassword.confirmPassword}
+          name="confirmPassword"
+          value={formData?.newPassword?.confirmPassword}
           onChange={handleChange('newPassword')}
         />
       </div>
       <Button
         className={styles.submitButton}
-        text="Змінити пароль"
+        backgroundColor="#376B8E"
+        color="#F5FFFF"
+        text={params.lang === 'uk' ? 'Змінити пароль' : 'Change password'}
         type="submit"
-        color="transparent"
+        // color="transparent"
         onClick={() => setActionType('updatePassword')}
       />
       <br />
 
-      <h6 className={styles.spam}>Змінити імейл</h6>
+      <h6 className={styles.spam}>{t('newEmail')}</h6>
       <div className={styles.EditEmailContainer}>
         <div className={styles.editEmail}>
           <Input
             placeholder="E-mail"
             type="email"
+            name="email"
             value={formData.newEmail.email}
             onChange={handleChange('newEmail')}
           />
           <Input
-            placeholder="Пароль"
+            placeholder={params.lang === 'uk' ? 'Пароль' : 'Password'}
             type="password"
+            name="password"
             value={formData.newEmail.password}
             onChange={handleChange('newEmail')}
           />
           <Input
-            placeholder="Повторити пароль"
+            placeholder={params.lang === 'uk' ? 'Повторити пароль' : 'Repeat password'}
             type="password"
+            name="confirmPassword"
             value={formData.newEmail.confirmPassword}
             onChange={handleChange('newEmail')}
           />
         </div>
-        <p className={styles.emailChangeInfo}>
-          Після того як натиснете кнопку &quot;Змінити E-mail&quot;, необхідно підтвердити новий e-mail. Будь
-          ласка, перевірте вашу поштову скриньку та перейдіть за посиланням у листі для завершення
-          процесу верифікації. До тих пір ваш обліковий запис буде тимчасово недоступний. Дякуємо за
-          розуміння та терпіння!
-        </p>
+        <p className={styles.emailChangeInfo}>{t('emailDescr')}</p>
       </div>
       <Button
         className={styles.submitButton}
-        text="Змінити E-mail"
-        color="transparent"
+        backgroundColor="#376B8E"
+        color="#F5FFFF"
+        text={params.lang === 'uk' ? 'Змінити E-mail' : 'Change Email'}
+        // color="transparent"
         type="submit"
         onClick={() => setActionType('updateEmail')}
       />
