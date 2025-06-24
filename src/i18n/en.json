@@ -120,6 +120,7 @@
       "outOfStock": "Out of stock",
       "available": "In stock"
     },
+
     "editProfile": {
       "title": "Edit data",
       "personalData": "Personal data",
@@ -133,7 +134,11 @@
       "newEmail": "Change E-mail",
       "emailDescr": "After clicking the 'Change E-mail' button, you will need to confirm your new e-mail. Please check your mailbox and follow the link in the email to complete the verification process. Until then, your account will be temporarily unavailable. Thank you for your understanding and patience!",
       "delete": "Delete account"
-    }
+    },
+
+    "alreadyShownProducts": "Recently viewed products",
+    "welcomeMessage": "Welcome to your personal account!",
+    "noShownProducts": "You haven't viewed any products yet. Start exploring our catalog — you might find something perfect for your next adventures!"
   },
   "product": {
     "page": {
@@ -429,6 +434,96 @@
       "13-2": "13.2. The invalidity of any clause or part of this agreement does not lead to the invalidity of the agreement as a whole.",
       "13-3": "13.3. All disputes arising between the Customer and the Online Store are resolved through negotiations. In case of failure to reach resolution of the disputed issue, the Customer or Online Store may apply to judicial authorities for dispute resolution in accordance with current legislation.",
       "13-4": "13.4. The Online Store has the right to make changes to the text of this agreement at its own discretion at any time and without prior notice to Customers. The current (valid) version of the agreement is always available at zzz.com.ua."
+    }
+  },
+  "security_policy": {
+    "title": "Security Policy",
+    "block1": {
+      "title": "Personal Data Protection:",
+      "text1": "Describe the types of personal data you collect from users on your website. This may include names, addresses, phone numbers, email addresses, and more.",
+      "text2": "Explain the specific measures you take to protect this data from unauthorized access, such as encryption, secure transmission via HTTPS, and so on."
+    },
+    "block2": {
+      "title": "Data Encryption:",
+      "text1": "Explain how you use encryption to safeguard sensitive information during transmission over the internet. Include details about the encryption algorithms and protocols in use.",
+      "text2": "Clarify how encrypted data is securely stored on your company’s servers."
+    },
+    "block3": {
+      "title": "Payment Security:",
+      "text1": "Provide details about the payment methods you support and how you ensure the security of payment processes on your site.",
+      "text2": "Describe the payment gateways you use and their security features, such as 3D Secure authentication."
+    },
+    "block4": {
+      "title": "Use of Cookies:",
+      "text1": "Explain which cookies are used on your website and for what purposes. Let users know how they can manage their cookie preferences and control what data they choose to share.",
+      "text2": "Provide a link to your full Cookie Policy for more information."
+    },
+    "block5": {
+      "title": "Access Control Policy:",
+      "text1": "Describe how you limit access to confidential information within your organization. This may include access levels, authentication, and access auditing procedures.",
+      "text2": "Mention the use of internal monitoring and auditing systems to detect unusual activity or unauthorized access attempts."
+    },
+    "block6": {
+      "title": "Website Security Information:",
+      "text1": "Share the security measures you implement to protect your website from hacking attempts, viruses, and other threats.",
+      "text2": "Include information about using secure HTTPS connections, Web Application Firewalls (WAF), and other relevant protections."
+    },
+    "block7": {
+      "title": "Security Breach Notification Policy:",
+      "text1": "Explain how users can report potential security breaches and how your company responds to such reports.",
+      "text2": "Outline the procedures and communication channels available for contacting your support team or security department in case of a suspected security issue."
+    }
+  },
+  "payment_delivery": {
+    "title": "Shipping & Payment",
+    "description1": "Once your order is on its way, it’ll reach you by the fastest possible route—hassle-free! That means: our logistics team will process your order lightning-fast. And all of this comes at a fair price with no hidden fees!",
+    "description2": "Orders containing special items (such as tents, mountaineering backpacks, pads, poles, sleeping bags, electronics, and liquids) may take longer to ship, as these products are stored separately and packed by hand.",
+    "block1": {
+      "title": "Shipping",
+      "description": "Adventure Pro Gear provides reliable and affordable delivery of your outdoor equipment. We work with leading courier services to ensure convenient delivery straight to your doorstep.",
+      "subBlock1": {
+        "title": "Shipping Options:",
+        "text1": "We offer standard shipping—an ideal choice for those who value reasonable delivery times and affordable rates. Shipping costs are calculated automatically at checkout based on your location."
+      },
+      "subBlock2": {
+        "title": "Shipping Costs:",
+        "text1": "Delivery fees are calculated automatically during checkout. Please review the final amount on the checkout page before completing your purchase for the most accurate shipping cost.",
+        "text2": "Note that orders over a certain amount may qualify for free shipping. Keep an eye out for our promotions and special offers to take advantage of great deals.",
+        "text3": "At Adventure Pro Gear, we’re committed to making your shopping experience smooth and enjoyable, with delivery that’s both convenient and cost-effective. Thanks for choosing us for your outdoor adventures!"
+      }
+    },
+    "block2": {
+      "title": "Shipping Damage",
+      "description1": "Please check your package for completeness and any visible shipping damage immediately upon receipt, and refuse it if you notice any damage.",
+      "description2": "If that’s not possible, please photograph the damage and keep the box. Contact our team right away at +38-(050)-458-74-74 or email us at adventureprogear@gmail.com. Damage must be documented as soon as possible to preserve your right to compensation.",
+      "description3": "Failure to file a claim or contact us won’t affect your legal warranty rights. However, it does help us file claims with the shipping provider or insurance company."
+    },
+    "block3": {
+      "title": "Payment Methods",
+      "description1": "When it comes to payments, we aim to make things as simple as possible—no sneaky service charges or hidden fees.",
+      "description2": "You can pay using your Visa, Mastercard, or Maestro bank card. The amount will be charged when you place your order. Your card provider may require you to verify the transaction after placing the order—just follow the steps shown.",
+      "description3": "You can also pay via PayPal. If you select this method, you'll be redirected to PayPal during the checkout process. Once completed, you'll return to our store to finalize your order. The payment will be charged through PayPal upon order confirmation."
+    },
+    "block4": {
+      "title": "Return & Exchange Policy",
+      "description1": {
+        "text": "Your satisfaction with our gear is our top priority. If you're not completely happy with your order, we offer flexible return and exchange options:",
+        "subText1": "Returns: You have the right to return an item within 30 days of receiving it. The item must be in its original packaging and condition.",
+        "subText2": "Exchanges: Need a different size or model? Reach out to our support team and we’ll help arrange the exchange.",
+        "subText3": "Refunds: Your refund will be processed within 5–7 business days after we receive and inspect the returned item."
+      },
+      "description2": "Please contact our support team to arrange a return or exchange. Note that certain terms and conditions may apply. Our goal is to provide a smooth and secure shopping experience with Adventure Pro Gear!"
+    },
+    "payment_delivery_footer": {
+      "text1": "Step into adventure with",
+      "text2": "Adventure Pro Gear!",
+      "text3": "Choose",
+      "text4": "the best",
+      "text5": "outdoor gear and make your",
+      "text6": "dreams come true.",
+      "text7": "Every purchase with us is a step toward your next great",
+      "text8": "journey",
+      "text9": "in life!"
     }
   }
 }

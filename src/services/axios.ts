@@ -24,10 +24,10 @@ axiosInstance.interceptors.request.use(
   async config => {
     const session = await getServerSession(options);
     const publicEndpoints = [
-      '/api/public/auth/refresh_token',
-      '/api/public/password-reset/request',
-      '/api/public/password-reset/reset',
-      '/api/public/products',
+      'api/public/auth/refresh_token',
+      'api/public/password-reset/request',
+      'api/public/password-reset/reset',
+      'api/public/products',
       'api/public/auth/login',
       'api/public/product',
       'api/blog/posts',
@@ -44,7 +44,7 @@ axiosInstance.interceptors.request.use(
 
 export const refreshTokenService = async (refreshToken: string) => {
   try {
-    const res = await refreshAxios.post('/api/public/auth/refresh_token', {
+    const res = await refreshAxios.post('api/public/auth/refresh_token', {
       refreshToken: `Bearer ${refreshToken}`,
     });
     return res.data;
@@ -57,7 +57,7 @@ export const refreshTokenService = async (refreshToken: string) => {
 
 export const getProducts = async () => {
   try {
-    const products = await axiosInstance.get('/api/public/products');
+    const products = await axiosInstance.get('api/public/products');
     return products;
   } catch (error) {
     console.log(error);
@@ -66,7 +66,7 @@ export const getProducts = async () => {
 
 export const getProductById = async (productId: number) => {
   try {
-    const product = await axiosInstance.get(`/api/public/products/${productId}`);
+    const product = await axiosInstance.get(`api/public/products/${productId}`);
     return product.data;
   } catch (error) {
     console.log('from getProductById');
@@ -75,7 +75,7 @@ export const getProductById = async (productId: number) => {
 
 export const getReviewsById = async (id: number) => {
   try {
-    const review = await axiosInstance.get(`/api/public/products/reviews/${id}`);
+    const review = await axiosInstance.get(`api/public/products/reviews/${id}`);
     return review;
   } catch (error) {
     console.log('from getReviewsById');
@@ -85,7 +85,7 @@ export const getReviewsById = async (id: number) => {
 export const getAverageRatingByProductId = async (productId: number) => {
   try {
     const averageRating = await axiosInstance.get(
-      `/api/public/products/reviews/average-rating?productId=${productId}`
+      `api/public/products/reviews/average-rating?productId=${productId}`
     );
     return averageRating;
   } catch (error) {
@@ -104,7 +104,7 @@ export const getAllReviews = async (productId: number) => {
 
 export const signUpService = async (credentials: any) => {
   const { name, surname, email, password } = credentials;
-  const result = await axiosInstance.post('/api/public/registration/register', {
+  const result = await axiosInstance.post('api/public/registration/register', {
     name,
     surname,
     email,
@@ -122,7 +122,7 @@ export const signInService = async (credentials: any) => {
 
 export const getUserInfoService = async (accessToken: any) => {
   try {
-    const response = await axiosInstance.get('/api/users/me', {
+    const response = await axiosInstance.get('api/users/me', {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -136,7 +136,7 @@ export const getUserInfoService = async (accessToken: any) => {
 
 export const forgotPasswordService = async (email: FormDataEntryValue) => {
   try {
-    const sendEmail = await axiosInstance.post('/api/public/password-reset/request', {
+    const sendEmail = await axiosInstance.post('api/public/password-reset/request', {
       email,
     });
     return sendEmail.status;
@@ -151,7 +151,7 @@ export const resetPasswordService = async (
   confirmPassword: FormDataEntryValue
 ) => {
   try {
-    const resetPassword = await axiosInstance.post('/api/public/password-reset/reset', {
+    const resetPassword = await axiosInstance.post('api/public/password-reset/reset', {
       token: resetToken,
       newPassword,
       confirmPassword,
@@ -163,19 +163,18 @@ export const resetPasswordService = async (
 };
 
 export const getUsers = async () => {
-  const result = await axiosInstance.get('/api/users');
+  const result = await axiosInstance.get('api/users');
   /* return {data:undefined}; */ return result;
 };
 
 export const deletePost = async (id: string) => {
-  const result = await axiosInstance.delete(`/api/v1/products/${id}`);
+  const result = await axiosInstance.delete(`api/v1/products/${id}`);
   /* return {data:undefined}; */ return result;
 };
 
 export const getUserService = async () => {
   try {
     const response = await axiosInstance.get('api/users/me');
-
     return response.data;
   } catch (error: any) {
     console.error('Failed to retrieve user information:', error);
@@ -195,7 +194,6 @@ export const updateUserDataService = async (personalData: any) => {
 export const updatePasswordService = async (personalData: any) => {
   try {
     const response = await axiosInstance.put('api/users/me/update-password', personalData);
-
     return response.data;
   } catch (error: any) {
     return error?.response?.data || error?.message;

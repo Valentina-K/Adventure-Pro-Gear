@@ -108,7 +108,7 @@ async function page({ params }: IPageProps) {
 
   return (
     <Container>
-      <Navigation title="Угода користувача" />
+      <Navigation title={t('title')} />
 
       <section className={styles.policy}>
         <div className={styles.block}>

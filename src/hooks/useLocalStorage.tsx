@@ -1,3 +1,5 @@
+'use client';
+
 import { Product } from '@/types';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -27,7 +29,7 @@ function useLocalStorage(key: string) {
 
   const isExistItem = (id: number) => list.some(item => item.productId === id);
 
-/*   useEffect(() => {
+  /*   useEffect(() => {
     const stored = localStorage.getItem(key);
     if (stored) {
       try {
