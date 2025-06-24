@@ -6,7 +6,7 @@ import clsx from 'clsx';
 
 import style from './style.module.css';
 import { useTranslations } from 'next-intl';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 
 const SubscribeForm: React.FC = () => {
   const t = useTranslations('footer.subscribe');
