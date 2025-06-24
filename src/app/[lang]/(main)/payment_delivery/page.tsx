@@ -3,108 +3,17 @@ import Navigation from '@/components/Navigation/Navigation';
 import Container from '@/components/Container';
 import { IPageProps } from '@/types';
 import { getTranslations } from 'next-intl/server';
-import styles from './policy.module.css';
+import Image from 'next/image';
+import DeliveryImg1 from '../../../../../public/images/payment_delivery/img1.png';
+import DeliveryImg2 from '../../../../../public/images/payment_delivery/img2.png';
+import DeliveryImg3 from '../../../../../public/images/payment_delivery/img3.png';
+import DeliveryImg4 from '../../../../../public/images/payment_delivery/img4.png';
+import styles from './payment_delivery.module.css';
+import clsx from 'clsx';
 
 async function page({ params }: IPageProps) {
   const { lang } = params;
-  const t = await getTranslations({ lang, namespace: 'policy' });
-
-  const policyContent = [
-    {
-      titleKey: 'block1.title',
-      texts: ['block1.1-1', 'block1.1-2'],
-    },
-    {
-      titleKey: 'block2.title',
-      texts: ['block2.2-1', 'block2.2-2', 'block2.2-3', 'block2.2-4', 'block2.2-5'],
-    },
-    {
-      titleKey: 'block3.title',
-      texts: ['block3.3-1', 'block3.3-2', 'block3.3-3'],
-    },
-    {
-      titleKey: 'block4.title',
-      texts: [
-        'block4.4-1',
-        'block4.4-2',
-        'block4.4-3.text',
-        { type: 'subText', keys: ['block4.4-3.name', 'block4.4-3.password', 'block4.4-3.email'] },
-        'block4.4-4',
-        'block4.4-5',
-        'block4.4-6',
-        'block4.4-7',
-        'block4.4-8',
-        'block4.4-9',
-      ],
-    },
-    {
-      titleKey: 'block5.title',
-      texts: ['block5.5-1', 'block5.5-2', 'block5.5-3'],
-    },
-    {
-      titleKey: 'block6.title',
-      texts: ['block6.6-1'],
-    },
-    {
-      titleKey: 'block7.title',
-      texts: ['block7.7-1'],
-    },
-    {
-      titleKey: 'block8.title',
-      texts: [
-        'block8.8-1.title',
-        { type: 'subText', keys: ['block8.8-1.8-1-1', 'block8.8-1.8-1-2'] },
-        'block8.8-2',
-        'block8.8-3',
-        'block8.8-4',
-      ],
-    },
-    {
-      titleKey: 'block9.title',
-      texts: [
-        'block9.9-1',
-        'block9.9-2',
-        'block9.9-3',
-        'block9.9-4',
-        'block9.9-5.text',
-        {
-          type: 'subText',
-          keys: ['block9.9-5.variant1', 'block9.9-5.variant2', 'block9.9-5.variant3'],
-        },
-        'block9.9-6.text',
-        { type: 'subText', keys: ['block9.9-6.variant1', 'block9.9-6.variant2'] },
-        'block9.9-7',
-        'block9.9-8',
-      ],
-    },
-    {
-      titleKey: 'block10.title',
-      texts: [
-        'block10.10-1',
-        'block10.10-2.text',
-        {
-          type: 'subText',
-          keys: ['block10.10-2.delivery', 'block10.10-2.info', 'block10.10-2.other'],
-        },
-        'block10.10-3',
-        'block10.10-4',
-        'block10.10-5',
-        'block10.10-6',
-      ],
-    },
-    {
-      titleKey: 'block11.title',
-      texts: ['block11.11-1', 'block11.11-2'],
-    },
-    {
-      titleKey: 'block12.title',
-      texts: ['block12.12-1', 'block12.12-2', 'block12.12-3'],
-    },
-    {
-      titleKey: 'block13.title',
-      texts: ['block13.13-1', 'block13.13-2', 'block13.13-3', 'block13.13-4'],
-    },
-  ];
+  const t = await getTranslations({ lang, namespace: 'payment_delivery' });
 
   return (
     <Container>
@@ -113,32 +22,98 @@ async function page({ params }: IPageProps) {
       <section className={styles.policy}>
         <div className={styles.block}>
           <h1 className={styles.mainTitle}>{t('title')}</h1>
-          <p className={styles.text}>{t('description')}</p>
-          <p className={styles.text}>{t('description')}</p>
+          <div className={styles.blockImg}>
+            <div className={styles.block}>
+              <p className={styles.text}>{t('description1')}</p>
+              <p className={styles.text}>{t('description2')}</p>
+            </div>
+            <Image src={DeliveryImg1} alt="Delivery" width={480} height={272} />
+          </div>
         </div>
 
-        {policyContent.map((block, index) => (
-          <div key={index} className={styles.block}>
-            <h4 className={styles.title}>{t(block.titleKey)}</h4>
-            {block.texts.map((item, idx) => {
-              if (typeof item === 'string') {
-                return (
-                  <div key={idx} className={styles.text}>
-                    {t(item)}
-                  </div>
-                );
-              }
-              if (item.type === 'subText') {
-                return item.keys.map((key, i) => (
-                  <div key={`${idx}-${i}`} className={styles.subText}>
-                    {t(key)}
-                  </div>
-                ));
-              }
-              return null;
-            })}
+        <div id="delivery" className={clsx(styles.block, styles.scrollSection)}>
+          <h4 className={styles.title}>{t('block1.title')}</h4>
+          <div className={styles.text}>{t('block1.description')}</div>
+          <div className={styles.subTitle}>{t('block1.subBlock1.title')}</div>
+          <div className={styles.text}>{t('block1.subBlock1.text1')}</div>
+
+          <div className={styles.subTitle}>{t('block1.subBlock2.title')}</div>
+          <div className={styles.text}>{t('block1.subBlock2.text1')}</div>
+          <div className={styles.text}>{t('block1.subBlock2.text2')}</div>
+          <div className={styles.text}>{t('block1.subBlock2.text3')}</div>
+        </div>
+
+        <div className={styles.block}>
+          <h4 className={styles.title}>{t('block2.title')}</h4>
+          <div className={styles.blockImg}>
+            <Image src={DeliveryImg2} alt="Delivery" width={480} height={328} />
+            <div className={styles.block}>
+              <div className={styles.text}>{t('block2.description1')}</div>
+              <div className={styles.text}>{t('block2.description2')}</div>
+              <div className={styles.text}>{t('block2.description3')}</div>
+            </div>
           </div>
-        ))}
+        </div>
+
+        <div id="payment" className={clsx(styles.block, styles.scrollSection)}>
+          <h4 className={styles.title}>{t('block3.title')}</h4>
+          <div className={styles.blockImg}>
+            <div className={styles.block}>
+              <div className={styles.text}>{t('block3.description1')}</div>
+              <div className={styles.text}>{t('block3.description2')}</div>
+              <div className={styles.text}>{t('block3.description3')}</div>
+            </div>
+            <Image src={DeliveryImg3} alt="Delivery" width={480} height={320} />
+          </div>
+        </div>
+
+        <div id="return" className={clsx(styles.block, styles.scrollSection)}>
+          <h4 className={styles.title}>{t('block4.title')}</h4>
+          <div className={styles.blockImg}>
+            <Image src={DeliveryImg4} alt="Delivery" width={480} height={344} />
+            <div className={styles.block}>
+              <div className={styles.text}>{t('block4.description1.text')}</div>
+              <div className={styles.text}>
+                <div className={styles.subText}>
+                  <span>1.</span>
+                  <span>{t('block4.description1.subText1')}</span>
+                </div>
+                <div className={styles.subText}>
+                  <span>2.</span>
+                  <span>{t('block4.description1.subText2')}</span>
+                </div>
+                <div className={styles.subText}>
+                  <span>3.</span>
+                  <span>{t('block4.description1.subText3')}</span>
+                </div>
+              </div>
+              <div className={styles.text}>{t('block4.description2')}</div>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.footerBlock}>
+          <div>
+            <span>{t('payment_delivery_footer.text1')}</span>
+            <span> </span>
+            <span className={styles.mainText}>{t('payment_delivery_footer.text2')}</span>
+          </div>
+          <div>
+            <span>{t('payment_delivery_footer.text3')}</span>
+            <span> </span>
+            <span className={styles.mainText}>{t('payment_delivery_footer.text4')}</span>
+            <span> </span>
+            <span>{t('payment_delivery_footer.text5')}</span>
+            <span> </span>
+            <span className={styles.mainText}>{t('payment_delivery_footer.text6')}</span>
+            <span> </span>
+            <span>{t('payment_delivery_footer.text7')}</span>
+            <span> </span>
+            <span className={styles.mainText}>{t('payment_delivery_footer.text8')}</span>
+            <span> </span>
+            <span>{t('payment_delivery_footer.text9')}</span>
+          </div>
+        </div>
       </section>
     </Container>
   );
