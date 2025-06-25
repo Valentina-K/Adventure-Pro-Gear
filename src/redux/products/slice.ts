@@ -50,7 +50,14 @@ const productsSlice = createSlice({
       if (!state.cart) {
         state.cart = [];
       }
-      state.cart.push(action.payload);
+
+      const existingItem = state.cart.find(item => item.productId === action.payload.productId);
+
+      if (existingItem) {
+        existingItem.quantity = action.payload.quantity;
+      } else {
+        state.cart.push(action.payload);
+      }
     },
     setQuantityCart(state, action: PayloadAction<any>) {
       const item = state.cart.find(it => it.productId === action.payload.productId);

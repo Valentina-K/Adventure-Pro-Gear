@@ -172,46 +172,51 @@ export const deletePost = async (id: string) => {
   /* return {data:undefined}; */ return result;
 };
 
-export const updateUserDataService = async (personalData: any) => {
-  const { name, surname, phone, street, city } = personalData;
+export const getUserService = async () => {
   try {
-    const response = await axiosInstance.put('api/users/me/update', {
-      name,
-      surname,
-      phone,
-      street,
-      city,
-    });
-    return response;
-  } catch (error) {
-    console.log(error);
+    const response = await axiosInstance.get('api/users/me');
+    return response.data;
+  } catch (error: any) {
+    console.error('Failed to retrieve user information:', error);
+    return error?.response?.data || error?.message;
+  }
+};
+
+export const updateUserDataService = async (personalData: any) => {
+  try {
+    const response = await axiosInstance.put('api/users/me/update', personalData);
+    return response.data;
+  } catch (error: any) {
+    return error?.response?.data || error?.message;
   }
 };
 
 export const updatePasswordService = async (personalData: any) => {
-  const { password, confirmPassword } = personalData;
   try {
-    const response = await axiosInstance.put('api/users/me/update-password', {
-      password,
-      confirmPassword,
-    });
-    return response;
-  } catch (error) {
-    console.log(error);
+    const response = await axiosInstance.put('api/users/me/update-password', personalData);
+    return response.data;
+  } catch (error: any) {
+    return error?.response?.data || error?.message;
   }
 };
 
 export const updateEmailService = async (personalData: any) => {
-  const { email, password, confirmpassword } = personalData;
   try {
-    const response = await axiosInstance.put('api/users/me/update-email', {
-      email,
-      password,
-      confirmpassword,
-    });
-    return response;
-  } catch (error) {
+    const response = await axiosInstance.put('api/users/me/update-email', personalData);
+    return response?.data;
+  } catch (error: any) {
     console.log(error);
+    return error?.response?.data || error?.message;
+  }
+};
+
+export const deleteUserService = async () => {
+  try {
+    const response = await axiosInstance.delete('api/users');
+    return response?.data;
+  } catch (error: any) {
+    console.log(error);
+    return error?.response?.data || error?.message;
   }
 };
 
@@ -233,6 +238,15 @@ export const getBlogs = async (page = 0, size = 5, sort = 'createdAt') => {
 export const getBlogsId = async (blogId: string) => {
   try {
     const response = await axiosInstance.get(`api/blog/posts/${blogId}`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const postOrderService = async (orders: any) => {
+  try {
+    const response = await axiosInstance.post('api/orders', orders);
     return response.data;
   } catch (error) {
     console.log(error);

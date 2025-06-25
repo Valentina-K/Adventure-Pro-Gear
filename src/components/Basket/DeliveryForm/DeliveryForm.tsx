@@ -1,39 +1,44 @@
 import React from 'react';
+import { useParams } from 'next/navigation';
 import styles from './DeliveryForm.module.css';
 
 interface IDeliveryFormProps {
   formData: {
-    basket: any[];
-    name: string;
-    surname: string;
-    tel?: string;
+    // name: string;
+    // surname: string;
+    // tel?: string;
     postAddress: string;
     city: string;
-    pochtIndex: string;
-    company?: string;
-    mpe?: string;
+    // pochtIndex: string;
+    // basket: any[];
+    // company?: string;
+    // mpe?: string;
+    comment: string;
+    ordersLists: {}[];
   };
   activeForm: string;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const DeliveryForm: React.FC<IDeliveryFormProps> = ({ handleChange, formData, activeForm }) => {
+  const params = useParams();
+
   return (
     <form>
       <div className={styles.input_container}>
         <input
           type="text"
           name="name"
+          placeholder={params.lang === 'uk' ? "Ім'я" : 'Name'}
           // value={formData.name}
-          placeholder="Ім'я"
           className={styles.input}
           onChange={handleChange}
         />
         <input
           type="text"
           name="surname"
+          placeholder={params.lang === 'uk' ? 'Прізвище' : 'Surname'}
           // value={formData.surname}
-          placeholder="Прізвище"
           className={styles.input}
           onChange={handleChange}
         />
@@ -42,8 +47,8 @@ const DeliveryForm: React.FC<IDeliveryFormProps> = ({ handleChange, formData, ac
             <input
               type="text"
               name="company"
+              placeholder={params.lang === 'uk' ? "Компанія (необов'язково)" : 'Company (optional)'}
               // value={formData?.company}
-              placeholder="Компанія (необов'язково)"
               className={styles.input}
               onChange={handleChange}
             />
@@ -51,8 +56,12 @@ const DeliveryForm: React.FC<IDeliveryFormProps> = ({ handleChange, formData, ac
             <input
               type="text"
               name="mpe"
+              placeholder={
+                params.lang === 'uk'
+                  ? "Номер платника ПДВ (необов'язково)"
+                  : 'VAT number (optional)'
+              }
               // value={formData?.mpe}
-              placeholder="Номер платника ПДВ (необов'язково)"
               className={styles.input}
               onChange={handleChange}
             />
@@ -61,8 +70,8 @@ const DeliveryForm: React.FC<IDeliveryFormProps> = ({ handleChange, formData, ac
           <input
             type="tel"
             name="tel"
+            placeholder={params.lang === 'uk' ? 'Телефон' : 'Phone'}
             // value={formData?.tel}
-            placeholder="Телефон"
             className={styles.input}
             onChange={handleChange}
           />
@@ -71,24 +80,24 @@ const DeliveryForm: React.FC<IDeliveryFormProps> = ({ handleChange, formData, ac
         <input
           type="text"
           name="postAddress"
+          placeholder={params.lang === 'uk' ? 'Вулиця та номер будинку' : 'Street and house number'}
           // value={formData.postAddress}
-          placeholder="Вулиця та номер будинку"
           className={styles.input}
           onChange={handleChange}
         />
         <input
           type="text"
           name="city"
+          placeholder={params.lang === 'uk' ? 'Місто' : 'City'}
           // value={formData.city}
-          placeholder="Місто"
           className={styles.input}
           onChange={handleChange}
         />
         <input
           type="text"
           name="pochtIndex"
+          placeholder={params.lang === 'uk' ? 'Поштовий індекс' : 'Postal code'}
           // value={formData.pochtIndex}
-          placeholder="Поштовий індекс"
           className={styles.input}
           onChange={handleChange}
         />

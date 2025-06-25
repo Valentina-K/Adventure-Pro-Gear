@@ -9,6 +9,10 @@ import {
   updateUserDataService,
   updatePasswordService,
   updateEmailService,
+  getUserInfoService,
+  deleteUserService,
+  getUserService,
+  postOrderService,
 } from '@/services/axios';
 import { AppRoutes } from '@/constants/routes';
 import { getAllTranslations, getTranslation } from '@/dictionaries/dictionaries';
@@ -128,35 +132,35 @@ const generateErrorMessage = (statusCode: number, errorData: string) => {
 // };
 
 export const registerAction = async (formData: any, locale: any) => {
-	const translations = await getAllTranslations(locale);
+  const translations = await getAllTranslations(locale);
   console.log('Translations: ', translations);
   const translationFunction = getTranslation(translations);
   const authTranslation = translationFunction('auth');
 
-	try {
-		const result: any = await signUpService(formData);
-		console.log('Form submitted successfully:', result.data);
-		if (result?.data) {
-			return {
-				success: authTranslation.registration.success,
-			};
-		}
-	} catch (error: unknown) {
-		console.error('Error submitting form:', error);
-		if (axios.isAxiosError(error)) {
-			console.error('Axios error submitting form:', error.message);
-			if (error.response) {
-				console.log('Error data:', error.response.data);
-				if (error.response.status >= 400) {
-					console.log(error.response.data);
-					return { submitError: generateErrorMessage(error.response.status, error.response.data) };
-				}
-			}
-		} else {
-			console.error('Unexpected error:', error);
-		}
-	}
-}
+  try {
+    const result: any = await signUpService(formData);
+    console.log('Form submitted successfully:', result.data);
+    if (result?.data) {
+      return {
+        success: authTranslation.registration.success,
+      };
+    }
+  } catch (error: unknown) {
+    console.error('Error submitting form:', error);
+    if (axios.isAxiosError(error)) {
+      console.error('Axios error submitting form:', error.message);
+      if (error.response) {
+        console.log('Error data:', error.response.data);
+        if (error.response.status >= 400) {
+          console.log(error.response.data);
+          return { submitError: generateErrorMessage(error.response.status, error.response.data) };
+        }
+      }
+    } else {
+      console.error('Unexpected error:', error);
+    }
+  }
+};
 
 export const forgotPaswordAction = async (formData: FormData) => {
   const email = formData.get('email');
@@ -178,15 +182,27 @@ export const resetPaswordAction = async (formData: FormData) => {
   return;
 };
 
+export const getPersonalData = async () => {
+  try {
+    const response = await getUserService();
+    console.log('Server Response: ', response.data);
+    return response || response?.error;
+  } catch (e: any) {
+    console.log('Error from Client!', e);
+    return e?.response?.data || e?.message;
+  }
+};
+
 export const updatePersonalData = async (formData: FormData) => {
   const userData = Object.fromEntries(formData);
   console.log('User Data: ', userData);
   try {
     const response = await updateUserDataService(userData);
-    console.log('Server Response: ', response?.statusText);
-    return response?.status;
-  } catch (e) {
-    console.log('Error from Client!', e);
+    console.log('Server Response: ', response);
+    return response;
+  } catch (error: any) {
+    console.log('Error from Client!', error);
+    return error?.response?.data || error?.message;
   }
 };
 
@@ -195,10 +211,11 @@ export const updatePassword = async (formData: FormData) => {
   console.log('New Password: ', newPassword);
   try {
     const response = await updatePasswordService(newPassword);
-    console.log('Server Response: ', response?.statusText);
-    return response?.status;
-  } catch (e) {
-    console.log('Error from Client!', e);
+    console.log('Server Response: ', response);
+    return response;
+  } catch (error: any) {
+    console.log('Error from Client!', error);
+    return error?.response?.data || error?.message;
   }
 };
 
@@ -208,8 +225,33 @@ export const updateEmail = async (formData: FormData) => {
   try {
     const response = await updateEmailService(newEmail);
     console.log('Server Response: ', response?.statusText);
-    return response?.status;
-  } catch (e) {
-    console.log('Error from Client!', e);
+    return response;
+  } catch (error: any) {
+    console.log('Error from Client!', error);
+    return error?.response?.data || error?.message;
+  }
+};
+
+export const deleteUser = async () => {
+  console.log('deleteUser: ');
+  try {
+    const response = await deleteUserService();
+    console.log('Server Response: ', response?.statusText);
+    return response;
+  } catch (error: any) {
+    console.log('Error from Client!', error);
+    return error?.response?.data || error?.message;
+  }
+};
+
+export const postOrder = async (orders: any) => {
+  console.log('deleteUser: ');
+  try {
+    const response = await postOrderService(orders);
+    console.log('Server Response basket: ', response);
+    return response;
+  } catch (error: any) {
+    console.log('Error from Client!', error);
+    return error?.response?.data || error?.message;
   }
 };

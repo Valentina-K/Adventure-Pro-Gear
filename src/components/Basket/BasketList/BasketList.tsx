@@ -2,6 +2,8 @@ import QuantitySelector from '@/components/QuantitySelector/QuantitySelector';
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '@/redux/store';
 import { deleteShoppingProduct, setQuantityCart } from '@/redux/products/slice';
@@ -11,16 +13,17 @@ import styles from './BasketList.module.css';
 
 interface IBasketListProps {
   formData: {
-    name: string;
-    surname: string;
-    tel?: string;
+    // name: string;
+    // surname: string;
+    // tel?: string;
     postAddress: string;
     city: string;
-    pochtIndex: string;
-    basket: any[];
-    company?: string;
-    mpe?: string;
+    // pochtIndex: string;
+    // basket: any[];
+    // company?: string;
+    // mpe?: string;
     comment: string;
+    ordersLists: {}[];
   };
   setFormData: (form: any) => void;
   setSumOrder: any;
@@ -33,13 +36,14 @@ const BasketList: React.FC<IBasketListProps> = ({
   setSumOrder,
   variant = 'default',
 }) => {
+  const params = useParams();
   let shoppingCart = useSelector(selectOpenShoppingCart);
   const dispatch = useAppDispatch();
-
+  const t = useTranslations('basket.basketList');
   useEffect(() => {
     const total = shoppingCart.reduce((acc, item) => acc + item.basePrice * item.quantity, 0);
     setSumOrder(total);
-  }, [shoppingCart]);
+  }, [setSumOrder, shoppingCart]);
 
   const handleChangeQuantity = (quantity: number, productId: number) => {
     dispatch(
@@ -49,14 +53,29 @@ const BasketList: React.FC<IBasketListProps> = ({
       })
     );
 
-    setFormData((prev: any) => ({
-      ...prev,
-      basket: shoppingCart,
-    }));
+    setFormData((prev: any) => {
+      const existing: { productId: number; quantity: number }[] = prev.ordersLists || [];
+
+      const updatedOrders = existing.some(item => item.productId === productId)
+        ? existing.map(item => (item.productId === productId ? { ...item, quantity } : item))
+        : [...existing, { productId, quantity }];
+
+      return {
+        ...prev,
+        ordersLists: updatedOrders,
+      };
+    });
   };
 
-  const handleDeleteProduct = (product: number) => {
-    dispatch(deleteShoppingProduct(product));
+  const handleDeleteProduct = (productId: number) => {
+    dispatch(deleteShoppingProduct(productId));
+
+    setFormData((prev: any) => ({
+      ...prev,
+      ordersLists: (prev.ordersLists || []).filter(
+        (item: { productId: number; quantity: number }) => item.productId !== productId
+      ),
+    }));
   };
 
   return (
@@ -79,12 +98,18 @@ const BasketList: React.FC<IBasketListProps> = ({
               <Image src={image} alt="photo" width={180} height={180} />
               <div className={styles.content}>
                 <Link href={selfLink}>
-                  <h2 className={styles.item_title}>{productNameUa}</h2>
+                  <h2 className={styles.item_title}>
+                    {params?.lang === 'uk' ? productNameUa : productNameEn}
+                  </h2>
                 </Link>
                 {variant !== 'small' && <p className={styles.item_price}>{basePrice}₴</p>}
 
-                <p className={styles.item_descr}>-Колір: {color}</p>
-                <p className={styles.item_descr}>Розмір: {size}</p>
+                <p className={styles.item_descr}>
+                  -{t('color')}:{color}
+                </p>
+                <p className={styles.item_descr}>
+                  -{t('size')}: {size}
+                </p>
                 {variant === 'small' && <p className={styles.item_price_small}>{basePrice} ₴</p>}
               </div>
 

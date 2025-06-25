@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import styles from './PaymentCard.module.css';
 import visa from '../../../../public/images/visa.png';
@@ -10,6 +11,7 @@ import googlePay from '../../../../public/images/googlePay.png';
 import BasketList from '../BasketList/BasketList';
 
 const PaymentCard = ({ setFormData }: { setFormData: (form: any) => void }) => {
+  const t = useTranslations('basket.choosePayment');
   const [activePayment, setActivePayment] = useState(1);
   const [sumOrder, setSumOrder] = useState(0);
 
@@ -20,12 +22,10 @@ const PaymentCard = ({ setFormData }: { setFormData: (form: any) => void }) => {
   return (
     <div className={styles.paymentCard_container}>
       <div>
-        <h2 className={styles.title}>Оберіть спосіб оплати</h2>
+        <h2 className={styles.title}>{t('chooseMethod')}</h2>
 
         <div className={styles.radio_container}>
-          <div
-            className={styles.checked_container}
-          >
+          <div className={styles.checked_container}>
             <input
               type="radio"
               name="payment"
@@ -41,7 +41,7 @@ const PaymentCard = ({ setFormData }: { setFormData: (form: any) => void }) => {
               onClick={() => handlePayment(1)}
               aria-hidden={true}
             >
-              Платіжна карта
+              {t('card')}
             </label>
             <Image src={visa} alt="card" />
           </div>
@@ -51,9 +51,7 @@ const PaymentCard = ({ setFormData }: { setFormData: (form: any) => void }) => {
               <input type="text" />
             </form>
           )}
-          <div
-            className={styles.checked_container}
-          >
+          <div className={styles.checked_container}>
             <input
               type="radio"
               name="payment"
@@ -69,19 +67,12 @@ const PaymentCard = ({ setFormData }: { setFormData: (form: any) => void }) => {
               onClick={() => handlePayment(2)}
               aria-hidden={true}
             >
-              Платіж за допомогою
+              {t('paymentVia')}
             </label>
             <Image src={payPal} alt="payPal" />
           </div>
-          {activePayment === 2 && (
-            <p className={styles.descr}>
-              Вас буде перенаправлено до PayPal. Після цього ви повернетесь до нашого магазину для
-              завершення замовлення.
-            </p>
-          )}
-          <div
-            className={styles.checked_container}
-          >
+          {activePayment === 2 && <p className={styles.descr}>{t('descrPayPal')}</p>}
+          <div className={styles.checked_container}>
             <input
               type="radio"
               name="payment"
@@ -97,16 +88,11 @@ const PaymentCard = ({ setFormData }: { setFormData: (form: any) => void }) => {
               onClick={() => handlePayment(3)}
               aria-hidden={true}
             >
-              Платіж за допомогою
+              {t('paymentVia')}
             </label>
             <Image src={googlePay} alt="googlePay" />
           </div>
-          {activePayment === 3 && (
-            <p className={styles.descr}>
-              Вас буде перенаправлено до Google Pay. Після цього ви повернетесь до нашого магазину
-              для завершення замовлення.
-            </p>
-          )}
+          {activePayment === 3 && <p className={styles.descr}>{t('descrGooglePay')}</p>}
         </div>
       </div>
       <div>
@@ -114,21 +100,22 @@ const PaymentCard = ({ setFormData }: { setFormData: (form: any) => void }) => {
           setSumOrder={setSumOrder}
           variant="small"
           formData={{
-            name: '',
-            surname: '',
-            tel: undefined,
+            // name: '',
+            // surname: '',
+            // tel: undefined,
             postAddress: '',
             city: '',
-            pochtIndex: '',
-            basket: [],
-            company: undefined,
-            mpe: undefined,
+            // pochtIndex: '',
+            // basket: [],
+            // company: undefined,
+            // mpe: undefined,
             comment: '',
+            ordersLists: [],
           }}
           setFormData={setFormData}
         />
         <p className={styles.sumOrder}>
-          Загальна сума
+          {t('sum')}
           <span>{sumOrder}</span>
         </p>
       </div>
