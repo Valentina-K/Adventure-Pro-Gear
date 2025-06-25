@@ -44,7 +44,6 @@ export interface Characteristics {
 }
 
 export interface Product {
-  price: any;
   productId: number;
   productNameUa: string;
   productNameEn: string;
