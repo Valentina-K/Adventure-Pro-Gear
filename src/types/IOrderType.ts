@@ -1,12 +1,13 @@
 export interface IOrderType {
-    order: {id: number;
+  order: {
+    id: number;
     userId: number;
     orderDate: string;
     city: string;
     postAddress: string;
     comment: string;
     price: number;
-    status: 'NEW' | 'ACCEPTED' | 'PENDING' | 'SENT' | 'DELIVERED';
+    status: 'NEW' | 'PAID' | 'CANCELED' | 'DELIVERED';
     ordersLists: [
       {
         id: number;
@@ -17,5 +18,7 @@ export interface IOrderType {
         selfLink: string;
       },
     ];
-    selfLink: string;}
+    selfLink: string;
+  };
+  className?: string;
 }

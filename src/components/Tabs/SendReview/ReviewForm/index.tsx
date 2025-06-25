@@ -35,6 +35,7 @@ const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm }) => {
   const params = useParams();
   const router = useRouter();
   const token = session?.user?.accessToken;
+  console.log('token', token, 'status', status);
   if (!token && status === 'authenticated') {
     console.error('No access token found');
   }

@@ -1,3 +1,16 @@
-.list{
-    border: 0.5px solid #f0f0f0;
+.ordersTable {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.ordersTable th {
+  width: 25%;
+  padding: 16px;
+  text-align: left;
+}
+
+.ordersTable .even {
+  background: #1E5F721A;
+  backdrop-filter: blur(40px);
 }

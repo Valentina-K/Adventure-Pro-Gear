@@ -98,6 +98,7 @@ const options: NextAuthOptions = {
         // Обновляем токен
         try {
           const refreshed = await refreshTokenService(token.refreshToken as string);
+          console.log('refreshed', refreshed);
           const newTokens = refreshed;
           if (!newTokens || !newTokens.accessToken) {
             throw new Error('No accessToken in response');
@@ -122,6 +123,11 @@ const options: NextAuthOptions = {
     },
 
     async session({ session, token }) {
+      if (token.error === 'RefreshAccessTokenError') {
+        return {
+          expires: session.expires,
+        };
+      }
       if (token) {
         return {
           ...session,

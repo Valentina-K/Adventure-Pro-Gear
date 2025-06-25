@@ -4,9 +4,6 @@ import axios from 'axios';
 
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
-  /* headers: {
-    'ngrok-skip-browser-warning': 'true',
-  }, */
 });
 
 axios.defaults.withCredentials = true;
@@ -16,7 +13,7 @@ export const getAllReviewsByProductId = async (productId: number) => {
     const reviews = await axiosInstance.get(`api/public/products/reviews?productId=${productId}`);
     return reviews;
   } catch (error) {
-    console.log('from getAllReviews');
+    console.log('from getAllReviews', error);
   }
 };
 
@@ -55,7 +52,7 @@ export const createReview = async (data: any, token: string) => {
 
 export const toggleLike = async (id: number, token: string) => {
   try {
-    const response = await axiosInstance.post(`api/public/products/reviews/${String(id)}/toggle-like`, {}, {
+    const response = await axiosInstance.post(`/api/public/products/reviews/${String(id)}/toggle-like`, {}, {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
