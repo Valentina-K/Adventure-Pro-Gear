@@ -42,11 +42,23 @@ const CatalogOfGoods: React.FC<SearchProps> = ({
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       const evtTarget = e.target as HTMLElement;
+      const className = evtTarget?.className;
 
-      if (
+      if (typeof className !== 'string') return;
+      else if (
         evtTarget.className.includes('CatalogList_item') ||
         evtTarget.className.includes('CatalogList_title') ||
-        evtTarget.className.includes('img')
+        evtTarget.className.includes('img') ||
+        evtTarget.className.includes('catalogList_container') ||
+        evtTarget.className.includes('navList_container') ||
+        evtTarget.className.includes('css-1a911xt-container') ||
+        evtTarget.className.includes('Header_globusIcon__Xi7Ny') ||
+        evtTarget.className.includes('css-d7l1ni-option') ||
+        evtTarget.className.includes('css-tr4s17-option') ||
+        evtTarget.className.includes('css-6ya78u-singleValue') ||
+        evtTarget.className.includes('css-ql0jyi') ||
+        evtTarget.className.includes('css-15lsz6c-indicatorContainer') ||
+        evtTarget.className.includes('css-630tcq-control')
       ) {
         return;
       } else if (ignoreRef.current && !ignoreRef.current.contains(e.target as Node)) {

@@ -64,15 +64,32 @@
   }
 
   .nav {
+    display: block;
     padding-bottom: 0;
+  }
+
+  .navItem > a {
+    color: var(--black-900);
   }
 
   .navList {
     display: none;
   }
 
+  .globusIcon {
+    margin-left: 8px;
+    filter: brightness(0.2) grayscale(1);
+  }
+
   .langSelect {
-    display: none;
+    opacity: 0;
+    pointer-events: none;
+    height: 0;
+    overflow: hidden;
+  }
+
+  .navList_container {
+    display: block;
   }
 
   .logo {

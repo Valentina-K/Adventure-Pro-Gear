@@ -75,8 +75,8 @@ const Basket = () => {
           autoClose: 36000000,
         });
       }
-      if (typeof data === 'string') {
-        throw new Error(data);
+      if (typeof data === 'string' || data.error) {
+        throw new Error(data.error || data);
       }
       dispatch(clearShoppingCart());
       return toast.success('Success', {
