@@ -66,8 +66,7 @@ const CatalogList: React.FC<ICatalogListProps> = ({ setVisibleSubcategory }) => 
                           />
                         ) : (
                           ' '
-                        )
-                      )}
+                        ))}
                       <p className={style.title}>
                         {locale === 'uk' ? sectionCaptionUa : sectionCaptionEn}
                       </p>

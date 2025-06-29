@@ -57,3 +57,42 @@
 .langSelect {
   min-width: 125px;
 }
+
+@media screen and (max-width: 1179px) {
+  .header {
+    height: 140px;
+  }
+
+  .nav {
+    padding-bottom: 0;
+  }
+
+  .navList {
+    display: none;
+  }
+
+  .langSelect {
+    display: none;
+  }
+
+  .logo {
+    margin: 10px auto;
+  }
+  .logo img {
+    height: 49px;
+  }
+  .burger {
+    display: inline-block;
+    cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 743px) {
+  .header {
+    height: 127px;
+  }
+  .burger {
+    width: 40px;
+    height: 40px;
+  }
+}

@@ -15,7 +15,7 @@ const Footer = () => {
   const pathName = usePathname();
   return (
     <nav className={style.nav}>
-      <Link href="/" className="logo">
+      <Link href="/" className={style.logo}>
         <Image src={logoFooter} width={180} alt="logo" />
       </Link>
 
@@ -59,22 +59,22 @@ const Footer = () => {
             })}
           </ul>
           {/* <ul className={style.menu}>
-            <li className={style.navItem}>
-              <Link href="">{t('support.guarantee')}</Link>
-            </li>
-            <li className={style.navItem}>
-              <Link href="">{t('support.delivery')}</Link>
-            </li>
-            <li className={style.navItem}>
-              <Link href="">{t('support.payment')}</Link>
-            </li>
-            <li className={style.navItem}>
-              <Link href="">{t('support.return')}</Link>
-            </li>
-          </ul> */}
+              <li className={style.navItem}>
+                <Link href="">{t('support.guarantee')}</Link>
+              </li>
+              <li className={style.navItem}>
+                <Link href="">{t('support.delivery')}</Link>
+              </li>
+              <li className={style.navItem}>
+                <Link href="">{t('support.payment')}</Link>
+              </li>
+              <li className={style.navItem}>
+                <Link href="">{t('support.return')}</Link>
+              </li>
+            </ul> */}
         </div>
 
-        <div>
+        <div className={style.ourContact}>
           <b>{t('contacts.title')}</b>
           <ul className={style.menu}>
             <li className={style.navItem}>

@@ -65,3 +65,21 @@
 .item:hover .img {
   filter: brightness(0) invert(1);
 }
+
+@media screen and (max-width: 1179px) {
+  .spinner_container {
+
+    top: 2px;
+    right: 20px;
+
+  }
+}
+
+
+@media screen and (max-width: 743px) {
+  .spinner_container {
+
+    right: -10px;
+
+  }
+}

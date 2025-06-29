@@ -245,13 +245,12 @@ export const deleteUser = async () => {
 };
 
 export const postOrder = async (orders: any) => {
-  console.log('deleteUser: ');
   try {
     const response = await postOrderService(orders);
-    console.log('Server Response basket: ', response);
+    console.log('postOrder', response);
+
     return response;
   } catch (error: any) {
-    console.log('Error from Client!', error);
     return error?.response?.data || error?.message;
   }
 };
