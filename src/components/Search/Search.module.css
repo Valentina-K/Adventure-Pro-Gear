@@ -112,3 +112,60 @@
 .dropdown_button:hover {
   box-shadow: inset 0px 0px 10px 2px var(--shadow);
 }
+
+@media screen and (max-width: 1179px) {
+  .search_box {
+    position: relative;
+    top: 31px;
+    left: 2px;
+  }
+
+  .search {
+    background-color: #406074;
+    min-width: 382px;
+    height: 70px;
+    border-radius: 2px;
+  }
+
+  .search_none {
+    display: none;
+  }
+
+  .search_icon {
+    position: absolute;
+    left: 14px;
+    top: -40px;
+  }
+  .search_icon_active {
+    position: absolute;
+    right: 24px;
+    top: 22px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 743px) {
+  .search_box {
+    top: 18px;
+    left: -18px;
+  }
+
+  .search {
+    min-width: 286px;
+    height: 42px;
+  }
+
+  .search_icon {
+    position: absolute;
+    left: 14px;
+    top: -33px;
+  }
+
+  .search_icon_active {
+    position: absolute;
+    right: -205px;
+    top: 10px;
+  }
+}

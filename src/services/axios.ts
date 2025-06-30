@@ -265,8 +265,9 @@ export const getOrderById = async (id: number) => {
 export const postOrderService = async (orders: any) => {
   try {
     const response = await axiosInstance.post('api/orders', orders);
+    console.log('postOrderService', response);
     return response.data;
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    return error?.response.data || error?.message;
   }
 };

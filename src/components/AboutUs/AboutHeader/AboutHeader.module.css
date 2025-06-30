@@ -51,6 +51,7 @@
   .about {
     background-position: top center;
     min-height: 650px;
+    margin-top: -20px;
   }
 
   .about_container {
@@ -72,9 +73,9 @@
 }
 
 @media screen and (max-width: 743px) {
-  .about {
+  /* .about {
     height: 100%;
-  }
+  } */
 
   .about_navigation_img {
     margin: 0 8px;

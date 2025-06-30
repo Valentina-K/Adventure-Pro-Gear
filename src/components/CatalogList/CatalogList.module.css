@@ -65,3 +65,44 @@
 .item:hover .img {
   filter: brightness(0) invert(1);
 }
+
+@media screen and (max-width: 1179px) {
+  .spinner_container {
+    top: 2px;
+    right: 20px;
+  }
+  .catalogList_container {
+    top: -5px;
+    left: 1px;
+    height: 100vh;
+  }
+  .navList_container {
+    display: flex;
+    margin-left: 40px;
+  }
+
+  .navList_container ul {
+    display: block;
+    flex-direction: column;
+    position: absolute;
+    z-index: 100;
+    top: 500px;
+    left: -15px;
+    margin-top: 50px;
+  }
+
+  .navList_container div {
+    opacity: 1;
+    pointer-events: all;
+    overflow: visible;
+    color: var(--black-900);
+    background-color: transparent;
+    margin-top: 2px;
+  }
+}
+
+@media screen and (max-width: 743px) {
+  .spinner_container {
+    right: -10px;
+  }
+}

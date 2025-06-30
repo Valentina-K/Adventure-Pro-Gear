@@ -222,7 +222,7 @@
       "dataRepit": "Same as delivery information",
       "other": "Other / company"
     },
-    "choosePayment":{
+    "choosePayment": {
       "chooseMethod": "Choose a payment method",
       "card": "Payment card",
       "paymentVia": "Payment via",
@@ -253,7 +253,8 @@
       "guarantee": "Guarantee",
       "delivery": "Delivery",
       "payment": "Payment",
-      "return": "Return and exchange"
+      "return": "Return and exchange",
+      "security_policy": "Security policy"
     },
     "contacts": {
       "title": "Our contacts",
@@ -539,5 +540,11 @@
       "text8": "journey",
       "text9": "in life!"
     }
+  },
+  "page404": {
+    "breadscrambps": "Page Not Found",
+    "description1": "Sorry, the page you're looking for doesn't exist.",
+    "description2": "Go back to the homepage and try again.",
+    "toMainPage": "Back to Home"
   }
 }

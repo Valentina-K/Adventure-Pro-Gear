@@ -12,6 +12,7 @@ import { selectOpenShoppingCart } from '@/redux/products/selectors';
 import { clearShoppingCart } from '@/redux/products/slice';
 import { postOrder, updatePersonalData } from '@/app/actions';
 import Container from '@/components/Container';
+import { toast } from 'react-toastify';
 import BasketCard from '@/components/Basket/BasketCard/BasketCard';
 import DeliveryCard from '@/components/Basket/DeliveryCard/Delivery';
 import PaymentCard from '@/components/Basket/PaymentCard/PaymentCard';
@@ -43,8 +44,10 @@ const Basket = () => {
 
   useEffect(() => {
     // eslint-disable-next-line no-unused-expressions
-    shoppingCart.length === 0 ? setDisebleForm(true) : setDisebleForm(false);
-  }, [setDisebleForm, shoppingCart]);
+    shoppingCart.length === 0
+      ? setDisebleForm(true)
+      : setDisebleForm(false);
+  }, [formData.ordersLists, shoppingCart.length]);
 
   const handleActiveForm = (value: string) => {
     setActiveForm(value);
@@ -61,8 +64,34 @@ const Basket = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log('formData', formData);
-    const data = await postOrder(formData);
-    dispatch(clearShoppingCart());
+    try {
+      const data = await postOrder(formData);
+      console.log('data', data);
+      if (data?.status === 401) {
+        return toast.error('Unauthorized', {
+          position: 'top-right',
+          className: `${styles.signInToastErrorMessage}`,
+          bodyClassName: `${styles.signInToastBody}`,
+          autoClose: 36000000,
+        });
+      }
+      if (typeof data === 'string' || data.error) {
+        throw new Error(data.error || data);
+      }
+      dispatch(clearShoppingCart());
+      return toast.success('Success', {
+        position: 'top-right',
+        className: styles.successToast,
+        autoClose: 3000,
+      });
+    } catch (error: any) {
+      return toast.error(`${error}`, {
+        position: 'top-right',
+        className: `${styles.signInToastErrorMessage}`,
+        bodyClassName: `${styles.signInToastBody}`,
+        autoClose: 36000000,
+      });
+    }
   };
   return (
     <Container>
@@ -91,9 +120,7 @@ const Basket = () => {
         </li>
       </ul>
 
-      {activeCard?.length === 1 && (
-        <BasketCard formData={formData} setFormData={setFormData} />
-      )}
+      {activeCard?.length === 1 && <BasketCard formData={formData} setFormData={setFormData} />}
       {activeCard?.length === 2 && (
         <DeliveryCard
           setFormData={setFormData}
@@ -129,7 +156,7 @@ const Basket = () => {
           </button>
         ) : (
           <form onSubmit={handleSubmit}>
-            <button type="submit" className={styles.footer_btn}>
+            <button type="submit" className={styles.footer_btn} disabled={disebleForm}>
               {t('submitOrder')}
             </button>
           </form>

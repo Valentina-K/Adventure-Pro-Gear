@@ -54,3 +54,19 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+@media screen and (max-width: 1179px) {
+  .subscribeForm {
+    display: block;
+  }
+
+  .inputContainer {
+    margin-bottom: 16px;
+  }
+}
+
+@media screen and (max-width: 743px) {
+  .inputContainer {
+    width: 100%;
+  }
+}
