@@ -115,4 +115,10 @@ export const footerSupportLinks: Props[] = [
     path: '/payment_delivery#return',
     icon: '',
   },
+  {
+    id: 5,
+    label: 'security_policy',
+    path: '/security_policy',
+    icon: '',
+  },
 ];
