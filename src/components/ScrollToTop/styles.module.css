@@ -28,14 +28,14 @@
 
 @media screen and (max-width: 1179px) {
   .about_navigation_scrollUp {
-    position: relative;
-    bottom: -160px;
+    /* position: relative; */
+    bottom: 80px;
   }
 }
 
-@media screen and (max-width: 743px) {
+/* @media screen and (max-width: 743px) {
   .about_navigation_scrollUp {
     position: relative;
-    bottom: -98px;
+    bottom: 88px;
   }
-}
+} */

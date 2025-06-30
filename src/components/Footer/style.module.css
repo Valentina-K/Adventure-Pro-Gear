@@ -63,3 +63,43 @@
 .subscribeContainer .text {
   max-width: 380px;
 }
+
+@media screen and (max-width: 1179px) {
+  .nav {
+    display: block;
+  }
+
+  .logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+  }
+  .nav .wrap {
+    position: relative;
+    display: block;
+  }
+
+  .ourContact {
+    position: absolute;
+    top: 25%;
+    right: 0px;
+  }
+
+  .nav .wrap div {
+    margin-bottom: 24px;
+  }
+
+  .subscribeContainer .wrap {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 743px) {
+  .nav {
+    display: block;
+  }
+  .ourContact {
+    position: relative;
+  }
+}

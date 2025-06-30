@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from '@/i18n/routing';
 import { useLocale } from 'next-intl';
 import Image from 'next/image';
@@ -10,6 +10,7 @@ import { Product } from '@/types/product';
 import { useGetProductsQuery } from '@/redux/features/apiSlice';
 import { useDispatch } from 'react-redux';
 import { setFilteredProducts } from '@/redux/products/slice';
+import { useWindowWidth } from '@/hooks/useWindowWidth';
 import noImage from '@/../public/images/no_image.png';
 import Button from '../Button';
 import styles from './Search.module.css';
@@ -22,7 +23,11 @@ interface SearchProps {
 
 const Search: React.FC<SearchProps> = ({ placeholder, unavailable, showall }) => {
   const locale = useLocale();
+  const widthWindow = useWindowWidth();
+  const ignoreRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState<string>('');
+  const [visibleSearch, setVisibleSearch] = useState<boolean>(true);
+  const [isSearchActive, setIsSearchActive] = useState<boolean>(false);
   const [filteredItems, setFilteredItems] = useState<Product[]>([]);
   const [isDropdownVisible, setIsDropdownVisible] = useState<boolean>(false);
   const router = useRouter();
@@ -30,6 +35,32 @@ const Search: React.FC<SearchProps> = ({ placeholder, unavailable, showall }) =>
   const dispatch = useDispatch();
 
   if (error) console.log(error);
+
+  useEffect(() => {
+    if (widthWindow < 1180) {
+      setVisibleSearch(false);
+    }
+    if (widthWindow >= 1180) {
+      setVisibleSearch(true);
+    }
+  }, [setVisibleSearch, widthWindow]);
+
+  useEffect(() => {
+    if (widthWindow < 1180) {
+      const handleClick = (e: MouseEvent) => {
+        if (ignoreRef.current && !ignoreRef.current.contains(e.target as Node)) {
+          setVisibleSearch(false);
+          setIsSearchActive(false);
+        }
+      };
+
+      document.body.addEventListener('click', handleClick);
+
+      return () => {
+        document.body.removeEventListener('click', handleClick);
+      };
+    }
+  }, [widthWindow]);
 
   useEffect(() => {
     if (value.length >= 1) {
@@ -76,20 +107,55 @@ const Search: React.FC<SearchProps> = ({ placeholder, unavailable, showall }) =>
     router.push(`${AppRoutes.PRODUCTS.replace('*', value)}`);
   };
 
+  const handleVisible = () => {
+    if (widthWindow < 1180) {
+      setVisibleSearch((prev: any) => !prev);
+      setIsSearchActive(prev => !prev);
+    }
+  };
+
   return (
     <div className={styles.search_box}>
-      <input
-        className={styles.search}
-        placeholder={placeholder}
-        value={value}
-        onChange={handlerOnChange}
-        onKeyDown={handleKeyDown}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-      />
-      <button className={styles.search_icon} onClick={handleAllClick} aria-label="Search">
-        <Image src={SearchIcon} alt="Search Icon" width={22} height={22} priority />
-      </button>
+      {visibleSearch && (
+        <input
+          className={styles.search}
+          placeholder={placeholder}
+          value={value}
+          onChange={handlerOnChange}
+          onKeyDown={handleKeyDown}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          ref={ignoreRef}
+        />
+      )}
+      {widthWindow < 1180 ? (
+        <>
+          <Image
+            src={SearchIcon}
+            alt="Search Icon"
+            width={22}
+            height={22}
+            priority
+            className={styles.search_icon}
+            onClick={handleVisible}
+          />
+          <button
+            className={styles.search_icon_active}
+            onClick={handleAllClick}
+            aria-label="Search"
+          >
+            <Image src={SearchIcon} alt="Search Icon" width={22} height={22} priority />
+          </button>
+        </>
+      ) : (
+        <button
+          className={styles.search_icon}
+          onClick={handleAllClick}
+          aria-label="Search"
+        >
+          <Image src={SearchIcon} alt="Search Icon" width={22} height={22} priority />
+        </button>
+      )}
 
       {isDropdownVisible && value.length >= 1 && (
         <ul className={styles.dropdown}>
@@ -113,10 +179,7 @@ const Search: React.FC<SearchProps> = ({ placeholder, unavailable, showall }) =>
                       <span className={styles.smallcard_name}>
                         {locale === 'uk' ? product.productNameUa : product.productNameEn}
                       </span>
-                      <span className={styles.smallcard_price}>
-                        {product.basePrice}
-                        ₴
-                      </span>
+                      <span className={styles.smallcard_price}>{product.basePrice}₴</span>
                     </div>
                   </button>
                 </li>

@@ -2,12 +2,14 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useLocale } from 'next-intl';
+import { useWindowWidth } from '@/hooks/useWindowWidth';
 import { getCategory } from '@/clientServices/clientAxios';
 import arrows from '../../../public/icons/Arrows.svg';
-import style from './CatalogList.module.css';
+import styles from './CatalogList.module.css';
 import { catalogImg } from './catalogImgData';
 import Container from '../Container';
 import Loading from '../Loading';
+import NavList from '../Header/NavBar/NavList';
 
 interface ICatalogListProps {
   // locale?: Locale;
@@ -21,9 +23,10 @@ interface ICategoryApi {
   categoryNameEn: string;
   subcategories: Object[];
 }
-// eslint-disable-next-line arrow-body-style
+
 const CatalogList: React.FC<ICatalogListProps> = ({ setVisibleSubcategory }) => {
   const locale = useLocale();
+  const widthWindow = useWindowWidth();
   const [category, setCategory] = useState<ICategoryApi[]>([]);
 
   useEffect(() => {
@@ -39,21 +42,21 @@ const CatalogList: React.FC<ICatalogListProps> = ({ setVisibleSubcategory }) => 
   };
 
   return (
-    <div className={style.container}>
+    <div className={styles.container}>
       <Container>
         {category?.length > 0 ? (
-          <div className={style.catalogList_container}>
+          <div className={styles.catalogList_container}>
             <ul>
               {category?.map(({ id, sectionCaptionUa, sectionCaptionEn }) => (
                 <li
                   key={id}
-                  className={style.item}
+                  className={styles.item}
                   // onClick={() => chooseSubcategory(id)}
                   onMouseMove={() => chooseSubcategory(id)}
                   aria-hidden="true"
                 >
-                  <div className={style.item_container}>
-                    <div className={style.item_title_container}>
+                  <div className={styles.item_container}>
+                    <div className={styles.item_title_container}>
                       {catalogImg?.map(({ id: catalogImgId, img }) =>
                         catalogImgId === id ? (
                           <Image
@@ -62,25 +65,29 @@ const CatalogList: React.FC<ICatalogListProps> = ({ setVisibleSubcategory }) => 
                             width={24}
                             height={24}
                             key={id}
-                            className={style.img}
+                            className={styles.img}
                           />
                         ) : (
                           ' '
-                        )
-                      )}
-                      <p className={style.title}>
+                        ))}
+                      <p className={styles.title}>
                         {locale === 'uk' ? sectionCaptionUa : sectionCaptionEn}
                       </p>
                     </div>
 
-                    <Image src={arrows} alt="arrows" width={20} height={20} className={style.img} />
+                    <Image src={arrows} alt="arrows" width={20} height={20} className={styles.img} />
                   </div>
                 </li>
               ))}
             </ul>
+            {widthWindow < 1179 && (
+              <div className={styles.navList_container}>
+                <NavList />
+              </div>
+            )}
           </div>
         ) : (
-          <div className={style.spinner_container}>
+          <div className={styles.spinner_container}>
             <Loading />
           </div>
         )}

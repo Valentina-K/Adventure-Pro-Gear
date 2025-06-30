@@ -16,3 +16,20 @@
   justify-content: space-between;
   align-self: center;
 }
+
+@media screen and (max-width: 1179px) {
+  .productNavBarChildren {
+    margin-top: 40px;
+  }
+  .userInteractions {
+    position: relative;
+    top: -20px;
+  }
+}
+
+@media screen and (max-width: 743px) {
+  .userInteractions {
+    position: relative;
+    top: -25px;
+  }
+}

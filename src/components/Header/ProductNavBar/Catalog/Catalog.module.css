@@ -14,7 +14,7 @@
   }
 }
 
-.catalogList__container{
+.catalogList__container {
   position: absolute;
 }
 
@@ -26,4 +26,36 @@
   right: 0;
   bottom: 0;
   z-index: 1;
+}
+
+.burger {
+  display: none;
+}
+
+@media screen and (max-width: 1179px) {
+  .catalog {
+    display: none;
+  }
+
+  .burger {
+    width: 70px;
+    height: 70px;
+    margin-top: -40px;
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  .icon_container {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 743px) {
+  .header {
+    height: 127px;
+  }
+  .burger {
+    width: 50px;
+    height: 50px;
+  }
 }
