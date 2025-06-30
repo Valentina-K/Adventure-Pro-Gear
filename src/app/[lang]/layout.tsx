@@ -68,8 +68,3 @@ const RootLayout: NextPage<RootLayoutProps> = async ({ params: { lang: locale },
 };
 
 export default RootLayout;
-
-/*
-<ProductProvider initialProducts={res?.data.content}>
-</ProductProvider>
- */

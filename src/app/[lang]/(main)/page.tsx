@@ -5,7 +5,6 @@ import { getTranslations } from 'next-intl/server';
 import type { IPageProps } from '@/types';
 import options from '@/config/nextAuth';
 import Container from '@/components/Container';
-import SignOutButton from '@/components/SignOutButton';
 import { getProducts } from '@/services/axios';
 import HomeBlogList from '@/components/BlogPage/homeBlogList';
 import ProductSlider from '@/components/ProductSlider';

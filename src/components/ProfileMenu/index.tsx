@@ -13,9 +13,10 @@ import styles from './ProfileMenu.module.css';
 
 interface ProfileMenuProps {
   className?: string;
+  isLinkClicked: () => void;
 }
 
-const ProfileMenu: React.FC<ProfileMenuProps> = ({ className }) => {
+const ProfileMenu: React.FC<ProfileMenuProps> = ({ className, isLinkClicked }) => {
   const searchParams = useSearchParams();
   const { data: session, status } = useSession();
   const t = useTranslations('profile.menuLinks');
@@ -50,6 +51,7 @@ const ProfileMenu: React.FC<ProfileMenuProps> = ({ className }) => {
               <Link
                 href={isExit ? `${path}?hideMenu=true` : path}
                 className={clsx({ [styles.active]: isActive })}
+                onClick={isLinkClicked}
               >
                 <Image src={icon} width={24} height={24} alt="some icon" />
                 {t(label)}

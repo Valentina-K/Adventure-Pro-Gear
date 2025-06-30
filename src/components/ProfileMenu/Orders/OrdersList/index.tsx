@@ -1,6 +1,6 @@
 import React from 'react';
 import { IOrderType } from '@/types';
-import OrderDetail from '../OrderDetail';
+import OrderItem from '../OrderItem';
 import styles from './OrdersList.module.css';
 
 interface OrdersListProp {
@@ -12,7 +12,7 @@ function OrdersList({ orders, t }: OrdersListProp) {
   console.log(orders);
   return (
     <table className={styles.ordersTable}>
-      <thead>
+      <thead className={styles.tableTitle}>
         <tr>
           <th>{t('orders.number')}</th>
           <th>{t('orders.date')}</th>
@@ -22,7 +22,7 @@ function OrdersList({ orders, t }: OrdersListProp) {
       </thead>
       <tbody>
         {orders.map((order, ind) => (
-          <OrderDetail key={order.order.id} order={order.order} className={ind % 2 === 0 ? 'even' : 'odd'} />
+          <OrderItem key={order.id} order={order} className={ind % 2 !== 0 ? `${styles.odd}` : ''} />
         ))}
       </tbody>
     </table>

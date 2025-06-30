@@ -29,14 +29,12 @@ const Reviews: React.FC<ReviewsProp> = ({
   usersThink,
   refreshReviews,
 }) => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const token = session?.user?.accessToken;
   const router = useRouter();
-  if (!token && status === 'authenticated') {
-    console.error('No access token found');
-  }
+ 
   const handleClick = async (id:number, e: React.MouseEvent<HTMLButtonElement>) => {
-    if (!session || !token) {
+    if (!session || session?.error === 'RefreshAccessTokenError' || !token) {
       localStorage.setItem("redirectAfterLogin", window.location.pathname);
       router.push(`/${AppRoutes.SIGNIN}`);
       return;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useSession } from 'next-auth/react';
 import clsx from 'clsx';
@@ -22,8 +22,8 @@ const DropDown: React.FC<DropDownProps> = ({ className, isLinkClicked }) => {
   return (
     <div className={`${className} ${styles.dropDown}`}>
       <span className={clsx({ [styles.dropdownSpan]: session })}> </span>
-      {session ? (
-        <ProfileMenu className={styles.profileMenu} />
+      {(session && session?.error !== 'RefreshAccessTokenError') ? (
+        <ProfileMenu className={styles.profileMenu} isLinkClicked={isLinkClicked} />
       ) : (
         <ul>
           <li>

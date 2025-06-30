@@ -11,6 +11,8 @@ declare module 'next-auth' {
       refreshToken: string;
       role: 'admin' | 'user' | 'guest';
     } & DefaultSession['user'];
+    error: string | null;
+    isRefreshing: boolean;
   }
 
   interface User extends DefaultUser {
@@ -24,9 +26,11 @@ declare module 'next-auth/jwt' {
     accessToken: string;
     refreshToken: string;
     refreshAttempted: boolean;
+    isRefreshing: boolean;
     name: string | null;
     surname: string;
     email: string | null;
     role: 'admin' | 'user' | 'guest';
+    error: string | null;
   }
 }

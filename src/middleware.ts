@@ -10,7 +10,6 @@ const protectedRoutes = ['/personal_account'];
 export default async function middleware(req: NextRequest) {
   const url = req.nextUrl;
   const { pathname, search } = url;
-
   if (pathname.startsWith('/en-US')) {
     return NextResponse.redirect(new URL(pathname.replace(/^\/en-US/, '/en') + search, req.url));
   }
@@ -24,7 +23,6 @@ export default async function middleware(req: NextRequest) {
   const pathWithoutLocale = pathname.replace(/^\/(en|uk)/, '');
   if (protectedRoutes.some(route => pathWithoutLocale.startsWith(route))) {
     const token = await getToken({ req, secret });
-
     if (!token) {
       const signinPath = locale ? `/${locale}${AppRoutes.SIGNIN}` : `/${AppRoutes.SIGNIN}`;
       return NextResponse.redirect(new URL(signinPath, req.url));

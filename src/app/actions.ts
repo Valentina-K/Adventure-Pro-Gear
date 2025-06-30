@@ -245,7 +245,7 @@ export const deleteUser = async () => {
 };
 
 export const postOrder = async (orders: any) => {
-  console.log('deleteUser: ');
+  console.log('Orders: ', orders);
   try {
     const response = await postOrderService(orders);
     console.log('Server Response basket: ', response);
