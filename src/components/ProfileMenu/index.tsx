@@ -13,7 +13,7 @@ import styles from './ProfileMenu.module.css';
 
 interface ProfileMenuProps {
   className?: string;
-  isLinkClicked: () => void;
+  isLinkClicked?: () => void;
 }
 
 const ProfileMenu: React.FC<ProfileMenuProps> = ({ className, isLinkClicked }) => {
