@@ -28,6 +28,10 @@ const AuthModal = () => {
   const session = useSession();
   const path = usePathname();
   const router = useRouter();
+  const shouldShowModal =
+  isModalOpen &&
+  (session.status === 'unauthenticated' ||
+    (session.status === 'authenticated' && session.data?.error === 'RefreshAccessTokenError'));
 
   const closeModal = () => {
     const params = new URLSearchParams(searchParams.toString());
@@ -59,22 +63,22 @@ const AuthModal = () => {
 
   return (
     <>
-      {isModalOpen && session.status !== 'authenticated' && authType === 'signup' && (
+      {shouldShowModal && session.status !== 'authenticated' && authType === 'signup' && (
         <Modal closeModal={closeModal} className={styles.authModal}>
           <SignUp />
         </Modal>
       )}
-      {isModalOpen && session.status !== 'authenticated' && authType === 'signin' && (
+      {shouldShowModal && authType === 'signin' && (
         <Modal closeModal={closeModal} className={styles.authModal}>
           <SignIn />
         </Modal>
       )}
-      {isModalOpen && session.status !== 'authenticated' && authType === 'forgot-password' && (
+      {shouldShowModal && session.status !== 'authenticated' && authType === 'forgot-password' && (
         <Modal closeModal={closeModal} className={styles.authModalForgotPassword}>
           <ForgotPassword />
         </Modal>
       )}
-      {isModalOpen && session.status !== 'authenticated' && authType === 'reset-password' && (
+      {shouldShowModal && session.status !== 'authenticated' && authType === 'reset-password' && (
         <Modal closeModal={closeModal} className={styles.authModal}>
           <ResetPassword />
         </Modal>

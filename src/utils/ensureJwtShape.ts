@@ -5,6 +5,8 @@ export default function ensureJwtShape(token: Partial<JWT>): JWT {
     accessToken: token.accessToken ?? '',
     refreshToken: token.refreshToken ?? '',
     refreshAttempted: token.refreshAttempted ?? false,
+    isRefreshing: token.isRefreshing ?? false,
+    error: token.error ?? null,
     name: token.name ?? null,
     surname: token.surname ?? '',
     email: token.email ?? null,

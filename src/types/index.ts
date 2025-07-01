@@ -5,3 +5,4 @@ export * from './IRecommendationProductProps';
 export * from './IVisibleSubcategory';
 export * from './ISubcategoriesApi';
 export * from './product';
+export * from './IOrderType';

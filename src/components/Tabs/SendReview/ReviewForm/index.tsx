@@ -9,7 +9,7 @@ import Button from '@/components/Button';
 import { useParams, useRouter } from 'next/navigation';
 import { AppRoutes } from '@/constants/routes';
 import { createReview } from '@/clientServices/clientAxios';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import SetStarRating from '../SetStarRating';
 import styles from './ReviewForm.module.css';
 
@@ -24,24 +24,20 @@ interface ReviewFormProp {
 }
 
 const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm }) => {
-  const locale = useLocale();
   const t = useTranslations('product');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [rating_, setRating] = useState(0);
   const { register, handleSubmit, reset } = useForm<FormValues>();
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
 
   const params = useParams();
   const router = useRouter();
   const token = session?.user?.accessToken;
-  if (!token && status === 'authenticated') {
-    console.error('No access token found');
-  }
 
   const handleSubmitForm: SubmitHandler<FormValues> = async data => {
-    if (!session || !token) {
-      localStorage.setItem("redirectAfterLogin", window.location.pathname);
+    if (!session || session?.error === 'RefreshAccessTokenError' || !token) {
+      localStorage.setItem('redirectAfterLogin', window.location.pathname);
       router.push(`/${AppRoutes.SIGNIN}`);
       return;
     }
@@ -60,6 +56,7 @@ const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm }) => {
       setIsSubmitted(false);
     } else setRefresh(false);
   }, [isSubmitted]);
+
   const starClick = useCallback((rating: number) => setRating(rating), []);
   return (
     <form className={styles.reviewForm} onSubmit={handleSubmit(handleSubmitForm)}>
@@ -68,7 +65,7 @@ const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm }) => {
         <p>{t('tabs.tell_us')}</p>
       </div>
       <div className={styles.inputBlock}>
-        {!session && (
+        {(!session || session?.error === 'RefreshAccessTokenError') && (
           <>
             <label htmlFor="review-email">
               <input

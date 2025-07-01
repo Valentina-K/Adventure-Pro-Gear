@@ -1,15 +1,14 @@
 import React, { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
-
 import { getBlogs } from '@/services/axios';
 import Container from '@/components/Container';
 import Pagination from '@/components/Pagination/Pagination';
 import Navigation from '@/components/Navigation/Navigation';
 import BlogList from '@/components/BlogPage/blogList';
 import type { IPageProps } from '@/types';
-import style from './blog.module.css';
 import BlogPagination from '@/components/Pagination/BlogPagination'
+import style from './blog.module.css';
 
 async function Blog({ params, searchParams }: IPageProps & { searchParams: { page?: string } }) {
   const { lang } = params;

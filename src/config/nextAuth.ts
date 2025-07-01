@@ -73,47 +73,53 @@ const options: NextAuthOptions = {
           surname: extUser.surname,
           email: user.email,
           role: extUser.role,
+          error: null,
         });
       }
 
       // Проверка accessToken
       if (token.accessToken) {
         const accessTokenStr = typeof token.accessToken === 'string' ? token.accessToken : '';
+        if (!accessTokenStr) {
+          return ensureJwtShape({ ...token, error: 'RefreshAccessTokenError' });
+        }
         const decoded = jwtDecode<JwtPayload>(accessTokenStr);
         const exp = decoded.exp ? decoded.exp * 1000 : 0;
 
         // Если токен ещё валиден
         if (Date.now() < exp) {
-          return ensureJwtShape(token);
+          return ensureJwtShape({ ...token, error: null });
         }
-        if (token.error === 'RefreshAccessTokenError') {
+        if (token.refreshAttempted && token.error !== 'RefreshAccessTokenError') {
           return ensureJwtShape(token);
-        }
-        if (token.refreshAttempted || token.error) {
-          return ensureJwtShape({
-            ...token,
-            error: 'RefreshAccessTokenError',
-          });
         }
         // Обновляем токен
         try {
+          const tokenInProgress = {
+            ...token,
+            isRefreshing: true,
+          };
           const refreshed = await refreshTokenService(token.refreshToken as string);
           const newTokens = refreshed;
+
           if (!newTokens || !newTokens.accessToken) {
             throw new Error('No accessToken in response');
           }
 
           return ensureJwtShape({
-            ...token,
+            ...tokenInProgress,
             accessToken: newTokens.accessToken,
             refreshToken: newTokens.refreshToken ?? token.refreshToken,
-            refreshAttempted: true,
+            refreshAttempted: false,
+            isRefreshing: false,
+            error: null,
           });
         } catch (err) {
-          console.error('Token refresh failed:', err);
           return ensureJwtShape({
             ...token,
             error: 'RefreshAccessTokenError',
+            refreshAttempted: true,
+            isRefreshing: false,
           });
         }
       }
@@ -122,21 +128,32 @@ const options: NextAuthOptions = {
     },
 
     async session({ session, token }) {
-      if (token) {
+      if (!token) {
+        return session;
+      }
+
+      if (token.error === 'RefreshAccessTokenError') {
         return {
-          ...session,
-          user: {
-            name: token.name,
-            surname: token.surname,
-            email: token.email,
-            accessToken: token.accessToken,
-            refreshToken: token.refreshToken,
-            role: token.role,
-          },
+          expires: session.expires,
+          error: token.error,
         };
       }
 
-      return session;
+      return {
+        ...session,
+        user: {
+          name: token.name,
+          surname: token.surname,
+          email: token.email,
+          accessToken: token.accessToken,
+          refreshToken: token.refreshToken,
+          role: token.role,
+        },
+        error: token.error,
+        isRefreshing: token.isRefreshing,
+      };
+
+      // return session;
     },
   },
 

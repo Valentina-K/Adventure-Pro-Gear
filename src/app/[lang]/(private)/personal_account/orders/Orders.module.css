@@ -1,0 +1,14 @@
+.title {
+    font-weight: var(--wight-600);
+    font-size: var(--large-28);
+    line-height: var(--line-height-42);
+    margin-bottom: 24px;
+    margin-left: 16px;
+}
+
+.text {
+    font-weight: var(--wight-600);
+    font-size: var(--medium-18);
+    line-height: var(--line-height-27);
+    padding: 16px;
+}

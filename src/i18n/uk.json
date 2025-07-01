@@ -120,6 +120,20 @@
       "outOfStock": "Нема в наявності",
       "available": "В наявності"
     },
+    "orders": {
+      "title": "Замовлення",
+      "notOrdersYet": "У вас поки немає замовлень.",
+      "number": "Номер",
+      "date":"Дата",
+      "totalAmount": "Загальна сума",
+      "status": "Статус",
+      "shippingAddress": "Адреса доставки",
+      "billingAddress": "Платіжна адреса",
+      "orderDate": "Дата замовлення:",
+      "orderStatus": "Статус замовлення",
+      "track": "Трек-номер замовлення",
+      "yourGoods": "Ваші товари"
+    },
 
     "editProfile": {
       "title": "Редагувати дані",

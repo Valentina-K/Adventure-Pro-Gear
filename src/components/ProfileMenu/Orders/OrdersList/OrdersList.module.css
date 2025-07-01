@@ -1,0 +1,21 @@
+.ordersTable {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.tableTitle{
+  background: #1E5F721A;
+  backdrop-filter: blur(40px);
+}
+
+.ordersTable th {
+  width: 25%;
+  padding: 16px;
+  text-align: left;
+}
+
+.ordersTable tbody .odd {
+  background: #1E5F721A;
+  backdrop-filter: blur(40px);
+}
