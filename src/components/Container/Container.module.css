@@ -13,6 +13,7 @@
 
 @media screen and (max-width: 1179px) {
   .container {
+    margin: 0 auto;
     max-width: 744px;
     padding: 0 40px 0px 40px;
   }
@@ -20,6 +21,7 @@
 
 @media screen and (max-width: 743px) {
   .container {
+    margin: 0 auto;
     max-width: 360px;
     padding: 0 16px 0px 16px;
   }

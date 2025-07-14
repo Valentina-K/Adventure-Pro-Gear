@@ -3,7 +3,7 @@
   background-repeat: no-repeat;
   background-position: top;
   min-height: 750px;
-  max-width: 100%;
+  width: 100%;
 }
 
 .mainBox {
@@ -35,18 +35,23 @@
   color: #353535;
 }
 
-.img {
-  background-image: url('/images/img404.png');
-  background-repeat: no-repeat;
-  background-position: 200px top;
-  min-height: 426px;
-  min-width: 1150px;
+.imgBox {
+  max-height: 426px;
+  max-width: 1150px;
+  height: 100%;
+  width: 100%;
 
   display: flex;
   justify-content: center;
+  position: relative;
+}
+
+.img {
+  margin-left: 200px;
 }
 
 .btn {
+  position: absolute;
   padding: 12px 48px;
   background-color: #376b8e;
   height: fit-content;
@@ -66,4 +71,41 @@
   font-size: 20px;
   font-weight: 500;
   line-height: 150%;
+}
+
+@media screen and (max-width: 743px) {
+  .page {
+    margin-bottom: 100px;
+  }
+
+  .mainBox {
+    transform: translateX(0px);
+    margin-top: 55px;
+  }
+
+  .title {
+    font-size: 80px;
+    height: 98px;
+  }
+
+  .descr {
+    font-size: 16px;
+    font-weight: 600;
+    padding-bottom: 8px;
+  }
+
+  .imgBox {
+    width: 328px;
+    height: 147px !important;
+    background-position: center top;
+    margin-top: 200px;
+  }
+
+  .img {
+    margin-left: 0;
+  }
+
+  .btn {
+    top: -150px;
+  }
 }

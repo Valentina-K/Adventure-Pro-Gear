@@ -32,3 +32,9 @@
   font-weight: 500;
   padding-left: 30px;
 }
+
+@media screen and (max-width: 743px) {
+  .mainTitle {
+    font-size: 22px;
+  }
+}
