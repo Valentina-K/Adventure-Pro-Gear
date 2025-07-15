@@ -1,0 +1,148 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 14px;
+}
+
+.title {
+  font-family: Montserrat;
+  font-weight: 600;
+  font-style: SemiBold;
+  font-size: 28px;
+  line-height: 150%;
+}
+
+.orderNumber {
+  font-family: Montserrat;
+  font-weight: 600;
+  font-style: SemiBold;
+  font-size: 28px;
+  line-height: 150%;
+}
+
+.addressBlock {
+  display: flex;
+  width: 100%;
+  gap: 20px;
+}
+
+.addressInfo {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.h3 {
+  font-family: Montserrat;
+  font-weight: 600;
+  font-style: SemiBold;
+  font-size: 18px;
+  line-height: 150%;
+}
+
+.text {
+  font-family: Montserrat;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 16px;
+  line-height: 150%;
+}
+
+.button {
+  display: flex;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #1e5f72;
+  padding: 8px 16px;
+  background-color: inherit;
+
+  font-family: Montserrat;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 16px;
+  line-height: 150%;
+  color: #1e5f72;
+}
+
+.icon {
+  margin-right: 10px;
+}
+
+.treckNumber {
+  font-family: Montserrat;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 20px;
+  line-height: 150%;
+  color: #376b8e;
+}
+
+.treckStatus {
+  font-family: Montserrat;
+  font-weight: 600;
+  font-style: SemiBold;
+  font-size: 12px;
+  line-height: 150%;
+  letter-spacing: 4%;
+  text-align: center;
+  color: #1e5f72;
+}
+
+.treckStatus.undone {
+  color: #7d7d7d;
+}
+
+.productName {
+  font-family: Montserrat;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 16px;
+  line-height: 150%;
+  text-decoration: underline;
+  text-decoration-style: solid;
+  color: #224256;
+}
+
+.productDescr {
+  font-family: Montserrat;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 14px;
+  line-height: 150%;
+  color: #353535;
+}
+
+.priceSmall {
+  font-family: Montserrat;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 18px;
+  line-height: 150%;
+}
+
+.count {
+  font-family: Montserrat;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 14px;
+  line-height: 150%;
+}
+
+.priceBig {
+  font-family: Montserrat;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 22px;
+  line-height: 150%;
+}
+
+.totalSum {
+  font-family: Montserrat;
+  font-weight: 600;
+  font-style: SemiBold;
+  font-size: 24px;
+  line-height: 150%;
+  color: #1e5f72;
+}
