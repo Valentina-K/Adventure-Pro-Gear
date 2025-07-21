@@ -13,6 +13,7 @@ import {
   deleteUserService,
   getUserService,
   postOrderService,
+  // postOrderListService,
 } from '@/services/axios';
 import { AppRoutes } from '@/constants/routes';
 import { getAllTranslations, getTranslation } from '@/dictionaries/dictionaries';
@@ -254,3 +255,14 @@ export const postOrder = async (orders: any) => {
     return error?.response?.data || error?.message;
   }
 };
+
+// export const postOrderList = async (orders: any) => {
+//   try {
+//     const response = await postOrderListService(orders);
+//     console.log('postOrder', response);
+
+//     return response;
+//   } catch (error: any) {
+//     return error?.response?.data || error?.message;
+//   }
+// };

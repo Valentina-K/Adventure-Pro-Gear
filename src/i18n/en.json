@@ -1,4 +1,6 @@
 {
+  "back": "Back",
+  "forward": "Forward",
   "nav": {
     "logo": "Adventure Pro Gear",
     "About us": "About us",
@@ -124,7 +126,7 @@
       "title": "Orders",
       "notOrdersYet": "You have no orders yet.",
       "number": "Number",
-      "date":"Date",
+      "date": "Date",
       "totalAmount": "Total amount",
       "status": "Status",
       "shippingAddress": "Shipping address",
@@ -229,6 +231,16 @@
       "descrPayPal": "You will be redirected to PayPal. After that, you will return to our store to complete your order.",
       "descrGooglePay": "You will be redirected to Google Pay. After that, you will return to our store to complete your order.",
       "sum": "Total amount"
+    },
+    "successfulPayment": {
+      "descr_under": "Payment completed!",
+      "title": "Thank you for your order!",
+      "descr_2": "Your purchase is already on its way to you so that you can fully",
+      "accent_2": "enjoy your adventures!",
+      "descr_3": "We wish you",
+      "accent_3": "pleasant and unforgettable",
+      "descr_4": "experiences.",
+      "name": "Yours"
     }
   },
   "blogId": {

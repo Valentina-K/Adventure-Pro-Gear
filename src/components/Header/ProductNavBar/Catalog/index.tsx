@@ -12,6 +12,8 @@ interface SearchProps {
   setVisibleSubcategory: any;
   setToggleCatalog: (str: any) => void;
   toggleCatalog?: boolean;
+  visibleCategory?: any;
+  setVisibleCategory: (str: any) => void;
 }
 
 const CatalogOfGoods: React.FC<SearchProps> = ({
@@ -19,6 +21,8 @@ const CatalogOfGoods: React.FC<SearchProps> = ({
   setVisibleSubcategory,
   setToggleCatalog,
   toggleCatalog,
+  visibleCategory,
+  setVisibleCategory,
 }) => {
   const t = useTranslations('nav');
   const widthWindow = useWindowWidth();
@@ -36,6 +40,7 @@ const CatalogOfGoods: React.FC<SearchProps> = ({
     }
 
     setToggleCatalog((prev: any) => !prev);
+    setVisibleCategory((prev: any) => !prev);
     setVisibleSubcategory([]);
   };
 
@@ -58,13 +63,18 @@ const CatalogOfGoods: React.FC<SearchProps> = ({
         evtTarget.className.includes('css-6ya78u-singleValue') ||
         evtTarget.className.includes('css-ql0jyi') ||
         evtTarget.className.includes('css-15lsz6c-indicatorContainer') ||
-        evtTarget.className.includes('css-630tcq-control')
+        evtTarget.className.includes('css-630tcq-control') ||
+        evtTarget.className.includes('css-87arut-control') ||
+        evtTarget.className.includes('css-1syy9sg-container') ||
+        evtTarget.className.includes('css-1a911xt-container') ||
+        evtTarget.className.includes('div')
       ) {
         return;
       } else if (ignoreRef.current && !ignoreRef.current.contains(e.target as Node)) {
         return;
       }
       setToggleCatalog(false);
+      setVisibleCategory(false);
       setVisibleSubcategory([]);
     };
 
@@ -73,7 +83,7 @@ const CatalogOfGoods: React.FC<SearchProps> = ({
     return () => {
       document.body.removeEventListener('click', handleClick);
     };
-  }, [setToggleCatalog, setVisibleSubcategory]);
+  }, [setToggleCatalog, setVisibleCategory, setVisibleSubcategory]);
 
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
@@ -91,7 +101,12 @@ const CatalogOfGoods: React.FC<SearchProps> = ({
 
           {toggleCatalog && (
             <div className={styles.catalogList__container} ref={ignoreRef}>
-              <CatalogList setVisibleSubcategory={setVisibleSubcategory} />
+              {visibleCategory && (
+                <CatalogList
+                  setVisibleSubcategory={setVisibleSubcategory}
+                  setVisibleCategory={setVisibleCategory}
+                />
+              )}
 
               <div className={styles.overlay}> </div>
             </div>
@@ -109,7 +124,10 @@ const CatalogOfGoods: React.FC<SearchProps> = ({
 
           {toggleCatalog && (
             <div className={styles.catalogList__container} ref={ignoreRef}>
-              <CatalogList setVisibleSubcategory={setVisibleSubcategory} />
+              <CatalogList
+                setVisibleSubcategory={setVisibleSubcategory}
+                setVisibleCategory={setVisibleCategory}
+              />
 
               <div className={styles.overlay}> </div>
             </div>

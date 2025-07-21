@@ -271,3 +271,17 @@ export const postOrderService = async (orders: any) => {
     return error?.response.data || error?.message;
   }
 };
+
+// export const postOrderListService = async (orders: any) => {
+//    console.log('postOrderListService', orders);
+//   try {
+//     const response = await axiosInstance.post(
+//       'api/order-lists',
+//       orders
+//     );
+//     console.log('postOrderListService', response);
+//     return response.data;
+//   } catch (error: any) {
+//     return error?.response.data || error?.message;
+//   }
+// };

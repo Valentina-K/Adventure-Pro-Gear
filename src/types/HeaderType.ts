@@ -20,6 +20,8 @@ export interface HeaderProps {
   setVisibleSubcategory?: (arr: []) => void;
   setToggleCatalog?: any;
   toggleCatalog?: boolean;
+  visibleCategory?: any;
+  setVisibleCategory?: any;
 }
 
 export interface Token {}

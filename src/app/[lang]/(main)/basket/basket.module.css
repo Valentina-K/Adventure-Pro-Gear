@@ -43,6 +43,10 @@
   opacity: 0.5;
 }
 
+.back_link{
+  color: var(--black-900);
+}
+
 /* ========FOOTER========== */
 .footer {
   display: flex;
