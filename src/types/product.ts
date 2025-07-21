@@ -90,4 +90,5 @@ export interface Cart {
   productNameEn: string;
   productNameUa: string;
   basePrice: number;
+  productAttributeId?: number;
 }

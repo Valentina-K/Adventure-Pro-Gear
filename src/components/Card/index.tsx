@@ -120,6 +120,7 @@ const Card: React.FC<CardProps> = ({ product, variant = 'standart', favoriteStor
       payment: Payments.VISA,
       color: product.attributes[0].color,
       size: product.attributes[0].size,
+      productAttributeId: product?.attributes?.[0]?.id,
     };
     dispatch(setShoppingCart(shoppingCart));
   };

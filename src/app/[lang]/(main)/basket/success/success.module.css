@@ -1,0 +1,39 @@
+.success_container {
+  display: flex;
+  padding: 32px 0 186px 0;
+}
+
+.success_left,
+.success_right {
+  flex: 0 0 50%;
+}
+
+.success_left {
+  margin-right: 60px;
+}
+
+.descr,
+.accent,
+.accent_name {
+  font-weight: var(--medium);
+  font-size: var(--large-20);
+  line-height: 150%;
+  letter-spacing: 0%;
+  leading-trim: NONE;
+}
+
+.title {
+  font-weight: var(--wight-large);
+  font-size: var(--large-24);
+  line-height: 150%;
+  letter-spacing: 0%;
+  margin: 24px 0;
+}
+
+.accent {
+  font-weight: var(--wight-600);
+}
+
+.accent_name {
+  color: var(--greem);
+}

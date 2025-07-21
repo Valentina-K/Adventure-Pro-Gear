@@ -3,14 +3,16 @@
 import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import Image from 'next/image';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import Navigation from '@/components/Navigation/Navigation';
 import { useAppDispatch } from '@/redux/store';
 import { useSelector } from 'react-redux';
+import { useSession } from 'next-auth/react';
 import { selectOpenShoppingCart } from '@/redux/products/selectors';
 import { clearShoppingCart } from '@/redux/products/slice';
-import { postOrder, updatePersonalData } from '@/app/actions';
+import Link from 'next/link';
+import { postOrder } from '@/app/actions';
 import Container from '@/components/Container';
 import { toast } from 'react-toastify';
 import BasketCard from '@/components/Basket/BasketCard/BasketCard';
@@ -20,6 +22,8 @@ import arrows from '../../../../../public/icons/Arrows.svg';
 import arrowsRight from '../../../../../public/icons/arrowsRight.svg';
 import styles from './basket.module.css';
 
+//7506ee2658@emaily.pro
+//123456Aa$
 const Basket = () => {
   const [formData, setFormData] = useState({
     // basket: [],
@@ -34,7 +38,9 @@ const Basket = () => {
     comment: '',
     ordersLists: [],
   });
+  const { data: session, status } = useSession();
   const params = useParams();
+  const router = useRouter();
   const dispatch = useAppDispatch();
   let shoppingCart = useSelector(selectOpenShoppingCart);
   const t = useTranslations('basket');
@@ -44,10 +50,42 @@ const Basket = () => {
 
   useEffect(() => {
     // eslint-disable-next-line no-unused-expressions
-    shoppingCart.length === 0
-      ? setDisebleForm(true)
-      : setDisebleForm(false);
+    shoppingCart.length === 0 ? setDisebleForm(true) : setDisebleForm(false);
   }, [formData.ordersLists, shoppingCart.length]);
+
+  // useEffect(() => {
+  //   (async () => {
+  //     if (!session) return;
+
+  //     if (shoppingCart.length > 0) {
+  //       try {
+  //         // const orderId = await postOrderList();
+  //         const shoppingCartResForServer = shoppingCart.map(
+  //           ({ productId, quantity, selfLink, productAttributeId }) => ({
+  //             // id: 0,
+  //             orderId: Number(String(Date.now()).slice(-5) + Math.floor(Math.random() * 1000)),
+  //             productAttributeId,
+  //             selfLink,
+  //             productId,
+  //             quantity,
+  //           })
+  //         );
+
+  //         const data = await postOrderList(shoppingCartResForServer);
+  //         console.log("uyyuutyyuyuyuutyu", data);
+  //         // dispatch(clearShoppingCart());
+  //       } catch (error: any) {
+  //         console.log(error);
+  //         toast.error(error.message, {
+  //           position: 'top-right',
+  //           className: `${styles.signInToastErrorMessage}`,
+  //           bodyClassName: `${styles.signInToastBody}`,
+  //           autoClose: 36000000,
+  //         });
+  //       }
+  //     }
+  //   })();
+  // }, [dispatch, session, shoppingCart]);
 
   const handleActiveForm = (value: string) => {
     setActiveForm(value);
@@ -63,10 +101,9 @@ const Basket = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('formData', formData);
+
     try {
       const data = await postOrder(formData);
-      console.log('data', data);
       if (data?.status === 401) {
         return toast.error('Unauthorized', {
           position: 'top-right',
@@ -78,12 +115,13 @@ const Basket = () => {
       if (typeof data === 'string' || data.error) {
         throw new Error(data.error || data);
       }
+      router.push('/basket/success/');
       dispatch(clearShoppingCart());
-      return toast.success('Success', {
-        position: 'top-right',
-        className: styles.successToast,
-        autoClose: 3000,
-      });
+      // return toast.success('Success', {
+      //   position: 'top-right',
+      //   className: styles.successToast,
+      //   autoClose: 3000,
+      // });
     } catch (error: any) {
       return toast.error(`${error}`, {
         position: 'top-right',
@@ -139,10 +177,12 @@ const Basket = () => {
             {t('backBasket')}
           </p>
         ) : (
-          <p className={styles.back}>
-            <Image src={arrowsRight} alt="arrows" className={styles.img} />
-            {t('backProducts')}
-          </p>
+          <Link href="/product" className={styles.back_link}>
+            <p className={styles.back}>
+              <Image src={arrowsRight} alt="arrows" className={styles.img} />
+              {t('backProducts')}
+            </p>
+          </Link>
         )}
 
         {activeCard?.length !== 3 ? (

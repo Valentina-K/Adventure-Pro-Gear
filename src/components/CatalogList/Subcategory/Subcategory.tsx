@@ -1,30 +1,50 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
+import Image from 'next/image';
 import { Link } from '@/i18n/routing';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import type { IVisibleSubcategory } from '@/types/IVisibleSubcategory';
+import { useWindowWidth } from '@/hooks/useWindowWidth';
 import { AppRoutes } from '@/constants/routes';
+import arrow from "../../../../public/icons/arrowsRight.svg";
 import style from './Subcategory.module.css';
 
 interface ISubcategoryProps {
   visibleSubcategory: IVisibleSubcategory[];
   setVisibleSubcategory: any;
   setToggleCatalog: (str: any) => void;
+  setVisibleCategory: any;
 }
 
 // eslint-disable-next-line arrow-body-style
 const Subcategory: React.FC<ISubcategoryProps> = ({
   visibleSubcategory,
   setToggleCatalog,
-  setVisibleSubcategory, }) => {
+  setVisibleSubcategory,
+  setVisibleCategory,
+}) => {
   const locale = useLocale();
+  const t = useTranslations();
   const handlerToggleCatalog = () => {
     setToggleCatalog((prev: any) => !prev);
     setVisibleSubcategory([]);
   };
+  const widthWindow = useWindowWidth();
+
+  const handleBackClick = () => {
+    setVisibleSubcategory([]);
+    setVisibleCategory((prev: any) => !prev);
+  };
 
   return (
     <div className={style.container}>
+      {widthWindow < 744 && (
+        // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+        <div className={style.back_container} onClick={handleBackClick}>
+          <Image src={arrow} alt="arrow" width="20" height="20" />
+          <p className={style.back_text}>{t("back")}</p>
+        </div>
+      )}
       <ul className={style.list}>
         {visibleSubcategory?.map(({ categories }) =>
           categories?.map(({ id, categoryNameUa, categoryNameEn, subcategories }) => (
