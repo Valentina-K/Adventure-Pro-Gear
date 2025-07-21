@@ -28,7 +28,7 @@ export default function NotFound() {
   return (
     <div className={styled.page}>
       <Container>
-        <Navigation title={t('breadscrambps')} />
+        <Navigation title={t('breadscrambps')} breadcrumbs={[t('breadscrambps')]} />
         <div className={styled.mainBox}>
           <div className={styled.main}>
             <h1 className={styled.title}>404</h1>
