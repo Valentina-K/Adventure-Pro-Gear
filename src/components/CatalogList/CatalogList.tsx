@@ -14,6 +14,7 @@ import NavList from '../Header/NavBar/NavList';
 interface ICatalogListProps {
   // locale?: Locale;
   setVisibleSubcategory: (arr: any) => void;
+  setVisibleCategory: any;
 }
 
 interface ICategoryApi {
@@ -24,7 +25,10 @@ interface ICategoryApi {
   subcategories: Object[];
 }
 
-const CatalogList: React.FC<ICatalogListProps> = ({ setVisibleSubcategory }) => {
+const CatalogList: React.FC<ICatalogListProps> = ({
+  setVisibleSubcategory,
+  setVisibleCategory,
+}) => {
   const locale = useLocale();
   const widthWindow = useWindowWidth();
   const [category, setCategory] = useState<ICategoryApi[]>([]);
@@ -34,10 +38,15 @@ const CatalogList: React.FC<ICatalogListProps> = ({ setVisibleSubcategory }) => 
       const categories = await getCategory();
       setCategory(categories);
     })();
-  }, []);
+  }, [setVisibleCategory]);
 
   const chooseSubcategory = (subcategoyId: number) => {
     const filterCategory = category.filter(({ id }) => subcategoyId === id);
+
+    if (widthWindow <= 743) {
+      setVisibleCategory((prev: any) => !prev);
+    }
+
     setVisibleSubcategory(filterCategory);
   };
 
@@ -51,8 +60,10 @@ const CatalogList: React.FC<ICatalogListProps> = ({ setVisibleSubcategory }) => 
                 <li
                   key={id}
                   className={styles.item}
+                  onClick={widthWindow <= 743 ? () => chooseSubcategory(id) : undefined}
+                  onMouseMove={widthWindow >= 744 ? () => chooseSubcategory(id) : undefined}
                   // onClick={() => chooseSubcategory(id)}
-                  onMouseMove={() => chooseSubcategory(id)}
+                  // onMouseMove={() => chooseSubcategory(id)}
                   aria-hidden="true"
                 >
                   <div className={styles.item_container}>
@@ -75,7 +86,13 @@ const CatalogList: React.FC<ICatalogListProps> = ({ setVisibleSubcategory }) => 
                       </p>
                     </div>
 
-                    <Image src={arrows} alt="arrows" width={20} height={20} className={styles.img} />
+                    <Image
+                      src={arrows}
+                      alt="arrows"
+                      width={20}
+                      height={20}
+                      className={styles.img}
+                    />
                   </div>
                 </li>
               ))}

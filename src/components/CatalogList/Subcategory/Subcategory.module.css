@@ -51,3 +51,31 @@
   letter-spacing: 0%;
   margin-bottom: 6px;
 }
+
+@media screen and (max-width: 1179px) {
+  .container {
+    top: 140px;
+    max-width: 384px;
+  }
+}
+
+@media screen and (max-width: 743px) {
+  .container {
+    top: 127px;
+    width: 280px;
+    margin: 0;
+  }
+  .back_container {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+  }
+
+  .back_text {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    margin-right: 8px;
+  }
+}

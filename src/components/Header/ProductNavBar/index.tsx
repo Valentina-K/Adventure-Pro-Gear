@@ -13,6 +13,8 @@ const ProductNavBar: React.FC<HeaderProps> = ({
   setVisibleSubcategory,
   setToggleCatalog,
   toggleCatalog,
+  visibleCategory,
+  setVisibleCategory,
 }) => {
   const t = useTranslations('nav');
 
@@ -25,6 +27,8 @@ const ProductNavBar: React.FC<HeaderProps> = ({
             setVisibleSubcategory={setVisibleSubcategory}
             setToggleCatalog={setToggleCatalog}
             toggleCatalog={toggleCatalog}
+            visibleCategory={visibleCategory}
+            setVisibleCategory={setVisibleCategory}
           />
           <Search
             unavailable={t('search.unavailable')}

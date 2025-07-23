@@ -59,3 +59,13 @@
 .scrollSection {
   scroll-margin-top: 170px;
 }
+
+@media screen and (max-width: 1179px) {
+  .blockImg {
+    flex-direction: column;
+  }
+
+  .footerBlock {
+    font-size: 18px;
+  }
+}

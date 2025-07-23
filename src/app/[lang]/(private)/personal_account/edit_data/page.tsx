@@ -171,13 +171,13 @@ const EditData = () => {
           // }
 
           if (typeof res === 'object') {
-            toast.success('Information successfully updated. You need to sign in again.', {
+            toast.success('Information successfully updated.', {
               position: 'top-right',
               className: `${styles.signInToastErrorMessage}`,
               bodyClassName: `${styles.signInToastBody}`,
               autoClose: 36000000,
             });
-            setShouldSignOut(true);
+            // setShouldSignOut(true);
             return;
           } else {
             return toast.error(typeof res === 'string' ? res : 'Please try again later.', {

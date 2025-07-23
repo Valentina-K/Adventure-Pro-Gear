@@ -140,7 +140,7 @@ const Search: React.FC<SearchProps> = ({ placeholder, unavailable, showall }) =>
             onClick={handleVisible}
           />
           <button
-            className={styles.search_icon_active}
+            className={visibleSearch ? styles.search_icon_active : styles.search_none}
             onClick={handleAllClick}
             aria-label="Search"
           >
@@ -148,11 +148,7 @@ const Search: React.FC<SearchProps> = ({ placeholder, unavailable, showall }) =>
           </button>
         </>
       ) : (
-        <button
-          className={styles.search_icon}
-          onClick={handleAllClick}
-          aria-label="Search"
-        >
+        <button className={styles.search_icon} onClick={handleAllClick} aria-label="Search">
           <Image src={SearchIcon} alt="Search Icon" width={22} height={22} priority />
         </button>
       )}

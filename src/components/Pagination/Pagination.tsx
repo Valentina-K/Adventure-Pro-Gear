@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
+import { useTranslations } from 'next-intl';
 import arrowsLeft from '@/../public/icons/Arrows.svg';
 import arrowsRight from '@/../public/icons/arrowsRight.svg';
 import style from './Pagination.module.css';
@@ -25,6 +26,7 @@ function Pagination(
 
   // const start = (Number(page) - 1) * Number(perPage);
   // const end = start + Number(perPage);
+  const t = useTranslations();
   const handleBackPage = () => {
     createQueryString('page', `${Number(currentPage) - 1}`);
   };
@@ -70,27 +72,23 @@ function Pagination(
       {totalPage > 0 && Number(currentPage) !== 0 && (
         <button className={style.pagination_btn_back} onClick={handleBackPage}>
           <Image src={arrowsRight} alt="arrows Right" width={20} height={20} />
-          <span> Назад</span>
+          <span>{t('back')}</span>
         </button>
       )}
 
-      {
-        totalPage > 0 &&
-          generatePages()?.map((page, index) => (
-            <button
-              key={index + 1}
-              className={
-                Number(currentPage) + 1 === Number(page) ? style.activePage : ''
-              }
-              onClick={() => typeof page === 'number' && createQueryString('page', `${page - 1}`)}
-            >
-              {page !== '...' ? Number(page) : '...'}
-            </button>
-          ))
-      }
-      {totalPage > 0 && Number(currentPage) !== (totalPage - 1) ? (
+      {totalPage > 0 &&
+        generatePages()?.map((page, index) => (
+          <button
+            key={index + 1}
+            className={Number(currentPage) + 1 === Number(page) ? style.activePage : ''}
+            onClick={() => typeof page === 'number' && createQueryString('page', `${page - 1}`)}
+          >
+            {page !== '...' ? Number(page) : '...'}
+          </button>
+        ))}
+      {totalPage > 0 && Number(currentPage) !== totalPage - 1 ? (
         <button className={style.pagination_btn_more} onClick={handleMorePage}>
-          <span>Вперед</span>
+          <span>{t('forward')}</span>
           <Image src={arrowsLeft} alt="arrows Left" width={20} height={20} />
         </button>
       ) : (

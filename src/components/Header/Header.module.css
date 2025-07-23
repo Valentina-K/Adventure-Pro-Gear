@@ -92,6 +92,21 @@
     display: block;
   }
 
+  .navList {
+    width: 100%;
+    padding: 0;
+    margin-left: -5px;
+  }
+
+  .navItem > a:hover,
+  .navItem a.active {
+    width: 100%;
+    box-shadow: inset 0px 0px 10px #a6d7d7;
+    color: #353535;
+
+    transition: all 700ms ease-in-out;
+  }
+
   .logo {
     margin: 10px auto;
   }

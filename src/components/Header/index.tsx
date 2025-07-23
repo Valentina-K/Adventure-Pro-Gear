@@ -5,15 +5,17 @@ import type { NextPage } from 'next';
 
 import { HeaderProps } from '@/types/HeaderType';
 import type { IVisibleSubcategory } from '@/types';
+import Subcategory from '../CatalogList/Subcategory/Subcategory';
 import NavBar from './NavBar/NavBar';
 import Container from '../Container';
 import ProductNavBar from './ProductNavBar';
-import Subcategory from '../CatalogList/Subcategory/Subcategory';
 import styles from './Header.module.css';
 
 const Header: NextPage<HeaderProps> = ({ products }) => {
   const [visibleSubcategory, setVisibleSubcategory] = useState<IVisibleSubcategory[]>([]);
   const [toggleCatalog, setToggleCatalog] = useState<boolean>(false);
+  const [visibleCategory, setVisibleCategory] = useState(true);
+
   return (
     <>
       <header className={styles.header}>
@@ -25,6 +27,8 @@ const Header: NextPage<HeaderProps> = ({ products }) => {
           setVisibleSubcategory={setVisibleSubcategory}
           setToggleCatalog={setToggleCatalog}
           toggleCatalog={toggleCatalog}
+          visibleCategory={visibleCategory}
+          setVisibleCategory={setVisibleCategory}
         />
       </header>
       <Container>
@@ -33,6 +37,7 @@ const Header: NextPage<HeaderProps> = ({ products }) => {
             visibleSubcategory={visibleSubcategory}
             setToggleCatalog={setToggleCatalog}
             setVisibleSubcategory={setVisibleSubcategory}
+            setVisibleCategory={setVisibleCategory}
           />
         )}
       </Container>

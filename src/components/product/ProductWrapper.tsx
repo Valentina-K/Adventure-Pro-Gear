@@ -91,6 +91,7 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
       totalQuantity: product.attributes[attrIndex].quantity,
       color: product.attributes[attrIndex].color,
       size: product.attributes[attrIndex].size,
+      productAttributeId: product?.attributes?.[0]?.id,
     };
     dispatch(setShoppingCart(shoppingCart));
   };
