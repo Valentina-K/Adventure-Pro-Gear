@@ -30,7 +30,6 @@ const BreadcrumbNavigation: React.FC<BreadcrumbNavigationProps> = ({ locale, bre
     return filteredArray;
   };
   const pathParts = modifyPathName(pathName);
-
   return (
     <div className={styles.breadcrumbsContainer}>
       <Container>
@@ -60,7 +59,7 @@ const BreadcrumbNavigation: React.FC<BreadcrumbNavigationProps> = ({ locale, bre
                   height={22}
                   className={styles.arrowIcon}
                 />
-              ) }
+              )}
             </div>
           ))}
         </ul>

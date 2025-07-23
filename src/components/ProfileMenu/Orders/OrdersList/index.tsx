@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { IOrderType } from '@/types';
 import OrderItem from '../OrderItem';
@@ -6,10 +8,13 @@ import styles from './OrdersList.module.css';
 interface OrdersListProp {
   orders: IOrderType[];
   t: (key: string) => string;
+  page?: number;
 }
 
-function OrdersList({ orders, t }: OrdersListProp) {
-  console.log(orders);
+function OrdersList({ orders, t, page = 1 }: OrdersListProp) {
+  const begin = 4 * (page - 1);
+  const end = begin + 4;
+  const ordersOnPage = orders.length > 4 ? orders.slice(begin, end) : orders;
   return (
     <table className={styles.ordersTable}>
       <thead className={styles.tableTitle}>
@@ -21,7 +26,7 @@ function OrdersList({ orders, t }: OrdersListProp) {
         </tr>
       </thead>
       <tbody>
-        {orders.map((order, ind) => (
+        {ordersOnPage.map((order, ind) => (
           <OrderItem key={order.id} order={order} className={ind % 2 !== 0 ? `${styles.odd}` : ''} />
         ))}
       </tbody>

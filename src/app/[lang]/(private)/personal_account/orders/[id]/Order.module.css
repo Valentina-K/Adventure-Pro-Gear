@@ -6,19 +6,17 @@
 }
 
 .title {
-  font-family: Montserrat;
-  font-weight: 600;
+  font-weight: var(--wight-600);
   font-style: SemiBold;
-  font-size: 28px;
-  line-height: 150%;
+  font-size: var(--large-28);
+  line-height: var(--line-height-42);
 }
 
 .orderNumber {
-  font-family: Montserrat;
-  font-weight: 600;
+  font-weight: var(--wight-600);
   font-style: SemiBold;
-  font-size: 28px;
-  line-height: 150%;
+  font-size: var(--large-28);
+  line-height: var(--line-height-42);
 }
 
 .addressBlock {
@@ -35,114 +33,88 @@
 }
 
 .h3 {
-  font-family: Montserrat;
-  font-weight: 600;
+  font-weight: var(--wight-600);
   font-style: SemiBold;
-  font-size: 18px;
-  line-height: 150%;
+  font-size: var(--medium-18);
+  line-height: var(--line-height-27);
 }
 
-.text {
-  font-family: Montserrat;
-  font-weight: 500;
-  font-style: Medium;
-  font-size: 16px;
-  line-height: 150%;
+.h3.treck {
+  margin-bottom: 16px;
 }
 
 .button {
   display: flex;
   height: 40px;
   border-radius: 5px;
-  border: 1px solid #1e5f72;
+  border: 1px solid var(--greenForBtn);
   padding: 8px 16px;
   background-color: inherit;
-
-  font-family: Montserrat;
-  font-weight: 500;
-  font-style: Medium;
-  font-size: 16px;
-  line-height: 150%;
-  color: #1e5f72;
+  color: var(--greenForBtn);
+  cursor: pointer;
 }
 
 .icon {
   margin-right: 10px;
 }
 
+.treck {
+  font-weight: 400;
+  font-style: Regular;
+  color: #0c1419;
+  margin-bottom: 12px;
+}
+
 .treckNumber {
-  font-family: Montserrat;
-  font-weight: 500;
-  font-style: Medium;
-  font-size: 20px;
-  line-height: 150%;
-  color: #376b8e;
+  font-size: var(--large-20);
+  line-height: var(--line-height-30);
+  color: var(--primaryBlue);
 }
 
 .treckStatus {
-  font-family: Montserrat;
-  font-weight: 600;
+  font-weight: var(--wight-600);
   font-style: SemiBold;
-  font-size: 12px;
-  line-height: 150%;
+  font-size: var(--small-12);
+  line-height: var(--line-height-18);
   letter-spacing: 4%;
   text-align: center;
-  color: #1e5f72;
+  color: var(--greenForBtn);
 }
 
 .treckStatus.undone {
-  color: #7d7d7d;
+  color: var(--disabled);
 }
 
 .productName {
-  font-family: Montserrat;
-  font-weight: 500;
-  font-style: Medium;
-  font-size: 16px;
-  line-height: 150%;
   text-decoration: underline;
   text-decoration-style: solid;
-  color: #224256;
+  color: var(--mediumBlue);
 }
 
 .productDescr {
-  font-family: Montserrat;
-  font-weight: 500;
-  font-style: Medium;
-  font-size: 14px;
-  line-height: 150%;
-  color: #353535;
+  font-size: var(--small-14);
+  line-height: var(--line-height-21);
 }
 
 .priceSmall {
-  font-family: Montserrat;
-  font-weight: 500;
-  font-style: Medium;
   font-size: 18px;
   line-height: 150%;
 }
 
 .count {
-  font-family: Montserrat;
-  font-weight: 500;
-  font-style: Medium;
-  font-size: 14px;
-  line-height: 150%;
+  font-size: var(--small-14);
+  line-height: var(--line-height-21);
 }
 
 .priceBig {
-  font-family: Montserrat;
-  font-weight: 500;
-  font-style: Medium;
   font-size: 22px;
   line-height: 150%;
 }
 
 .totalSum {
-  font-family: Montserrat;
-  font-weight: 600;
+  font-weight: var(--wight-600);
   font-style: SemiBold;
-  font-size: 24px;
-  line-height: 150%;
-  color: #1e5f72;
+  font-size: var(--large-24);
+  line-height: var(--line-height-36);
+  color: var(--greenForBtn);
 }

@@ -12,7 +12,10 @@
       "searchResults": "Phrase search results"
     },
     "catalog": " Catalog of goods",
-    "lang": ["Українська", "English"]
+    "lang": [
+      "Українська",
+      "English"
+    ]
   },
   "auth": {
     "name": "Name",
@@ -85,7 +88,10 @@
     "resetPasswordModal": {
       "heading": "Reset password",
       "info": "Enter new password",
-      "placeholder": ["New Password", "Confirm new password"],
+      "placeholder": [
+        "New Password",
+        "Confirm new password"
+      ],
       "submit-button": "Save"
     },
     "confirmPassword": "Password is not matching!"
@@ -107,7 +113,12 @@
       "favorites": "Favorites",
       "exit": "Exit"
     },
-    "menuData": ["Orders", "Edit Data", "Favorites", "Exit"],
+    "menuData": [
+      "Orders",
+      "Edit Data",
+      "Favorites",
+      "Exit"
+    ],
     "exitModal": {
       "title": "Are you sure you want to exit your Personal Account?",
       "text": "Your shopping cart will be saved and waiting for you.",
@@ -121,10 +132,10 @@
       "available": "In stock"
     },
     "orders": {
-      "title": "Orders",
+      "title": "Orders:",
       "notOrdersYet": "You have no orders yet.",
       "number": "Number",
-      "date":"Date",
+      "date": "Date",
       "totalAmount": "Total amount",
       "status": "Status",
       "shippingAddress": "Shipping address",
@@ -132,9 +143,18 @@
       "orderDate": "Order date:",
       "orderStatus": "Order status",
       "track": "Order tracking number",
-      "yourGoods": "Your goods"
+      "yourGoods": "Your goods",
+      "invoice": "Download Invoice",
+      "pcs": "pcs.",
+      "breadcrumbs": [
+        "Order details"
+      ],
+      "new": "New order",
+      "accepted": "Accepted",
+      "awaiting": "Awaiting",
+      "sent": "Sent",
+      "delivered": "Delivered"
     },
-
     "editProfile": {
       "title": "Edit data",
       "personalData": "Personal data",
@@ -149,7 +169,6 @@
       "emailDescr": "After clicking the 'Change E-mail' button, you will need to confirm your new e-mail. Please check your mailbox and follow the link in the email to complete the verification process. Until then, your account will be temporarily unavailable. Thank you for your understanding and patience!",
       "delete": "Delete account"
     },
-
     "alreadyShownProducts": "Recently viewed products",
     "welcomeMessage": "Welcome to your personal account!",
     "noShownProducts": "You haven't viewed any products yet. Start exploring our catalog — you might find something perfect for your next adventures!"
@@ -319,7 +338,9 @@
     }
   },
   "contactPage": {
-    "breadcrumbs": ["Contacts"],
+    "breadcrumbs": [
+      "Contacts"
+    ],
     "title": "Our contacts",
     "address": "Our store is located at the address:",
     "phone": "Phone",

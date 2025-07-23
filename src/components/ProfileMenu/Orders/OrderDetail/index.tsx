@@ -1,23 +1,46 @@
 import React from 'react';
-import { IOrderType } from '@/types';
+import { getProductById } from '@/services/axios';
+import Item from './Item';
 import styles from './OrderDetail.module.css';
+import { Locale } from '@/i18n-config';
 
 interface OrderDetailProps {
-  order: IOrderType;
-  className: string;
+  productList: [
+    {
+      productId: number,
+      count: number
+    },
+  ];
+  t: (key: string) => string;
+  lang?: Locale;
 }
 
-const OrderDetail: React.FC<OrderDetailProps> = ({ order, className = '' }) => {
-  const date = new Date(order.orderDate);
-  const shortDate = date.toLocaleDateString();
-  console.log(className);
+const OrderDetail = async ({ productList, t, lang = 'uk' }: OrderDetailProps) => {
+  const products = await Promise.all(
+    productList.map(item => getProductById(item.productId))
+  );
+
+  const productsWithQuantity = products.map((product, idx) => ({
+    ...product,
+    count: productList[idx].count,
+  }));
+  const initialValue = 0;
+  const sumWithInitial = productsWithQuantity.reduce(
+    (accumulator, currentValue) => accumulator + currentValue.count * currentValue.basePrice,
+    initialValue,
+  );
   return (
-    <tr className={className}>
-      <td className={styles.cell}>{order.id}</td>
-      <td className={styles.cell}>{shortDate}</td>
-      <td className={styles.cell}>{order.price}</td>
-      <td className={styles.cell}>{order.status}</td>
-    </tr>
+    <>
+      <ul>
+        {productsWithQuantity.map(product => (
+          <li key={product.productId}>
+            <Item product={product} lang={lang} t={t} />
+          </li>
+        ))}
+      </ul>
+      <p className={styles.totalText}>{t('orders.totalAmount')} <span className={styles.total}>{sumWithInitial}</span></p>
+    </>
+
   );
 };
 
