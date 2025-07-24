@@ -4,8 +4,8 @@
   table-layout: fixed;
 }
 
-.tableTitle{
-  background: #1E5F721A;
+.tableTitle {
+  background: #1e5f721a;
   backdrop-filter: blur(40px);
 }
 
@@ -16,6 +16,6 @@
 }
 
 .ordersTable tbody .odd {
-  background: #1E5F721A;
+  background: #1e5f721a;
   backdrop-filter: blur(40px);
 }

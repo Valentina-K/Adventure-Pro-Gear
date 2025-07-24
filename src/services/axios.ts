@@ -256,7 +256,7 @@ export const getOrders = async () => {
 export const getOrderById = async (id: number) => {
   try {
     const order = await axiosInstance.get(`api/orders/${id}`);
-    return order;
+    return order.data;
   } catch (error) {
     console.log(error);
   }

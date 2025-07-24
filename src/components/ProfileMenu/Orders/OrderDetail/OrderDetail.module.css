@@ -1,5 +1,73 @@
-.cell {
-  width: 25%;
-  padding: 16px;
-  text-align: left;
+.totalText {
+  text-align: end;
+}
+
+.total {
+  display: inline-block;
+  margin-left: 24px;
+  font-weight: var(--wight-600);
+  font-style: SemiBold;
+  font-size: var(--large-24);
+  line-height: var(--line-height-36);
+  color: var(--greenForBtn);
+}
+
+.container {
+  display: flex;
+  gap: 20px;
+  padding: 16px 0;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.detail {
+  width: 576px;
+}
+
+.productName {
+  text-decoration: underline;
+  text-decoration-style: solid;
+  color: var(--mediumBlue);
+  margin-bottom: 28px;
+}
+
+.statusBarContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 0 42px;
+}
+
+.point {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  background: var(--greenForBtn);
+}
+
+.point.undone {
+  background: var(--disabled);
+}
+
+.line {
+  width: 80px;
+  height: 2px;
+  background: var(--greenForBtnAct);
+}
+
+.statusTextBlock {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.text {
+  color: var(--greenForBtn);
+}
+
+.text.undone {
+  color: var(--disabled);
 }

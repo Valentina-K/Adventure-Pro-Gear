@@ -3,3 +3,11 @@
   padding: 16px;
   text-align: left;
 }
+
+.status {
+  text-transform: lowercase;
+}
+
+.link {
+  text-decoration: underline;
+}

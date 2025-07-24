@@ -28,10 +28,7 @@ const AuthModal = () => {
   const session = useSession();
   const path = usePathname();
   const router = useRouter();
-  const shouldShowModal =
-  isModalOpen &&
-  (session.status === 'unauthenticated' ||
-    (session.status === 'authenticated' && session.data?.error === 'RefreshAccessTokenError'));
+  const shouldShowModal = isModalOpen;
 
   const closeModal = () => {
     const params = new URLSearchParams(searchParams.toString());
@@ -63,7 +60,7 @@ const AuthModal = () => {
 
   return (
     <>
-      {shouldShowModal && session.status !== 'authenticated' && authType === 'signup' && (
+      {shouldShowModal && authType === 'signup' && (
         <Modal closeModal={closeModal} className={styles.authModal}>
           <SignUp />
         </Modal>

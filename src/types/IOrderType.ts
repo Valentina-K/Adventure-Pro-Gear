@@ -6,7 +6,7 @@ export interface IOrderType {
   postAddress: string;
   comment: string;
   price: number;
-  status: 'NEW' | 'PAID' | 'CANCELED' | 'DELIVERED';
+  status: 'NEW' | 'PAID' | 'AWAITING' | 'SENT' | 'DELIVERED' | 'CANCELED';
   ordersLists: [
     {
       id: number;

@@ -2,9 +2,9 @@ import React from 'react';
 import { getTranslations } from 'next-intl/server';
 import { getOrders } from '@/services/axios';
 import { IPageProps } from '@/types';
-import OrdersList from '@/components/ProfileMenu/Orders/OrdersList';
 import serverGuard from '@/utils/serverGuard';
 import { AppRoutes } from '@/constants/routes';
+import OrdersBody from '@/components/ProfileMenu/Orders/OrdersBody';
 import styles from './Orders.module.css';
 
 const Orders: React.FC<IPageProps> = async ({ params }) => {
@@ -17,11 +17,15 @@ const Orders: React.FC<IPageProps> = async ({ params }) => {
   });
 
   const orders = await getOrders();
-  console.log('orders', orders);
+  const countPage = orders.length > 4 ? Math.trunc(orders.length) / 4 : 1;
   return (
     <section>
       <h2 className={styles.title}>{t('orders.title')}</h2>
-      {orders?.length < 1 ? (<p className={styles.text}>{t('orders.notOrdersYet')}</p>) : (<OrdersList orders={orders} t={t} />)}
+      {orders?.length < 1 ? (
+        <p className={styles.text}>{t('orders.notOrdersYet')}</p>
+      ) : (
+        <OrdersBody orders={orders} countPage={countPage} />
+      )}
     </section>
   );
 };

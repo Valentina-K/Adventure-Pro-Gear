@@ -1,5 +1,9 @@
 {
-  "extends": ["airbnb", "next", "next/core-web-vitals"],
+  "extends": ["airbnb", "next", "next/core-web-vitals", "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "prettier"],
+    "plugins": ["@typescript-eslint", "react"],
   "parser": "@typescript-eslint/parser",
   "env": {
     "browser": true,
