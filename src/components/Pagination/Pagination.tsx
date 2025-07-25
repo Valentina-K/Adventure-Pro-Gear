@@ -31,7 +31,7 @@ function Pagination(
 
   // const start = (Number(page) - 1) * Number(perPage);
   // const end = start + Number(perPage);
-  const params = useParams()
+  const params = useParams();
   const t = useTranslations();
 
   const pageNum = Number(currentPage);
@@ -41,9 +41,12 @@ function Pagination(
   // Корректный расчет для последней страницы
   const isLastPage = pageNum === totalPage - 1;
 
-  const start = isLastPage
-    ? totalItems - (totalItems % pageSize || pageSize) + 1
-    : pageNum * pageSize + 1;
+  const start = !isLastPage
+    ? pageNum * pageSize + 1
+    : pageNum === 0
+      ?
+        totalItems - (totalItems % pageSize || pageSize) + 1
+      : (totalItems - pageSize || pageSize) + 1;
 
   const end = isLastPage ? totalItems : (pageNum + 1) * pageSize;
 
@@ -89,10 +92,13 @@ function Pagination(
 
   return (
     <div>
-      <p className={style.pagination_total}>
-        {`${params.lang === 'uk' ? `Показано з ${start} по ${end} із ${totalItems} (${totalPage} сторінок)` : `Showing ${start} to ${end} of ${totalItems} (${totalPage} pages)`}`}
-
-      </p>
+      {totalItems ? (
+        <p className={style.pagination_total}>
+          {`${params.lang === 'uk' ? `Показано з ${start} по ${end} із ${totalItems} (${totalPage} сторінок)` : `Showing ${start} to ${end} of ${totalItems} (${totalPage} pages)`}`}
+        </p>
+      ) : (
+        ''
+      )}
       <div className={style.pagination_container}>
         {totalPage > 0 && pageNum !== 0 && (
           <button className={style.pagination_btn_back} onClick={handleBackPage}>

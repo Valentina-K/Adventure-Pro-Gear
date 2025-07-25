@@ -124,7 +124,11 @@ function FilteredProduct({ searchParams }: FilteredProductsPageProps) {
               {sortProducts &&
                 sortProducts.map((item: Product) => (
                   <li key={item.productId} className={styles.item}>
-                    <Card product={item} variant={gridActive.table ? 'big' : 'standart'} favoriteStore={favStorage} />
+                    <Card
+                      product={item}
+                      variant={gridActive.table ? 'big' : 'standart'}
+                      favoriteStore={favStorage}
+                    />
                   </li>
                 ))}
             </ul>
@@ -136,6 +140,7 @@ function FilteredProduct({ searchParams }: FilteredProductsPageProps) {
               createQueryString={createQueryString}
               currentPage={String(page)}
               size={sortProducts.length}
+              totalElements={String(products?.length)}
             />
           </div>
         </div>
