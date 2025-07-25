@@ -13,7 +13,7 @@ interface OrdersBodyProp {
 
 function OrdersBody({ orders, countPage }: OrdersBodyProp) {
   const t = useTranslations('profile');
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
 
   /* const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -30,7 +30,13 @@ function OrdersBody({ orders, countPage }: OrdersBodyProp) {
   return (
     <>
       <OrdersList orders={orders} t={t} page={page} />
-      <Pagination totalPage={countPage} currentPage={`${page}`} createQueryString={onPageChange} />
+      <Pagination
+        totalPage={countPage}
+        currentPage={`${page}`}
+        createQueryString={onPageChange}
+        size={orders?.length}
+        totalElements={String(orders?.length)}
+      />
     </>
   );
 }

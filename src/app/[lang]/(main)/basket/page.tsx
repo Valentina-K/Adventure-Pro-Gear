@@ -177,7 +177,7 @@ const Basket = () => {
             {t('backBasket')}
           </p>
         ) : (
-          <Link href="/product" className={styles.back_link}>
+          <Link href="/" className={styles.back_link}>
             <p className={styles.back}>
               <Image src={arrowsRight} alt="arrows" className={styles.img} />
               {t('backProducts')}

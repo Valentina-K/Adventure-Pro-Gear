@@ -1,3 +1,8 @@
+.pagination_total{
+  text-align: end;
+  margin-top: 25px;
+}
+
 .pagination_container {
   display: flex;
   align-items: stretch;
