@@ -135,6 +135,7 @@ function FilteredProduct({ searchParams }: FilteredProductsPageProps) {
               totalPage={totalPage}
               createQueryString={createQueryString}
               currentPage={String(page)}
+              size={sortProducts.length}
             />
           </div>
         </div>
