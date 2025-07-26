@@ -165,7 +165,11 @@ const CatalogId = ({
               {products &&
                 products?.map((item: Product) => (
                   <li key={item?.productId} className={styles.item}>
-                    <Card product={item} variant={gridActive.table ? 'big' : 'standart'} favoriteStore={favStorage} />
+                    <Card
+                      product={item}
+                      variant={gridActive.table ? 'big' : 'standart'}
+                      favoriteStore={favStorage}
+                    />
                   </li>
                 ))}
             </ul>
@@ -176,6 +180,8 @@ const CatalogId = ({
               totalPage={totalPage}
               createQueryString={createQueryString}
               currentPage={page}
+              totalElements={totalElements}
+              size={products.length}
             />
           </div>
         </div>

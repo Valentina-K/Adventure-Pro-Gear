@@ -43,7 +43,7 @@ const Invoice: React.FC<IInvoiceProps> = ({
 
   return (
     <div className={styles.invoice_container}>
-      {session && (
+      {session?.user && (
         <>
           <h2 className={styles.title}>{t('data')}</h2>
 

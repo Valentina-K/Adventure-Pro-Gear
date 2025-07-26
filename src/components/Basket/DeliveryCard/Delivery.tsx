@@ -44,7 +44,7 @@ const DeliveryCard: React.FC<IDeliveryCardProps> = ({
 
   useEffect(() => {
     // eslint-disable-next-line no-unused-expressions
-    !session ? setDisebleForm(true) : setDisebleForm(false);
+    !session?.user ? setDisebleForm(true) : setDisebleForm(false);
   }, [session, setDisebleForm]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,7 +71,7 @@ const DeliveryCard: React.FC<IDeliveryCardProps> = ({
     <div className={styles.deliveryCard_container}>
       <h3 className={styles.title}>{t('contact')}</h3>
       <p className={styles.descr}>{t('descr')}</p>
-      {!session && (
+      {!session?.user && (
         <ul className={styles.btn_container}>
           <li>
             <button
@@ -101,13 +101,13 @@ const DeliveryCard: React.FC<IDeliveryCardProps> = ({
           activeForm={activeForm}
         />
       </div>
-      {!session && (
+      {!session?.user && (
         <div className={styles.auth_container}>
           {newUser && <SignUp />}
           {authUser && <SignIn />}
         </div>
       )}
-      {session && (
+      {session?.user && (
         <>
           <p className={styles.form_title}>{t('dataDelivery')}</p>
           <DeliveryForm handleChange={handleChange} formData={formData} activeForm={activeForm} />

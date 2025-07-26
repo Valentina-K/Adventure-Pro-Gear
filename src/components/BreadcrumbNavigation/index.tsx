@@ -6,7 +6,7 @@ import Image from 'next/image';
 import BreadcrumbHome from '@/../public/icons/BreadcrumbHome.svg';
 import Arrows from '@/../public/icons/Arrows.svg';
 import { AppRoutes } from '@/constants/routes';
-import { usePathname } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { Locale } from '@/i18n-config';
 import Container from '../Container';
@@ -19,6 +19,7 @@ interface BreadcrumbNavigationProps {
 }
 
 const BreadcrumbNavigation: React.FC<BreadcrumbNavigationProps> = ({ locale, breadcrumbsData }) => {
+  const params = useParams();
   const t = useTranslations(breadcrumbsData);
   const pathName = usePathname();
   const modifyPathName = (path: string) => {
@@ -30,6 +31,21 @@ const BreadcrumbNavigation: React.FC<BreadcrumbNavigationProps> = ({ locale, bre
     return filteredArray;
   };
   const pathParts = modifyPathName(pathName);
+
+  const getBreadcrumbLabel = (pathPart: string) => {
+    // Если это последняя часть пути и есть params.id
+    if (pathParts[pathParts.length - 1] === pathPart && params.id) {
+      return params.id; // Просто показываем ID из параметров
+    }
+
+    // Если pathPart — это ID, возвращаем его
+    if (/\d+/.test(pathPart)) {
+      return pathPart;
+    }
+
+    // Пытаемся получить перевод
+    return t(pathPart) || pathPart;
+  };
   return (
     <div className={styles.breadcrumbsContainer}>
       <Container>
@@ -44,13 +60,20 @@ const BreadcrumbNavigation: React.FC<BreadcrumbNavigationProps> = ({ locale, bre
             <div key={index} className={styles.listItem}>
               <li>
                 {index === pathParts.length - 1 ? (
+                  <p>{getBreadcrumbLabel(pathPart)}</p>
+                ) : (
+                  <Link href={`/${locale}/${pathPart}/`}>{getBreadcrumbLabel(pathPart)}</Link>
+                )}
+              </li>
+              {/* <li>
+                {index === pathParts.length - 1 ? (
                   <p>{t(pathPart)}</p>
                 ) : (
                   <Link href={`/${locale}/${pathPart}/`}>
                     {t(pathPart)}
                   </Link>
                 )}
-              </li>
+              </li> */}
               {index !== pathParts.length - 1 && (
                 <Image
                   src={Arrows}
