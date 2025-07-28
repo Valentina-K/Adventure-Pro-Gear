@@ -1,5 +1,7 @@
+'use client';
+
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import arrowsLeft from '@/../public/icons/Arrows.svg';
 import arrowsRight from '@/../public/icons/arrowsRight.svg';
@@ -13,12 +15,14 @@ function Pagination(
     createQueryString,
     size,
     totalElements,
+    ordersPage,
   }: {
     totalPage: number;
     currentPage: string;
     createQueryString: (name: string, value: string) => void;
     size: number;
     totalElements?: string;
+    ordersPage?: boolean;
   }
   // {
   //   searchParams,
@@ -34,21 +38,35 @@ function Pagination(
   const params = useParams();
   const t = useTranslations();
 
+  const [start, setStart] = useState(0);
+  const [end, setEnd] = useState(0);
+
   const pageNum = Number(currentPage);
   const pageSize = Number(size);
   const totalItems = Number(totalElements);
 
-  // Корректный расчет для последней страницы
-  const isLastPage = pageNum === totalPage - 1;
+  useEffect(() => {
+    if (ordersPage) {
+      const startRes = pageNum * size + 1;
+      const endRes = Math.min((pageNum + 1) * size, totalItems);
+      setStart(startRes);
+      setEnd(endRes);
 
-  const start = !isLastPage
-    ? pageNum * pageSize + 1
-    : pageNum === 0
-      ?
-        totalItems - (totalItems % pageSize || pageSize) + 1
-      : (totalItems - pageSize || pageSize) + 1;
+      return;
+    } else {
+      const isLastPage = pageNum === totalPage - 1;
 
-  const end = isLastPage ? totalItems : (pageNum + 1) * pageSize;
+      const startRes = !isLastPage
+        ? pageNum * pageSize + 1
+        : pageNum === 0
+          ? totalItems - (totalItems % pageSize || pageSize) + 1
+          : (totalItems - pageSize || pageSize) + 1;
+
+      const endRes = isLastPage ? totalItems : (pageNum + 1) * pageSize;
+      setStart(startRes);
+      setEnd(endRes);
+    }
+  }, [pageNum, totalItems, pageSize]);
 
   const handleBackPage = () => {
     createQueryString('page', `${pageNum - 1}`);
@@ -94,7 +112,7 @@ function Pagination(
     <div>
       {totalItems ? (
         <p className={style.pagination_total}>
-          {`${params.lang === 'uk' ? `Показано з ${start} по ${end} із ${totalItems} (${totalPage} сторінок)` : `Showing ${start} to ${end} of ${totalItems} (${totalPage} pages)`}`}
+          {`${params.lang === 'uk' ? `Показано з ${start} по ${end} із ${totalItems} (${Math.ceil(totalPage)} сторінок)` : `Showing ${start} to ${end} of ${totalItems} (${Math.ceil(totalPage)} pages)`}`}
         </p>
       ) : (
         ''
