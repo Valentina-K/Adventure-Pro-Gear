@@ -22,18 +22,30 @@ const BreadcrumbNavigation: React.FC<BreadcrumbNavigationProps> = ({ locale, bre
   const params = useParams();
   const t = useTranslations(breadcrumbsData);
   const pathName = usePathname();
+  // const modifyPathName = (path: string) => {
+  //   const pathArray = path.split(AppRoutes.HOME);
+  //   const filteredArray = pathArray.filter(element => element !== '');
+  //   if (locale && locale !== 'uk') {
+  //     filteredArray.splice(0, 1);
+  //   }
+  //   return filteredArray;
+  // };
+  // const pathParts = modifyPathName(pathName);
+
   const modifyPathName = (path: string) => {
-    const pathArray = path.split(AppRoutes.HOME);
-    const filteredArray = pathArray.filter(element => element !== '');
-    if (locale && locale !== 'uk') {
-      filteredArray.splice(0, 1);
+    const cleanPath = path.replace(/^\/|\/$/g, '');
+    const pathArray = cleanPath.split('/');
+
+    if (locale && locale !== 'uk' && pathArray[0] === locale) {
+      pathArray.shift();
     }
-    return filteredArray;
+
+    return pathArray.filter(part => part !== '');
   };
+
   const pathParts = modifyPathName(pathName);
 
   const getBreadcrumbLabel = (pathPart: string) => {
-    // Если это последняя часть пути и есть params.id
     if (pathParts[pathParts.length - 1] === pathPart && params.id) {
       return params.id; // Просто показываем ID из параметров
     }
@@ -42,10 +54,9 @@ const BreadcrumbNavigation: React.FC<BreadcrumbNavigationProps> = ({ locale, bre
     if (/\d+/.test(pathPart)) {
       return pathPart;
     }
-
-    // Пытаемся получить перевод
     return t(pathPart) || pathPart;
   };
+
   return (
     <div className={styles.breadcrumbsContainer}>
       <Container>
@@ -62,7 +73,9 @@ const BreadcrumbNavigation: React.FC<BreadcrumbNavigationProps> = ({ locale, bre
                 {index === pathParts.length - 1 ? (
                   <p>{getBreadcrumbLabel(pathPart)}</p>
                 ) : (
-                  <Link href={`/${locale}/${pathPart}/`}>{getBreadcrumbLabel(pathPart)}</Link>
+                  <Link href={`/${locale}/${pathParts.slice(0, index + 1).join('/')}/`}>
+                    {getBreadcrumbLabel(pathPart)}
+                  </Link>
                 )}
               </li>
               {/* <li>
