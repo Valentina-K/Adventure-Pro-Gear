@@ -201,3 +201,18 @@
     display: flex;
     flex-direction: column;
 }
+
+@media screen and (max-width: 1179px) {
+    .breadcrumbWrapper {
+    margin-bottom: 24px;
+}
+.mainContainer{
+    flex-direction: column;
+    gap: 24px;
+}
+  
+}
+
+@media screen and (max-width: 743px) {
+  
+}
