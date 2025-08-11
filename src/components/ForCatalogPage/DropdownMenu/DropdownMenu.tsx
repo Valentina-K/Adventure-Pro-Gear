@@ -91,13 +91,13 @@ const DropdownMenu: React.FC<IDropdownMenuProps> = ({
           >
             За зростанням цін
           </p>
-          <p
+          {/* <p
             className={`${styles.menu} ${activeValue === 'За популярністю' ? styles.active : ''}`}
             onClick={() => handleChangeSortProducts('byPopularity')}
             aria-hidden="true"
           >
             За популярністю
-          </p>
+          </p> */}
         </div>
       )}
     </div>

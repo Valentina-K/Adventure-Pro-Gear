@@ -4,6 +4,8 @@
 import React, { FC, useState } from 'react';
 import styles from './SearchBar.module.css';
 import Price from './Price/Price';
+import { useWindowWidth } from '@/hooks/useWindowWidth';
+import { useLocale } from 'next-intl';
 
 interface ISearchBarProps {
   createQueryString: any;
@@ -27,9 +29,21 @@ const SearchBar: FC<ISearchBarProps> = ({
   minRange = 0,
   maxRange = 100000,
   difference = 100,
-}) => (
-  <div className={styles.container}>
+}) => {
+  const locale = useLocale()
+  const widthWindow = useWindowWidth();
+
+  return (<div className={styles.container}>
     <form>
+      {
+        widthWindow < 1179 && (
+          <li>
+            <div className={styles.input_filter}>
+              <p className={styles.filter_title}>{locale === 'uk' ? 'Фільтр' : 'Filter'} </p>
+            </div>
+          </li>
+        )}
+
       <Price
         minValue={minValue}
         maxValue={maxValue}
@@ -42,6 +56,6 @@ const SearchBar: FC<ISearchBarProps> = ({
         maxRange={maxRange}
       />
     </form>
-  </div>
-);
+  </div>)
+};
 export default SearchBar;
