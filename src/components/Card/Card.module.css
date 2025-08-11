@@ -221,7 +221,8 @@
   align-items: flex-start;
   flex-grow: 1;
   width: 100%;
-  min-height: 160px;
+  /* min-height: 160px; */
+  min-height: 200px;
   padding: 0px;
   gap: 8px;
 }
@@ -343,11 +344,21 @@
   color: var(--greenForBtn);
 }
 
+@media screen and (min-width: 360px) {
+  .productName {
+  font-size: 12px;
+  padding-left: 3px;
+}
+}
+
 @media screen and (min-width: 644px) {
   .available {
     font-weight: var(--wight-600);
     font-size: var(--small-14);
   }
+  .productName {
+  font-size: var(--medium-16);
+}
 }
 
 .availableBig {
