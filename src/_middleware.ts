@@ -24,6 +24,7 @@ const publicRoutes = [
   '/user/',
   '/catalog/:CatalogId',
   '/product/:productID',
+  '/newItems',
 ];
 
 const protectedUserRoutes = [

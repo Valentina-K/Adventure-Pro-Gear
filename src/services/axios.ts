@@ -64,6 +64,18 @@ export const getProducts = async () => {
   }
 };
 
+
+export const getNewProductsService = async (size:string) => {
+  try {  
+    const products = await axiosInstance.get(`api/productAttributes/by-label/new?page=0&size=${size}`);
+    return products.data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+
 export const getProductById = async (productId: number) => {
   try {
     const product = await axiosInstance.get(`api/public/products/${productId}`);

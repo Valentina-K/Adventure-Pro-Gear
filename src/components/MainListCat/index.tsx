@@ -1,5 +1,8 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation'; 
 import Image from 'next/image';
 import { useLocale } from 'next-intl';
 import clsx from 'clsx';
@@ -70,13 +73,18 @@ interface Props {
 
 const MainListCat: React.FC<Props> = ({ categories = [], length = 8 }) => {
   const lang = useLocale();
+  const router = useRouter();
+  
+  const handleLink = (id: number) => {
+    id === 1 && router.push('/newItems');
+  }
 
   return (
     <section className={style.wrapper}>
       <ul className={style.home_blog_list}>
         {ExamCatData?.slice(0, length).map(({ id, titleEn, titleUa, imageUrl }) => (
           <li key={id} className={style.blogs_item}>
-            <Link href='/' className={style.home_blog_link}>
+            <div className={style.home_blog_link} onClick={()=>handleLink(Number(id))}>
               <div className={style.blogs_item_img}>
                 <Image
                   style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
@@ -93,7 +101,7 @@ const MainListCat: React.FC<Props> = ({ categories = [], length = 8 }) => {
                   {lang === 'en' ? titleEn : titleUa}
                 </h2>
               </div>
-            </Link>
+            </div>
           </li>
         ))}
       </ul>

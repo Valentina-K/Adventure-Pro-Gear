@@ -7,6 +7,7 @@ import arrowsLeft from '@/../public/icons/Arrows.svg';
 import arrowsRight from '@/../public/icons/arrowsRight.svg';
 import style from './Pagination.module.css';
 import { useParams } from 'next/navigation';
+import Container from '../Container';
 
 function Pagination(
   {
@@ -78,8 +79,8 @@ function Pagination(
 
   const generatePages = () => {
     const pages = [];
-    const maxVisiblePages = 2; // Скільки номерів відображати (без "...")
-    const sidePages = 2; // Скільки сторінок навколо поточної
+    const maxVisiblePages = 1; // Скільки номерів відображати (без "...")
+    const sidePages = 1; // Скільки сторінок навколо поточної
 
     if (totalPage <= maxVisiblePages) {
       return Array.from({ length: totalPage }, (_, i) => i + 1);
@@ -109,42 +110,42 @@ function Pagination(
   };
 
   return (
-    <div>
-      {totalItems ? (
-        <p className={style.pagination_total}>
-          {`${params.lang === 'uk' ? `Показано з ${start} по ${end} із ${totalItems} (${Math.ceil(totalPage)} сторінок)` : `Showing ${start} to ${end} of ${totalItems} (${Math.ceil(totalPage)} pages)`}`}
-        </p>
-      ) : (
-        ''
-      )}
-      <div className={style.pagination_container}>
-        {totalPage > 0 && pageNum !== 0 && (
-          <button className={style.pagination_btn_back} onClick={handleBackPage}>
-            <Image src={arrowsRight} alt="arrows Right" width={20} height={20} />
-            <span>{t('back')}</span>
-          </button>
-        )}
-
-        {totalPage > 0 &&
-          generatePages()?.map((page, index) => (
-            <button
-              key={index + 1}
-              className={pageNum + 1 === Number(page) ? style.activePage : ''}
-              onClick={() => typeof page === 'number' && createQueryString('page', `${page - 1}`)}
-            >
-              {page !== '...' ? Number(page) : '...'}
-            </button>
-          ))}
-        {totalPage > 0 && pageNum !== totalPage - 1 ? (
-          <button className={style.pagination_btn_more} onClick={handleMorePage}>
-            <span>{t('forward')}</span>
-            <Image src={arrowsLeft} alt="arrows Left" width={20} height={20} />
-          </button>
+      <div>
+        {totalItems ? (
+          <p className={style.pagination_total}>
+            {`${params.lang === 'uk' ? `Показано з ${start} по ${end} із ${totalItems} (${Math.ceil(totalPage)} сторінок)` : `Showing ${start} to ${end} of ${totalItems} (${Math.ceil(totalPage)} pages)`}`}
+          </p>
         ) : (
-          <div> </div>
+          ''
         )}
+        <div className={style.pagination_container}>
+          {totalPage > 0 && pageNum !== 0 && (
+            <button className={style.pagination_btn_back} onClick={handleBackPage}>
+              <Image src={arrowsRight} alt="arrows Right" width={20} height={20} />
+              <span>{t('back')}</span>
+            </button>
+          )}
+  
+          {totalPage > 0 &&
+            generatePages()?.map((page, index) => (
+              <button
+                key={index + 1}
+                className={pageNum + 1 === Number(page) ? style.activePage : ''}
+                onClick={() => typeof page === 'number' && createQueryString('page', `${page - 1}`)}
+              >
+                {page !== '...' ? Number(page) : '...'}
+              </button>
+            ))}
+          {totalPage > 0 && pageNum !== totalPage - 1 ? (
+            <button className={style.pagination_btn_more} onClick={handleMorePage}>
+              <span>{t('forward')}</span>
+              <Image src={arrowsLeft} alt="arrows Left" width={20} height={20} />
+            </button>
+          ) : (
+            <div> </div>
+          )}
+        </div>
       </div>
-    </div>
   );
 }
 

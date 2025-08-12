@@ -27,15 +27,8 @@
 }
 
 @media screen and (max-width: 1179px) {
-  .about_navigation_scrollUp {
-    /* position: relative; */
-    bottom: 80px;
+  .about_navigation_scrollUp.visible {
+    right: 80px;
   }
 }
 
-/* @media screen and (max-width: 743px) {
-  .about_navigation_scrollUp {
-    position: relative;
-    bottom: 88px;
-  }
-} */
