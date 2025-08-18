@@ -46,3 +46,14 @@ button.activePage {
   color: var(--wightAuth);
   border-radius: 2px;
 }
+
+@media screen and (max-width: 743px){
+.pagination_container button {
+  padding: 4px 10px;
+  margin-right: 0;
+}
+
+.pagination_container .pagination_btn_more {
+  padding: 6px 8px;
+}
+}

@@ -93,3 +93,47 @@
 .embla__dot--selected:after {
   background: var(--darkBlue);
 }
+
+
+@media screen and (max-width: 1179px){
+  .title {
+  font-family: Montserrat;
+  font-weight: 600;
+  font-size: 24px;
+  leading-trim: NONE;
+  line-height: 150%;
+  letter-spacing: 0%;
+  text-align: center;
+  margin: 1rem 0 0 0;
+  }
+
+  .embla {
+  --slide-height: 264px;
+  }
+}
+
+@media screen and (max-width: 744px){
+  .title {
+  font-family: Montserrat;
+  font-weight: 600;
+  font-style: Italic;
+  font-size: 16px;
+  leading-trim: NONE;
+  line-height: 150%;
+  letter-spacing: 0%;
+  text-align: center;
+  margin: 1rem 0 0 0;
+  }
+
+  .embla__slide__item {
+  & img {
+    object-fit: none;
+    object-position: 84% 45%;
+    height: 264px;
+  }
+}
+
+  .embla {
+  --slide-height: 264px;
+  }
+}

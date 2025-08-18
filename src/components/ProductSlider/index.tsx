@@ -9,6 +9,7 @@ import useLocalStorage from '@/hooks/useLocalStorage';
 import { DotButton, useDotButton } from './EmblaCarouselDotButton';
 import Card from '../Card';
 import styles from './styles.module.css';
+import { useWindowWidth } from '@/hooks/useWindowWidth';
 
 type Props = {
   title: string;
@@ -24,6 +25,7 @@ const EmblaCarousel: React.FC<Props> = ({ slides, options, title, length = 4, de
     options,
     [Autoplay({ delay })]
   );
+  const width = useWindowWidth()
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi);
   const favStorage = useLocalStorage('favorites');
   return (
@@ -34,7 +36,7 @@ const EmblaCarousel: React.FC<Props> = ({ slides, options, title, length = 4, de
         <ul className={styles.embla__container}>
           {slides?.map((slide, index) => (
             <li className={styles.embla__slide} key={index}>
-              <Card variant='big' product={slide} favoriteStore={favStorage} />
+              <Card variant={width > 1179 || width < 744 ? 'big' : "small"} product={slide} favoriteStore={favStorage} />
             </li>
           ))}
         </ul>

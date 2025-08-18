@@ -100,19 +100,19 @@ export const getSubcategoryId = async (subcategoryId: string) => {
 };
 
 export const getProductsFilter = async ({
-  page,
-  priceFrom,
-  priceTo,
+  // page,
+  // priceFrom,
+  // priceTo,
   subcategoryId,
 }: {
-  page: string;
+  // page: string;
   subcategoryId: string;
-  priceFrom: string;
-  priceTo: string;
+  // priceFrom: string;
+  // priceTo: string;
 }) => {
   try {
     const products = await axiosInstance.get(
-      `api/public/products/filter?page=${page}&size=4&subcategoryId=${subcategoryId}&priceFrom=${priceFrom}&priceTo=${priceTo}`
+      `api/public/products/filter?page=0&subcategoryId=${subcategoryId}`
     );
     return products;
   } catch (error) {

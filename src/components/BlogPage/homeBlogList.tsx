@@ -5,11 +5,18 @@ import { getBlogs } from '@/services/axios';
 import { getTranslations } from 'next-intl/server';
 import clsx from 'clsx';
 import { IBlogsProps } from '@/types';
+import img1 from '../../../public/blogs/393243edcfc7654f9c114dc2aef9bad597126652.jpg';
+import img2 from '../../../public/blogs/8cbd1ee01036c89145af92d4c18854ba15d55e55.jpg';
+import img3 from '../../../public/blogs/8cf48cd82b81ce404a0b0ece0a073703eb348543.jpg';
+import img4 from '../../../public/blogs/8dff78325542448db21109b2cbbd65e18444c943.jpg';
+import img5 from '../../../public/blogs/a1836e4e560b7a4f9a09199733719179fba2153b.jpg';
 import style from './style.module.css';
 
 interface Props {
   lang?: string;
 }
+
+const placeholderImages = [img1, img2, img3, img4, img5];
 
 const homeBlogList = async ({ lang }: Props) => {
   const t = await getTranslations({ lang, namespace: 'blog' });
@@ -19,6 +26,8 @@ const homeBlogList = async ({ lang }: Props) => {
     return null;
   }
 
+
+
   return (
     <section className={style.home_blog}>
       <div className={style.home_blog_title}>
@@ -26,27 +35,33 @@ const homeBlogList = async ({ lang }: Props) => {
       </div>
 
       <ul className={style.home_blog_list}>
-        {blogs?.content.slice(0, 5).map(({ id, titleEn, titleUa, imageUrl }: IBlogsProps) => (
-          <li key={id} className={style.blogs_item}>
-            <Link href={`/blog/${id}`} className={style.home_blog_link}>
-              <div className={style.blogs_item_img}>
-                <Image
-                  src={imageUrl}
-                  alt={titleEn}
-                  width="380"
-                  height="280"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  priority={false}
-                />
-              </div>
-              <div className={clsx(style.home_blog_item_title)}>
-                <h2 className={style.blogs_item_description}>
-                  {lang === 'en' ? titleEn : titleUa}
-                </h2>
-              </div>
-            </Link>
-          </li>
-        ))}
+        {blogs?.content
+          .slice(0, 5)
+          .map(({ id, titleEn, titleUa, imageUrl }: IBlogsProps, index: number) => {
+            const fallbackImage = placeholderImages[index].src;
+
+            return (
+              <li key={id} className={style.blogs_item}>
+                <Link href={`/blog/${id}`} className={style.home_blog_link}>
+                  <div className={style.blogs_item_img}>
+                    <Image
+                      src={fallbackImage || imageUrl}
+                      alt={titleEn}
+                      width="380"
+                      height="280"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      priority={false}
+                    />
+                  </div>
+                  <div className={clsx(style.home_blog_item_title)}>
+                    <h2 className={style.blogs_item_description}>
+                      {lang === 'en' ? titleEn : titleUa}
+                    </h2>
+                  </div>
+                </Link>
+              </li>
+            );
+          })}
       </ul>
 
       <div className={style.home_blog_link_container}>

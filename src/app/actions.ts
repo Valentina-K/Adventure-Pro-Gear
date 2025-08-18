@@ -13,6 +13,7 @@ import {
   deleteUserService,
   getUserService,
   postOrderService,
+  getNewProductsService,
   // postOrderListService,
 } from '@/services/axios';
 import { AppRoutes } from '@/constants/routes';
@@ -255,6 +256,17 @@ export const postOrder = async (orders: any) => {
     return error?.response?.data || error?.message;
   }
 };
+
+
+export const getNewProducts = async (size: string) => {
+  try {   
+    const products = await getNewProductsService(size);
+    return products;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 
 // export const postOrderList = async (orders: any) => {
 //   try {

@@ -17,6 +17,7 @@ import DropdownMenu from '@/components/ForCatalogPage/DropdownMenu/DropdownMenu'
 import useLocalStorage from '@/hooks/useLocalStorage';
 import Card from '@/components/Card';
 import styles from './CatalogName.module.css';
+import Skeleton from '@/components/Skeleton/Skeleton';
 
 interface ICategoriesApi {
   id: number;
@@ -51,30 +52,50 @@ const CatalogId = ({
   const [products, setProducts] = useState<Product[]>([]);
   const [totalPage, setTotalPage] = useState<number>(0);
   const [totalElements, setTotalElements] = useState('');
+  const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(paramsGetPage);
+  const [title, setTitle] = useState('');
   const [gridActive, setGridActive] = useState({
     table: false,
     grid: true,
   });
   const favStorage = useLocalStorage('favorites');
 
-  useEffect(() => {
-    const fetchData = (async () => {
-      const productsAll = await getProductsFilter({
-        page: `${page}`,
-        priceFrom: `${debouncedMinValue}`,
-        priceTo: `${debouncedMaxValue}`,
-        subcategoryId: params.catalogId,
-      });
+  // useEffect(() => {
+  //   const fetchData = (async () => {
+  //     const productsAll = await getProductsFilter({
+  //       page: `${page}`,
+  //       priceFrom: `${debouncedMinValue}`,
+  //       priceTo: `${debouncedMaxValue}`,
+  //       subcategoryId: params.catalogId,
+  //     });
 
-      setTotalElements(productsAll?.data?.totalElements);
-      const pages = productsAll?.data?.totalPages;
+  //     setTotalElements(productsAll?.data?.totalElements);
+  //     const pages = productsAll?.data?.totalPages;
 
-      setTotalPage(pages);
+  //     setTotalPage(pages);
 
-      setProducts(productsAll?.data?.content);
-    })();
-  }, [debouncedMaxValue, debouncedMinValue, page, params.catalogId, searchParams]);
+  //     setProducts(productsAll?.data?.content);
+  //   })();
+  // }, [debouncedMaxValue, debouncedMinValue, page, params.catalogId, searchParams]);
+
+    useEffect(() => {
+      (async () => {
+       setLoading(true)
+        try {
+            const productsAll = await getProductsFilter({
+             subcategoryId: params.catalogId,
+           });
+          console.log(productsAll);
+          setProducts(productsAll?.data?.content);
+          setLoading(false);
+        } catch (error) {
+          console.log(error);
+        }
+        
+      })();
+    }, []);
+  
 
   useEffect(() => {
     const fetchData = (async () => {
@@ -84,109 +105,112 @@ const CatalogId = ({
     })();
   }, [params.catalogId]);
 
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const paramsCreate = new URLSearchParams(searchParams.toString());
-      paramsCreate.set(name, value);
+  useEffect(() => {
+    subcategory?.map(({ subSubCategoryNameEn, subSubCategoryNameUa }) =>
+      locale === 'uk' ? setTitle(subSubCategoryNameUa) : setTitle(subSubCategoryNameEn)
+    );
+  }, [subcategory, locale]);
 
-      if (name === 'priceTo' || name === 'priceFrom') {
-        setPage('0');
-        paramsCreate.set('page', '0');
-      }
+  // const createQueryString = useCallback(
+  //   (name: string, value: string) => {
+  //     const paramsCreate = new URLSearchParams(searchParams.toString());
+  //     paramsCreate.set(name, value);
 
-      if (name === 'page') {
-        setPage(value);
-      }
+  //     if (name === 'priceTo' || name === 'priceFrom') {
+  //       setPage('0');
+  //       paramsCreate.set('page', '0');
+  //     }
 
-      // eslint-disable-next-line no-shadow
-      const search = current.toString();
-      const query = search ? `${paramsCreate}` : '';
-      router.push(`${pathname}?${query}`);
+  //     if (name === 'page') {
+  //       setPage(value);
+  //     }
 
-      return value.toString();
-    },
-    [current, pathname, router, searchParams]
-  );
+  //     // eslint-disable-next-line no-shadow
+  //     const search = current.toString();
+  //     const query = search ? `${paramsCreate}` : '';
+  //     router.push(`${pathname}?${query}`);
 
-  const filterByDefault = () => {
-    console.log('filterByDefault');
-  };
+  //     return value.toString();
+  //   },
+  //   [current, pathname, router, searchParams]
+  // );
 
-  const filterByDecreasingPrices = () => {
-    console.log('filterByDecreasingPrices');
-    // const sorted = products?.sort((a, b) => b.basePrice - a.basePrice);
-    // console.log(sorted);
-  };
-
-  const filterByRisingPrices = () => {
-    console.log('filterByRisingPrices');
-  };
-  const filterByPopularity = () => {
-    console.log('filterByPopularity');
-  };
 
   return (
     <Container>
-      <div className={styles.catalog_container}>
-        <div className={styles.searchBar_container}>
-          <SearchBar
-            createQueryString={createQueryString}
-            // =====price======
-            minValue={minValue}
-            maxValue={maxValue}
-            setMinValue={setMinValue}
-            setMaxValue={setMaxValue}
-            setPage={setPage}
-          />
-        </div>
-        <div className={styles.contentPage_container}>
-          <Navigation navigationPage="каталог" />
-          <div className={styles.input_container}>
-            {subcategory?.map(({ subSubCategoryNameEn, subSubCategoryNameUa }) => (
-              // eslint-disable-next-line react/jsx-key
-              <h1 className={styles.title} key={subSubCategoryNameEn}>
-                {locale === 'uk' ? subSubCategoryNameUa : subSubCategoryNameEn}
-              </h1>
-            ))}
-            <ul className={styles.input_list}>
-              <li className={styles.input_item}>
-                <DropdownMenu
-                  filterByDefault={filterByDefault}
-                  filterByDecreasingPrices={filterByDecreasingPrices}
-                  filterByRisingPrices={filterByRisingPrices}
-                  filterByPopularity={filterByPopularity}
-                />
-              </li>
-              <ViewCatalogList setGridActive={setGridActive} gridActive={gridActive} />
-            </ul>
-          </div>
-          <div>
-            <ul className={`${styles.list} ${gridActive.table ? styles.item_active : ''}`}>
-              {products &&
-                products?.map((item: Product) => (
-                  <li key={item?.productId} className={styles.item}>
-                    <Card
-                      product={item}
-                      variant={gridActive.table ? 'big' : 'standart'}
-                      favoriteStore={favStorage}
-                    />
-                  </li>
-                ))}
-            </ul>
-          </div>
-
-          <div>
-            <Pagination
-              totalPage={totalPage}
-              createQueryString={createQueryString}
-              currentPage={page}
-              totalElements={totalElements}
-              size={products.length}
-            />
-          </div>
-        </div>
-      </div>
+      <Skeleton
+        products={products}
+        navigationTitle={title}
+        title={title}
+        setTotalPage={setTotalPage}
+        page={String(page)}
+        setPage={setPage}
+        totalPage={totalPage}
+        loading={loading}
+      />
     </Container>
+
+    // <Container>
+    //   <div className={styles.catalog_container}>
+    //     <div className={styles.searchBar_container}>
+    //       <SearchBar
+    //         createQueryString={createQueryString}
+    //         // =====price======
+    //         minValue={minValue}
+    //         maxValue={maxValue}
+    //         setMinValue={setMinValue}
+    //         setMaxValue={setMaxValue}
+    //         setPage={setPage}
+    //       />
+    //     </div>
+    //     <div className={styles.contentPage_container}>
+    //       <Navigation navigationPage="каталог" />
+    //       <div className={styles.input_container}>
+    //         {subcategory?.map(({ subSubCategoryNameEn, subSubCategoryNameUa }) => (
+    //           // eslint-disable-next-line react/jsx-key
+    //           <h1 className={styles.title} key={subSubCategoryNameEn}>
+    //             {locale === 'uk' ? subSubCategoryNameUa : subSubCategoryNameEn}
+    //           </h1>
+    //         ))}
+    //         <ul className={styles.input_list}>
+    //           <li className={styles.input_item}>
+    //             <DropdownMenu
+    //               filterByDefault={filterByDefault}
+    //               filterByDecreasingPrices={filterByDecreasingPrices}
+    //               filterByRisingPrices={filterByRisingPrices}
+    //               filterByPopularity={filterByPopularity}
+    //             />
+    //           </li>
+    //           <ViewCatalogList setGridActive={setGridActive} gridActive={gridActive} />
+    //         </ul>
+    //       </div>
+    //       <div>
+    //         <ul className={`${styles.list} ${gridActive.table ? styles.item_active : ''}`}>
+    //           {products &&
+    //             products?.map((item: Product) => (
+    //               <li key={item?.productId} className={styles.item}>
+    //                 <Card
+    //                   product={item}
+    //                   variant={gridActive.table ? 'big' : 'standart'}
+    //                   favoriteStore={favStorage}
+    //                 />
+    //               </li>
+    //             ))}
+    //         </ul>
+    //       </div>
+
+    //       <div>
+    //         <Pagination
+    //           totalPage={totalPage}
+    //           createQueryString={createQueryString}
+    //           currentPage={page}
+    //           totalElements={totalElements}
+    //           size={products.length}
+    //         />
+    //       </div>
+    //     </div>
+    //   </div>
+    // </Container>
   );
 };
 
