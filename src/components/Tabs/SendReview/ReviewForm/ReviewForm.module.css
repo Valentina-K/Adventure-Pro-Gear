@@ -13,6 +13,11 @@
     gap: 16px;
 }
 
+.importantToUs {
+    font-size: var(--medium-18);
+    line-height: var(--line-height-27);
+}
+
 .inputBlock {
     display: flex;
     flex-direction: column;
@@ -24,7 +29,7 @@
 }
 
 .reviewInput {
-    width: 380px;
+    max-width: 380px;
     height: 48px;
     outline: none;
     box-sizing: border-box;
@@ -49,7 +54,6 @@
     border: 1px solid var(--gray-300);
     border-radius: 5px;
     box-sizing: border-box;
-    font-family: Montserrat;
     font-size: var(--medium-16);
     font-weight: var(--medium);
     line-height: 24px;
@@ -68,10 +72,9 @@
 .submitReview {
     width: 248px;
     gap: 10px;
-    font-family: Montserrat;
     font-size: var(--large-20);
     font-weight: var(--medium);
-    line-height: 30px;
+    line-height: var(--line-height-30);
     background-color: var(--primaryBlue);
     color: var(--white);
     transition: background-color cubic-bezier(0.785, 0.135, 0.15, 0.86) .3s;
@@ -81,4 +84,23 @@
     background: #224256;
     backdrop-filter: blur(20px);
     color: var(--white);
+}
+
+@media screen and (max-width: 743px) {
+    .reviewForm {
+        gap: 16px;
+        margin-bottom: 24px;
+        max-width: 328px;
+    }
+
+    .reviewInput {
+        max-width: 328px;
+        padding: 12px 16px;
+    }
+
+    .messageArea {
+        padding: 14px 20px;
+        width: 328px;
+        height: 174px;
+    }
 }

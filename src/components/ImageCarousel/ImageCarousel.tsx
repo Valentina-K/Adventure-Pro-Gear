@@ -19,10 +19,27 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ contents }) => {
   return (
     <div className={styles.wrapper}>
       {contents.length === 0 ? (
-        <Image src={noImage} alt="no image" width={580} height={580} style={{ backgroundColor: 'var(--darkBlue)' }} />
+        <div className={styles.mainImg}>
+          <Image
+            src={noImage}
+            alt="no image"
+            width={580}
+            height={580}
+            style={{ backgroundColor: 'var(--darkBlue)', width: '100%', height: '100%', objectFit: 'contain' }}
+          />
+        </div>
       ) : (
         <>
-          <Image src={contents[imageIndex].source} alt="product" width={580} height={580} />
+          <div className={styles.mainImg}>
+            <Image
+              src={contents[imageIndex].source}
+              alt="product"
+              width={580}
+              height={580}
+              sizes="(max-width: 743px) 328px, (max-width: 1179px) 664px, 580px"
+              style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+            />
+          </div>
           <ImageSlider contents={contents} onImageClick={handleImageChanged} />
         </>
       )}

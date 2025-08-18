@@ -68,7 +68,7 @@ const Tabs: React.FC<TabsProps> = ({
       </div>
       <div className={styles.contentTabs}>
         <div className={toggleState === 0 ? activeContentStyle : styles.content}>
-          <div>{description}</div>
+          <div className={styles.description}>{description}</div>
           <div className={styles.attributesBlock}>
             <h3>
               {t('tabs.characteristics')}
@@ -77,9 +77,7 @@ const Tabs: React.FC<TabsProps> = ({
             <ul>
               {characteristics.map((item, index) => (
                 <li key={index}>
-                  {item.name}
-                  :
-                  {item.value}
+                  {item.name}: {item.value}
                 </li>
               ))}
             </ul>
@@ -89,8 +87,8 @@ const Tabs: React.FC<TabsProps> = ({
           <ul>
             {characteristics.map((item, index) => (
               <li className={styles.attributesLine} key={index}>
-                <span>{item.name}</span>
-                <span>{item.value}</span>
+                <span className={styles.attributesLineLeft}>{item.name}</span>
+                <span className={styles.attributesLineRight}>{item.value}</span>
               </li>
             ))}
           </ul>

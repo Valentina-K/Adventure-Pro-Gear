@@ -1,14 +1,26 @@
-.ratingReview{
+.ratingReview {
     display: flex;
     align-items: center;
     gap: 16px;
 }
 
-.starsBlock{
-    display:flex;
-    gap:18px;
+.ratingReview>p {
+    font-size: var(--medium-18);
+    line-height: var(--line-height-27);
 }
 
-.starButton{
+.starsBlock {
+    display: flex;
+    gap: 18px;
+}
+
+.starButton {
     border: none;
+}
+
+@media screen and (max-width: 743px) {
+    .ratingReview>p {
+        font-size: var(--medium-16);
+        line-height: var(--line-height-24);
+    }
 }

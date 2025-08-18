@@ -72,7 +72,7 @@ const AuthModal = () => {
       )}
       {shouldShowModal && session.status !== 'authenticated' && authType === 'forgot-password' && (
         <Modal closeModal={closeModal} className={styles.authModalForgotPassword}>
-          <ForgotPassword />
+          <ForgotPassword closeParentModal={closeModal} />
         </Modal>
       )}
       {shouldShowModal && session.status !== 'authenticated' && authType === 'reset-password' && (

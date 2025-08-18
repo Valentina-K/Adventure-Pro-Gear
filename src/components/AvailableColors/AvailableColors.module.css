@@ -1,44 +1,32 @@
-.availableHeader{
+.availableBlock {
+    margin-bottom: 32px;
+}
+
+.availableHeader {
     display: flex;
     gap: 32px;
     margin-bottom: 16px;
 }
 
-.clearButton{
-font-family: Montserrat;
-font-size: 16px;
-font-weight: 500;
-line-height: 24px;
-text-align: left;
-text-decoration-line: underline;
-text-decoration-style: solid;
-text-underline-position: from-font;
-text-decoration-skip-ink: none;
-color: #AC0000;
-border: none;
-cursor: pointer;
+.clearButton {
+    font-weight: var(--medium);
+    text-decoration-line: underline;
+    color: var(--erro-100);
+    border: none;
+    cursor: pointer;
 }
 
-.availableHeaderText{
-font-family: Montserrat;
-font-size: 20px;
-font-weight: 600;
-line-height: 30px;
-text-align: left;
-text-underline-position: from-font;
-text-decoration-skip-ink: none;
-color: rgba(53, 53, 53, 1);
+.availableHeaderText {
+    font-size: var(--large-20);
+    font-weight: var(--wight-600);
+    line-height: var(--line-height-30);
+    color: rgba(53, 53, 53, 1);
 }
-.availableColorText{
-font-family: Montserrat;
-font-size: 16px;
-font-weight: 600;
-line-height: 24px;
-text-align: left;
-text-underline-position: from-font;
-text-decoration-skip-ink: none;
-color: #353535;
-margin-bottom: 8px;
+
+.availableColorText {
+    font-weight: var(--wight-600);
+    color: var(--black-900);
+    margin-bottom: 8px;
 }
 
 .wrapper {
@@ -47,32 +35,42 @@ margin-bottom: 8px;
     list-style: none;
 }
 
-.wrapper img{
+.wrapper img {
     margin: 0 9px 8px;
 }
 
-.colorItem{
+.colorItem {
     cursor: pointer;
     border-radius: 2px;
 }
 
-.colorItem.active{
+.colorItem.active {
     border: 1px solid var(--greenForBtn);
 }
 
-.colorItem.active .color{    
+.colorItem.active .color {
     color: rgba(245, 255, 255, 1);
     background-color: var(--greenForBtn);
 }
 
 .color {
-    font-family: Montserrat;
     font-size: var(--small-14);
     font-weight: var(--medium);
-    line-height: 21px;
+    line-height: var(--line-height-21);
     color: var(--black-900);
     background-color: inherit;
     text-align: center;
     transition: background-color linear .3s;
 }
 
+@media screen and (max-width: 1179px) {
+    .availableBlock {
+        margin-bottom: 16px;
+    }
+
+    .wrapper {
+        gap: 16px;
+        overflow-x: auto;
+        width: 100vw;
+    }
+}

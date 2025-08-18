@@ -36,20 +36,12 @@ const RootLayout: NextPage<RootLayoutProps> = async ({ params: { lang: locale },
   const messages = await getMessages();
   const session = await getServerSession();
 
-  // toDo: too slow
-  // const res = await getProducts();
-  //
-  // console.log('products: ', res);
-  // console.log(children);
-  // console.log("session: ",session);
-
-  // Ensure that the incoming `locale` is valid
-  // if (!routing.locales.includes(locale as any)) {
-  //   notFound();
-  // }
   return (
     <ReduxProvider>
       <html lang={locale}>
+        <head>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        </head>
         <body className={inter.className}>
           <SessionProvider session={session}>
             <NextIntlClientProvider messages={messages}>
