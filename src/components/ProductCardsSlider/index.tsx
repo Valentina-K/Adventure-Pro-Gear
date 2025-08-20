@@ -5,6 +5,7 @@ import { Product } from '@/types/product';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import Card from '../Card';
 import styles from './ProductCardsSlider.module.css';
+import { useWindowWidth } from '@/hooks/useWindowWidth';
 
 interface CardsSliderProp {
   products: Product[];
@@ -13,11 +14,23 @@ interface CardsSliderProp {
 }
 
 const ProductCardsSlider: React.FC<CardsSliderProp> = ({ products, title, recommendation }) => {
+  const width = useWindowWidth();
   const [activeNav, setActiveNav] = useState(0);
   const favStorage = useLocalStorage('favorites');
-  const groupedSlides = useMemo(() =>
-    [products.slice(0, 3), products.slice(3, 6), products.slice(6, 9)], [products]);
+  const MOBILE_MAX = 743;
+  const groupedSlides = useMemo(() => {
+  const itemsPerSlide = width <= MOBILE_MAX ? 2 : 3;
+  const result = [];
 
+  for (let i = 0; i < products.length; i += itemsPerSlide) {
+    result.push(products.slice(i, i + itemsPerSlide));
+  }
+
+  if (width <= MOBILE_MAX) result.splice(3);
+  return result;
+}, [products, width]);
+
+const slideWidthPercent = 100 / groupedSlides.length;
   const recommendationSlides = useMemo(() =>
     recommendation?.map((slide) => (
       <div key={slide.productId} className={styles.slide}>
@@ -32,7 +45,7 @@ const ProductCardsSlider: React.FC<CardsSliderProp> = ({ products, title, recomm
         <div className={styles.slider}>
           <div
             className={styles.slides}
-            style={{ transform: `translateX(-${activeNav * 33.33}%)` }}
+            style={{ transform: `translateX(-${activeNav * slideWidthPercent}%)` }}
           >
             {groupedSlides.map((group, i) => (
               <div key={i} className={styles.slide}>

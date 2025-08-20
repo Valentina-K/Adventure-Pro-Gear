@@ -20,7 +20,7 @@
     10px 9px 20px rgba(69, 151, 175, 0.2);
 }
 
-@media screen and (min-width: 644px) {
+@media screen and (min-width: 744px) {
   .cardWrapper {
     width: 208px;
   }
@@ -39,7 +39,7 @@
   }
 }
 
-@media screen and (min-width: 644px) {
+@media screen and (min-width: 744px) {
   .cardBig {
     width: 280px;
     padding: 16px;
@@ -54,6 +54,7 @@
 
 .cardLink {
   display: inline-block;
+  width: 100%;
 }
 
 .imageWrapper {
@@ -69,7 +70,7 @@
   outline: 1px solid lightgray;
 }
 
-@media screen and (min-width: 644px) {
+@media screen and (min-width: 744px) {
   .imageWrapper {
     width: 192px;
     height: 192px;
@@ -184,7 +185,7 @@
   z-index: 2;
 }
 
-@media screen and (min-width: 644px) {
+@media screen and (min-width: 744px) {
   .addToFavorite {
     width: 208px;
   }
@@ -351,7 +352,7 @@
 }
 }
 
-@media screen and (min-width: 644px) {
+@media screen and (min-width: 744px) {
   .available {
     font-weight: var(--wight-600);
     font-size: var(--small-14);

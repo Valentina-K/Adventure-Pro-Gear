@@ -18,3 +18,15 @@
     overflow-x: auto;
     padding-left: 48px;
 }
+
+@media screen and (max-width: 743px) {
+    .wrapper {
+        margin-bottom: 60px;
+    }
+}
+
+@media (min-width: 744px) and (max-width: 1179px) {
+    .wrapper {
+        margin-bottom: 80px;
+    }
+}

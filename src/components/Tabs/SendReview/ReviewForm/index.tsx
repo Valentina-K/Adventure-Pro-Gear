@@ -61,7 +61,7 @@ const ReviewForm: React.FC<ReviewFormProp> = ({ onSubmitForm }) => {
   return (
     <form className={styles.reviewForm} onSubmit={handleSubmit(handleSubmitForm)}>
       <div className={styles.textReviewBlock}>
-        <p>{t('tabs.important_to_us')}</p>
+        <p className={styles.importantToUs}>{t('tabs.important_to_us')}</p>
         <p>{t('tabs.tell_us')}</p>
       </div>
       <div className={styles.inputBlock}>

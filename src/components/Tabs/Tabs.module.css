@@ -7,36 +7,26 @@
 .blockTabs {
     display: flex;
     margin-bottom: 20px;
-    font-size: var(--medium-18);
-    line-height: 27px;
 }
 
 .tabs {
-    flex: 1;
-    padding: 10px 30px 10px 30px;
+    padding: 10px 30px;
     border-radius: 2px 2px 0px 0px;
     border: none;
     border-bottom: 1px solid var(--label);
-    font-family: Montserrat;
     font-weight: var(--medium);
     font-size: var(--medium-18);
-    line-height: 27px;    
+    line-height: var(--line-height-27);
 }
 
 .tabs.activeTabs {
-    font-weight: 600;
+    font-weight: var(--wight-600);
     border: 1px solid var(--label);
     border-bottom: none;
-    font-weight: 600;
 }
 
 .contentTabs {
     display: flex;
-    font-family: Montserrat;
-    font-size: var(--medium-16);
-    font-weight: var(--medium);
-    line-height: 24px;
-    text-align: left;
 }
 
 .content {
@@ -44,16 +34,25 @@
     flex: 1;
 }
 
-.attributesItem {
-    font-size: var(--medium-16);
-    font-weight: var(--medium);
-    line-height: 24px;
-    text-align: left;
+.content.activeContent {
+    display: block;
+    width: 100%;
+}
 
+.description {
+    margin-bottom: 16px;
 }
 
 .attributesBlock {
     margin-bottom: 16px;
+}
+
+.attributesItem {
+    font-size: var(--medium-16);
+    font-weight: var(--medium);
+    line-height: var(--line-height-24);
+    text-align: left;
+
 }
 
 .attributesBlock>h3 {
@@ -76,15 +75,18 @@
 
 .attributesLine>span {
     flex: 1;
-    font-size: var(--medium-18);
-    font-weight: 400;
-    line-height: 27px;
-    text-align: left;
 }
 
-.content.activeContent {
-    display: block;
-    width: 100%;
+.attributesLineLeft {
+    font-size: var(--medium-18);
+    line-height: var(--line-height-27);
+    font-weight: 400;
+}
+
+.attributesLineRight {
+    font-size: var(--medium-18);
+    line-height: var(--line-height-27);
+    font-weight: var(--medium);
 }
 
 .thankingText {
@@ -93,4 +95,42 @@
     background: rgba(30, 95, 114, 0.1);
     border-radius: 5px;
     text-align: center;
+}
+
+@media screen and (max-width: 1179px) {
+    .wrapper {
+        max-width: 664px;
+    }
+}
+
+@media screen and (max-width: 743px) {
+    .wrapper {
+        max-width: 329px;
+    }
+
+    .blockTabs {
+        margin-bottom: 16px;
+    }
+
+    .tabs {
+        padding: 4px 12px;
+        font-size: var(--medium-16);
+        line-height: var(--line-height-24);
+    }
+
+    .attributesBlock>h3 {
+        font-size: var(--medium-18);
+        line-height: var(--line-height-27);
+        margin-bottom: 8px;
+    }
+
+    .attributesLineLeft {
+        font-size: var(--medium-16);
+        line-height: var(--line-height-24);
+    }
+
+    .attributesLineRight {
+        font-size: var(--medium-16);
+        line-height: var(--line-height-24);
+    }
 }

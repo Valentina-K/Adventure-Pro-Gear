@@ -1,10 +1,9 @@
 .title {
     margin-bottom: 16px;
-    font-family: Montserrat;
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 30px;
-    color: #353535;
+    font-size: var(--large-20);
+    font-weight: var(--wight-600);
+    line-height: var(--line-height-30);
+    color: var(--black-900);
 }
 
 .container {
@@ -16,4 +15,10 @@
     object-fit: none;
     border-radius: 8px;
     border: 1px solid #F5FFFF;
+}
+
+@media screen and (max-width: 743px) {
+    .container {
+        gap: 16px;
+    }
 }

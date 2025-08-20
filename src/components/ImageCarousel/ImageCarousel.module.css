@@ -1,32 +1,37 @@
-.wrapper{
+.wrapper {
     display: flex;
     justify-content: center;
     align-items: flex-start;
     flex-direction: column;
     gap: 20px;
-    width: 100%;
+    /* width: 100%; */
     overflow: hidden;
     position: relative;
-    margin-bottom: 40px;
+    /* margin-bottom: 40px; */
 }
 
-.carousel{
+.mainImg {
+    width: 580px;
+    height: 580px;
+}
+
+.carousel {
     display: flex;
     gap: 16px;
     transition: transform 0.5s ease;
 }
 
-.sliderWrapper { 
-    position: relative;   
+.sliderWrapper {
+    position: relative;
     width: 580px;
-    height: 80px; 
+    height: 80px;
     overflow: hidden;
 }
 
-.list{
+.list {
     display: flex;
     gap: 16px;
-    width: inherit;
+    width: max-content;
     transition: margin-left 250ms;
 }
 
@@ -42,11 +47,11 @@
     pointer-events: none;
 }
 
-.controls button{
+.controls button {
     pointer-events: all;
 }
 
-.button{
+.button {
     border: none;
     background: none;
     cursor: pointer;
@@ -56,3 +61,35 @@
     width: 20px;
     height: 20px;
 }
+
+@media (max-width: 1179px) {
+    .mainImg {
+        width: 664px;
+        height: 580px;
+    }
+
+    .sliderWrapper {
+    width: 664px;
+    margin: 0 auto;
+}
+}
+
+@media (max-width: 743px) {
+    .wrapper {
+        gap: 4px;
+    }
+
+    .mainImg {
+        width: 328px;
+        height: 328px;
+    }
+
+    .sliderWrapper {
+        width: 328px;
+    }
+
+    .controls {
+        width: 328px;
+    }
+}
+

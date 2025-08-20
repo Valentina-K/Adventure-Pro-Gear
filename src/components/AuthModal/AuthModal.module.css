@@ -20,8 +20,30 @@
   bottom: 0;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 744px) and (max-width: 1179px) {
   .authModal {
     padding: 24px;
+  }
+
+  .authModalForgotPassword {
+    padding: 40px;
+    min-width: 664px;
+  }
+}
+
+/* @media screen and (max-width: 768px) {
+  .authModal {
+    padding: 24px;
+  }
+} */
+
+@media screen and (max-width: 743px) {
+  .authModal {
+    padding: 16px;
+  }
+
+  .authModalForgotPassword {
+    padding: 24px;
+    min-width: 329px;
   }
 }

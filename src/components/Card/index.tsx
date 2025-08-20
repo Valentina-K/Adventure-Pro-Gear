@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { useLocale, useTranslations } from 'next-intl';
@@ -53,7 +53,7 @@ const getImgClassName = (variant: string, isAvailable: boolean) => {
 };
 
 const Card: React.FC<CardProps> = ({ product, variant = 'standart', favoriteStore }) => {
-  const session = useSession();
+  const { data: session } = useSession();
   const dispatch = useAppDispatch();
   const locale = useLocale();
   const t = useTranslations('product');
@@ -65,9 +65,9 @@ const Card: React.FC<CardProps> = ({ product, variant = 'standart', favoriteStor
   const productName = locale === 'uk' ? product.productNameUa : product.productNameEn;
   const classNameImg = getImgClassName(variant, isAvailable);
 
-  const [addToFavorite, setAddToFavorite] = useState<boolean>(false);
+  //const [addToFavorite, setAddToFavorite] = useState<boolean>(false);
   const [message, setMessage] = useState<string | null>(null);
-  const [following, setFollowing] = useState(FollowinIcon);
+  //const [following, setFollowing] = useState(FollowinIcon);
   const productImage = product.contents.length > 0 ? product.contents[0].source : noImage;
   const className = getClassName(variant);
 
@@ -77,17 +77,15 @@ const Card: React.FC<CardProps> = ({ product, variant = 'standart', favoriteStor
     return () => clearTimeout(timer);
   }, [message]);
 
-  useEffect(() => {
-    if (session.data) {
-      const icon = isExistItem(product.productId) ? FollowingFill : FollowinIcon;
-      setFollowing(icon);
-    }
-  }, [session, isExistItem, product]);
+  const followingIcon = useMemo(() => {
+    if (!session?.user) return FollowinIcon;
+    return isExistItem(product.productId) ? FollowingFill : FollowinIcon;
+  }, [session?.user, isExistItem, product.productId]);
 
   const handleAddToFavorite = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     event.stopPropagation();
-    if (!session.data) {
+    if (!session?.user) {
       setMessage(t('card.addToFollowing'));
       return;
     }
@@ -95,12 +93,8 @@ const Card: React.FC<CardProps> = ({ product, variant = 'standart', favoriteStor
     const isCurrentlyFavorite = isExistItem(product.productId);
     if (isCurrentlyFavorite) {
       removeItem(product.productId);
-      setFollowing(FollowinIcon);
-      setAddToFavorite(false);
     } else {
       addItem(product);
-      setFollowing(FollowingFill);
-      setAddToFavorite(true);
     }
   };
 
@@ -164,7 +158,7 @@ const Card: React.FC<CardProps> = ({ product, variant = 'standart', favoriteStor
             {product.attributes[0].label && <div className={styles.new}>{t('card.new')}</div>}
           </div>
           <button onClick={handleAddToFavorite} className={styles.following}>
-            <Image src={following} width={20} height={18} alt="following" />
+            <Image src={followingIcon} width={20} height={18} alt="following" />
           </button>
         </div>
         <div className={styles.cardContent}>

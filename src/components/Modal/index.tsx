@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import Container from '@/components/Container';
+import { createPortal } from 'react-dom';
 import styles from './Modal.module.css';
 
 interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -11,7 +11,8 @@ interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
 }
 
-const Modal: React.FC<ModalProps> = ({ children, className, closeModal }) => (
+const Modal: React.FC<ModalProps> = ({ children, className, closeModal }) => {
+  return createPortal(
   <div className="modal-backdrop visible">
     <div className={styles.containerModal}>
       <div className={`${className} ${styles.modal}`}>
@@ -26,7 +27,7 @@ const Modal: React.FC<ModalProps> = ({ children, className, closeModal }) => (
         />
       </div>
     </div>
-  </div>
-);
+  </div>, document.body)
+};
 
 export default Modal;
