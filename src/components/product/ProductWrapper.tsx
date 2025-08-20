@@ -72,8 +72,8 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
 
   const followingIcon = useMemo(() => {
     if (!session?.user) return FollowinIcon;
-    return isExistItem(product.productId) ? FollowingFill : FollowinIcon;
-  }, [session?.user, isExistItem, product.productId]);
+    return isExistItem(productId) ? FollowingFill : FollowinIcon;
+  }, [session?.user, isExistItem, productId]);
 
   useEffect(() => {
     if (!message) return;
@@ -102,9 +102,9 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
       return;
     }
 
-    const isCurrentlyFavorite = isExistItem(product.productId);
+    const isCurrentlyFavorite = isExistItem(productId);
     if (isCurrentlyFavorite) {
-      removeItem(product.productId);
+      removeItem(productId);
       //setFollowing(FollowinIcon);
     } else {
       addItem(product);
@@ -295,7 +295,7 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
         <div className={styles.block7}>
           {width < 1180 ? (
             <div className={styles.reviewed}>
-              <ProductCardsSlider products={reviewedProducts} title={t('page.previouslyViewed')} />
+              <ProductCardsSlider products={reviewedProducts.slice(0, 9)} title={t('page.previouslyViewed')} />
             </div>
           ) : (
             <ReviewedGoods title={t('page.previouslyViewed')} />

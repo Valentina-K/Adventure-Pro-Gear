@@ -7,7 +7,7 @@
     /* width: 100%; */
     overflow: hidden;
     position: relative;
-    margin-bottom: 40px;
+    /* margin-bottom: 40px; */
 }
 
 .mainImg {
@@ -67,11 +67,16 @@
         width: 664px;
         height: 580px;
     }
+
+    .sliderWrapper {
+    width: 664px;
+    margin: 0 auto;
+}
 }
 
 @media (max-width: 743px) {
     .wrapper {
-        gap: 0;
+        gap: 4px;
     }
 
     .mainImg {
@@ -80,10 +85,7 @@
     }
 
     .sliderWrapper {
-        position: relative;
         width: 328px;
-        height: 80px;
-        overflow: hidden;
     }
 
     .controls {

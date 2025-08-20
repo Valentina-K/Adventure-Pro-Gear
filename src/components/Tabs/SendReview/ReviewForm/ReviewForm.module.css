@@ -3,7 +3,6 @@
     flex-direction: column;
     gap: 24px;
     align-items: flex-start;
-    margin-bottom: 40px;
     max-width: 580px;
 }
 
@@ -89,7 +88,6 @@
 @media screen and (max-width: 743px) {
     .reviewForm {
         gap: 16px;
-        margin-bottom: 24px;
         max-width: 328px;
     }
 

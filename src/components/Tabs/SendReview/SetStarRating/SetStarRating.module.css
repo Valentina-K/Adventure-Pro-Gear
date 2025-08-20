@@ -19,6 +19,12 @@
 }
 
 @media screen and (max-width: 743px) {
+.ratingReview {
+    flex-direction: column;
+    align-items: start;
+    gap: 8px;
+}
+
     .ratingReview>p {
         font-size: var(--medium-16);
         line-height: var(--line-height-24);

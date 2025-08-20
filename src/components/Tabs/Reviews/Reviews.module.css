@@ -1,13 +1,13 @@
 .wrapper {
-    width: 980px;
-    margin-bottom: 80px;
+    width: 100%;
+    /* width: 980px; */
+    /* margin-bottom: 80px; */
 }
 
 .title {
-    font-family: Montserrat;
-    font-size: 24px;
+    font-size: var(--large-24);
     font-weight: var(--medium);
-    line-height: 36px;
+    line-height: var(--line-height-36);
     margin-bottom: 40px;
     color: #353535;
 }
@@ -24,7 +24,6 @@
 }
 
 .reviewItem {
-    font-family: Montserrat;
     color: #353535;
 }
 
@@ -34,21 +33,25 @@
     justify-content: space-between;
 }
 
-.reviewInfo{
+.reviewInfo {
     display: flex;
     gap: 16px;
 }
 
-.username{
+.username {
     margin-right: 8px;
     color: var(--greenForBtn);
 }
 
-.comment {
+.date {
+    color: #9A9A9A;
+}
+
+.message {
     margin-bottom: 16px;
     font-size: var(--medium-16);
     font-weight: var(--medium);
-    line-height: 24px;
+    line-height: var(--line-height-24);
 }
 
 .footerReview {
@@ -59,26 +62,65 @@
 }
 
 .isHelpful {
-    font-family: Montserrat;
     font-size: var(--small-14);
     font-weight: var(--medium);
-    line-height: 21px;
+    line-height: var(--line-height-21);
     color: var(--primaryBlue);
 }
 
-.yesOrNot{
+.yesOrNot {
     display: flex;
     gap: 16px;
 }
 
-.like_dislike{
+.like_dislike {
     font-size: var(--medium-16);
     font-weight: var(--medium);
-    line-height: 24px;
+    line-height: var(--line-height-24);
     display: flex;
     align-items: center;
     gap: 4px;
     color: var(--disabled);
     cursor: pointer;
     border: none;
+}
+
+@media screen and (max-width: 1179px) {
+    .reviewsList {
+        max-width: 664px;
+    }
+
+    .headReview {
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 4px;
+    }
+}
+
+@media screen and (max-width: 743px) {
+    .reviewsList {
+        max-width: 328px;
+    }
+
+    .title {
+        font-size: var(--large-20);
+        font-weight: var(--wight-600);
+        line-height: var(--line-height-30);
+        margin-bottom: 16px;
+    }
+
+    .reviewInfo {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .username {
+        font-size: var(--medium-18);
+        font-weight: var(--wight-large);
+        line-height: var(--line-height-27);
+    }
+
+    .footerReview {
+        justify-content: space-between;
+    }
 }

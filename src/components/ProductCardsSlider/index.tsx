@@ -18,7 +18,6 @@ const ProductCardsSlider: React.FC<CardsSliderProp> = ({ products, title, recomm
   const [activeNav, setActiveNav] = useState(0);
   const favStorage = useLocalStorage('favorites');
   const MOBILE_MAX = 743;
-  
   const groupedSlides = useMemo(() => {
   const itemsPerSlide = width <= MOBILE_MAX ? 2 : 3;
   const result = [];
@@ -28,12 +27,10 @@ const ProductCardsSlider: React.FC<CardsSliderProp> = ({ products, title, recomm
   }
 
   if (width <= MOBILE_MAX) result.splice(3);
-  
   return result;
 }, [products, width]);
 
 const slideWidthPercent = 100 / groupedSlides.length;
-console.log(width, slideWidthPercent)
   const recommendationSlides = useMemo(() =>
     recommendation?.map((slide) => (
       <div key={slide.productId} className={styles.slide}>

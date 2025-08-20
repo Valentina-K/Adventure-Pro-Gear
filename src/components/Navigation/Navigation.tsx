@@ -40,10 +40,8 @@ function Navigation({ navigationPage, title, productName, breadcrumbs: providedB
     const pathArray = pathName.split('/').filter(item => item !== '');
     const generatedBreadcrumbs: BreadcrumbItem[] = [];
     let currentPath = '';
-
     pathArray.forEach((path, index) => {
       currentPath += `/${path}`;
-
       // Skip locale segment in the breadcrumb display
       if (index === 0 && (path === 'uk' || path === 'en')) {
         return;
@@ -71,7 +69,7 @@ function Navigation({ navigationPage, title, productName, breadcrumbs: providedB
   };
 
   const breadcrumbs = generateBreadcrumbs();
-
+  if (productName) breadcrumbs.splice(0,1);
   return (
     <nav className={styles.about_navigation_container} aria-label="Breadcrumb">
       <button onClick={handleRedirectHomeClick} className={styles.homeIcon}>
