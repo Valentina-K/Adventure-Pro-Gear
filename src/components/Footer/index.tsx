@@ -1,3 +1,5 @@
+'use client';
+
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 
@@ -5,9 +7,20 @@ import SubscribeForm from '../SubscribeForm';
 import Container from '../Container';
 import NavBar from './NavBar';
 import style from './style.module.css';
+import { useState } from 'react';
+import Image from 'next/image';
+import arrowsDown from '../../../public/icons/arrowsDown.svg';
+import arrowsUp from '../../../public/icons/arrowsUp.svg';
 
 const Footer = () => {
   const t = useTranslations('footer');
+    const [openSection, setOpenSection] = useState<string | null>(null);
+  
+    const toggleSection = (section: string) => {
+      setOpenSection(prev => (prev === section ? null : section));
+    };
+  
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 743;
 
   return (
     <footer className={clsx(style.footer, 'footer')}>
@@ -21,9 +34,37 @@ const Footer = () => {
         <Container>
           <div className={style.wrap}>
             <div className={style.text}>
-              <p>{t('subscribe.description')}</p>
+              {isMobile ? (
+                <button
+                  onClick={() => toggleSection('subscribe')}
+                  className={`${style.btn} ${style.btn_subscribe}`}
+                >
+                  {t('subscribe.description')}
+                  {openSection === 'subscribe' ? (
+                    <Image
+                      src={arrowsDown}
+                      width={25}
+                      alt="arrowsDown"
+                      style={{
+                        filter: 'brightness(0) invert(1)',
+                      }}
+                    />
+                  ) : (
+                    <Image
+                      src={arrowsUp}
+                      width={25}
+                      alt="arrowsUp"
+                      style={{
+                        filter: 'brightness(0) invert(1)',
+                      }}
+                    />
+                  )}
+                </button>
+              ) : (
+                <p>{t('subscribe.description')}</p>
+              )}
             </div>
-            <SubscribeForm />
+            {(openSection === 'subscribe' || !isMobile) && <SubscribeForm />}
           </div>
         </Container>
       </div>

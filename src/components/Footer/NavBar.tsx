@@ -9,10 +9,24 @@ import { footerInformationLinks, footerSupportLinks } from '@/routes';
 import logoFooter from '@/../public/logo-footer.svg';
 import SocialLinks from '@/components/SocialLinks';
 import style from './style.module.css';
+import { useState } from 'react';
+import { useWindowWidth } from '@/hooks/useWindowWidth';
+import arrowsDown from "../../../public/icons/arrowsDown.svg";
+import arrowsUp from '../../../public/icons/arrowsUp.svg';
 
 const Footer = () => {
   const t = useTranslations('footer');
   const pathName = usePathname();
+  const width = useWindowWidth();
+
+  const [openSection, setOpenSection] = useState<string | null>(null);
+
+  const toggleSection = (section: string) => {
+    setOpenSection(prev => (prev === section ? null : section));
+  };
+
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 744;
+
   return (
     <nav className={style.nav}>
       <Link href="/" className={style.logo}>
@@ -21,43 +35,98 @@ const Footer = () => {
 
       <div className={style.wrap}>
         <div>
-          <b>{t('information.title')}</b>
-          <ul className={style.menu}>
-            {footerInformationLinks.map(({ path, label, id }) => {
-              return (
-                <li className={style.navItem} key={id}>
-                  <Link
-                    href={path}
-                    className={clsx({
-                      [style.active]: pathName !== '/' && pathName === `${path}/`,
-                    })}
-                  >
-                    {t(`information.${label}`)}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
+          {isMobile ? (
+            <button onClick={() => toggleSection('information')} className={style.btn}>
+              {t('information.title')}
+              {openSection === 'information' ? (
+                <Image
+                  src={arrowsDown}
+                  width={25}
+                  alt="arrowsDown"
+                  style={{
+                    filter: 'brightness(0) invert(1)',
+                  }}
+                />
+              ) : (
+                <Image
+                  src={arrowsUp}
+                  width={25}
+                  alt="arrowsUp"
+                  style={{
+                    filter: 'brightness(0) invert(1)',
+                  }}
+                />
+              )}
+            </button>
+          ) : (
+            <b>{t('information.title')}</b>
+          )}
+          {/* <b>{t('information.title')}</b> */}
+          {(openSection === 'information' || !isMobile) && (
+            <ul className={style.menu}>
+              {footerInformationLinks.map(({ path, label, id }) => {
+                return (
+                  <li className={style.navItem} key={id}>
+                    <Link
+                      href={path}
+                      className={clsx({
+                        [style.active]: pathName !== '/' && pathName === `${path}/`,
+                      })}
+                    >
+                      {t(`information.${label}`)}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
         </div>
 
         <div>
-          <b>{t('support.title')}</b>
-          <ul className={style.menu}>
-            {footerSupportLinks.map(({ path, label, id }) => {
-              return (
-                <li className={style.navItem} key={id}>
-                  <Link
-                    href={path}
-                    className={clsx({
-                      [style.active]: pathName !== '/' && pathName === `${path}/`,
-                    })}
-                  >
-                    {t(`support.${label}`)}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
+          {isMobile ? (
+            <button onClick={() => toggleSection('support')} className={style.btn}>
+              {t('support.title')}
+              {openSection === 'support' ? (
+                <Image
+                  src={arrowsDown}
+                  width={25}
+                  alt="arrowsDown"
+                  style={{
+                    filter: 'brightness(0) invert(1)',
+                  }}
+                />
+              ) : (
+                <Image
+                  src={arrowsUp}
+                  width={25}
+                  alt="arrowsUp"
+                  style={{
+                    filter: 'brightness(0) invert(1)',
+                  }}
+                />
+              )}
+            </button>
+          ) : (
+            <b>{t('support.title')}</b>
+          )}
+          {(openSection === 'support' || !isMobile) && (
+            <ul className={style.menu}>
+              {footerSupportLinks.map(({ path, label, id }) => {
+                return (
+                  <li className={style.navItem} key={id}>
+                    <Link
+                      href={path}
+                      className={clsx({
+                        [style.active]: pathName !== '/' && pathName === `${path}/`,
+                      })}
+                    >
+                      {t(`support.${label}`)}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
           {/* <ul className={style.menu}>
               <li className={style.navItem}>
                 <Link href="">{t('support.guarantee')}</Link>
