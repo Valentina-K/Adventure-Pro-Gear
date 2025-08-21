@@ -17,9 +17,9 @@
   overflow: hidden;
   padding: 10px;
 }
-@media (min-width: 360px) {
+@media (max-width: 359px) {
 .embla__viewport {
-  margin-left: 15px
+  margin-left: 70px;
 }
 }
 @media (min-width: 744px) {
@@ -53,13 +53,6 @@
   .embla__slide {
     flex: 0 0 var(--slide-size-min);
     padding-left: var(--slide-spacing-sm);
-  }
-}
-
-@media (min-width: 644px) {
-  .embla__slide {
-    flex: 0 0 100%;
-    padding-left: 18px;
   }
 }
 

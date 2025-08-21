@@ -74,7 +74,7 @@
   .catalogList_container {
     top: -6px;
     left: 1px;
-    max-height: 70vh;
+    height: 100vh;
     overflow-y: auto;
   }
   .navList_container {
@@ -105,5 +105,14 @@
 @media screen and (max-width: 743px) {
   .spinner_container {
     right: -10px;
+  }
+}
+
+@media (max-height: 800px) {
+  .catalogList_container {
+    top: -6px;
+    left: 1px;
+    height: 75vh;
+    overflow-y: auto;
   }
 }
