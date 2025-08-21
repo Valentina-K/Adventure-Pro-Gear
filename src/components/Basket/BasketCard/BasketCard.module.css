@@ -71,3 +71,11 @@
   color: var(--placeholder);
   padding: 10px 16px;
 }
+
+@media screen and (max-width: 743px){
+  .title{
+  font-weight: var(--wight-600);
+  font-size: var(--medium-18);
+  }
+
+}

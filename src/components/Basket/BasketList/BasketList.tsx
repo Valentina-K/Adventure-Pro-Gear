@@ -95,7 +95,7 @@ const BasketList: React.FC<IBasketListProps> = ({
         }) => (
           <li className={styles.item} key={productId}>
             <div className={styles.card}>
-              <Image src={image} alt="photo" width={180} height={180} />
+              <Image src={image} alt="photo" width={180} height={180} className={styles.img} />
               <div className={styles.content}>
                 <Link href={selfLink}>
                   <h2 className={styles.item_title}>
