@@ -15,6 +15,14 @@
   margin-bottom: 24px;
 }
 
+.subTitle{
+  font-weight: var(--wight-600);
+  font-size: var(--large-20);
+  line-height: 150%;
+  letter-spacing: 0%;
+  margin-bottom: 24px;
+}
+
 .radio_container input[type='radio']:checked {
   accent-color: #4e4c4c;
 }
@@ -39,7 +47,38 @@
 }
 
 .form {
+  width: 70%;
   margin-bottom: 24px;
+}
+
+
+.input_field {
+  outline: none;
+  width: 100%;
+  padding: 15px;
+  font-size: 18px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
+
+.input_field::placeholder{
+font-weight: var(--medium);
+font-style: Medium;
+font-size: var(--small-14);
+leading-trim: NONE;
+line-height: 150%;
+letter-spacing: 0%;
+}
+
+.card_details {
+  display: flex;
+  gap: 10px;
+}
+
+.card_details .half {
+  width: 50%;
 }
 
 .descr {
@@ -69,4 +108,28 @@
   letter-spacing: 0%;
   color: var(--mediumBlue);
   margin-left: 24px;
+}
+
+@media screen and (max-width: 1179px){
+  .form {
+  width: 60%;
+}
+  .paymentCard_container {
+  flex-direction: column;
+}
+
+  .sumOrder {
+  position: relative;
+  margin-top: 16px;
+  margin-bottom: 24px;
+}
+}
+
+@media screen and (max-width: 743px){
+  .form {
+  width: 100%;
+}
+.input_field::placeholder{
+font-size: var(--small-12);
+}
 }

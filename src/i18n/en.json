@@ -250,7 +250,8 @@
       "paymentVia": "Payment via",
       "descrPayPal": "You will be redirected to PayPal. After that, you will return to our store to complete your order.",
       "descrGooglePay": "You will be redirected to Google Pay. After that, you will return to our store to complete your order.",
-      "sum": "Total amount"
+      "sum": "Total amount",
+      "title": "Your order"
     },
     "successfulPayment": {
       "descr_under": "Payment completed!",

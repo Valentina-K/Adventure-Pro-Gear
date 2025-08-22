@@ -51,3 +51,15 @@
   padding: 14px 20px;
   margin-bottom: 24px;
 }
+
+@media screen and (max-width: 1179px){
+.invoice_container {
+  position: relative;
+}
+}
+
+@media screen and (max-width: 743px){
+  .textarea{
+   width: 100%;
+  }
+}

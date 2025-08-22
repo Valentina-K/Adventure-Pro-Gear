@@ -42,18 +42,18 @@ const Footer = () => {
                   {t('subscribe.description')}
                   {openSection === 'subscribe' ? (
                     <Image
-                      src={arrowsDown}
+                      src={arrowsUp}
                       width={25}
-                      alt="arrowsDown"
+                      alt="arrowsUp"
                       style={{
                         filter: 'brightness(0) invert(1)',
                       }}
                     />
                   ) : (
                     <Image
-                      src={arrowsUp}
+                      src={arrowsDown}
                       width={25}
-                      alt="arrowsUp"
+                      alt="arrowsDown"
                       style={{
                         filter: 'brightness(0) invert(1)',
                       }}

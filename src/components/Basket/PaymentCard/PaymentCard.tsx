@@ -9,8 +9,10 @@ import payPal from '../../../../public/images/payPal.png';
 import googlePay from '../../../../public/images/googlePay.png';
 
 import BasketList from '../BasketList/BasketList';
+import { useParams } from 'next/navigation';
 
 const PaymentCard = ({ setFormData }: { setFormData: (form: any) => void }) => {
+  const params = useParams();
   const t = useTranslations('basket.choosePayment');
   const [activePayment, setActivePayment] = useState(1);
   const [sumOrder, setSumOrder] = useState(0);
@@ -48,7 +50,30 @@ const PaymentCard = ({ setFormData }: { setFormData: (form: any) => void }) => {
 
           {activePayment === 1 && (
             <form className={styles.form}>
-              <input type="text" />
+              <input
+                type="text"
+                placeholder={params.lang === 'uk' ? 'Номер картки' : 'Card number'}
+                className={styles.input_field}
+              />
+
+              <div className={styles.card_details}>
+                <input
+                  type="text"
+                  placeholder={params.lang === 'uk' ? 'Термін дії мм/рр' : 'Expiration date mm/yy'}
+                  className={`${styles.input_field} ${styles.half}`}
+                />
+                <input
+                  type="text"
+                  placeholder={params.lang === 'uk' ? 'CVV код' : 'CVV code'}
+                  className={`${styles.input_field} ${styles.half}`}
+                />
+              </div>
+
+              <input
+                type="text"
+                placeholder={params.lang === 'uk' ? 'Ім’я власника' : 'Name of the owner'}
+                className={styles.input_field}
+              />
             </form>
           )}
           <div className={styles.checked_container}>
@@ -96,6 +121,7 @@ const PaymentCard = ({ setFormData }: { setFormData: (form: any) => void }) => {
         </div>
       </div>
       <div>
+        <p className={styles.subTitle}>{t('title')}</p>
         <BasketList
           setSumOrder={setSumOrder}
           variant="small"

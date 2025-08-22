@@ -46,13 +46,13 @@ const BasketCard: React.FC<IBasketCardProps> = ({ formData, setFormData }) => {
           <span>0 ₴</span>
         </div>
       </div>
-      <div className={styles.coupon}>
+      {/* <div className={styles.coupon}>
         <p>{t('coupon')}</p>
         <input
           name="coupon"
           placeholder={params.lang === 'uk' ? 'Введіть промокод' : 'Enter promo code'}
         />
-      </div>
+      </div> */}
       <p className={styles.sumOrder}>
         {t('sum')}
         <span>{sumOrder}</span>

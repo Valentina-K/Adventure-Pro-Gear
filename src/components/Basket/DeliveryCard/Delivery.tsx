@@ -67,6 +67,10 @@ const DeliveryCard: React.FC<IDeliveryCardProps> = ({
     }
   };
 
+  const handleSignIn = () => {
+   localStorage.setItem('redirectAfterLogin', window.location.pathname);
+  }
+
   return (
     <div className={styles.deliveryCard_container}>
       <h3 className={styles.title}>{t('contact')}</h3>
@@ -93,38 +97,44 @@ const DeliveryCard: React.FC<IDeliveryCardProps> = ({
           </li>
         </ul>
       )}
-      <div className={styles.right_container}>
-        <Invoice
-          setFormData={setFormData}
-          formData={formData}
-          handleActiveForm={handleActiveForm}
-          activeForm={activeForm}
-        />
-      </div>
-      {!session?.user && (
-        <div className={styles.auth_container}>
-          {newUser && <SignUp />}
-          {authUser && <SignIn />}
+      <div className={styles.delivery_mobile_container}>
+        <div className={styles.right_container}>
+          <Invoice
+            setFormData={setFormData}
+            formData={formData}
+            handleActiveForm={handleActiveForm}
+            activeForm={activeForm}
+          />
         </div>
-      )}
-      {session?.user && (
-        <>
-          <p className={styles.form_title}>{t('dataDelivery')}</p>
-          <DeliveryForm handleChange={handleChange} formData={formData} activeForm={activeForm} />
-
-          <div className={styles.checkbox_container}>
-            <input
-              id="checkbox"
-              type="checkbox"
-              className={styles.checkbox}
-              // onChange={handleCheckboxChange}
-            />
-            <label htmlFor="checkbox" className={styles.label}>
-              {t('saveAddress')}
-            </label>
+        {!session?.user && (
+          <div className={styles.auth_container}>
+            {newUser && <SignUp />}
+            {authUser && (
+              <div onClick={handleSignIn}>
+                <SignIn />
+              </div>
+            )}
           </div>
-        </>
-      )}
+        )}
+        {session?.user && (
+          <>
+            <p className={styles.form_title}>{t('dataDelivery')}</p>
+            <DeliveryForm handleChange={handleChange} formData={formData} activeForm={activeForm} />
+
+            <div className={styles.checkbox_container}>
+              <input
+                id="checkbox"
+                type="checkbox"
+                className={styles.checkbox}
+                // onChange={handleCheckboxChange}
+              />
+              <label htmlFor="checkbox" className={styles.label}>
+                {t('saveAddress')}
+              </label>
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 };
