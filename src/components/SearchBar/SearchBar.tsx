@@ -33,10 +33,10 @@ const SearchBar: FC<ISearchBarProps> = ({
   const locale = useLocale()
   const widthWindow = useWindowWidth();
 
-  return (<div className={styles.container}>
-    <form>
-      {
-        widthWindow < 1179 && (
+  return (
+    <div className={styles.container}>
+      <form>
+        {widthWindow < 1179 && (
           <li>
             <div className={styles.input_filter}>
               <p className={styles.filter_title}>{locale === 'uk' ? 'Фільтр' : 'Filter'} </p>
@@ -44,18 +44,19 @@ const SearchBar: FC<ISearchBarProps> = ({
           </li>
         )}
 
-      <Price
-        minValue={minValue}
-        maxValue={maxValue}
-        createQueryString={createQueryString}
-        setMinValue={setMinValue}
-        setMaxValue={setMaxValue}
-        setPage={setPage}
-        difference={difference}
-        minRange={minRange}
-        maxRange={maxRange}
-      />
-    </form>
-  </div>)
+        <Price
+          minValue={minValue}
+          maxValue={maxValue}
+          createQueryString={createQueryString}
+          setMinValue={setMinValue}
+          setMaxValue={setMaxValue}
+          setPage={setPage}
+          difference={difference}
+          minRange={minRange}
+          maxRange={maxRange}
+        />
+      </form>
+    </div>
+  );
 };
 export default SearchBar;

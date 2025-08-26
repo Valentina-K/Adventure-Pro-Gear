@@ -211,3 +211,28 @@
     overflow: hidden;
 }
 }
+
+@media screen and (max-width: 1179px){
+.blogs_list {
+  grid-template-columns: repeat(2, 1fr);
+  margin: 0 auto;
+    &.column {
+    grid-template-columns: 2fr;
+  }
+}
+.mobile_blogs_list {
+  &.column {
+    display: flex;
+    grid-template-columns: none;
+  }
+}
+.blogs_item_description {
+  font-size: 15px;
+}
+}
+
+@media screen and (max-width: 743px){
+.blogs_list {
+  grid-template-columns: repeat(1, 1fr);
+}
+}

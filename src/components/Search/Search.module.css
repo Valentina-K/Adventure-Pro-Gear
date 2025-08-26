@@ -144,6 +144,10 @@
     border: none;
     cursor: pointer;
   }
+
+  .search_active{
+    display: none;
+  }
 }
 
 @media screen and (max-width: 743px) {

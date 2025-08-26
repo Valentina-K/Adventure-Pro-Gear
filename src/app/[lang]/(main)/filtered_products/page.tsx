@@ -95,13 +95,12 @@ function FilteredProduct({ searchParams }: FilteredProductsPageProps) {
       <Skeleton
         products={products}
         navigationTitle={locale === 'uk' ? 'Пошук' : 'Search products'}
-        title={`${t('searchResults')}`}
+        title={`${t('searchResults')} "${search}"`}
         setTotalPage={setTotalPage}
         page={String(page)}
         setPage={setPage}
         totalPage={totalPage}
       />
-
     </Container>
     // <Container>
     //   <div className={styles.catalog_container}>

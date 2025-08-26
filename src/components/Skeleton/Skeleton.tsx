@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState, useTransition } from 'react';
 import SearchBar from '../SearchBar/SearchBar';
 import styles from './Skeleton.module.css';
 import Navigation from '../Navigation/Navigation';
@@ -40,6 +40,7 @@ const Skeleton = ({
   totalPage,
   loading,
 }: SkeletonProductsPageProps) => {
+  const t = useTransition
   const locale = useLocale();
   const menuRef = useRef<HTMLDivElement | null>(null);
 
@@ -59,8 +60,12 @@ const Skeleton = ({
   const [sortOrder, setSortOrder] = useState('default');
   const [difference, setDifference] = useState(0);
   const [openMenuFilter, setOpenMenuFilter] = useState(false);
-
+  const [filteredTotal, setFilteredTotal] = useState(0);
   const favStorage = useLocalStorage('favorites');
+
+  useEffect(() => {
+    setPage(0);
+  }, [debouncedMinValue, debouncedMaxValue]);
 
   useEffect(() => {
     if (products.length === 0) return;
@@ -80,11 +85,14 @@ const Skeleton = ({
     if (sortOrder === 'asc') filtered.sort((a, b) => a.basePrice - b.basePrice);
     else if (sortOrder === 'desc') filtered.sort((a, b) => b.basePrice - a.basePrice);
 
-    setTotalPage(Math.ceil(filtered.length / 12));
+    const total = filtered.length;
+    setTotalPage(Math.ceil(total / 12));
 
     const startIdx = Number(page) * 12;
     const paginated = filtered.slice(startIdx, startIdx + 12);
+
     setSortProducts(paginated);
+    setFilteredTotal(total); // <-- новое состояние для Pagination
   }, [products, debouncedMinValue, debouncedMaxValue, sortOrder, page]);
 
   const createQueryString = useCallback((name: string, value: string) => {
@@ -116,27 +124,27 @@ const Skeleton = ({
   //   setOpenMenuFilter(prev => !prev);
   // }
 
-useEffect(() => {
-  const handleClickOutside = (event: MouseEvent) => {
-    const evtTarget = event.target as HTMLElement;
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const evtTarget = event.target as HTMLElement;
 
-    const clickedOutside = menuRef.current && !menuRef.current.contains(event.target as Node);
+      const clickedOutside = menuRef.current && !menuRef.current.contains(event.target as Node);
 
-    const clickedOnSkeletonFilter = evtTarget.className.includes('Skeleton_input_filter');
+      const clickedOnSkeletonFilter = evtTarget.className.includes('Skeleton_input_filter');
 
-    if (clickedOutside && !clickedOnSkeletonFilter) {
-      setOpenMenuFilter(false);
+      if (clickedOutside && !clickedOnSkeletonFilter) {
+        setOpenMenuFilter(false);
+      }
+    };
+
+    if (openMenuFilter) {
+      document.addEventListener('mousedown', handleClickOutside);
     }
-  };
 
-  if (openMenuFilter) {
-    document.addEventListener('mousedown', handleClickOutside);
-  }
-
-  return () => {
-    document.removeEventListener('mousedown', handleClickOutside);
-  };
-}, [openMenuFilter]);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [openMenuFilter]);
 
   return (
     <div className={styles.skeleton_container}>
@@ -225,7 +233,7 @@ useEffect(() => {
             createQueryString={createQueryString}
             currentPage={String(page)}
             size={sortProducts.length}
-            totalElements={String(products?.length)}
+            totalElements={String(filteredTotal)}
           />
         </div>
       </div>
