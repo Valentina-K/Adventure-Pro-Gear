@@ -17,7 +17,7 @@ interface Props {
 
 const blogList = ({ blogs, length, lang, currentBlogId }: Props) => {
   return (
-    <ul className={clsx(style.blogs_list, { [style.column]: length })}>
+    <ul className={clsx(style.blogs_list, { [style.column]: length }, style.mobile_blogs_list)}>
       {blogs?.content
         .filter(blog => Number(blog.id) !== Number(currentBlogId))
         .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
