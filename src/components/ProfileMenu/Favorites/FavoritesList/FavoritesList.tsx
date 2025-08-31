@@ -57,8 +57,10 @@ const FavoritesList: React.FC = () => {
             <div className={styles.name}>
               <Link href={`/product/${item.productId}`}>{productName}</Link>
             </div>
-            <div className={availableClass}>{isAvailable ? t('available') : t('outOfStock')}</div>
-            <div className={styles.price}>{item.basePrice}₴</div>
+            <div className={styles.price_container}>
+              <div className={availableClass}>{isAvailable ? t('available') : t('outOfStock')}</div>
+              <div className={styles.price}>{item.basePrice}₴</div>
+            </div>
             <div className={styles.icon}>
               <Image
                 src={Comercial}

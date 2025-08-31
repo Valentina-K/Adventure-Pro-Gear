@@ -10,6 +10,7 @@ import icon from '@/../public/images/Download.png';
 import OrderDetail from '@/components/ProfileMenu/Orders/OrderDetail';
 import OrderStatusBar from '@/components/ProfileMenu/Orders/OrderDetail/OrderStatusBar';
 import styles from './Order.module.css';
+import { ButtonOrders } from './ButtonOrders';
 
 interface OrderProps {
   params: {
@@ -64,14 +65,17 @@ const Order: React.FC<OrderProps> = async ({ params }) => {
           <p className={styles.text}>{order.postAddress}</p>
           <p className={styles.text}>{order.city}</p>
         </div>
-        <button className={styles.button}>
+        <ButtonOrders />
+        {/* <button className={styles.button}>
           <Image src={icon} alt="icon" width={24} height={24} className={styles.icon} />
-          {t('orders.invoice')}
-        </button>
+         { width > 1179 && `${t('orders.invoice')}` }
+        </button> */}
       </div>
-      <div className={styles.h3}>{t('orders.orderDate')} {shortDate}</div>
+      <div className={styles.h3}>
+        {t('orders.orderDate')} {shortDate}
+      </div>
       <div>
-        <h3 className={`${styles.h3} ${styles.treck}`}>{t('orders.orderStatus')}</h3>
+        <h3 className={`${styles.h3}`}>{t('orders.orderStatus')}</h3>
         <p className={styles.treck}>
           {t('orders.track')} <span className={styles.treckNumber}>{id}</span>
         </p>

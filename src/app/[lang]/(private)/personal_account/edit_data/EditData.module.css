@@ -108,6 +108,7 @@
 
 .deleteAccount {
   color: var(--erro-100);
+  text-decoration: underline;
   cursor: pointer;
 }
 
@@ -173,4 +174,220 @@
   letter-spacing: 0%;
   margin-right: 36px;
   cursor: pointer;
+}
+
+.openPersonalDataModal {
+  width: 735px !important;
+  padding: 40px;
+  margin: 0 auto;
+}
+
+.openPersonalDataModal  h2{
+  font-family: Montserrat;
+  font-weight: var(--wight-600);
+  font-style: SemiBold;
+  font-size: var(--medium-18);
+  leading-trim: NONE;
+  line-height: 150%;
+  text-align: center;
+  letter-spacing: 0%;
+  margin-bottom: 16px;
+}
+
+.openPersonalDataModal  img{
+ display: block;
+ margin: 0 auto;
+}
+
+.openPersonalDataModal .btn_modalContainer{
+  margin: 0 auto;
+}
+
+.btn_modalContainer {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 0 auto;
+}
+
+.btn_modal, .btn_modal_active{
+ min-width: 197px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ border-radius: 5px;
+ padding: 9px 50px;
+ cursor: pointer;
+}
+
+.btn_modal_active{
+  color: var(--wightAuth);
+  background-color: var(--primaryBlue);
+  border: 1px solid var(--primaryBlue);
+}
+
+.btn_modal{
+  color: var(--greem);
+  background-color: var(--wightAuth);
+  border: 1px solid var(--greem);
+}
+
+.btn_modal > span, .btn_modal_active > span {
+ font-family: Montserrat;
+ font-weight: var(--medium);
+ font-style: Medium;
+ font-size: var(--medium-16);
+ leading-trim: NONE;
+ line-height: 150%;
+ letter-spacing: 0%;
+}
+
+.deleteDescrModal{
+ font-family: Montserrat;
+ font-weight: var(--wight-600);
+ font-style: SemiBold;
+ font-size: var(--medium-18);
+ -trim: NONE;
+ -height: 150%;
+ letter-spacing: 0%;
+}
+
+.deleteDescrModal span{
+color: var(--greenForBtn);
+}
+
+.deleteImgModal{
+  display: block;
+  width: 100%;
+  height: 317px;
+}
+
+.successChangeEmail{
+ font-family: Montserrat;
+ font-weight: var(--medium);
+ -style: Medium;
+ font-size: var(--medium-16);
+ leading-trim: NONE;
+ line-height: 150%;
+ letter-spacing: 0%;
+ margin-bottom: 16px;
+}
+
+.successChangeEmail img {
+  display: block;
+  margin: 0 auto;
+}
+
+
+@media screen and (max-width: 1179px){
+.editDataForm {
+  position: relative;
+}
+
+.deleteAccount {
+  position: absolute;
+  z-index: 5;
+  left: 45px;
+  top: 670px;
+}
+
+.mailingContainet {
+ margin-bottom: 60px;
+}
+
+.personalDataContainer {
+ flex-wrap: wrap;
+ gap: 0px;
+}
+
+.EditEmailContainer {
+  flex-direction: column;
+}
+
+.emailChangeInfo {
+  margin-top: -24px;
+}
+
+.openPersonalDataModal {
+  width: 664px !important;
+}
+}
+
+
+@media screen and (max-width: 743px){
+.editDataForm {
+ margin-left: 0;
+ padding: 0;
+}
+
+.personalData > div > input {
+  min-width: 310px;
+}
+
+.EditPassword > div > input {
+  min-width: 310px;
+}
+
+.editEmail > div > input {
+  min-width: 310px;
+}
+
+.formHeader {
+  font-size: var(--large-22);
+}
+
+.spam{
+  font-size: var(--medium-18);
+}
+
+.spam:not(.spam_mailing) {
+  margin-top: 22px;
+}
+
+.subscriptionContainer {
+ flex-direction: column;
+}
+
+.subscription{
+  margin-bottom: 12px;
+  margin-right: -62px;
+}
+
+.deleteAccount {
+  left: 0px;
+  top: 680px;
+}
+
+.emailChangeInfo {
+  font-size: 15px;
+}
+.openPersonalDataModal {
+  width: 328px !important;
+}
+.btn_modalContainer {
+  flex-direction: column;
+}
+}
+
+@media screen and (min-width: 500px) and (max-width: 767px){
+.openPersonalDataModal {
+  min-width: 328px !important;
+}
+.btn_modalContainer {
+  flex-direction: column !important;
+}
+}
+
+@media screen and (max-width: 359px){
+  .personalData > div > input {
+  min-width: 115%;
+}
+
+.EditPassword > div > input {
+  min-width: 115%;
+}
+
+.editEmail > div > input {
+  min-width: 115%;
+}
 }

@@ -47,7 +47,7 @@
   color: var(--black);
   /* border: 1px solid var(--mediumBlue); */
   border-radius: 4px;
-  max-height: 700;
+  max-height: 700px;
   min-width: 675px;
   overflow-y: auto;
   position: absolute;
@@ -148,7 +148,14 @@
   .search_active{
     display: none;
   }
+
+  .dropdown {
+   min-width: 655px;
+   max-height: 60vh;
+   left: -88px;
 }
+}
+
 
 @media screen and (max-width: 743px) {
   .search_box {
@@ -157,7 +164,7 @@
   }
 
   .search {
-    min-width: 286px;
+    min-width: 268px;
     height: 42px;
   }
 
@@ -172,4 +179,34 @@
     right: -205px;
     top: 10px;
   }
+
+  .dropdown {
+   min-width: 318px;
+   max-height: 70vh;
+   left: -48px;
+   margin: 40px 0;
+}
+
+.dropdown_li {
+  padding: 8px 5px;
+}
+}
+
+@media screen and (max-width: 359px){
+  .search {
+    min-width: 252px;
+    height: 42px;
+  }
+
+  .dropdown {
+   min-width: 310px;
+   left: -45px;
+}
+}
+
+@media screen and (max-width: 340px){
+  .dropdown {
+   min-width: 292px;
+   left: -49px;
+}
 }

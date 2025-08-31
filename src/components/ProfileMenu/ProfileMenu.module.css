@@ -1,5 +1,6 @@
 .profileMenu {
-  min-width: 309px;
+  /* min-width: 309px; */
+  min-width: 280px;
   max-width: 355px;
   border-radius: 5px;
   overflow: hidden;
@@ -58,7 +59,7 @@
 .menuItem > a {
   display: flex;
   align-items: center;
-  padding: 16px 119px 16px 0px;
+  padding: 16px 16px 16px 0px;
   cursor: pointer;
   text-decoration-line: none;
   color: var(--black);

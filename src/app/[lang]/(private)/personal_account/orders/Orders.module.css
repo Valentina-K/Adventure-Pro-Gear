@@ -12,3 +12,16 @@
     line-height: var(--line-height-27);
     padding: 16px;
 }
+
+@media screen and (max-width: 743px){
+.title {
+  font-size: var(--large-22);
+}
+
+.text {
+ font-weight: var(--medium);
+ font-size: var(--medium-16);
+ line-height: var(--line-height-27);
+ padding: 16px;
+}
+}

@@ -16,7 +16,7 @@ const DashboardLayout: React.FC<RootLayoutProps> = async ({ children, params }) 
   <div className={styles.personalAccountLayout}>
     <BreadcrumbNavigation locale={params.lang} breadcrumbsData="breadcrumbsData.breadcrumbs" />
     <Container className={styles.dashboardWrapper}>
-      <ProfileMenu className={styles.profileMenuLayout} />
+      <ProfileMenu className={`${styles.profileMenuLayout} ${styles.desktopOnly}`} />
       <section className={styles.section}>{children}</section>
     </Container>
   </div>

@@ -62,3 +62,9 @@
 .profileMenu {
   margin-left: 0px !important;
 }
+
+@media screen and (max-width: 1179px) {
+  .mobileOnly {
+    display: block !important;
+  }
+}

@@ -1,6 +1,6 @@
 .wrapper {
     padding: 16px 12px 0 16px;
-    width: 880px;
+    /* width: 880px; */
     background-color: var(--wightAuth);
     border-radius: 5px;
 }
@@ -18,4 +18,22 @@
     font-size: var(--medium-18);
     line-height: var(--line-height-27);
     padding: 16px;
+}
+
+@media screen and (max-width: 743px){
+.wrapper {
+  padding: 0px;
+}
+
+.title {
+  font-size: var(--large-22);
+  margin-bottom: 8px;
+  margin-left: 0px;
+}
+
+.text {
+  font-weight: var(--medium);
+  font-size: 15px;
+  padding: 16px 0px;
+}
 }
