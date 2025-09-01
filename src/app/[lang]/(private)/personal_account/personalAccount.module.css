@@ -26,10 +26,27 @@
   display: block;
 }
 
+.desktopOnly {
+  display: block;
+}
+
+@media screen and (max-width: 1179px) {
+  .desktopOnly {
+    display: none !important;
+  }
+  .section {
+  padding: 16px 20px;
+}
+}
+
 @media (max-width: 768px) {
   .profileMenuLayout {
     display: none;
   }
+
+  .section {
+  padding: 16px 8px;
+}
 }
 
 .alreadyShownBox {

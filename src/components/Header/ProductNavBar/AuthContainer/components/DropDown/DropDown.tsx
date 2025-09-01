@@ -22,8 +22,11 @@ const DropDown: React.FC<DropDownProps> = ({ className, isLinkClicked }) => {
   return (
     <div className={`${className} ${styles.dropDown}`}>
       <span className={clsx({ [styles.dropdownSpan]: session })}> </span>
-      {(session && session?.error !== 'RefreshAccessTokenError') ? (
-        <ProfileMenu className={styles.profileMenu} isLinkClicked={isLinkClicked} />
+      {session && session?.error !== 'RefreshAccessTokenError' ? (
+        <ProfileMenu
+          className={`${styles.profileMenu} ${styles.mobileOnly}`}
+          isLinkClicked={isLinkClicked}
+        />
       ) : (
         <ul>
           <li>

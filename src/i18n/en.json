@@ -110,18 +110,14 @@
     }
   },
   "profile": {
+    "profile_info": "Your menu is located in the top right corner, under the profile icon. Just click on the icon to open the menu and find everything you need. Happy browsing!",
     "menuLinks": {
       "orders": "Orders",
       "edit": "Edit data",
       "favorites": "Favorites",
       "exit": "Exit"
     },
-    "menuData": [
-      "Orders",
-      "Edit Data",
-      "Favorites",
-      "Exit"
-    ],
+    "menuData": ["Orders", "Edit Data", "Favorites", "Exit"],
     "exitModal": {
       "title": "Are you sure you want to exit your Personal Account?",
       "text": "Your shopping cart will be saved and waiting for you.",
@@ -149,9 +145,9 @@
       "yourGoods": "Your goods",
       "invoice": "Download Invoice",
       "pcs": "pcs.",
-      "breadcrumbs": [
-        "Order details"
-      ],
+      "download": "Download Invoice",
+      "datails": "Order Details",
+      "breadcrumbs": ["Order details"],
       "new": "New order",
       "accepted": "Accepted",
       "awaiting": "Awaiting",
@@ -170,7 +166,20 @@
       "newPassword": "Change password",
       "newEmail": "Change E-mail",
       "emailDescr": "After clicking the 'Change E-mail' button, you will need to confirm your new e-mail. Please check your mailbox and follow the link in the email to complete the verification process. Until then, your account will be temporarily unavailable. Thank you for your understanding and patience!",
-      "delete": "Delete account"
+      "delete": "Delete account",
+      "modal": {
+        "updatePersonalData": "Your data has been saved",
+        "deleteAccount": "Are you sure you want to delete your account?",
+        "deleteAccount_no": "No",
+        "deleteAccount_yes": "Yes, delete",
+        "deleteAccount_success_p1": "You have successfully deleted your account. Thank you for choosing our Ukrainian store",
+        "deleteAccount_success_p2": "for your adventures and travels. May your steps always lead to new discoveries!",
+
+        "changeEmail": "Are you sure you want to change your email?",
+        "changeEmail_no": "No, do not change",
+        "changeEmail_yes": "Yes, change",
+        "successChangeEmail": "We have sent an email to your new address with instructions to complete the email change process. Please check your inbox and spam folder, as well as other sections of your mailbox if the email does not appear in the main inbox. Follow the provided instructions to confirm the changes. Thank you for your understanding and patience!"
+      }
     },
     "alreadyShownProducts": "Recently viewed products",
     "welcomeMessage": "Welcome to your personal account!",

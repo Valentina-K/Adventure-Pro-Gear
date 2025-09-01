@@ -45,25 +45,28 @@ const Search: React.FC<SearchProps> = ({ placeholder, unavailable, showall }) =>
     }
   }, [setVisibleSearch, widthWindow]);
 
-  useEffect(() => {
-    if (widthWindow < 1180) {
-      const handleClick = (e: MouseEvent | KeyboardEvent) => {
-        
-        if (ignoreRef.current && !ignoreRef.current.contains(e.target as Node)) {
-          setVisibleSearch(false);
-          setIsSearchActive(false);
-        }
-      };
+useEffect(() => {
+  if (widthWindow < 1180) {
+    const handleClick = (e: MouseEvent | KeyboardEvent) => {
+      if (ignoreRef.current && !ignoreRef.current.contains(e.target as Node)) {
+        setVisibleSearch(false);
+        setIsSearchActive(false);
+      }
+    };
 
-      document.body.addEventListener('click', handleClick);
-      document.addEventListener('keydown', (e: KeyboardEvent) => handleClick(e));
+    const handleKeyDown = (e: KeyboardEvent) => {
+      handleClick(e);
+    };
 
-      return () => {
-        document.body.removeEventListener('click', handleClick);
-        document.removeEventListener('keydown', (e: KeyboardEvent) => handleClick(e));
-      };
-    }
-  }, [widthWindow]);
+    document.body.addEventListener('click', handleClick);
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.removeEventListener('click', handleClick);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }
+}, [widthWindow]);
 
   useEffect(() => {
     if (value.length >= 1) {
