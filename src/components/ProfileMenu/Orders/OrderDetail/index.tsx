@@ -34,7 +34,7 @@ const OrderDetail = async ({ productList, t, lang = 'uk' }: OrderDetailProps) =>
       <ul>
         {productsWithQuantity.map(product => (
           <li key={product.productId}>
-            <Item product={product} lang={lang} t={t} />
+            <Item product={product} />
           </li>
         ))}
       </ul>

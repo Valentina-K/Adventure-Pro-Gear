@@ -7,8 +7,9 @@
 
 .item {
     display: flex;
-    gap: 20px;
+    /* gap: 20px; */
     align-items: center;
+    justify-content: space-between;
 }
 
 .item:not(:last-child) {
@@ -50,6 +51,12 @@
     color: #AC0000;
 }
 
+.price_container{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
 .price {
     width: 100px;
     font-size: var(--large-20);
@@ -72,4 +79,47 @@
     box-shadow: 2px 2px 2px 0px rgba(90, 90, 90, 0.75) inset;
     -webkit-box-shadow: 2px 2px 2px 0px rgba(90, 90, 90, 0.75) inset;
     -moz-box-shadow: 2px 2px 2px 0px rgba(90, 90, 90, 0.75) inset;
+}
+
+@media screen and (max-width: 1179px){
+.item {
+ position: relative;
+ justify-content: right;
+}
+
+.previewImage img {
+  position: absolute;
+  left: 0;
+}
+
+.name{
+  position: absolute;
+  left: 100px;
+  top: 1px;
+}
+
+.price_container{
+ position: absolute;
+ left: 100px;
+ top: 27px;
+ flex-direction: column;
+ gap: 0px;
+}
+}
+
+@media screen and (max-width: 743px){
+.name{
+left: 90px;
+}
+
+.price_container{
+left: 90px;
+}
+.name{
+  width: 200px;
+}
+
+.icon{
+    margin-top: 45px;
+}
 }

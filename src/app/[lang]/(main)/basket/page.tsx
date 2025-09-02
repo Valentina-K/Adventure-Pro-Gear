@@ -22,7 +22,7 @@ import arrows from '../../../../../public/icons/Arrows.svg';
 import arrowsRight from '../../../../../public/icons/arrowsRight.svg';
 import styles from './basket.module.css';
 
-//innadidenko29@gmail.com
+//41ee4feafa@webxios.pro
 //123456Aa$
 const Basket = () => {
   const [formData, setFormData] = useState({

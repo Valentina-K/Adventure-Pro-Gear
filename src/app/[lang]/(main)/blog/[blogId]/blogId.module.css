@@ -144,18 +144,33 @@
 }
 
 @media screen and (max-width: 1179px) {
-  .blog_img {
-    height: 450px;
-  }
 
-  .review_container {
-    display: none;
-  }
+.blog_content {
+  grid-template-columns: 1fr;
+}
+.aside {
+  flex-direction: column-reverse;
+  margin: 0;
+}
+
+
+.blog_img {
+  height: 450px;
+}
+
+.aside_review{
+  max-width: 1179px;
+  margin-top: 40px;
+}
+
+.aside_articles {
+  text-align: start;
+}
 }
 
 @media screen and (max-width: 743px) {
   .post_container {
-    margin-top: 75px;
+    margin-top: 25px;
     margin-bottom: 60px;
   }
   .title {
@@ -168,9 +183,20 @@
     height: 328px;
   }
 
-  .review_container,
-  .send_btn_container,
-  .recommendation_container {
+  /* .review_container, */
+  /* .send_btn_container, */
+  /* .recommendation_container, */
+  .aside_articles{
     display: none;
+  }
+
+  .aside_review{
+    max-width: 99%;
+  }
+}
+
+@media screen and (max-width: 359px){
+  .aside_review{
+    max-width: 90%;
   }
 }

@@ -71,3 +71,37 @@
 .text.undone {
   color: var(--disabled);
 }
+
+.sum{
+  display: flex;
+}
+
+@media screen and (max-width: 1179px){
+.statusBar_wrapper {
+  display: flex;
+}
+
+.statusBarContainer, .statusTextBlock {
+  flex-direction: column;
+  padding: 0;
+  margin-right: 10px;
+  margin-bottom: 0;
+}
+
+.statusTextBlock {
+ align-items: start;
+ margin-top: 5px;
+}
+
+.line {
+  width: 20px;
+  transform: rotate(91deg);
+  margin: 15px 0;
+}
+}
+
+@media screen and (max-width: 359px){
+.productName {
+  font-size: 13px;
+}
+}

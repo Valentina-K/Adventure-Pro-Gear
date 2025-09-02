@@ -33,3 +33,20 @@
   color: var(--black);
   margin-right: 8px;
 }
+
+@media screen and (max-width: 1179px){
+.listItem > li > a,  .listItem > li > p {
+ font-size: var(--small-14);
+}
+
+}
+
+@media screen and (max-width: 743px){
+.listItem > img {
+  margin-right: 18px;
+}
+
+.listItem > li > a {
+  margin-right: 0px;
+}
+}

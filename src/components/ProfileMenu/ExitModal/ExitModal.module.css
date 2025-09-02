@@ -2,9 +2,10 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin: 0 auto;
     padding: 32px;
     width: 686px;
-    background-color: var(--wightAuth);
+    /* background-color: var(--wightAuth); */
     border-radius: 5px;
 }
 
@@ -34,4 +35,32 @@
 
 .button {
     width: 248px;
+}
+
+@media screen and (max-width: 1179px){
+.wrapper {
+  width: 100%;
+}
+}
+
+@media screen and (max-width: 743px){
+.wrapper {
+  padding: 0;
+}
+
+.title {
+  font-size: var(--large-22);
+  text-align: start;
+}
+
+.text {
+  font-size: var(--medium-18);
+  text-align: start;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 24px;
+}
 }

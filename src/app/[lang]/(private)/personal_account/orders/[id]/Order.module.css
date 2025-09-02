@@ -43,7 +43,7 @@
   margin-bottom: 16px;
 }
 
-.button {
+/* .button {
   display: flex;
   height: 40px;
   border-radius: 5px;
@@ -56,7 +56,7 @@
 
 .icon {
   margin-right: 10px;
-}
+} */
 
 .treck {
   font-weight: 400;
@@ -117,4 +117,16 @@
   font-size: var(--large-24);
   line-height: var(--line-height-36);
   color: var(--greenForBtn);
+}
+
+
+@media screen and (max-width: 743px){
+.addressBlock {
+  position: relative;
+  display: block;
+}
+
+.addressInfo {
+  margin-bottom: 16px;
+}
 }
