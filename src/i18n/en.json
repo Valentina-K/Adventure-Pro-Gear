@@ -211,6 +211,32 @@
       "thanking": "Thank you for your feedback! Your opinion is extremely important to us.",
       "helpful": "Is this review helpful?",
       "usersThink": " users found this review helpful"
+    },
+    "reviews": {
+      "request": {
+        "title": "Are you sure you want to delete this review?",
+        "text": "Once deleted, it cannot be restored. If you are sure, click \"Confirm.\""
+      },
+      "success": {
+        "title": "Your review has been successfully deleted!",
+        "text": "You can always leave a new review if you change your mind."
+      },
+      "error400": {
+        "title": "Unknown error",
+        "text": "There was an error deleting your review. Please try again later."
+      },
+      "error404": {
+        "title": "No review found",
+        "text": "We couldn't find the review to delete. It may have already been deleted."
+      },
+      "error401": {
+        "title": "Access denied",
+        "text": "You do not have permission to delete this review. If this is a mistake, please contact support."
+      },
+      "error503": {
+        "title": "Connection to the server lost.",
+        "text": "The review could not be deleted due to connectivity issues. Please check your internet connection and try again."
+      }
     }
   },
   "basket": {

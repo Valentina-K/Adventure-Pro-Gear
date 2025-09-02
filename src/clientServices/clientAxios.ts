@@ -50,14 +50,35 @@ export const createReview = async (data: any, token: string) => {
   }
 };
 
+export const deleteReview = async (id: number, token: string) => {
+  try {
+    const response = await axiosInstance.delete(
+      `/api/public/products/reviews/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const toggleLike = async (id: number, token: string) => {
   try {
-    const response = await axiosInstance.post(`/api/public/products/reviews/${String(id)}/toggle-like`, {}, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    });
+    const response = await axiosInstance.post(
+      `/api/public/products/reviews/${String(id)}/toggle-like`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
     return response.data;
   } catch (error) {
     console.log(error);
@@ -67,12 +88,16 @@ export const toggleLike = async (id: number, token: string) => {
 
 export const toggleDislike = async (id: number, token: string) => {
   try {
-    const response = await axiosInstance.post(`api/public/products/reviews/${String(id)}/toggle-dislike`, {}, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    });
+    const response = await axiosInstance.post(
+      `api/public/products/reviews/${String(id)}/toggle-dislike`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
     return response.data;
   } catch (error) {
     console.log(error);

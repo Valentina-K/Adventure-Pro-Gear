@@ -1,0 +1,10 @@
+.buttons {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    gap: 32px;
+}
+
+.button {
+    width: 248px;
+}
