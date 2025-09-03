@@ -48,7 +48,7 @@ const FavoritesList: React.FC = () => {
         const productName = locale === 'uk' ? item.productNameUa : item.productNameEn;
         const isAvailable = item.attributes[0].quantity > 0;
         const productImage = item.contents.length > 0 ? item.contents[0].source : noImage;
-        const availableClass = clsx(styles.isAvailable, !isAvailable && styles.outOfStock);
+        const availableClass = clsx(styles.available, !isAvailable && styles.outOfStock);
         return (
           <li key={index} className={styles.item}>
             <div className={styles.previewImage}>
