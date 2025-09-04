@@ -85,6 +85,7 @@
 .smallcard_main {
   display: flex;
   flex-direction: column;
+  text-align: left;
   padding: 16px;
   gap: 8px;
 }
@@ -176,7 +177,7 @@
 
   .search_icon_active {
     position: absolute;
-    right: -205px;
+    right: -185px;
     top: 10px;
   }
 
@@ -188,8 +189,14 @@
 }
 
 .dropdown_li {
+  align-items: center;
   padding: 8px 5px;
 }
+
+ .smallcard_icon {
+ flex-shrink: 0;
+}
+
 }
 
 @media screen and (max-width: 359px){

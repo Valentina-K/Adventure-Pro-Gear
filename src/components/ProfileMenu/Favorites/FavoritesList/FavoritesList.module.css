@@ -108,15 +108,24 @@
 }
 
 @media screen and (max-width: 743px){
+.item {
+  align-items: center;
+}
+
 .name{
 left: 90px;
 }
 
 .price_container{
 left: 90px;
+top: 50px;
 }
 .name{
   width: 200px;
+}
+
+.previewImage {
+   height: 120px;
 }
 
 .icon{
