@@ -19,6 +19,9 @@ import Button from '../Button';
 import RatingStars from '../RatingStars';
 import ReviewCount from '../ReviewCount';
 import styles from './Card.module.css';
+import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
+import { selectOpenShoppingCart } from '@/redux/products/selectors';
 
 interface CardProps {
   variant?: 'big' | 'standart' | 'small';
@@ -58,6 +61,7 @@ const Card: React.FC<CardProps> = ({ product, variant = 'standart', favoriteStor
   const locale = useLocale();
   const t = useTranslations('product');
   const { addItem, removeItem, isExistItem } = favoriteStore;
+  let shoppingCartProduct = useSelector(selectOpenShoppingCart);
 
   const isAvailable = product.attributes[0].quantity > 0;
   const newPrice =
@@ -102,12 +106,15 @@ const Card: React.FC<CardProps> = ({ product, variant = 'standart', favoriteStor
   const handleBuyClick: (event: React.MouseEvent<HTMLButtonElement>) => void = event => {
     event.preventDefault();
     event.stopPropagation();
+    
+    const sale = product?.basePrice * (product?.attributes[0]?.priceDeviation / 100);
+
     const shoppingCart = {
       image: product.contents.length > 0 ? product.contents[0].source : noImage,
       selfLink: `${domain}/product/${product.productId}`,
       productNameEn: product.productNameEn,
       productNameUa: product.productNameUa,
-      basePrice: product.basePrice,
+      basePrice: product.basePrice - sale || product.basePrice,
       productId: product.productId,
       quantity: 1,
       totalQuantity: product.attributes[0].quantity,
@@ -117,6 +124,23 @@ const Card: React.FC<CardProps> = ({ product, variant = 'standart', favoriteStor
       productAttributeId: product?.attributes?.[0]?.id,
     };
     dispatch(setShoppingCart(shoppingCart));
+ 
+    const basket = shoppingCartProduct.filter(({ productId: id }) => product?.productId === id)
+    
+    if (basket?.length > 0) {
+      return toast.error(
+        locale === 'uk' ? 'Товар уже знаходиться у кошику.' : 'Product is already in the cart.',
+        {
+          position: 'top-right',
+          autoClose: 2000,
+        }
+      );
+    }
+
+    toast.success(locale === 'uk' ? 'Товар додано у кошик' : 'Item added to cart', {
+      position: 'top-right',
+      autoClose: 2000,
+    });
   };
 
   return (

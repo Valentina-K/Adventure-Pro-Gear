@@ -8,6 +8,15 @@
   color: var(--greenForBtn);
   cursor: pointer;
 }
+.button img{
+ margin-right: 3px;
+}
+
+@media screen and (max-width: 1179px){
+.button img{
+ margin-right: 0px;
+}
+}
 
 @media screen and (max-width: 743px){
 .button {

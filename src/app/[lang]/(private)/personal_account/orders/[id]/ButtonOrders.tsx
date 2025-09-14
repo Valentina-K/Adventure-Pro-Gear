@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import React from 'react'
-import icon from '@/../public/images/Download.png';
+import icon from '@/../public/icons/Download.svg';
 import { useWindowWidth } from '@/hooks/useWindowWidth';
 import styles from "./ButtonOrders.module.css";
 import { useTranslations } from 'next-intl';
