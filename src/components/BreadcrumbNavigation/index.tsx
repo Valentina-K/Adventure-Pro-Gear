@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import BreadcrumbHome from '@/../public/icons/BreadcrumbHome.svg';
+import BreadcrumbHome from '@/../public/icons/home.svg';
 import Arrows from '@/../public/icons/Arrows.svg';
 import { AppRoutes } from '@/constants/routes';
 import { useParams, usePathname } from 'next/navigation';

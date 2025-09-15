@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { Link } from '@/i18n/routing';
-import ShoppingBag from '@/../public/icons/ShoppingBag.svg';
+import ShoppingBag from '@/../public/icons/Comercial.svg';
 import { selectOpenShoppingCart } from '@/redux/products/selectors';
 import { useSelector } from 'react-redux';
 import styles from './ShoppingCart.module.css';

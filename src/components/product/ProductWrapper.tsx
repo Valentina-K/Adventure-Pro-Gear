@@ -35,6 +35,8 @@ import useLocalStorage from '@/hooks/useLocalStorage';
 import { useSession } from 'next-auth/react';
 import { useWindowWidth } from '@/hooks/useWindowWidth';
 import styles from './productWrapper.module.css';
+import { toast } from 'react-toastify';
+import { selectOpenShoppingCart } from '@/redux/products/selectors';
 
 interface ProductWrapperProp {
   reviews: Review[];
@@ -62,6 +64,8 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
   const [message, setMessage] = useState<string | null>(null);
   const favStorage = useLocalStorage('favorites');
   const { addItem, removeItem, isExistItem } = favStorage;
+  let shoppingCartProduct = useSelector(selectOpenShoppingCart);
+
   const width = useWindowWidth();
   const fullUrl = `${pathname}`;
   useEffect(() => {
@@ -124,12 +128,14 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
   };
 
   const handleBuyClick = () => {
+    const sale = product?.basePrice * (product?.attributes[0]?.priceDeviation / 100);
+    
     const shoppingCart = {
       image: product.contents.length > 0 ? product.contents[0].source : noImage,
       selfLink: fullUrl,
       productNameEn: product.productNameEn,
       productNameUa: product.productNameUa,
-      basePrice: product.basePrice,
+      basePrice: product.basePrice - sale || product.basePrice,
       productId: product.productId,
       quantity: buyQuantity,
       totalQuantity: product.attributes[attrIndex].quantity,
@@ -138,6 +144,23 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
       productAttributeId: product?.attributes?.[0]?.id,
     };
     dispatch(setShoppingCart(shoppingCart));
+
+     const basket = shoppingCartProduct.filter(({ productId: id }) => product?.productId === id)
+     
+     if (basket?.length > 0) {
+       return toast.error(
+         locale === 'uk' ? 'Товар уже знаходиться у кошику.' : 'Product is already in the cart.',
+         {
+           position: 'top-right',
+           autoClose: 2000,
+         }
+       );
+     }
+ 
+     toast.success(locale === 'uk' ? 'Товар додано у кошик' : 'Item added to cart', {
+       position: 'top-right',
+       autoClose: 2000,
+     });
   };
 
   const handleChangeTab = (index: number) => setTabIndex(index);

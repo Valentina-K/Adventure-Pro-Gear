@@ -12,12 +12,16 @@ import { useAppDispatch } from '@/redux/store';
 import { setShoppingCart } from '@/redux/products/slice';
 import Payments from '@/constants/payments';
 import styles from './FavoritesList.module.css';
+import { toast } from 'react-toastify';
+import { selectOpenShoppingCart } from '@/redux/products/selectors';
+import { useSelector } from 'react-redux';
 
 const FavoritesList: React.FC = () => {
   const dispatch = useAppDispatch();
   const locale = useLocale();
   const t = useTranslations('profile.favorites');
   const { removeItem, list } = useLocalStorage('favorites');
+  let shoppingCartProduct = useSelector(selectOpenShoppingCart);
 
   const domain = typeof window !== 'undefined' ? window.location.origin : '';
   const handleBuyClick: (
@@ -26,12 +30,15 @@ const FavoritesList: React.FC = () => {
   ) => void = (event, product) => {
     event.preventDefault();
     event.stopPropagation();
+        
+    const sale = product?.basePrice * (product?.attributes[0]?.priceDeviation / 100);
+
     const shoppingCart = {
       image: product.contents.length > 0 ? product.contents[0].source : noImage,
       selfLink: `${domain}/product/${product.productId}`,
       productNameEn: product.productNameEn,
       productNameUa: product.productNameUa,
-      basePrice: product.basePrice,
+      basePrice: product.basePrice - sale || product.basePrice,
       productId: product.productId,
       quantity: 1,
       totalQuantity: product.attributes[0].quantity,
@@ -40,8 +47,25 @@ const FavoritesList: React.FC = () => {
       size: product.attributes[0].size,
     };
     dispatch(setShoppingCart(shoppingCart));
-  };
+  
+    const basket = shoppingCartProduct.filter(({ productId: id }) => product?.productId === id)
+    
+    if (basket?.length > 0) {
+      return toast.error(
+        locale === 'uk' ? 'Товар уже знаходиться у кошику.' : 'Product is already in the cart.',
+        {
+          position: 'top-right',
+          autoClose: 2000,
+        }
+      );
+    }
 
+    toast.success(locale === 'uk' ? 'Товар додано у кошик' : 'Item added to cart', {
+      position: 'top-right',
+      autoClose: 2000,
+    });
+    };
+  
   return (
     <ul className={styles.list}>
       {list.map((item, index) => {
