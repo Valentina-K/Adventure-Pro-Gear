@@ -138,11 +138,8 @@
 }
 
 .filter_title{
-  font-family: Montserrat;
   font-weight: 600;
-  font-style: SemiBold;
   font-size: 18px;
-  leading-trim: NONE;
   line-height: 150%;
   letter-spacing: 0%;
   color:  var(--greenForBtn);
@@ -198,13 +195,13 @@ cursor: pointer;
   margin-left: -5px;
 }
 
-.item section{
+/* .item section{
   width: 156px;
 }
 
 .item section a div:first-child{
   width: 156px;
-}
+} */
 
 .input_filter{
  padding: 0 46px 0 16px;

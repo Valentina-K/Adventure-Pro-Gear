@@ -83,6 +83,7 @@
     color: var(--disabled);
     cursor: pointer;
     border: none;
+    background-color: transparent;
 }
 
 @media screen and (max-width: 1179px) {
