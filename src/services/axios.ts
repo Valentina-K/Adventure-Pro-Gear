@@ -125,6 +125,30 @@ export const signUpService = async (credentials: any) => {
   return result;
 };
 
+export const verifyEmail = async (
+  token: string
+): Promise<{ success: boolean; message: string }> => {
+  try {
+    const response = await axiosInstance.get<{ success: boolean; message: string }>(
+      `api/public/registration/confirmation?token=${token}`
+    );
+    return response.data; 
+  } catch (error: any) {
+    if (error.response?.data) {
+      return {
+        success: false,
+        message: error.response.data.message ?? "Ошибка верификации",
+      };
+    }   
+    return {
+      success: false,
+      message: error.message ?? "Неизвестная ошибка",
+    };
+  }
+};
+
+
+
 export const signInService = async (credentials: any) => {
   const { email, password } = credentials;
   const response = await axiosInstance.post('api/public/auth/login', { email, password });
