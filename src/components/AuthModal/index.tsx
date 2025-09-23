@@ -10,6 +10,10 @@ import SignIn from '../Header/ProductNavBar/AuthContainer/components/SignIn';
 import ForgotPassword from '../Header/ProductNavBar/AuthContainer/components/ForgotPassword';
 import ResetPassword from '../Header/ProductNavBar/AuthContainer/components/ResetPassword';
 import styles from './AuthModal.module.css';
+import SuccessModal from '../SuccessModal';
+import SignupSuccess from '../SuccessModal/SignupSuccess';
+import AppRouter from 'next/dist/client/components/app-router';
+import { AppRoutes } from '@/constants/routes';
 
 type AuthType =
   | 'signin'
@@ -58,6 +62,16 @@ const AuthModal = () => {
     );
   }, [searchParams]);
 
+  useEffect(() => {
+    if (authType === 'signup-success') {
+      const timer = setTimeout(() => {
+        router.replace(AppRoutes.SIGNIN);
+      }, 4000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [authType]);
+
   return (
     <>
       {shouldShowModal && authType === 'signup' && (
@@ -79,6 +93,11 @@ const AuthModal = () => {
         <Modal closeModal={closeModal} className={styles.authModal}>
           <ResetPassword />
         </Modal>
+      )}
+      {shouldShowModal && authType === 'signup-success' && (
+        <SuccessModal>
+          <SignupSuccess />
+        </SuccessModal>
       )}
       {/* {isOverlayOpen && <div className={styles.overlay} />} */}
     </>
