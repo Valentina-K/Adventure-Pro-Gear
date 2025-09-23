@@ -27,6 +27,8 @@ axiosInstance.interceptors.request.use(
       'api/public/auth/refresh_token',
       'api/public/password-reset/request',
       'api/public/password-reset/reset',
+      'api/public/registration/register',
+      'api/public/registration/confirmation',
       'api/public/products',
       'api/public/auth/login',
       'api/public/product',
@@ -124,30 +126,6 @@ export const signUpService = async (credentials: any) => {
   });
   return result;
 };
-
-export const verifyEmail = async (
-  token: string
-): Promise<{ success: boolean; message: string }> => {
-  try {
-    const response = await axiosInstance.get<{ success: boolean; message: string }>(
-      `api/public/registration/confirmation?token=${token}`
-    );
-    return response.data; 
-  } catch (error: any) {
-    if (error.response?.data) {
-      return {
-        success: false,
-        message: error.response.data.message ?? "Ошибка верификации",
-      };
-    }   
-    return {
-      success: false,
-      message: error.message ?? "Неизвестная ошибка",
-    };
-  }
-};
-
-
 
 export const signInService = async (credentials: any) => {
   const { email, password } = credentials;

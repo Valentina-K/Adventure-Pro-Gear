@@ -8,6 +8,28 @@ const axiosInstance = axios.create({
 
 axios.defaults.withCredentials = true;
 
+export const verifyEmail = async (
+  token: string
+): Promise<{ success: boolean; message: string }> => {
+  try {
+    const response = await axiosInstance.get<{ success: boolean; message: string }>(
+      `api/public/registration/confirmation?token=${token}`
+    );
+    return response.data; 
+  } catch (error: any) {
+    if (error.response?.data) {
+      return {
+        success: false,
+        message: error.response.data.message ?? "Ошибка верификации",
+      };
+    }   
+    return {
+      success: false,
+      message: error.message ?? "Неизвестная ошибка",
+    };
+  }
+};
+
 export const getAllReviewsByProductId = async (productId: number) => {
   try {
     const reviews = await axiosInstance.get(`api/public/products/reviews?productId=${productId}`);
