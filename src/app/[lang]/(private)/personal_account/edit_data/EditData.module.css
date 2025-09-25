@@ -19,6 +19,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 32px;
+  margin-top: 20px;
   width: 100%;
 }
 
@@ -292,7 +293,7 @@ color: var(--greenForBtn);
 }
 
 .mailingContainet {
- margin-bottom: 60px;
+ margin-bottom: 10px;
 }
 
 .personalDataContainer {

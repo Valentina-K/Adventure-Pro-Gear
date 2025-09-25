@@ -70,15 +70,25 @@
 }
 }
 
-@media screen and (max-width: 743px){
+@media screen and (max-width: 768px){
   .arrowRight{
-    right: -12px;
+    right: -16px;
   }
 
   .arrowLeft {
-  left: -12px;
+  left: -16px;
 }
 }
+
+/* @media screen and (max-width: 743px){
+  .arrowRight{
+    right: -16px;
+  }
+
+  .arrowLeft {
+  left: -16px;
+}
+} */
 
 @media screen and (max-width: 359px){
 .cards{

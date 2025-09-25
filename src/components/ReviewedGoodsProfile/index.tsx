@@ -67,7 +67,7 @@ function ReviewedGoodsProfile({ title, emptyBanner }: ReviewedGoodsProps) {
       <div className={styles.paginationControls}>
         {hasPrev && (
           <button onClick={handlePrev} className={styles.arrowLeft}>
-            <Image src={ArrowRight} alt="ArrowRight" width={20} height={20} />
+            <Image src={ArrowRight} alt="ArrowRight" width={30} height={30} />
           </button>
         )}
       </div>
@@ -88,7 +88,7 @@ function ReviewedGoodsProfile({ title, emptyBanner }: ReviewedGoodsProps) {
       <div className={styles.paginationControls}>
         {hasNext && (
           <button onClick={handleNext} className={styles.arrowRight}>
-            <Image src={ArrowLeft} alt="ArrowLeft" width={20} height={20} />
+            <Image src={ArrowLeft} alt="ArrowLeft" width={30} height={30} />
           </button>
         )}
       </div>

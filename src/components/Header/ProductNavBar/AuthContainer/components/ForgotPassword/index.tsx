@@ -9,6 +9,7 @@ import Form from '@/components/Form';
 import Input from '@/components/Input';
 import Modal from '@/components/Modal';
 import styles from './ForgotPassword.module.css';
+// import { toast } from 'react-toastify';
 
 interface ForgotPasswordProps {
   closeParentModal: () => void;
@@ -26,9 +27,17 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = ({closeParentModal}) => {
 
   const handleSubmit = async (formData: FormData) => {
     const response = await forgotPaswordAction(formData);
+    
+    console.log('forgotPaswor', response);
     if (response === 200) {      
       setIsModalOpen(true);
     }
+    // if (response === 404) {
+    //   toast.error('No user with this email', {
+    //     position: 'top-right',
+    //     autoClose: 4000,
+    //   });
+    // }
   };
 
   const closeModal = () => {

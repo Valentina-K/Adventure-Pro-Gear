@@ -74,7 +74,7 @@
   .catalogList_container {
     top: -6px;
     left: 1px;
-    height: 100vh;
+    height: 570px;
     overflow-y: auto;
   }
   .navList_container {
@@ -108,11 +108,11 @@
   }
 }
 
-@media (max-height: 800px) {
+/* @media (max-height: 800px) {
   .catalogList_container {
     top: -6px;
     left: 1px;
     height: 75vh;
     overflow-y: auto;
   }
-}
+} */
