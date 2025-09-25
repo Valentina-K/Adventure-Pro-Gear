@@ -25,7 +25,7 @@ import styles from './basket.module.css';
 
 //41ee4feafa@webxios.pro
 //123456Aa$
-export const getBasketSchema = (t: any) =>
+const getBasketSchema = (t: any) =>
   z.object({
     // name: z.string().min(1, t('validation.name')),
     // surname: z.string().min(1, t('validation.surname')),
