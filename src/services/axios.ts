@@ -27,6 +27,8 @@ axiosInstance.interceptors.request.use(
       'api/public/auth/refresh_token',
       'api/public/password-reset/request',
       'api/public/password-reset/reset',
+      'api/public/registration/register',
+      'api/public/registration/confirmation',
       'api/public/products',
       'api/public/auth/login',
       'api/public/product',

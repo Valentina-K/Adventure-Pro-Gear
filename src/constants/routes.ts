@@ -5,7 +5,7 @@ export enum AppRoutes {
   SIGNIN = '?auth=signin',
   FORGOT_PASSWORD = '?auth=forgot-password',
   RESET_PASSWORD = '?auth=reset-password',
-  SIGN_UP_SUCCESS = '?auth=success',
+  SIGN_UP_SUCCESS = '?auth=signup-success',
   NEW_PASSWORD = '?auth=new-password',
   PERSONAL_ACCOUNT = '/personal_account',
   EDIT_DATA = '/edit_data',
