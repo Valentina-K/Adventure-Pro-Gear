@@ -274,6 +274,13 @@
       "accent_3": "pleasant and unforgettable",
       "descr_4": "experiences.",
       "name": "Yours"
+    },
+    "validation": {
+      "postAddressRequired": "The 'Address' field is required",
+      "city": "The 'City' field is required",
+      "name": "The 'First Name' field is required",
+      "surname": "The 'Last Name' field is required",
+      "tel": "The 'Phone Number' field is required"
     }
   },
   "blogId": {

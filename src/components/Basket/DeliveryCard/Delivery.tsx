@@ -28,6 +28,7 @@ interface IDeliveryCardProps {
   handleActiveForm: (value: string) => void;
   setFormData: any;
   setDisebleForm: any;
+  errors: any;
 }
 
 const DeliveryCard: React.FC<IDeliveryCardProps> = ({
@@ -36,6 +37,7 @@ const DeliveryCard: React.FC<IDeliveryCardProps> = ({
   activeForm,
   handleActiveForm,
   setDisebleForm,
+  errors,
 }) => {
   const { data: session, status } = useSession();
   const t = useTranslations('basket.delivery');
@@ -68,8 +70,8 @@ const DeliveryCard: React.FC<IDeliveryCardProps> = ({
   };
 
   const handleSignIn = () => {
-   localStorage.setItem('redirectAfterLogin', window.location.pathname);
-  }
+    localStorage.setItem('redirectAfterLogin', window.location.pathname);
+  };
 
   return (
     <div className={styles.deliveryCard_container}>
@@ -104,6 +106,7 @@ const DeliveryCard: React.FC<IDeliveryCardProps> = ({
             formData={formData}
             handleActiveForm={handleActiveForm}
             activeForm={activeForm}
+            errors={errors}
           />
         </div>
         {!session?.user && (
@@ -119,7 +122,12 @@ const DeliveryCard: React.FC<IDeliveryCardProps> = ({
         {session?.user && (
           <>
             <p className={styles.form_title}>{t('dataDelivery')}</p>
-            <DeliveryForm handleChange={handleChange} formData={formData} activeForm={activeForm} />
+            <DeliveryForm
+              handleChange={handleChange}
+              formData={formData}
+              activeForm={activeForm}
+              errors={errors}
+            />
 
             <div className={styles.checkbox_container}>
               <input

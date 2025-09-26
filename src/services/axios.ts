@@ -150,12 +150,13 @@ export const getUserInfoService = async (accessToken: any) => {
 
 export const forgotPasswordService = async (email: FormDataEntryValue) => {
   try {
-    const sendEmail = await axiosInstance.post('api/public/password-reset/request', {
+    const response = await axiosInstance.post('api/public/password-reset/request', {
       email,
     });
-    return sendEmail.status;
-  } catch (error) {
-    console.log(error);
+    console.log('response', response);
+    return response.status;
+  } catch (error: any) {
+   return error?.response?.data?.message || error?.message;
   }
 };
 

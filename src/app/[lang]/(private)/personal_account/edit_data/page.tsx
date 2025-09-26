@@ -354,9 +354,9 @@ const EditData = () => {
       <Form className={styles.editDataForm} onSubmit={handleSubmit}>
         <div className={styles.heading}>
           <h4 className={styles.formHeader}>{t('title')}</h4>
-          <p className={styles.deleteAccount} aria-hidden="true" onClick={deleteAccount}>
+          {/* <p className={styles.deleteAccount} aria-hidden="true" onClick={deleteAccount}>
             {t('delete')}
-          </p>
+          </p> */}
         </div>
         <div className={styles.personalDataContainerWithHeader}>
           <p className={styles.personalDataHeder}>{t('personalData')}</p>

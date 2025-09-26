@@ -86,7 +86,7 @@ function Navigation({ navigationPage, title, productName, breadcrumbs: providedB
             className={styles.about_navigation_img}
           />
           <Link
-            href={breadcrumb.href}
+            href={breadcrumb.href === '/catalog' ? "" : breadcrumb.href}
             className={`${styles.about_navigation} ${
               index === breadcrumbs.length - 1 ? styles.title_navigation : ''
             }`}
