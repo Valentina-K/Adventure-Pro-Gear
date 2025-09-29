@@ -27,3 +27,20 @@
 .input::placeholder {
   color: var(--placeholder);
 }
+
+.error {
+  color: var(--erro-100);
+  font-weight: var(--medium);
+	line-height: 1.1;
+  font-size: 13px;
+}
+
+.errorContainer {
+  display: flex;
+	align-items: center;
+	margin-top: 4px;
+}
+
+.errorImage {
+  margin: 0 4px 0 0;
+}

@@ -1,6 +1,8 @@
 import React from 'react';
 import { useParams } from 'next/navigation';
+import Error from '@/../public/icons/Error.svg';
 import styles from './DeliveryForm.module.css';
+import Image from 'next/image';
 
 interface IDeliveryFormProps {
   formData: {
@@ -18,9 +20,16 @@ interface IDeliveryFormProps {
   };
   activeForm: string;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  errors: any;
 }
 
-const DeliveryForm: React.FC<IDeliveryFormProps> = ({ handleChange, formData, activeForm }) => {
+
+const DeliveryForm: React.FC<IDeliveryFormProps> = ({
+  handleChange,
+  formData,
+  activeForm,
+  errors,
+}) => {
   const params = useParams();
 
   return (
@@ -67,16 +76,29 @@ const DeliveryForm: React.FC<IDeliveryFormProps> = ({ handleChange, formData, ac
             />
           </>
         ) : (
-          <input
-            type="tel"
-            name="tel"
-            placeholder={params.lang === 'uk' ? 'Телефон' : 'Phone'}
-            // value={formData?.tel}
-            className={styles.input}
-            onChange={handleChange}
-          />
+          <>
+            <input
+              type="tel"
+              name="tel"
+              placeholder={params.lang === 'uk' ? 'Телефон' : 'Phone'}
+              // value={formData?.tel}
+              className={styles.input}
+              onChange={handleChange}
+            />
+          </>
         )}
-
+        {errors?.postAddress && (
+          <div className={styles.errorContainer}>
+            <Image
+              src={Error}
+              alt="error icon"
+              width={11}
+              height={11}
+              className={styles.errorImage}
+            />
+            <p className={styles.error}>{errors?.postAddress}</p>
+          </div>
+        )}
         <input
           type="text"
           name="postAddress"
@@ -85,6 +107,19 @@ const DeliveryForm: React.FC<IDeliveryFormProps> = ({ handleChange, formData, ac
           className={styles.input}
           onChange={handleChange}
         />
+        {errors?.city && (
+          <div className={styles.errorContainer}>
+            <Image
+              src={Error}
+              alt="error icon"
+              width={11}
+              height={11}
+              className={styles.errorImage}
+            />
+            <p className={styles.error}>{errors?.city}</p>
+          </div>
+        )}
+
         <input
           type="text"
           name="city"

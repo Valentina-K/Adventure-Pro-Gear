@@ -66,7 +66,11 @@ const Footer = () => {
             <ul className={style.menu}>
               {footerInformationLinks.map(({ path, label, id }) => {
                 return (
-                  <li className={style.navItem} key={id}>
+                  <li
+                    className={style.navItem}
+                    key={id}
+                    onClick={() => toggleSection("")}
+                  >
                     <Link
                       href={path}
                       className={clsx({
@@ -113,7 +117,7 @@ const Footer = () => {
             <ul className={style.menu}>
               {footerSupportLinks.map(({ path, label, id }) => {
                 return (
-                  <li className={style.navItem} key={id}>
+                  <li className={style.navItem} key={id} onClick={() => toggleSection('')}>
                     <Link
                       href={path}
                       className={clsx({

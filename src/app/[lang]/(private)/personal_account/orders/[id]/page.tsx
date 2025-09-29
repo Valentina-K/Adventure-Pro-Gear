@@ -6,7 +6,7 @@ import options from '@/config/nextAuth';
 import { getOrderById } from '@/services/axios';
 import Image from 'next/image';
 import { getServerSession } from 'next-auth';
-import icon from '@/../public/images/Download.png';
+import icon from '@/../public/icons/Download.svg';
 import OrderDetail from '@/components/ProfileMenu/Orders/OrderDetail';
 import OrderStatusBar from '@/components/ProfileMenu/Orders/OrderDetail/OrderStatusBar';
 import styles from './Order.module.css';

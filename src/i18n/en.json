@@ -52,7 +52,10 @@
       "success": [
         "Thank you for registering!",
         "To complete the process of activating your account, please check your email and follow the link in the email we sent. After that, you will be able to use all the features of our site.",
-        "If you did not receive the email, please check your spam folder. If you have any questions, don't hesitate to \nContact us. \nThank you!"
+        "If you did not receive the email, please check your spam folder. If you have any questions, don't hesitate to \nContact us. \nThank you!",
+        "Loading...",
+        "Email successfully confirmed, you can now log in.",
+        "An error occurred, please try again."
       ],
       "zod": {
         "name-errors-registration": {
@@ -297,6 +300,13 @@
       "accent_3": "pleasant and unforgettable",
       "descr_4": "experiences.",
       "name": "Yours"
+    },
+    "validation": {
+      "postAddressRequired": "The 'Address' field is required",
+      "city": "The 'City' field is required",
+      "name": "The 'First Name' field is required",
+      "surname": "The 'Last Name' field is required",
+      "tel": "The 'Phone Number' field is required"
     }
   },
   "blogId": {

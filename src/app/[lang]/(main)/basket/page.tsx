@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import Navigation from '@/components/Navigation/Navigation';
+import { z } from 'zod';
 import { useAppDispatch } from '@/redux/store';
 import { useSelector } from 'react-redux';
 import { useSession } from 'next-auth/react';
@@ -24,6 +25,16 @@ import styles from './basket.module.css';
 
 //41ee4feafa@webxios.pro
 //123456Aa$
+const getBasketSchema = (t: any) =>
+  z.object({
+    // name: z.string().min(1, t('validation.name')),
+    // surname: z.string().min(1, t('validation.surname')),
+    // tel: z.string().min(1, t('validation.tel')),
+    postAddress: z.string().min(1, t('validation.postAddressRequired')),
+    city: z.string().min(1, t('validation.city')),
+  });
+
+
 const Basket = () => {
   const [formData, setFormData] = useState({
     // basket: [],
@@ -47,6 +58,9 @@ const Basket = () => {
   const [activeCard, setActiveCard] = useState<boolean[]>([true]);
   const [activeForm, setActiveForm] = useState<string>('');
   const [disebleForm, setDisebleForm] = useState<boolean>(false);
+
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  
 
   useEffect(() => {
     // eslint-disable-next-line no-unused-expressions
@@ -91,12 +105,37 @@ const Basket = () => {
     setActiveForm(value);
   };
 
-  const handleChooseCard = (value: boolean) => {
-    if (!value) {
-      setActiveCard([true]);
-      return;
-    }
+  const handleChooseCard = (value: boolean) => {   
+    if (Number(activeCard.length) === 2) {
+      const result = getBasketSchema(t).safeParse(formData);
+          //  const result = schema.safeParse(formData);
+
+           if (!result.success) {
+             const fieldErrors: Record<string, string> = {};
+             result.error.errors.forEach(err => {
+               const field = err.path[0] as string;
+               fieldErrors[field] = err.message;
+             });
+
+             setErrors(fieldErrors);
+           } else {
+             setErrors({});
+
+             if (!value) {
+               setActiveCard([true]);
+               return;
+             }
+             setActiveCard(prev => [...prev, value]);
+           }
+      // setDisebleForm(true);
+      return
+    } else if (!value) {
+        //  setDisebleForm(false);
+        setActiveCard([true]);
+        return;
+      }
     setActiveCard(prev => [...prev, value]);
+    //  setDisebleForm(false);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -166,6 +205,7 @@ const Basket = () => {
           activeForm={activeForm}
           handleActiveForm={handleActiveForm}
           setDisebleForm={setDisebleForm}
+          errors={errors}
         />
       )}
       {activeCard?.length === 3 && <PaymentCard setFormData={setFormData} />}

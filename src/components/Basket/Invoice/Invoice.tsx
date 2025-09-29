@@ -22,12 +22,14 @@ interface IInvoiceProps {
   activeForm: string;
   handleActiveForm: (value: string) => void;
   setFormData: any;
+  errors: any;
 }
 const Invoice: React.FC<IInvoiceProps> = ({
   formData,
   setFormData,
   activeForm,
   handleActiveForm,
+  errors,
 }) => {
   const { data: session, status } = useSession();
   const params = useParams();
@@ -90,6 +92,7 @@ const Invoice: React.FC<IInvoiceProps> = ({
                 formData={formData}
                 handleChange={handleChange}
                 activeForm={activeForm}
+                errors={errors}
               />
             </div>
           )}
