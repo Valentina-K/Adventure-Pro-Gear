@@ -30,17 +30,38 @@
 .headReview {
     margin-bottom: 24px;
     display: flex;
-    justify-content: space-between;
+    gap: 20px;
 }
 
-.reviewInfo {
+.leftBlock {
     display: flex;
-    gap: 16px;
+    flex: 1;
+    min-width: 0;
 }
 
 .username {
     margin-right: 8px;
     color: var(--greenForBtn);
+}
+
+.usefullTrash {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+    gap: 16px;
+}
+
+.trashButton {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2px 4px;
+    margin-left: auto;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
 }
 
 .date {
@@ -96,6 +117,10 @@
         gap: 8px;
         margin-bottom: 4px;
     }
+
+    .leftBlock {
+        gap: 24px;
+    }
 }
 
 @media screen and (max-width: 743px) {
@@ -110,15 +135,20 @@
         margin-bottom: 16px;
     }
 
-    .reviewInfo {
-        flex-direction: column;
-        gap: 8px;
-    }
-
     .username {
         font-size: var(--medium-18);
         font-weight: var(--wight-large);
         line-height: var(--line-height-27);
+    }
+
+    .leftBlock {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .usefullTrash {
+        flex-direction: row;
+        gap: 0;
     }
 
     .footerReview {

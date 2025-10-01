@@ -35,3 +35,44 @@
     line-height: var(--line-height-27);
     text-align: center;
 }
+
+@media screen and (max-width: 1179px) {
+    .modal {
+        padding: 40px;
+        gap: 32px;
+        width: 664px;
+    }
+
+    .title {
+        font-weight: var(--wight-large);
+        font-size: var(--medium-18);
+        line-height: var(--line-height-27);
+    }
+
+    .text {
+        font-weight: var(--medium);
+        font-size: var(--medium-16);
+        line-height: var(--line-height-24);
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 743px) {
+    .modal {
+        padding: 40px;
+        width: 328px;
+    }
+
+    .title {
+        font-weight: var(--wight-600);
+        font-size: var(--medium-16);
+        line-height: var(--line-height-24);
+    }
+
+    .text {
+        font-weight: var(--wight-600);
+        font-size: var(--small-14);
+        line-height: var(--line-height-21);
+        text-align: center;
+    }
+}

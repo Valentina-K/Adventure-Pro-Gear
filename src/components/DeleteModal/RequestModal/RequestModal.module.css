@@ -8,3 +8,16 @@
 .button {
     width: 248px;
 }
+
+@media screen and (max-width: 1179px) {
+    .button{
+        gap: 40px;
+    }
+}
+
+@media screen and (max-width: 743px) {
+    .buttons{
+        flex-direction: column;
+        gap: 24px;
+    }
+}
