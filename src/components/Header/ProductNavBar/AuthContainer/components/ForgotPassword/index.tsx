@@ -27,8 +27,6 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = ({closeParentModal}) => {
 
   const handleSubmit = async (formData: FormData) => {
     const response = await forgotPaswordAction(formData);
-    
-    console.log('forgotPaswor', response);
     if (response === 200) {      
       setIsModalOpen(true);
     }

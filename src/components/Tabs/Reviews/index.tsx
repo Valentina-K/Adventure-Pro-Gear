@@ -59,8 +59,8 @@ const Reviews: React.FC<ReviewsProp> = ({
     if (!isDelete) return;
     let response;
     if (token && reviewId) {
-      response = deleteReview(reviewId, token);
-      console.log(response);
+      response = await deleteReview(reviewId, token);
+      console.log(response.status);
       //делаю либо setError либо setIsSuccess, затем setIsOpenModal(false), setIsResult(true)
     }
     //
