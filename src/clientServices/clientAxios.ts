@@ -83,7 +83,8 @@ export const deleteReview = async (id: number, token: string) => {
         },
       }
     );
-    return response.data;
+    console.log(response);
+    return response.status;
   } catch (error) {
     console.log(error);
   }

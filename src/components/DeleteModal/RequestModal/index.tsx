@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { useTranslations } from 'next-intl';
 import { Button } from '@/components/UI';
 import generic from '../style.module.css';
 import styles from './RequestModal.module.css';
@@ -12,7 +11,6 @@ type RequestModalProps = {
 };
 
 function RequestModal({ deleteReviewById, t }: RequestModalProps) {
-  //const t = useTranslations('product.reviews.request');
   const handleDelete = () => {
     deleteReviewById(true);
   };

@@ -42,7 +42,7 @@ const Reviews: React.FC<ReviewsProp> = ({
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isResult, setIsResult] = useState<boolean>(false);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
-  const [error, setError] = useState<'400' | '401' | '404' | '503' | null>(null);
+  const [error, setError] = useState<number | null>(null);
 
   useEffect(() => {
     if (isResult) {
@@ -60,11 +60,16 @@ const Reviews: React.FC<ReviewsProp> = ({
     let response;
     if (token && reviewId) {
       response = await deleteReview(reviewId, token);
-      console.log(response.status);
+      console.log(response);
+      if (response === 200) {
+        setIsSuccess(true);
+        setIsModalOpen(false);
+        setError(null);
+        setIsResult(true);
+      }
+      else setError(response ? response : null);
       //делаю либо setError либо setIsSuccess, затем setIsOpenModal(false), setIsResult(true)
     }
-    //
-    
   };
 
   const handleClick = async (id: number, e: React.MouseEvent<HTMLButtonElement>) => {
@@ -115,10 +120,10 @@ const Reviews: React.FC<ReviewsProp> = ({
                       {usersThink}
                     </span>
                   )}
-                  {items.username === session?.user?.name && ( 
-                  <button className={styles.trashButton} onClick={e => handleTrash(items.id, e)}>
-                    <Image src={Trash} width={16} height={20} alt="trash" />
-                  </button>
+                  {items.username === session?.user?.name && (
+                    <button className={styles.trashButton} onClick={e => handleTrash(items.id, e)}>
+                      <Image src={Trash} width={16} height={20} alt="trash" />
+                    </button>
                   )}
                 </div>
               </div>
@@ -148,7 +153,7 @@ const Reviews: React.FC<ReviewsProp> = ({
       )}
       {isResult && (
         <DeleteModal>
-          <ResponseModal isSuccess={isSuccess} errorType={error} t={t} />
+          <ResponseModal isSuccess={isSuccess} errorStatusCode={error} t={t} />
         </DeleteModal>
       )}
     </div>
