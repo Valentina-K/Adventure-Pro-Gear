@@ -24,6 +24,7 @@ interface ReviewsProp {
   helpful: string;
   usersThink: string;
   refreshReviews: () => void;
+  changeSendReview: (value: boolean) => void;
 }
 
 const Reviews: React.FC<ReviewsProp> = ({
@@ -33,6 +34,7 @@ const Reviews: React.FC<ReviewsProp> = ({
   helpful,
   usersThink,
   refreshReviews,
+  changeSendReview
 }) => {
   const { data: session } = useSession();
   const token = session?.user?.accessToken;
@@ -60,14 +62,15 @@ const Reviews: React.FC<ReviewsProp> = ({
     let response;
     if (token && reviewId) {
       response = await deleteReview(reviewId, token);
-      console.log(response);
       if (response === 200) {
         setIsSuccess(true);
         setIsModalOpen(false);
         setError(null);
         setIsResult(true);
+        changeSendReview(false);
       }
       else setError(response ? response : null);
+      refreshReviews();
       //делаю либо setError либо setIsSuccess, затем setIsOpenModal(false), setIsResult(true)
     }
   };

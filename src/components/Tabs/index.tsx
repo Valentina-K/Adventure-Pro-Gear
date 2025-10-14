@@ -9,25 +9,27 @@ import styles from './Tabs.module.css';
 interface TabsProps {
   description: string;
   characteristics: Characteristics[];
+  isSendReview: boolean;
   onChangeTab: (tabIndex: number) => void;
   onReviewSend: (isSend: boolean) => void;
+  changeSendReview: (value: boolean) => void;
 }
 
 const Tabs: React.FC<TabsProps> = ({
   description,
   characteristics,
+  isSendReview,
   onChangeTab,
   onReviewSend,
+  changeSendReview
 }) => {
   const locale = useLocale();
   const t = useTranslations('product');
   const [toggleState, setToggleState] = useState(0);
-  const [isSendReview, setIsSendReview] = useState(false);
-  /* const { data: session } = useSession(); */
 
   const toggleTab = (index: number) => {
     setToggleState(index);
-    if (index !== 2) setIsSendReview(false);
+    if (index !== 2) changeSendReview(false);
     onChangeTab(index);
   };
   const activeTabsStyle = `${styles.tabs} ${styles.activeTabs}`;
@@ -36,10 +38,10 @@ const Tabs: React.FC<TabsProps> = ({
   // review form
   const handleReviewSubmit = async (isOk: boolean) => {
     if (isOk) {
-      setIsSendReview(true);
+      changeSendReview(true);
       onReviewSend(true);
     } else {
-      setIsSendReview(false);
+      changeSendReview(false);
       onReviewSend(false);
     }
   };
