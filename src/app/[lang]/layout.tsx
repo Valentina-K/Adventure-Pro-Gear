@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 
 const inter = Montserrat({
   subsets: ['latin'],
-  weight: ['400', '700'],
+  weight: ['500', '600', '700'],
 });
 
 interface RootLayoutProps extends IPageProps {

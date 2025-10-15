@@ -12,7 +12,6 @@ import ResetPassword from '../Header/ProductNavBar/AuthContainer/components/Rese
 import styles from './AuthModal.module.css';
 import SuccessModal from '../SuccessModal';
 import SignupSuccess from '../SuccessModal/SignupSuccess';
-import AppRouter from 'next/dist/client/components/app-router';
 import { AppRoutes } from '@/constants/routes';
 
 type AuthType =

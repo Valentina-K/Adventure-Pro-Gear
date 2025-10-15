@@ -227,7 +227,9 @@ export const updateEmailService = async (personalData: any) => {
 
 export const deleteUserService = async () => {
   try {
-    const response = await axiosInstance.delete('api/users');
+    const response = await axiosInstance.delete('api/users', {
+  headers: { 'Content-Type': null }
+});
     return response?.data;
   } catch (error: any) {
     console.log(error);

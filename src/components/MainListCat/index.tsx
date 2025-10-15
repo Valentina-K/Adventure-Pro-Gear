@@ -43,7 +43,7 @@ const ExamCatData = [
     id: '6',
     titleEn: 'Headlamps',
     titleUa: 'Налобні ліхтарі',
-    imageUrl: '/images/example/cat/headlamps.png',
+    imageUrl: '/images/example/cat/headlamps.jpg',
   },
   {
     id: '7',

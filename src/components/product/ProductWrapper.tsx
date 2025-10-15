@@ -59,13 +59,16 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
   const [tabIndex, setTabIndex] = useState(0);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [productReviews, setReviews] = useState<Review[]>(reviews);
+  const [isSendReview, setIsSendReview] = useState(false);
   const pathname = usePathname();
   //const [following, setFollowing] = useState(FollowinIcon);
   const [message, setMessage] = useState<string | null>(null);
   const favStorage = useLocalStorage('favorites');
   const { addItem, removeItem, isExistItem } = favStorage;
   let shoppingCartProduct = useSelector(selectOpenShoppingCart);
-
+  const changeSendReview = (value: boolean) => {
+    setIsSendReview(value);
+  }
   const width = useWindowWidth();
   const fullUrl = `${pathname}`;
   useEffect(() => {
@@ -129,7 +132,7 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
 
   const handleBuyClick = () => {
     const sale = product?.basePrice * (product?.attributes[0]?.priceDeviation / 100);
-    
+
     const shoppingCart = {
       image: product.contents.length > 0 ? product.contents[0].source : noImage,
       selfLink: fullUrl,
@@ -145,27 +148,28 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
     };
     dispatch(setShoppingCart(shoppingCart));
 
-     const basket = shoppingCartProduct.filter(({ productId: id }) => product?.productId === id)
-     
-     if (basket?.length > 0) {
-       return toast.error(
-         locale === 'uk' ? 'Товар уже знаходиться у кошику.' : 'Product is already in the cart.',
-         {
-           position: 'top-right',
-           autoClose: 2000,
-         }
-       );
-     }
- 
-     toast.success(locale === 'uk' ? 'Товар додано у кошик' : 'Item added to cart', {
-       position: 'top-right',
-       autoClose: 2000,
-     });
+    const basket = shoppingCartProduct.filter(({ productId: id }) => product?.productId === id)
+
+    if (basket?.length > 0) {
+      return toast.error(
+        locale === 'uk' ? 'Товар уже знаходиться у кошику.' : 'Product is already in the cart.',
+        {
+          position: 'top-right',
+          autoClose: 2000,
+        }
+      );
+    }
+
+    toast.success(locale === 'uk' ? 'Товар додано у кошик' : 'Item added to cart', {
+      position: 'top-right',
+      autoClose: 2000,
+    });
   };
 
   const handleChangeTab = (index: number) => setTabIndex(index);
 
   const handleReviewSend = async (isSend: boolean) => {
+    setIsSendReview(isSend);
     if (isSend) {
       const reviewsPr = await getAllReviewsByProductId(product.productId);
       setReviews(reviewsPr?.data);
@@ -281,8 +285,10 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
           <Tabs
             description={locale === 'uk' ? product.descriptionUa : product.descriptionEn}
             characteristics={product.characteristics}
+            isSendReview={isSendReview}
             onChangeTab={handleChangeTab}
             onReviewSend={handleReviewSend}
+            changeSendReview={changeSendReview}
           />
         </div>
         <div className={styles.block5}>
@@ -295,6 +301,7 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
                 helpful={t('tabs.helpful')}
                 usersThink={t('tabs.usersThink')}
                 refreshReviews={refreshReviews}
+                changeSendReview={changeSendReview}
               />
             )}
           </section>
