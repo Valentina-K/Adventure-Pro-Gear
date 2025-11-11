@@ -106,7 +106,7 @@ const Card: React.FC<CardProps> = ({ product, variant = 'standart', favoriteStor
   const handleBuyClick: (event: React.MouseEvent<HTMLButtonElement>) => void = event => {
     event.preventDefault();
     event.stopPropagation();
-    
+
     const sale = product?.basePrice * (product?.attributes[0]?.priceDeviation / 100);
 
     const shoppingCart = {
@@ -124,9 +124,9 @@ const Card: React.FC<CardProps> = ({ product, variant = 'standart', favoriteStor
       productAttributeId: product?.attributes?.[0]?.id,
     };
     dispatch(setShoppingCart(shoppingCart));
- 
+
     const basket = shoppingCartProduct.filter(({ productId: id }) => product?.productId === id)
-    
+
     if (basket?.length > 0) {
       return toast.error(
         locale === 'uk' ? 'Товар уже знаходиться у кошику.' : 'Product is already in the cart.',
@@ -146,7 +146,7 @@ const Card: React.FC<CardProps> = ({ product, variant = 'standart', favoriteStor
   return (
     <section
       className={className}
-      /* onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave} */
+    /* onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave} */
     >
       <Link href={`/product/${product.productId}`} className={styles.cardLink}>
         <div className={classNameImg}>
@@ -161,7 +161,7 @@ const Card: React.FC<CardProps> = ({ product, variant = 'standart', favoriteStor
               {message}
             </div>
           )}
-          <Image className={styles.image} src={productImage} alt={productName} fill={true} />
+          <Image className={styles.image} src={productImage} alt={productName} fill={true} sizes='100%' />
           <div
             className={
               variant === 'big'

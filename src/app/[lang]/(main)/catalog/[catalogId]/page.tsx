@@ -79,23 +79,22 @@ const CatalogId = ({
   //   })();
   // }, [debouncedMaxValue, debouncedMinValue, page, params.catalogId, searchParams]);
 
-    useEffect(() => {
-      (async () => {
-       setLoading(true)
-        try {
-            const productsAll = await getProductsFilter({
-             subcategoryId: params.catalogId,
-           });
-          console.log(productsAll);
-          setProducts(productsAll?.data?.content);
-          setLoading(false);
-        } catch (error) {
-          console.log(error);
-        }
-        
-      })();
-    }, []);
-  
+  useEffect(() => {
+    (async () => {
+      setLoading(true)
+      try {
+        const productsAll = await getProductsFilter({
+          subcategoryId: params.catalogId,
+        });
+        setProducts(productsAll?.data?.content);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+
+    })();
+  }, []);
+
 
   useEffect(() => {
     const fetchData = (async () => {

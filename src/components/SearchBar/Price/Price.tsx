@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Image from 'next/image';
 import styles from './Price.module.css';
 import arrowDown from '../../../../public/icons/arrowsDown.svg';
@@ -41,16 +41,83 @@ const Price: FC<IPriceProps> = ({
     setSearchFieldActive(prev => !prev);
   };
 
+  const [minInput, setMinInput] = useState(minValue.toString());
+  const [maxInput, setMaxInput] = useState(maxValue.toString());
+
+  // чтобы локальный ввод не "отставал" при изменении пропсов
+  useEffect(() => {
+    setMinInput(minValue.toString());
+  }, [minValue]);
+
+  useEffect(() => {
+    setMaxInput(maxValue.toString());
+  }, [maxValue]);
+
+  const clampMin = (val: number) => Math.max(minRange, Math.min(val, maxValue - difference));
+  const clampMax = (val: number) => Math.min(maxRange, Math.max(val, minValue + difference));
+
+  const handleMinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    if (val === '' || /^[0-9]+$/.test(val)) {
+      setMinInput(val);
+    }
+  };
+
+  const handleMaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    if (val === '' || /^[0-9]+$/.test(val)) {
+      setMaxInput(val);
+    }
+  };
+
+  const applyMin = () => {
+    const parsed = Number(minInput);
+    if (!isNaN(parsed) && minInput !== '') {
+      const clamped = clampMin(parsed);
+      setMinValue(clamped); // передаём наверх
+      setMinInput(clamped.toString());
+    } else {
+      setMinInput(minValue.toString()); // возвращаем актуальное
+    }
+  };
+
+  const applyMax = () => {
+    const parsed = Number(maxInput);
+    if (!isNaN(parsed) && maxInput !== '') {
+      const clamped = clampMax(parsed);
+      setMaxValue(clamped); // передаём наверх
+      setMaxInput(clamped.toString());
+    } else {
+      setMaxInput(maxValue.toString());
+    }
+  };
+
+  const handleKeyDownMin = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      applyMin();
+      (e.target as HTMLInputElement).blur(); // чтобы убрать курсор
+    }
+  };
+
+  const handleKeyDownMax = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      applyMax();
+      (e.target as HTMLInputElement).blur();
+    }
+  };
+
   const handleChangeRanges = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.name === 'rangeMin') {
-      const value = Math.min(Number(e.target.value), maxValue - difference);
-      createQueryString('priceFrom', value.toString());
+      const value = clampMin(Number(e.target.value));
       setMinValue(value);
+      //const value = Math.min(parsed, maxValue - difference);
+      createQueryString('priceFrom', value.toString());
       // setPage(0);
     } else if (e.target.name === 'rangeMax') {
-      const value = Math.max(Number(e.target.value), minValue + difference);
-      createQueryString('priceTo', value.toString());
+      const value = clampMax(Number(e.target.value));
       setMaxValue(value);
+      //const value = Math.max(parsed, minValue + difference);
+      createQueryString('priceTo', value.toString());
       // setPage(0);
     }
     /* setSearch({
@@ -111,9 +178,25 @@ const Price: FC<IPriceProps> = ({
             <div className={styles.progress} style={getProgressStyle()} />
           </div>
           <div className={styles.price}>
-            <p className={styles.priceValue}>{minValue}</p>
+            <input
+              type="text"
+              name="minPrice"
+              value={minInput}
+              onChange={handleMinChange}
+              onBlur={applyMin}
+              onKeyDown={handleKeyDownMin}
+              className={styles.priceValue}
+            />
             <span className={styles.priceSpan}>-</span>
-            <p className={styles.priceValue}>{maxValue}</p>
+            <input
+              type="text"
+              name="maxPrice"
+              onChange={handleMaxChange}
+              onBlur={applyMax}
+              onKeyDown={handleKeyDownMax}
+              value={maxInput}
+              className={styles.priceValue}
+            />
           </div>
         </>
       )}
