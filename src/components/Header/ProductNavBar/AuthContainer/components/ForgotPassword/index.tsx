@@ -47,23 +47,26 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = ({closeParentModal}) => {
 
   return (
     <>
-    {!isModalOpen ? (<Form action={handleSubmit} className={styles.forgotPasswordForm}>
-        <h4 className={styles.formHeading}>{t('heading')}</h4>
-        <br />
-        <p>{t('info')}</p>
-        <div className={styles.inputAndButtobBlock}>
-          <Input
-            className={styles.emailInput}
-            onChange={handleChange}
-            name="email"
-            placeholder="E-mail"
-            type="email"
-            value={email}
-            required
-          />
-          <Input type="submit" value={t('submit-button')} className={styles.sybmitEmailInput} />
-        </div>
-      </Form>) : (<Modal closeModal={closeModal} className={styles.setntEmailmodal}>
+      {!isModalOpen ? (
+        <Form action={handleSubmit} className={styles.forgotPasswordForm}>
+          <h4 className={styles.formHeading}>{t('heading')}</h4>
+          <br />
+          <p>{t('info')}</p>
+          <div className={styles.inputAndButtobBlock}>
+            <Input
+              className={styles.emailInput}
+              onChange={handleChange}
+              name="email"
+              placeholder="E-mail"
+              type="email"
+              value={email}
+              required
+            />
+            <Input type="submit" value={t('submit-button')} className={styles.sybmitEmailInput} />
+          </div>
+        </Form>
+      ) : (
+        <Modal closeModal={closeModal} className={styles.setntEmailmodal}>
           <p>{t('email-directing-modal')}</p>
           {width > 1180 && (
             <Image
@@ -73,8 +76,8 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = ({closeParentModal}) => {
               height={180}
             />
           )}
-        </Modal>)}     
-      
+        </Modal>
+      )}
     </>
   );
 };

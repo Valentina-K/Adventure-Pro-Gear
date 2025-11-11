@@ -98,7 +98,7 @@ const CatalogList: React.FC<ICatalogListProps> = ({
               ))}
             </ul>
             {widthWindow < 1179 && (
-              <div className={styles.navList_container}>
+              <div className={`${styles.navList_container} ${styles.mobail_lang}`}>
                 <NavList />
               </div>
             )}
