@@ -88,7 +88,7 @@ const CatalogOfGoods: React.FC<SearchProps> = ({
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
-      {widthWindow < 1180 ? (
+      {widthWindow !== null && widthWindow < 1180 ? (
         <div>
           <Image
             src={burger}

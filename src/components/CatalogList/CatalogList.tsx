@@ -43,7 +43,7 @@ const CatalogList: React.FC<ICatalogListProps> = ({
   const chooseSubcategory = (subcategoyId: number) => {
     const filterCategory = category.filter(({ id }) => subcategoyId === id);
 
-    if (widthWindow <= 743) {
+    if (widthWindow !== null && widthWindow <= 743) {
       setVisibleCategory((prev: any) => !prev);
     }
 
@@ -60,8 +60,8 @@ const CatalogList: React.FC<ICatalogListProps> = ({
                 <li
                   key={id}
                   className={styles.item}
-                  onClick={widthWindow <= 743 ? () => chooseSubcategory(id) : undefined}
-                  onMouseMove={widthWindow >= 744 ? () => chooseSubcategory(id) : undefined}
+                  onClick={widthWindow !== null && widthWindow <= 743 ? () => chooseSubcategory(id) : undefined}
+                  onMouseMove={widthWindow !== null && widthWindow >= 744 ? () => chooseSubcategory(id) : undefined}
                   // onClick={() => chooseSubcategory(id)}
                   // onMouseMove={() => chooseSubcategory(id)}
                   aria-hidden="true"
@@ -97,7 +97,7 @@ const CatalogList: React.FC<ICatalogListProps> = ({
                 </li>
               ))}
             </ul>
-            {widthWindow < 1179 && (
+            {widthWindow !== null && widthWindow < 1179 && (
               <div className={`${styles.navList_container} ${styles.mobail_lang}`}>
                 <NavList />
               </div>

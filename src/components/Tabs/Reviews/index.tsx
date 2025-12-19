@@ -34,7 +34,7 @@ const Reviews: React.FC<ReviewsProp> = ({
   helpful,
   usersThink,
   refreshReviews,
-  changeSendReview
+  changeSendReview,
 }) => {
   const { data: session } = useSession();
   const token = session?.user?.accessToken;
@@ -68,8 +68,7 @@ const Reviews: React.FC<ReviewsProp> = ({
         setError(null);
         setIsResult(true);
         changeSendReview(false);
-      }
-      else setError(response ? response : null);
+      } else setError(response ? response : null);
       refreshReviews();
       //делаю либо setError либо setIsSuccess, затем setIsOpenModal(false), setIsResult(true)
     }

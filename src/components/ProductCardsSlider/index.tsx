@@ -24,14 +24,14 @@ const ProductCardsSlider: React.FC<CardsSliderProp> = ({ products, title, recomm
   const [isDragging, setIsDragging] = useState(false);
 
   const groupedSlides = useMemo(() => {
-  const itemsPerSlide = width <= MOBILE_MAX ? 2 : 3;
+  const itemsPerSlide = width !== null && width <= MOBILE_MAX ? 2 : 3;
   const result = [];
 
   for (let i = 0; i < products.length; i += itemsPerSlide) {
     result.push(products.slice(i, i + itemsPerSlide));
   }
 
-  if (width <= MOBILE_MAX) result.splice(3);
+  if (width !== null && width <= MOBILE_MAX) result.splice(3);
   return result;
 }, [products, width]);
 

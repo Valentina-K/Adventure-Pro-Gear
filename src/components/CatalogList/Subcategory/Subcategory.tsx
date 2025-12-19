@@ -38,7 +38,7 @@ const Subcategory: React.FC<ISubcategoryProps> = ({
 
   return (
     <div className={style.container}>
-      {widthWindow < 744 && (
+      {widthWindow !== null && widthWindow < 744 && (
         // eslint-disable-next-line jsx-a11y/no-static-element-interactions
         <div className={style.back_container} onClick={handleBackClick}>
           <Image src={arrow} alt="arrow" width="20" height="20" />

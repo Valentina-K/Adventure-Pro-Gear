@@ -30,7 +30,7 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = ({closeParentModal}) => {
     if (response === 200) {      
       setIsModalOpen(true);
     }
-    if (response !== 200 || response !== 201) {
+    else if (response !== 200 || response !== 201) {
       toast.error(response || 'Something went wrong. Please try again later.', {
         position: 'top-right',
         autoClose: 4000,
@@ -39,7 +39,7 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = ({closeParentModal}) => {
   };
 
   const closeModal = () => {
-    setIsModalOpen(false);
+    //setIsModalOpen(false);
     closeParentModal();
   };
 
@@ -66,7 +66,7 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = ({closeParentModal}) => {
       ) : (
         <Modal closeModal={closeModal} className={styles.setntEmailmodal}>
           <p>{t('email-directing-modal')}</p>
-          {width > 1180 && (
+          {width !== null && width > 1180 && (
             <Image
               src="/icons/IllustrationSendEmail.svg"
               alt="sent email icon"

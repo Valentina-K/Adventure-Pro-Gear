@@ -36,7 +36,7 @@ const SearchBar: FC<ISearchBarProps> = ({
   return (
     <div className={styles.container}>
       <form>
-        {widthWindow < 1179 && (
+        {widthWindow !== null && widthWindow < 1179 && (
           <li>
             <div className={styles.input_filter}>
               <p className={styles.filter_title}>{locale === 'uk' ? 'Фільтр' : 'Filter'} </p>

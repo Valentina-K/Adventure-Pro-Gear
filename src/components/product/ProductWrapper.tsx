@@ -323,147 +323,14 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
           </section>
         </div>
         <div className={styles.block7}>
-          {width < 1180 ? (
+          {width !== null && width < 1180 ? (
             <div className={styles.reviewed}>
               <ProductCardsSlider products={reviewedProducts.slice(0, 9)} title={t('page.previouslyViewed')} />
             </div>
           ) : (
             <ReviewedGoods title={t('page.previouslyViewed')} />
           )}
-        </div>
-        {/* <div className={styles.mainContainer}>
-        <div className={styles.leftBlock}>
-          <ImageCarousel contents={product.contents} />
-          <Tabs
-            description={locale === 'uk' ? product.descriptionUa : product.descriptionEn}
-            characteristics={product.characteristics}
-            onChangeTab={handleChangeTab}
-            onReviewSend={handleReviewSend}
-          />
-        </div>
-        <div className={styles.rightBlock}>
-          <section className={styles.mainInfo}>
-            <div className={styles.productHeader}>
-              <h1 className={styles.titleProduct}>
-                {locale === 'uk' ? product.productNameUa : product.productNameEn}
-              </h1>
-              <div className={styles.productRating}>
-                <RatingStars averageRating={product.averageRating} />
-                <ReviewCount reviewCount={product.reviewCount} />
-              </div>
-              <div className={styles.priceBlock}>
-                {product.basePrice !== newPrice ? (
-                  <>
-                    <div className={styles.priceWithDiscount}>
-                      <span className={styles.oldPrice}>
-                        {product.basePrice}
-                        ₴
-                      </span>
-                      <span className={styles.discount}>
-                        {product.attributes[0].priceDeviation}
-                        %
-                      </span>
-                    </div>
-                    <p className={styles.price}>
-                      {newPrice}
-                      ₴
-                    </p>
-                  </>
-                ) : (
-                  <p className={styles.price}>
-                    {product.basePrice}
-                    ₴
-                  </p>
-                )}
-                <p className={styles.available}>
-                  {isAvailable ? t('card.available') : t('card.outOfStock')}
-                </p>
-              </div>
-              <div className={styles.specialInfo}>
-                <p>
-                  {t('page.code')}
-                  :
-                  <span>{product.productId}</span>
-                </p>
-                <p>
-                  {t('page.manufacturer')}
-                  :
-                  <span>Terra Incognita</span>
-                </p>
-              </div>
-            </div>
-            <AvailableColors
-              title={t('page.availableOptions')}
-              h4={t('page.color')}
-              clear={t('page.clear')}
-              onColorChoice={handleChoiceColor}
-              imageArray={colorItems}
-            />
-            <div>
-              <p className={styles.textSize}>{t('page.size')}</p>
-              <div className={styles.sizeContainer}>
-                {product.attributes.map((attr: Attributes, index: number) => (
-                  <button
-                    key={attr.id}
-                    className={
-                      index === activeIndex ? `${styles.size} ${styles.active}` : `${styles.size}`
-                    }
-                    onClick={() => handleItemClick(index)}
-                  >
-                    {attr.size}
-                  </button>
-                ))}
-              </div>
-            </div>
-            <div>
-              {activeIndex === null && <p className={styles.alert}>{t('page.alert')}</p>}
-              <div className={styles.buySection}>
-                <QuantitySelector
-                  totalQuantity={product.attributes[attrIndex].quantity}
-                  onChange={quantity => handleChangeQuantity(quantity)}
-                />
-                <Button
-                  className={styles.buyButton}
-                  text={t('card.buy')}
-                  disabled={!isAvailable || activeIndex === null}
-                  icon={<Image src={Comercial} width={20} height={20} alt="Comercial" />}
-                  onClick={handleBuyClick}
-                />
-              </div>
-            </div>
-            <Payment title={t('page.paymentMethod')} />
-          </section>
-          <section className={styles.additionalOffers}>
-            <div className={styles.withThisBuy}>
-              <ProductCardsSlider
-                products={buyWithThisProductsMemo}
-                title={t('page.buyWithThis')}
-              />
-            </div>
-            <div className={styles.relatedProducts}>
-              <ProductCardsSlider
-                products={similarProductsMemo}
-                title={t('page.similarProducts')}
-              />
-            </div>
-          </section>
-        </div>
-      </div>
-      <section>
-        {tabIndex === 2 && productReviews.length > 0 && (
-          <Reviews
-            reviews={productReviews}
-            productName={locale === 'uk' ? product.productNameUa : product.productNameEn}
-            reviewTitle={t('tabs.reviews')}
-            helpful={t('tabs.helpful')}
-            usersThink={t('tabs.usersThink')}
-            refreshReviews={refreshReviews}
-          />
-        )}
-      </section>
-      <ReviewedGoods
-        title={t('page.previouslyViewed')}
-      /> */}
+        </div>        
       </div>
     </Container>
   );
