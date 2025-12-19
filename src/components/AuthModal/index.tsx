@@ -8,12 +8,11 @@ import Modal from '../Modal';
 import SignUp from '../Header/ProductNavBar/AuthContainer/components/SignUp';
 import SignIn from '../Header/ProductNavBar/AuthContainer/components/SignIn';
 import ForgotPassword from '../Header/ProductNavBar/AuthContainer/components/ForgotPassword';
-//import ResetPassword from '../Header/ProductNavBar/AuthContainer/components/ResetPassword';
+import ResetPassword from '../Header/ProductNavBar/AuthContainer/components/ResetPassword';
 import styles from './AuthModal.module.css';
 import SuccessModal from '../SuccessModal';
 import SignupSuccess from '../SuccessModal/SignupSuccess';
 import { AppRoutes } from '@/constants/routes';
-import ResetPassword from '../SuccessModal/ResetConfirm';
 
 type AuthType =
   | 'signin'
@@ -27,12 +26,13 @@ type AuthType =
 const AuthModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [authType, setAuthType] = useState<AuthType>(null);
-  //const [isOverlayOpen, setIsOverlayOpen] = useState(false);
+  const [isOverlayOpen, setIsOverlayOpen] = useState(false);
   const searchParams = useSearchParams();
   const session = useSession();
   const path = usePathname();
   const router = useRouter();
   const shouldShowModal = isModalOpen;
+
   const closeModal = () => {
     const params = new URLSearchParams(searchParams.toString());
     params.delete('auth');
@@ -40,13 +40,13 @@ const AuthModal = () => {
     router.push(newUrl, { scroll: false });
   };
 
-  /* useEffect(() => {
+  useEffect(() => {
     if (isModalOpen) {
       setIsOverlayOpen(true);
     } else {
       setIsOverlayOpen(false);
     }
-  }, [isModalOpen]); */
+  }, [isModalOpen]);
 
   useEffect(() => {
     const type = searchParams.get('auth') as AuthType;
@@ -57,7 +57,7 @@ const AuthModal = () => {
         type === 'forgot-password' ||
         type === 'reset-password' ||
         type === 'signup-success' ||
-        type === 'new-password' 
+        type === 'new-password'
     );
   }, [searchParams]);
 
@@ -65,7 +65,7 @@ const AuthModal = () => {
     if (authType === 'signup-success') {
       const timer = setTimeout(() => {
         router.replace(AppRoutes.SIGNIN);
-      }, 3000);
+      }, 4000);
 
       return () => clearTimeout(timer);
     }

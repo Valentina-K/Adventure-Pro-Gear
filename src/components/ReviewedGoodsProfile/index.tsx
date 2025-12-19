@@ -31,9 +31,9 @@ function ReviewedGoodsProfile({ title, emptyBanner }: ReviewedGoodsProps) {
   // const currentItems = products.slice(startIndex, endIndex);
   let currentItems = undefined;
   
- width !== null && width < 744
+ width < 744
    ? (currentItems = products.slice(startIndex, endIndex - 2)) :
-     width !== null && width < 1179
+     width < 1179
     ? (currentItems = products.slice(startIndex, endIndex - 1))
       : (currentItems = products.slice(startIndex, endIndex));
   
@@ -62,7 +62,7 @@ function ReviewedGoodsProfile({ title, emptyBanner }: ReviewedGoodsProps) {
 
   return (
     <section className={styles.wrapper}>
-      {width !== null && width < 1180 && <p className={styles.title_info}>{t('profile_info')}</p>}
+      {width < 1180 && <p className={styles.title_info}>{t('profile_info')}</p>}
       <h2 className={styles.title}>{title}</h2>
       <div className={styles.paginationControls}>
         {hasPrev && (

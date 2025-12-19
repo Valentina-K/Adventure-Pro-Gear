@@ -39,7 +39,7 @@ function Item({ product }: ItemProps) {
             &#8372; ( {product.count} {t('orders.pcs')} )
           </p>
         </div>
-        {width !== null && width > 743 && (
+        {width > 743 && (
           <p className={styles.sum}>
             {product.basePrice * product.count} <span>&#8372;</span>
           </p>

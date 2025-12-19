@@ -100,12 +100,7 @@
       ],
       "submit-button": "Save"
     },
-    "confirmPassword": "Password is not matching!",
-    "reset-confirm": [
-      "Your password has been successfully changed!",
-      "An error occurred, please try again.",
-      "Loading..."
-    ]
+    "confirmPassword": "Password is not matching!"
   },
   "breadcrumbsData": {
     "breadcrumbs": {
@@ -125,12 +120,7 @@
       "favorites": "Favorites",
       "exit": "Exit"
     },
-    "menuData": [
-      "Orders",
-      "Edit Data",
-      "Favorites",
-      "Exit"
-    ],
+    "menuData": ["Orders", "Edit Data", "Favorites", "Exit"],
     "exitModal": {
       "title": "Are you sure you want to exit your Personal Account?",
       "text": "Your shopping cart will be saved and waiting for you.",
@@ -160,9 +150,7 @@
       "pcs": "pcs.",
       "download": "Download Invoice",
       "datails": "Order Details",
-      "breadcrumbs": [
-        "Order details"
-      ],
+      "breadcrumbs": ["Order details"],
       "new": "New order",
       "accepted": "Accepted",
       "awaiting": "Awaiting",
@@ -189,6 +177,7 @@
         "deleteAccount_yes": "Yes, delete",
         "deleteAccount_success_p1": "You have successfully deleted your account. Thank you for choosing our Ukrainian store",
         "deleteAccount_success_p2": "for your adventures and travels. May your steps always lead to new discoveries!",
+
         "changeEmail": "Are you sure you want to change your email?",
         "changeEmail_no": "No, do not change",
         "changeEmail_yes": "Yes, change",

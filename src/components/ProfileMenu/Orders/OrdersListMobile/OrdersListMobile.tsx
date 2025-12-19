@@ -26,8 +26,8 @@ const OrdersListMobile = ({ orders, t, page = 0 }: OrdersListProp) => {
       <div className={styles.ordersListMobile_container}>
         {ordersOnPage.map((order, ind) => (
           <>
-            <ul key={order.id} className={`${styles.list} ${ind % 2 === 0 ? `${styles.odd}` : ''}`}>
-              <li key={order.id} className={styles.item}>
+            <ul className={`${styles.list} ${ind % 2 === 0 ? `${styles.odd}` : ''}`}>
+              <li className={styles.item}>
                 <p> {t('orders.number')}</p>
                 <Link
                   href={`${AppRoutes.PERSONAL_ACCOUNT}/orders/${order?.id}`}
@@ -36,19 +36,19 @@ const OrdersListMobile = ({ orders, t, page = 0 }: OrdersListProp) => {
                   {order?.id}
                 </Link>
               </li>
-              <li key={order.orderDate} className={styles.item}>
+              <li className={styles.item}>
                 <p> {t('orders.date')}</p>
                 <span>{new Date(order?.orderDate).toLocaleDateString()}</span>
               </li>
-              <li key={order.price} className={styles.item}>
+              <li className={styles.item}>
                 <p> {t('orders.totalAmount')}</p>
                 <span>{order?.price}</span>
               </li>
-              <li key={order.status} className={`${styles.item} ${styles.status}`}>
+              <li className={`${styles.item} ${styles.status}`}>
                 <p> {t('orders.status')}</p>
                 <span>{order?.status}</span>
               </li>
-              <li key={order.comment}>
+              <li>
                 <div className={styles.btn_container}>
                   <button type="button" className={styles.btn}>
                     <Image src={download} alt="arrow" width={24} height={24} />

@@ -25,8 +25,7 @@ const Footer = () => {
     setOpenSection(prev => (prev === section ? null : section));
   };
 
-  const isMobile = width !== null && width < 744;
-  //typeof window !== 'undefined' && window.innerWidth < 744;
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 744;
 
   return (
     <nav className={style.nav}>

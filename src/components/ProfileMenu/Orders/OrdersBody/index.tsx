@@ -38,7 +38,7 @@ function OrdersBody({ orders, countPage }: OrdersBodyProp) {
 
   return (
     <>
-      {width !== null && width < 1180 ? (
+      {width < 1180 ? (
         <OrdersListMobile orders={orders} t={t} page={page} />
       ) : (
         <OrdersList orders={orders} t={t} page={page} />

@@ -17,10 +17,8 @@
     border-radius: 5px;
     padding: 40px 80px;
     gap: 32px;
-    max-width: 696px;
-    min-width: 328px;
-    /* width: 535px;
-    height: 236px; */
+    width: 535px;
+    height: 236px;
 }
 
 .title {
@@ -30,17 +28,12 @@
     text-align: center;
 }
 
-.iconWrapper{
-  display: none;
-  border: 1px solid lightblue;
-}
-
 @media screen and (max-width: 1179px) {
     .modal {
         padding: 40px;
         gap: 16px;
         width: 664px;
-        /* height: 226px; */
+        height: 226px;
     }
 
     .title {
@@ -55,7 +48,7 @@
         padding: 40px;
         gap: 16px;
         width: 328px;
-        /* height: 215px; */
+        height: 215px;
     }
 
     .title {
@@ -63,10 +56,4 @@
         font-size: var(--medium-18);
         line-height: var(--line-height-27);
     }
-}
-
-@media screen and (min-width: 1180px) {
-  .iconWrapper{
-    display: block;
-  }
 }

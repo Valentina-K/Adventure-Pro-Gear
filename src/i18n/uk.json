@@ -99,12 +99,7 @@
       ],
       "submit-button": "Зберегти"
     },
-    "confirmPassword": "Паролі не співпадають!",
-    "reset-confirm": [
-      "Ваш пароль успішно змінено!",
-      "Сталася помилка, спробуйте ще.",
-      "Завантаження..."
-    ]
+    "confirmPassword": "Паролі не співпадають!"
   },
   "breadcrumbsData": {
     "breadcrumbs": {

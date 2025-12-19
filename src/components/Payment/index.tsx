@@ -20,7 +20,7 @@ const Payment: React.FC<PaymentProps> = ({ title }) => {
         <Image src={visa} alt="visa" width={60} height={41} className={styles.image} />
         <Image src={mastercard} alt="mastercard" width={60} height={41} className={styles.image} />
         <Image src={paypal} alt="paypal" width={60} height={41} className={styles.image} />
-        {width !== null && width > 743 && (
+        {width > 743 && (
           <Image src={googlepay} alt="googlepay" width={60} height={41} className={styles.image} />
         )}
       </div>
