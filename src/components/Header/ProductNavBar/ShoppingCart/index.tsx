@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import { Link } from '@/i18n/routing';
 import ShoppingBag from '@/../public/icons/Comercial.svg';
@@ -10,7 +12,7 @@ function ShoppingCart() {
 
   return (
     <Link href="/basket">
-      <div className={`${styles.shoppingCart} `}>
+      <div className={styles.shoppingCart}>
         <p className={`${shoppingCart.length > 0 ? styles.shoppingCart_active : ''}`} />
         <Image src={ShoppingBag} alt="shopping bag icon" width={24} height={24} />
       </div>

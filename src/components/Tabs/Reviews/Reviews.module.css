@@ -147,7 +147,7 @@
     }
 
     .usefullTrash {
-        flex-direction: row;
+        flex-direction: column;
         gap: 0;
     }
 

@@ -152,7 +152,7 @@ const Skeleton = ({
         ref={menuRef}
         className={`${openMenuFilter ? styles.searchBar_container_active : styles.searchBar_container}`}
       >
-        {widthWindow < 1179 && (
+        {widthWindow !== null && widthWindow < 1179 && (
           <Image
             src={close}
             alt="close"
@@ -186,7 +186,7 @@ const Skeleton = ({
           </h1>
 
           <ul className={styles.input_list}>
-            {widthWindow < 1179 && (
+            {widthWindow !== null && widthWindow < 1179 && (
               <li>
                 <div
                   className={styles.input_filter}
@@ -205,7 +205,7 @@ const Skeleton = ({
                 filterByPopularity={filterByPopularity}
               />
             </li>
-            {widthWindow > 743 && (
+            {widthWindow !== null && widthWindow > 743 && (
               <li className={styles.input_view}>
                 <ViewCatalogList setGridActive={setGridActive} gridActive={gridActive} />
               </li>

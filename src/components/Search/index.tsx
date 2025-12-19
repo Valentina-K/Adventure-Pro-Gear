@@ -37,16 +37,16 @@ const Search: React.FC<SearchProps> = ({ placeholder, unavailable, showall }) =>
   if (error) console.log(error);
 
   useEffect(() => {
-    if (widthWindow < 1180) {
+    if (widthWindow !== null && widthWindow < 1180) {
       setVisibleSearch(false);
     }
-    if (widthWindow >= 1180) {
+    if (widthWindow !== null && widthWindow >= 1180) {
       setVisibleSearch(true);
     }
   }, [setVisibleSearch, widthWindow]);
 
 useEffect(() => {
-  if (widthWindow < 1180) {
+  if (widthWindow !== null && widthWindow < 1180) {
     const handleClick = (e: MouseEvent | KeyboardEvent) => {
       if (ignoreRef.current && !ignoreRef.current.contains(e.target as Node)) {
         setVisibleSearch(false);
@@ -103,7 +103,7 @@ useEffect(() => {
     if (e.key === 'Enter') {
       dispatch(setFilteredProducts(filteredItems));
       setValue('');
-      if (widthWindow < 1180) {
+      if (widthWindow !== null && widthWindow < 1180) {
       setVisibleSearch(false); 
       }
       router.push(`${AppRoutes.PRODUCTS.replace('*', value)}`);
@@ -117,7 +117,7 @@ useEffect(() => {
   };
 
   const handleVisible = () => {
-    if (widthWindow < 1180) {
+    if (widthWindow !== null && widthWindow < 1180) {
       setVisibleSearch((prev: any) => !prev);
       setIsSearchActive(prev => !prev);
     }
@@ -137,7 +137,7 @@ useEffect(() => {
           ref={ignoreRef}
         />
       )}
-      {widthWindow < 1180 ? (
+      {widthWindow !== null && widthWindow < 1180 ? (
         <>
           <Image
             src={SearchIcon}

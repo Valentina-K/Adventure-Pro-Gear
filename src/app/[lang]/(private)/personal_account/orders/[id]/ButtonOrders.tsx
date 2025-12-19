@@ -15,7 +15,7 @@ export const ButtonOrders = () => {
   return (
     <button className={styles.button}>
       <Image src={icon} alt="icon" width={24} height={24} className={styles.icon} />
-      {width > 1179 && `${t('orders.invoice')}`}
+      {width !== null && width > 1179 && `${t('orders.invoice')}`}
     </button>
   );
 };
