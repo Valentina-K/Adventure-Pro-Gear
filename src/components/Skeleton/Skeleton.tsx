@@ -8,7 +8,7 @@ import DropdownMenu from '../ForCatalogPage/DropdownMenu/DropdownMenu';
 import ViewCatalogList from '../ForCatalogPage/ViewCatalogList/ViewCatalogList';
 import { Product } from '@/types';
 import Card from '../Card';
-import useLocalStorage from '@/hooks/useLocalStorage';
+import useLocalStorage from '@/utils/favoritesContext';
 import useDebounce from '@/hooks/useDebounce';
 import Pagination from '../Pagination/Pagination';
 import { useWindowWidth } from '@/hooks/useWindowWidth';
@@ -61,7 +61,7 @@ const Skeleton = ({
   const [difference, setDifference] = useState(0);
   const [openMenuFilter, setOpenMenuFilter] = useState(false);
   const [filteredTotal, setFilteredTotal] = useState(0);
-  const favStorage = useLocalStorage('favorites');
+  const favStorage = useLocalStorage();
 
   useEffect(() => {
     setPage(0);

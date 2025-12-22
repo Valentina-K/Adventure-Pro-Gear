@@ -14,7 +14,7 @@ import { Product } from '@/types/product';
 import useDebounce from '@/hooks/useDebounce';
 import ViewCatalogList from '@/components/ForCatalogPage/ViewCatalogList/ViewCatalogList';
 import DropdownMenu from '@/components/ForCatalogPage/DropdownMenu/DropdownMenu';
-import useLocalStorage from '@/hooks/useLocalStorage';
+import useLocalStorage from '@/utils/favoritesContext';
 import Card from '@/components/Card';
 import styles from './CatalogName.module.css';
 import Skeleton from '@/components/Skeleton/Skeleton';
@@ -59,7 +59,7 @@ const CatalogId = ({
     table: false,
     grid: true,
   });
-  const favStorage = useLocalStorage('favorites');
+  const favStorage = useLocalStorage();
 
   // useEffect(() => {
   //   const fetchData = (async () => {

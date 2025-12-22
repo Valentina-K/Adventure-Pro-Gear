@@ -1,19 +1,33 @@
 'use client';
 
 import { Product } from '@/types';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-function useLocalStorage(key: string) {
+const FAVORITES_KEY = 'favorites';
+
+function useLocalStorage() {
   const [list, setList] = useState<Product[]>([]);
 
-  useEffect(() => {
-    const stored = localStorage.getItem(key);
+  /* useEffect(() => {
+    const stored = localStorage.getItem(FAVORITES_KEY);
     setList(stored ? JSON.parse(stored) : []);
-  }, []);
+  }, []); */
+
+  useEffect(() => 
+    { 
+      const handler = () => 
+        { 
+          const stored = localStorage.getItem(FAVORITES_KEY); 
+          setList(stored ? JSON.parse(stored) : []); 
+        }; 
+        window.addEventListener("favorites-updated", handler); 
+        return () => window.removeEventListener("favorites-updated", handler); 
+      }, []);
 
   const save = (updatedItems: Product[]) => {
     setList(updatedItems);
-    localStorage.setItem(key, JSON.stringify(updatedItems));
+    localStorage.setItem(FAVORITES_KEY, JSON.stringify(updatedItems));
+    window.dispatchEvent(new Event("favorites-updated"));
   };
 
   const addItem = (item: Product) => {
@@ -28,43 +42,13 @@ function useLocalStorage(key: string) {
   };
 
   const isExistItem = (id: number) => list.some(item => item.productId === id);
+  return {
+    list,
+    addItem,
+    removeItem,
+    isExistItem,
+  };
 
-  /*   useEffect(() => {
-    const stored = localStorage.getItem(key);
-    if (stored) {
-      try {
-        const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed)) {
-          setList(parsed);
-        } else {
-          console.warn('Invalid format in localStorage:', parsed);
-        }
-      } catch (error) {
-        console.warn('Failed to parse localStorage JSON:', error);
-      }
-    }
-  }, [key]);
-
-  useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(list));
-  }, [list, key]);
-
-  const addItem = useCallback((item: Product) => {
-    setList(prev => {
-      const exists = prev.some(i => i.productId === item.productId);
-      return exists ? prev : [...prev, item];
-    });
-  }, []);
-
-  const removeItem = useCallback((id: number) => {
-    setList(prev => prev.filter(i => i.productId !== id));
-  }, []);
-
-  const isExistItem = useCallback((id: number) => {
-    return list.some(i => i.productId === id);
-  }, [list]); */
-
-  return { list, addItem, removeItem, isExistItem };
 }
 
 export default useLocalStorage;

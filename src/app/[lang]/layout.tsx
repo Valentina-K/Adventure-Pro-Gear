@@ -13,6 +13,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ScrollToTop from '@/components/ScrollToTop';
 import AuthModal from '@/components/AuthModal';
+import { FavoritesProvider } from '@/utils/favoritesContext';
 
 import '@/app/styles/_normilize.css';
 import '@/app/styles/globals.css';
@@ -46,7 +47,9 @@ const RootLayout: NextPage<RootLayoutProps> = async ({ params: { lang: locale },
           <SessionProvider session={session}>
             <NextIntlClientProvider messages={messages}>
               <Header products={null} />
+              <FavoritesProvider>
               <main>{children}</main>
+              </FavoritesProvider>
               <Footer />
               <ScrollToTop />
               <AuthModal />

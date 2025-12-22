@@ -30,10 +30,10 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = ({closeParentModal}) => {
     if (response === 200) {      
       setIsModalOpen(true);
     }
-    if (response !== 200 || response !== 201) {
+    else if (response !== 200 || response !== 201) {
       toast.error(response || 'Something went wrong. Please try again later.', {
         position: 'top-right',
-        autoClose: 4000,
+        autoClose: 3000,
       });
     }
   };

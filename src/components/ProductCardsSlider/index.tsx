@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo, useRef } from 'react';
 import { Product } from '@/types/product';
-import useLocalStorage from '@/hooks/useLocalStorage';
+import useLocalStorage from '@/utils/favoritesContext';
 import Card from '../Card';
 import { useWindowWidth } from '@/hooks/useWindowWidth';
 import styles from './ProductCardsSlider.module.css';
@@ -16,7 +16,7 @@ interface CardsSliderProp {
 const ProductCardsSlider: React.FC<CardsSliderProp> = ({ products, title, recommendation }) => {
   const width = useWindowWidth();
   const [activeNav, setActiveNav] = useState(0);
-  const favStorage = useLocalStorage('favorites');
+  const favStorage = useLocalStorage();
   const MOBILE_MAX = 743;
   // swipe refs
   const touchStartX = useRef(0);

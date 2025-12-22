@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import useLocalStorage from '@/hooks/useLocalStorage';
+import useLocalStorage from '@/utils/favoritesContext';
 import { useAppSelector } from '../../redux/store';
 import Card from '../Card';
 import ArrowRight from '../../../public/icons/arrowsRight.svg';
@@ -22,7 +22,7 @@ function ReviewedGoodsProfile({ title, emptyBanner }: ReviewedGoodsProps) {
   const t = useTranslations('profile');
   const width = useWindowWidth();
   const products = useAppSelector(state => state.products.reviewedProducts);
-  const favStorage = useLocalStorage('favorites');
+  const favStorage = useLocalStorage();
 
   const [page, setPage] = useState(0);
 

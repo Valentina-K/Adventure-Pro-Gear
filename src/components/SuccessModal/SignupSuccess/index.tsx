@@ -10,27 +10,19 @@ import SucceessIcon from '@/../public/icons/success _vector.svg';
 import WarningIcon from '@/../public/icons/warning.svg';
 import generic from '../style.module.css';
 
-const iconSize = [
-  {
-    w: 78,
-    h: 92,
-  },
-  {
-    w: 85,
-    h: 100,
-  },
-];
-
 function SignupSuccess() {
   const searchParams = useSearchParams();
-  const token = searchParams.get('token');
+  const [token, setToken] = useState<string | null>(null);
   const t = useTranslations('auth');
   const [isLoading, setIsLoading] = useState(true);
   const [success, setSuccess] = useState<boolean | null>(null);
   const [icon, setIcon] = useState(WarningIcon);
   const windWidth = useWindowWidth();
-  const { w, h } = windWidth > 743 ? iconSize[1] : iconSize[0];
 
+  useEffect(() => {
+    setToken(searchParams.get('token'));
+  }, []);
+  
   useEffect(() => {
     const verifyEmailWithToken = async (token: string) => {
       try {
@@ -67,8 +59,8 @@ function SignupSuccess() {
       ) : (
         <h2 className={generic.title}>{t('registration.success.5')}</h2>
       )}
-      <div style={{ border: '1px solid lightblue' }}>
-        <Image src={icon} width={w} height={h} alt="icon" />
+      <div className={generic.iconWrapper}>
+        <Image src={icon} width={85} height={100} alt="icon" />
       </div>
     </div>
   );
