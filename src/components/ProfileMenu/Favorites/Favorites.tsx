@@ -2,13 +2,13 @@
 
 import { useTranslations } from 'next-intl';
 import React from 'react';
-import useLocalStorage from '@/hooks/useLocalStorage';
+import useLocalStorage from '@/utils/favoritesContext';
 import FavoritesList from './FavoritesList/FavoritesList';
 import styles from './Favorites.module.css';
 
 function Favorites() {
   const t = useTranslations('profile');
-  const { list } = useLocalStorage('favorites');
+  const { list } = useLocalStorage();
 
   return (
     <div className={styles.wrapper}>

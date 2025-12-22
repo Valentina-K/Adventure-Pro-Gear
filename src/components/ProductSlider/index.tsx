@@ -5,7 +5,7 @@ import { EmblaOptionsType } from 'embla-carousel';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 import { Product } from '@/types';
-import useLocalStorage from '@/hooks/useLocalStorage';
+import useLocalStorage from '@/utils/favoritesContext';
 import { DotButton, useDotButton } from './EmblaCarouselDotButton';
 import Card from '../Card';
 import styles from './styles.module.css';
@@ -27,7 +27,7 @@ const EmblaCarousel: React.FC<Props> = ({ slides, options, title, length = 4, de
   );
   const width = useWindowWidth()
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi);
-  const favStorage = useLocalStorage('favorites');
+  const favStorage = useLocalStorage();
   return (
     <section className={`${styles.embla}`}>
       <h2 className={styles.title}>{title}</h2>

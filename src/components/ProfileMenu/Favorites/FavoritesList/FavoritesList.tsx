@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { Link } from '@/i18n/routing';
 import { useLocale, useTranslations } from 'next-intl';
 import clsx from 'clsx';
-import useLocalStorage from '@/hooks/useLocalStorage';
+import useLocalStorage from '@/utils/favoritesContext';
 import { Product } from '@/types';
 import Comercial from '@/../public/icons/ComercialFill.svg';
 import Delete from '@/../public/icons/trash.svg';
@@ -20,7 +20,7 @@ const FavoritesList: React.FC = () => {
   const dispatch = useAppDispatch();
   const locale = useLocale();
   const t = useTranslations('profile.favorites');
-  const { removeItem, list } = useLocalStorage('favorites');
+  const { removeItem, list } = useLocalStorage();
   let shoppingCartProduct = useSelector(selectOpenShoppingCart);
 
   const domain = typeof window !== 'undefined' ? window.location.origin : '';

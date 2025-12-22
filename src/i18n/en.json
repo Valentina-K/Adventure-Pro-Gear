@@ -100,7 +100,12 @@
       ],
       "submit-button": "Save"
     },
-    "confirmPassword": "Password is not matching!"
+    "confirmPassword": "Password is not matching!",
+    "reset-confirm": [
+      "Your password has been successfully changed!",
+      "An error occurred, please try again.",
+      "Loading..."
+    ]
   },
   "breadcrumbsData": {
     "breadcrumbs": {

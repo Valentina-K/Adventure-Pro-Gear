@@ -67,11 +67,8 @@ const Card: React.FC<CardProps> = ({ product, variant = 'standart', favoriteStor
   const newPrice =
     product.basePrice - product.basePrice * (product.attributes[0].priceDeviation / 100);
   const productName = locale === 'uk' ? product.productNameUa : product.productNameEn;
-  const classNameImg = getImgClassName(variant, isAvailable);
-
-  //const [addToFavorite, setAddToFavorite] = useState<boolean>(false);
+  const classNameImg = getImgClassName(variant, isAvailable); 
   const [message, setMessage] = useState<string | null>(null);
-  //const [following, setFollowing] = useState(FollowinIcon);
   const productImage = product.contents.length > 0 ? product.contents[0].source : noImage;
   const className = getClassName(variant);
 
@@ -83,7 +80,7 @@ const Card: React.FC<CardProps> = ({ product, variant = 'standart', favoriteStor
 
   const followingIcon = useMemo(() => {
     if (!session?.user) return FollowinIcon;
-    return isExistItem(product.productId) ? FollowingFill : FollowinIcon;
+    return isExistItem(Number(product.productId)) ? FollowingFill : FollowinIcon;
   }, [session?.user, isExistItem, product.productId]);
 
   const handleAddToFavorite = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -94,9 +91,9 @@ const Card: React.FC<CardProps> = ({ product, variant = 'standart', favoriteStor
       return;
     }
 
-    const isCurrentlyFavorite = isExistItem(product.productId);
+    const isCurrentlyFavorite = isExistItem(Number(product.productId));
     if (isCurrentlyFavorite) {
-      removeItem(product.productId);
+      removeItem(Number(product.productId));
     } else {
       addItem(product);
     }

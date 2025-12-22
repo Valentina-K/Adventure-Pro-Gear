@@ -31,7 +31,7 @@ import Button from '../Button';
 import FollowinIcon from '@/../public/icons/Following.svg';
 import FollowingFill from '@/../public/icons/FollowingFill.svg';
 import ReviewedGoods from '../ReviewedGoods';
-import useLocalStorage from '@/hooks/useLocalStorage';
+import useLocalStorage from '@/utils/favoritesContext';
 import { useSession } from 'next-auth/react';
 import { useWindowWidth } from '@/hooks/useWindowWidth';
 import styles from './productWrapper.module.css';
@@ -61,16 +61,17 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
   const [productReviews, setReviews] = useState<Review[]>(reviews);
   const [isSendReview, setIsSendReview] = useState(false);
   const pathname = usePathname();
-  //const [following, setFollowing] = useState(FollowinIcon);
   const [message, setMessage] = useState<string | null>(null);
-  const favStorage = useLocalStorage('favorites');
-  const { addItem, removeItem, isExistItem } = favStorage;
+  const favStorage = useLocalStorage();
+  const { list, addItem, removeItem, isExistItem } = favStorage;
+
   let shoppingCartProduct = useSelector(selectOpenShoppingCart);
   const changeSendReview = (value: boolean) => {
     setIsSendReview(value);
-  }
+  };
   const width = useWindowWidth();
   const fullUrl = `${pathname}`;
+
   useEffect(() => {
     if (product) {
       dispatch(setReviewedProducts(product));
@@ -78,13 +79,13 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
   }, [product, dispatch]);
 
   const followingIcon = useMemo(() => {
-    if (!session?.user) return FollowinIcon;
-    return isExistItem(productId) ? FollowingFill : FollowinIcon;
-  }, [session?.user, isExistItem, productId]);
+      if (!session?.user) return FollowinIcon;
+      return isExistItem(Number(productId)) ? FollowingFill : FollowinIcon;
+    }, [session?.user, isExistItem, productId]);
 
   useEffect(() => {
     if (!message) return;
-    const timer = setTimeout(() => setMessage(null), 2000);
+    const timer = setTimeout(() => setMessage(null), 3000);
     return () => clearTimeout(timer);
   }, [message]);
 
@@ -97,7 +98,6 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
   const similarProductsMemo = useMemo(() => similarProducts, [similarProducts]);
 
   const handleChangeQuantity = useCallback((quantity: number) => {
-    // console.log('from changeQuantity', quantity);
     setBuyQuantity(quantity);
   }, []);
 
@@ -109,13 +109,11 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
       return;
     }
 
-    const isCurrentlyFavorite = isExistItem(productId);
+    const isCurrentlyFavorite = isExistItem(Number(product.productId));
     if (isCurrentlyFavorite) {
-      removeItem(productId);
-      //setFollowing(FollowinIcon);
+      removeItem(Number(product.productId));
     } else {
       addItem(product);
-      //setFollowing(FollowingFill);
     }
   };
 
@@ -126,7 +124,6 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
     product.basePrice - product.basePrice * (product.attributes[0].priceDeviation / 100);
 
   const handleChoiceColor = (index: number) => {
-    // console.log('from colorChoice', index);
     setAttrIndex(index);
   };
 
@@ -148,21 +145,21 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
     };
     dispatch(setShoppingCart(shoppingCart));
 
-    const basket = shoppingCartProduct.filter(({ productId: id }) => product?.productId === id)
+    const basket = shoppingCartProduct.filter(({ productId: id }) => product?.productId === id);
 
     if (basket?.length > 0) {
       return toast.error(
         locale === 'uk' ? 'Товар уже знаходиться у кошику.' : 'Product is already in the cart.',
         {
           position: 'top-right',
-          autoClose: 2000,
+          autoClose: 3000,
         }
       );
     }
 
     toast.success(locale === 'uk' ? 'Товар додано у кошик' : 'Item added to cart', {
       position: 'top-right',
-      autoClose: 2000,
+      autoClose: 3000,
     });
   };
 
@@ -184,7 +181,7 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
     color: attr.color,
     url: attr.pictureUrl,
   }));
-
+  console.log(list);
   return (
     <Container>
       <div className={styles.breadcrumbWrapper}>
@@ -325,145 +322,15 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
         <div className={styles.block7}>
           {width < 1180 ? (
             <div className={styles.reviewed}>
-              <ProductCardsSlider products={reviewedProducts.slice(0, 9)} title={t('page.previouslyViewed')} />
+              <ProductCardsSlider
+                products={reviewedProducts.slice(0, 9)}
+                title={t('page.previouslyViewed')}
+              />
             </div>
           ) : (
             <ReviewedGoods title={t('page.previouslyViewed')} />
           )}
-        </div>
-        {/* <div className={styles.mainContainer}>
-        <div className={styles.leftBlock}>
-          <ImageCarousel contents={product.contents} />
-          <Tabs
-            description={locale === 'uk' ? product.descriptionUa : product.descriptionEn}
-            characteristics={product.characteristics}
-            onChangeTab={handleChangeTab}
-            onReviewSend={handleReviewSend}
-          />
-        </div>
-        <div className={styles.rightBlock}>
-          <section className={styles.mainInfo}>
-            <div className={styles.productHeader}>
-              <h1 className={styles.titleProduct}>
-                {locale === 'uk' ? product.productNameUa : product.productNameEn}
-              </h1>
-              <div className={styles.productRating}>
-                <RatingStars averageRating={product.averageRating} />
-                <ReviewCount reviewCount={product.reviewCount} />
-              </div>
-              <div className={styles.priceBlock}>
-                {product.basePrice !== newPrice ? (
-                  <>
-                    <div className={styles.priceWithDiscount}>
-                      <span className={styles.oldPrice}>
-                        {product.basePrice}
-                        ₴
-                      </span>
-                      <span className={styles.discount}>
-                        {product.attributes[0].priceDeviation}
-                        %
-                      </span>
-                    </div>
-                    <p className={styles.price}>
-                      {newPrice}
-                      ₴
-                    </p>
-                  </>
-                ) : (
-                  <p className={styles.price}>
-                    {product.basePrice}
-                    ₴
-                  </p>
-                )}
-                <p className={styles.available}>
-                  {isAvailable ? t('card.available') : t('card.outOfStock')}
-                </p>
-              </div>
-              <div className={styles.specialInfo}>
-                <p>
-                  {t('page.code')}
-                  :
-                  <span>{product.productId}</span>
-                </p>
-                <p>
-                  {t('page.manufacturer')}
-                  :
-                  <span>Terra Incognita</span>
-                </p>
-              </div>
-            </div>
-            <AvailableColors
-              title={t('page.availableOptions')}
-              h4={t('page.color')}
-              clear={t('page.clear')}
-              onColorChoice={handleChoiceColor}
-              imageArray={colorItems}
-            />
-            <div>
-              <p className={styles.textSize}>{t('page.size')}</p>
-              <div className={styles.sizeContainer}>
-                {product.attributes.map((attr: Attributes, index: number) => (
-                  <button
-                    key={attr.id}
-                    className={
-                      index === activeIndex ? `${styles.size} ${styles.active}` : `${styles.size}`
-                    }
-                    onClick={() => handleItemClick(index)}
-                  >
-                    {attr.size}
-                  </button>
-                ))}
-              </div>
-            </div>
-            <div>
-              {activeIndex === null && <p className={styles.alert}>{t('page.alert')}</p>}
-              <div className={styles.buySection}>
-                <QuantitySelector
-                  totalQuantity={product.attributes[attrIndex].quantity}
-                  onChange={quantity => handleChangeQuantity(quantity)}
-                />
-                <Button
-                  className={styles.buyButton}
-                  text={t('card.buy')}
-                  disabled={!isAvailable || activeIndex === null}
-                  icon={<Image src={Comercial} width={20} height={20} alt="Comercial" />}
-                  onClick={handleBuyClick}
-                />
-              </div>
-            </div>
-            <Payment title={t('page.paymentMethod')} />
-          </section>
-          <section className={styles.additionalOffers}>
-            <div className={styles.withThisBuy}>
-              <ProductCardsSlider
-                products={buyWithThisProductsMemo}
-                title={t('page.buyWithThis')}
-              />
-            </div>
-            <div className={styles.relatedProducts}>
-              <ProductCardsSlider
-                products={similarProductsMemo}
-                title={t('page.similarProducts')}
-              />
-            </div>
-          </section>
-        </div>
-      </div>
-      <section>
-        {tabIndex === 2 && productReviews.length > 0 && (
-          <Reviews
-            reviews={productReviews}
-            productName={locale === 'uk' ? product.productNameUa : product.productNameEn}
-            reviewTitle={t('tabs.reviews')}
-            helpful={t('tabs.helpful')}
-            usersThink={t('tabs.usersThink')}
-            refreshReviews={refreshReviews}
-          />
-        )}
-      </section>
-      <ReviewedGoods
-        title={t('page.previouslyViewed')}
-      /> */}
+        </div>       
       </div>
     </Container>
   );

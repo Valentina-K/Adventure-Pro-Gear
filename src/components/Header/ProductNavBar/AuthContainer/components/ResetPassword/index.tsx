@@ -2,31 +2,28 @@
 
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { toast } from 'react-toastify';
-import { useLocale } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { resetPaswordAction, ErrorMessages } from '@/app/actions';
-import { AppRoutes } from '@/constants/routes';
-import { getResetPasswordSchema, ResetPasswordData } from '@/validation';
+import { getResetPasswordSchema } from '@/validation';
 import Form from '@/components/Form';
 import Input from '@/components/Input';
-import Modal from '@/components/Modal';
+import SucceessIcon from '@/../public/icons/success _vector.svg';
+import WarningIcon from '@/../public/icons/warning.svg';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from './ResetPassword.module.css';
+import Image from 'next/image';
+import { AppRoutes } from '@/constants/routes';
 
 interface Credentials {
   newPassword: string;
   confirmPassword: string;
 }
 
-// http://localhost:3000/uk-UA/?auth=reset-password&token=071947f8-bd6b-43ea-a8d5-3786f0cbd30e
-
 const ResetPassword: React.FC = () => {
-  const locale = useLocale();
   const searchParams = useSearchParams();
-  const token = searchParams.get('token');
-  console.log(searchParams, 'Token: ', token);
+  const [token, setToken] = useState<string | null>(null);
   const router = useRouter();
-
+  const t = useTranslations('auth');
   const [credentials, setCredentials] = useState<Credentials>({
     newPassword: '',
     confirmPassword: '',
@@ -35,7 +32,9 @@ const ResetPassword: React.FC = () => {
   const [validationErrors, setValidationErrors] = useState<ErrorMessages>({});
   const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] = useState('');
   const [disabled, setDisabled] = useState(true);
-  // const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [success, setSuccess] = useState<boolean | null>(null);
+  const [icon, setIcon] = useState(WarningIcon);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -47,18 +46,22 @@ const ResetPassword: React.FC = () => {
     }
     const response = await resetPaswordAction(formData);
     if (response === 200) {
-      router.push(`/${locale}/${AppRoutes.SIGNIN}`);
+      setSuccess(true);
+      setIcon(SucceessIcon);
+      /* router.push(`/${locale}/${AppRoutes.SIGNIN}`);
       toast.success('Ваш пароль успішно змінено!', {
         position: 'top-right',
         autoClose: 36000000,
-      });
+      }); */
       // setIsModalOpen(true);
     } else if (response && response >= 300) {
-      toast.error('Упс, сталася помилка!', {
+      setSuccess(false);
+      /* toast.error('Упс, сталася помилка!', {
         position: 'top-right',
         autoClose: 36000000,
-      });
+      }); */
     }
+    setIsModalOpen(true);
   };
 
   type CredentialsKeys = keyof Credentials;
@@ -66,10 +69,6 @@ const ResetPassword: React.FC = () => {
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     const field = event.target.name as CredentialsKeys;
     const resetPasswordSchema = getResetPasswordSchema(authTranslation);
-    // const fieldSchema = resetPasswordSchema.pick({ [field]: true } as Record<
-    //   CredentialsKeys,
-    //   true
-    // >);
     const result = resetPasswordSchema.safeParse({
       [field]: credentials[field],
     });
@@ -95,20 +94,9 @@ const ResetPassword: React.FC = () => {
     }
   };
 
-  // useEffect(() => {
-  //   const loadTranslations = async () => {
-  //     const translations = await getAllTranslations(locale);
-  //     console.log(translations);
-  //     const translationFunction = getTranslation(translations);
-  //     setAuthTranslation(translationFunction('auth'));
-  //   };
-
-  //   loadTranslations();
-  // }, [locale]);
-
-  const closeModal = () => {
-    // setIsModalOpen(false);
-  };
+  useEffect(() => {
+    setToken(searchParams.get('token'));
+  }, []);
 
   useEffect(() => {
     const isKeyinErrorObj = () => {
@@ -120,6 +108,16 @@ const ResetPassword: React.FC = () => {
     };
     isKeyinErrorObj();
   }, [validationErrors.newPassword]);
+
+  useEffect(() => {
+    if (isModalOpen) {
+      const timer = setTimeout(() => {
+        router.replace(AppRoutes.SIGNIN);
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isModalOpen]);
 
   return (
     <>
@@ -157,11 +155,20 @@ const ResetPassword: React.FC = () => {
           value={authTranslation && authTranslation.resetPasswordModal['submit-button']}
         />
       </Form>
-      {/* {isModalOpen && (
-        <Modal locale={locale} closeModal={closeModal}>
-          <p>Ваш пароль успішно змінено!</p>
-        </Modal>
-      )} */}
+      {isModalOpen && (
+        <div className={styles.containerModal}>
+          <div className={styles.modal}>
+            {success ? (
+              <h2 className={styles.title}>{t('reset-confirm.0')}</h2>
+            ) : (
+              <h2 className={styles.title}>{t('reset-confirm.1')}</h2>
+            )}
+            <div className={styles.iconWrapper}>
+              <Image src={icon} width={85} height={100} alt="icon" />
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
