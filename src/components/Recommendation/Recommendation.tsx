@@ -26,12 +26,6 @@ const Recommendation: React.FC<IRecommendationProp> = ({ recommendation, t }) =>
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const handleBuyClick = (productId: number) => {
-    console.log('from buyClick: ', productId);
-  };
-
-  const handleFavoriteClick = () => {};
-
   return (
     <>
       <h1 className={style.title}>{t('recommendation')}</h1>

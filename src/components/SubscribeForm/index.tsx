@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { Locale } from '@/i18n-config';
 import clsx from 'clsx';
 
 import style from './style.module.css';
@@ -16,7 +15,6 @@ const SubscribeForm: React.FC = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
-    console.log('submit email: ', formData.get('email'));
   };
 
   return (

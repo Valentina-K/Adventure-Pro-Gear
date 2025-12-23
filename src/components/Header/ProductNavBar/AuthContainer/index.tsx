@@ -15,15 +15,11 @@ const AuthContainer: React.FC<AuthContainerProps> = ({ personalAccount }) => {
   const [isDropdownOpen, setIsOpen] = useState(false);
   const [isLinkClicked, setIsLinkClicked] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
-  // console.log('Value returned by useRef: ', dropdownRef);
-
   const toggleDropdown = () => setIsOpen(!isDropdownOpen);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        // console.log('Event target: ', event.target);
         setIsOpen(false);
       }
     };

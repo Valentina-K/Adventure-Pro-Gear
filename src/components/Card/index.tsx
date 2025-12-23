@@ -13,7 +13,7 @@ import Payments from '@/constants/payments';
 import { setShoppingCart } from '@/redux/products/slice';
 import { useAppDispatch } from '@/redux/store';
 import noImage from '@/../public/images/no_image.png';
-import type { FavoriteStore } from '@/hooks/useLocalStorage';
+import type { FavoriteStore } from '@/utils/favoritesContext';
 import { Link } from '../../i18n/routing';
 import Button from '../Button';
 import RatingStars from '../RatingStars';

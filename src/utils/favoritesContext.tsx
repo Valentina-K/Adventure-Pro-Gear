@@ -56,3 +56,5 @@ const useLocalStorage = () => {
 };
 
 export default useLocalStorage;
+
+export type FavoriteStore = ReturnType<typeof useLocalStorage>;

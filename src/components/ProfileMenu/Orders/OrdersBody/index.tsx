@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import OrdersList from '../OrdersList';
 import Pagination from '@/components/Pagination/Pagination';
 import { IOrderType } from '@/types';
@@ -19,18 +19,10 @@ function OrdersBody({ orders, countPage }: OrdersBodyProp) {
   const [page, setPage] = useState(0);
   // const [ordersOnPage, setOrdersOnPage] = useState(0);
   const ITEMS_PER_PAGE = 4;
-  /* const createQueryString = useCallback(
-    (name: string, value: string) => {
-      setPage(Number(value));
-      return value.toString();
-    },
-    [setPage]
-  ); */
-
+ 
   const totalPageCount = Math.ceil(orders.length / ITEMS_PER_PAGE);
 
   const onPageChange = (name: string, value: string) => {
-    console.log('page', value);
     setPage(Number(value));
   };
  

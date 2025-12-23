@@ -17,12 +17,6 @@ function OrdersList({ orders, t, page = 0 }: OrdersListProp) {
   const end = begin + 4;
   const ordersOnPage = orders.length > 4 ? orders.slice(begin, end) : orders;
 
-  // useEffect(() => {
-  //   return () => {
-  //     setOrdersOnPage(ordersOnPage?.length);
-  //   };
-  // }, [ordersOnPage]);
-
 return (
     <table className={styles.ordersTable}>
       <thead className={styles.tableTitle}>

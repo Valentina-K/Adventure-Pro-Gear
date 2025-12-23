@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Product } from '@/types/product';
-import { FavoriteStore } from '@/hooks/useLocalStorage';
+import { FavoriteStore } from '@/utils/favoritesContext';
 import Card from '../../Card';
 
 interface ICatalogNameListProps {

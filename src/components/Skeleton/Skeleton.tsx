@@ -116,13 +116,8 @@ const Skeleton = ({
     setPage('0');
   };
   const filterByPopularity = () => {
-    console.log('filterByPopularity');
     setPage('0');
   };
-
-  // const handleFilterClick = () => {
-  //   setOpenMenuFilter(prev => !prev);
-  // }
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

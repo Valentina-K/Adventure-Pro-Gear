@@ -1,5 +1,5 @@
 import QuantitySelector from '@/components/QuantitySelector/QuantitySelector';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';

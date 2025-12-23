@@ -181,7 +181,7 @@ const ProductWrapper: React.FC<ProductWrapperProp> = ({ reviews, productId }) =>
     color: attr.color,
     url: attr.pictureUrl,
   }));
-  console.log(list);
+  
   return (
     <Container>
       <div className={styles.breadcrumbWrapper}>
