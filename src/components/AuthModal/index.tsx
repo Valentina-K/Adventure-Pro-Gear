@@ -65,7 +65,7 @@ const AuthModal = () => {
     if (authType === 'signup-success') {
       const timer = setTimeout(() => {
         router.replace(AppRoutes.SIGNIN);
-      }, 4000);
+      }, 3000);
 
       return () => clearTimeout(timer);
     }

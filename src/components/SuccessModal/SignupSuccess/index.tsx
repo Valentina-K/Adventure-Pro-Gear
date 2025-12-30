@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import { verifyEmail } from '@/clientServices/clientAxios';
-import { useWindowWidth } from '@/hooks/useWindowWidth';
 import SucceessIcon from '@/../public/icons/success _vector.svg';
 import WarningIcon from '@/../public/icons/warning.svg';
 import generic from '../style.module.css';
@@ -16,10 +15,8 @@ function SignupSuccess() {
   const t = useTranslations('auth');
   const [isLoading, setIsLoading] = useState(true);
   const [success, setSuccess] = useState<boolean | null>(null);
-  const [icon, setIcon] = useState(WarningIcon);
-  const windWidth = useWindowWidth();
 
-  useEffect(() => {
+  useEffect(() => {    
     setToken(searchParams.get('token'));
   }, []);
   
@@ -29,7 +26,6 @@ function SignupSuccess() {
         const result = await verifyEmail(token);
         if (result.success) {
           setSuccess(true);
-          setIcon(SucceessIcon);
         } else {
           setSuccess(false);
         }
@@ -40,12 +36,7 @@ function SignupSuccess() {
       }
     };
 
-    if (token) {
-      verifyEmailWithToken(token);
-    } else {
-      setIsLoading(false);
-      setSuccess(false);
-    }
+    if (token) verifyEmailWithToken(token);
   }, [token]);
 
   if (isLoading) {
@@ -53,14 +44,10 @@ function SignupSuccess() {
   }
 
   return (
-    <div>
-      {success ? (
-        <h2 className={generic.title}>{t('registration.success.4')}</h2>
-      ) : (
-        <h2 className={generic.title}>{t('registration.success.5')}</h2>
-      )}
+    <div>      
+      <h2 className={generic.title}>{success ? t('registration.success.4'): t('registration.success.5')}</h2>      
       <div className={generic.iconWrapper}>
-        <Image src={icon} width={85} height={100} alt="icon" />
+        <Image src={success ? SucceessIcon : WarningIcon} width={85} height={100} alt="icon" />
       </div>
     </div>
   );

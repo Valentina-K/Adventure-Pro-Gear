@@ -8,6 +8,10 @@
   color: var(--lightYellow);
 }
 
+.shoppingCart_empty{
+  width: 0;
+}
+
 .shoppingCart_active {
   position: absolute;
   bottom: 35px;

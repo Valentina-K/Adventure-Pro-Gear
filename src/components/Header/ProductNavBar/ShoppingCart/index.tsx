@@ -11,7 +11,7 @@ function ShoppingCart() {
   return (
     <Link href="/basket">
       <div className={styles.shoppingCart}>
-        <p className={`${shoppingCart.length > 0 ? styles.shoppingCart_active : ''}`} />
+        <p className={`${shoppingCart.length > 0 ? styles.shoppingCart_active : styles.shoppingCart_empty}`} />
         <Image src={ShoppingBag} alt="shopping bag icon" width={24} height={24} />
       </div>
     </Link>

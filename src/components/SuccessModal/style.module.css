@@ -33,20 +33,6 @@
   border: 1px solid lightblue;
 }
 
-@media screen and (max-width: 1179px) {
-    .modal {
-        padding: 40px;
-        gap: 16px;
-        width: 664px;
-    }
-
-    .title {
-        font-weight: var(--wight-600);
-        font-size: var(--large-20);
-        line-height: var(--line-height-30);
-    }
-}
-
 @media screen and (max-width: 743px) {
     .modal {
         padding: 40px;
@@ -61,8 +47,24 @@
     }
 }
 
+@media screen and (max-width: 1179px) {
+    .modal {
+        padding: 40px;
+        gap: 16px;
+        width: 664px;
+    }
+
+    .title {
+        font-weight: var(--wight-600);
+        font-size: var(--large-20);
+        line-height: var(--line-height-30);
+    }
+}
+
 @media screen and (min-width: 1180px) {
   .iconWrapper{
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
