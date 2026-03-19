@@ -1,3 +1,6 @@
+To view a presentation on the front-end portion of our web application, please follow this link:
+[Demo](https://drive.google.com/file/d/1ruaPCxWTV0v4U74F8qXFIPIWIEkWvkDA/view?usp=drivesdk)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
@@ -21,8 +24,6 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
 ## Learn More
-To view a presentation on the front-end portion of our web application, please follow this link:
-[The presentation](https://drive.google.com/file/d/1ruaPCxWTV0v4U74F8qXFIPIWIEkWvkDA/view?usp=drivesdk)
 
 To learn more about Next.js, take a look at the following resources:
 
